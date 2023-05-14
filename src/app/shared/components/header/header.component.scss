@@ -1,0 +1,32 @@
+.header{
+  width: 1200px;
+  display: flex;
+  align-items: center;
+  .logo {
+    width: 150px;
+    .header_logo {
+      height: 29px;
+    }
+    .top-header {
+      margin: 0;
+      font-size: 7px;
+      font-weight: 600;
+    }
+  }
+  .categories {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    .cate-item {
+      flex:1;
+      height: 100%;
+      text-align: center;
+      font-size: 14px;
+      p {
+        font-weight: 500;
+      }
+    }
+  }
+}
