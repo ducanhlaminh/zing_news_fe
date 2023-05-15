@@ -1,0 +1,18 @@
+.layout_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 52px;
+  border-bottom: 1px solid rgba(138, 134, 134, 0.311);
+}
+.layout_content {
+  display: flex;
+  justify-content: center;
+
+  .content{
+    width: 1100px;
+    overflow: hidden;
+    min-height: 1000px;
+    padding-top: 12px;
+  }
+}
