@@ -1,6 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
+import * as $ from 'jquery';
+import 'slick-carousel';
 
-declare var $: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,10 +9,8 @@ declare var $: any;
 })
 export class HomeComponent implements AfterViewInit {
   ngAfterViewInit() {
-    (<any>$('.slide-card')).slick({
-      infinite: true,
-      slidesToShow: 3,
-      slidesToScroll: 3,
+    (<any>$('.slider')).slick({
+      // Cấu hình và tùy chọn khác cho Slick Carousel
     });
   }
 }
