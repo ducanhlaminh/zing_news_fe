@@ -7,10 +7,4 @@ import 'slick-carousel';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements AfterViewInit {
-  ngAfterViewInit() {
-    (<any>$('.slider')).slick({
-      // Cấu hình và tùy chọn khác cho Slick Carousel
-    });
-  }
-}
+export class HomeComponent {}

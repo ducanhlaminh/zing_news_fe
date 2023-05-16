@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.development';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class PagesService {
+export class NewsService {
+  constructor(public http: HttpClient) {}
 
-  constructor() { }
+  getAllCategories() {
+    return this.http.get(environment.API_CATEGORY_GET_ALL);
+  }
 }

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './shared/layout/layout.module';
 import { NewsModule } from './modules/news/news.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -15,6 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     NewsModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
