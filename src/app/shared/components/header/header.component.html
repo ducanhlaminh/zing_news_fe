@@ -9,7 +9,7 @@
   </div>
   <div class="categories">
     <div class="cate-item" *ngFor="let item of categories">
-      <a [routerLink]="['/', item.slug]">{{ item.name }}</a>
+      <a [routerLink]="['/', item.slug, item.slug_crc]">{{ item.name }}</a>
     </div>
   </div>
 </div>

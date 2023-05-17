@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NewsService } from '../../../modules/news/services/news.service';
+import { CategoryService } from '../../../modules/news/services/category.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,12 +7,12 @@ import { NewsService } from '../../../modules/news/services/news.service';
 })
 export class HeaderComponent implements OnInit {
   categories: any;
-  constructor(public NewsService: NewsService) {}
+  constructor(public CategoryService: CategoryService) {}
   ngOnInit(): void {
     this.getCategories();
   }
   getCategories() {
-    this.NewsService.getAllCategories().subscribe(
+    this.CategoryService.getAllCategories().subscribe(
       (data: any) => (this.categories = data.categories)
     );
   }

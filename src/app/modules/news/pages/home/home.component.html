@@ -2,71 +2,80 @@
   <div class="hot-artcles-left">
     <div class="artcle-left-item">
       <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
+        [src]="artclesHotMain && artclesHotMain[3]?.new_article?.avatar"
         alt=""
       />
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
+      <div class="artcle-left-item-infor">
+        <b>{{ artclesHotMain && artclesHotMain[3].new_article?.title }}</b>
+      </div>
     </div>
     <hr />
     <div class="artcle-left-item">
       <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
+        [src]="artclesHotMain && artclesHotMain[4]?.new_article.avatar"
         alt=""
       />
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
+      <div class="artcle-left-item-infor">
+        <b>{{ artclesHotMain && artclesHotMain[4].new_article.title }}</b>
+      </div>
     </div>
     <hr />
     <div class="artcle-left-item">
       <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
+        [src]="artclesHotMain && artclesHotMain[5]?.new_article.avatar"
         alt=""
       />
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
+      <div class="artcle-left-item-infor">
+        <b>{{ artclesHotMain && artclesHotMain[5].new_article.title }}</b>
+      </div>
     </div>
     <hr />
     <div class="artcle-left-item">
       <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
+        [src]="artclesHotMain && artclesHotMain[6]?.new_article.avatar"
         alt=""
       />
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
+      <div class="artcle-left-item-infor">
+        <b>{{ artclesHotMain && artclesHotMain[6].new_article.title }}</b>
+      </div>
     </div>
     <hr />
     <div class="artcle-left-item">
       <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
+        [src]="artclesHotMain && artclesHotMain[7]?.new_article.avatar"
         alt=""
       />
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
+      <div class="artcle-left-item-infor">
+        <b>{{ artclesHotMain && artclesHotMain[7].new_article.title }}</b>
+      </div>
     </div>
   </div>
   <div class="hot-artcles-center">
     <div class="artcle-center-item">
       <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
+        [src]="artclesHotMain && artclesHotMain[0]?.new_article.avatar"
         alt=""
       />
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
+      <b>{{ artclesHotMain && artclesHotMain[0].new_article.title }}</b>
       <p>
-        Cảnh sát đến hiện trường đập cửa sổ phòng ở lầu 3, căn nhà cao 4 tầng
-        trên đường Hưng Hóa, quận Tân Bình (TP.HCM), khống chế hỏa hoạn.
+        {{ artclesHotMain && artclesHotMain[0].new_article.sapo }}
       </p>
     </div>
   </div>
   <div class="hot-artcles-right">
     <div class="artcle-right-item">
       <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
+        [src]="artclesHotMain && artclesHotMain[1]?.new_article.avatar"
         alt=""
       />
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
+      <b>{{ artclesHotMain && artclesHotMain[1].new_article.title }}</b>
     </div>
     <div class="artcle-right-item">
       <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
+        [src]="artclesHotMain && artclesHotMain[2]?.new_article.avatar"
         alt=""
       />
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
+      <b>{{ artclesHotMain && artclesHotMain[2].new_article.title }}</b>
     </div>
   </div>
 </div>
@@ -76,169 +85,19 @@
 <hr />
 <div class="center-page">
   <div class="new-artcles">
-    <div class="new-artcle-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w660/Uploaded/bzivolby/2023_05_15/nm2_zing.jpg"
-        alt=""
-      />
-      <div class="new-artcle-infor">
-        <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
-        <p>
-          Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND quận
-          1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng với
-          khung hình phạt cao nhất 2 năm tù.
-        </p>
+    <div class="" *ngFor="let item of newArtcles">
+      <div class="new-artcle-item">
+        <img [src]="item.avatar" alt="" />
+        <div class="new-artcle-infor">
+          <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
+          <p>
+            Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND
+            quận 1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng
+            với khung hình phạt cao nhất 2 năm tù.
+          </p>
+        </div>
       </div>
-    </div>
-    <hr />
-    <div class="new-artcle-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w660/Uploaded/bzivolby/2023_05_15/nm2_zing.jpg"
-        alt=""
-      />
-      <div class="new-artcle-infor">
-        <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
-        <p>
-          Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND quận
-          1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng với
-          khung hình phạt cao nhất 2 năm tù.
-        </p>
-      </div>
-    </div>
-    <hr />
-    <div class="new-artcle-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w660/Uploaded/bzivolby/2023_05_15/nm2_zing.jpg"
-        alt=""
-      />
-      <div class="new-artcle-infor">
-        <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
-        <p>
-          Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND quận
-          1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng với
-          khung hình phạt cao nhất 2 năm tù.
-        </p>
-      </div>
-    </div>
-    <hr />
-    <div class="new-artcle-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w660/Uploaded/bzivolby/2023_05_15/nm2_zing.jpg"
-        alt=""
-      />
-      <div class="new-artcle-infor">
-        <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
-        <p>
-          Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND quận
-          1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng với
-          khung hình phạt cao nhất 2 năm tù.
-        </p>
-      </div>
-    </div>
-    <hr />
-    <div class="new-artcle-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w660/Uploaded/bzivolby/2023_05_15/nm2_zing.jpg"
-        alt=""
-      />
-      <div class="new-artcle-infor">
-        <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
-        <p>
-          Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND quận
-          1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng với
-          khung hình phạt cao nhất 2 năm tù.
-        </p>
-      </div>
-    </div>
-    <hr />
-    <div class="new-artcle-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w660/Uploaded/bzivolby/2023_05_15/nm2_zing.jpg"
-        alt=""
-      />
-      <div class="new-artcle-infor">
-        <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
-        <p>
-          Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND quận
-          1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng với
-          khung hình phạt cao nhất 2 năm tù.
-        </p>
-      </div>
-    </div>
-    <hr />
-    <div class="new-artcle-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w660/Uploaded/bzivolby/2023_05_15/nm2_zing.jpg"
-        alt=""
-      />
-      <div class="new-artcle-infor">
-        <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
-        <p>
-          Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND quận
-          1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng với
-          khung hình phạt cao nhất 2 năm tù.
-        </p>
-      </div>
-    </div>
-    <hr />
-    <div class="new-artcle-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w660/Uploaded/bzivolby/2023_05_15/nm2_zing.jpg"
-        alt=""
-      />
-      <div class="new-artcle-infor">
-        <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
-        <p>
-          Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND quận
-          1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng với
-          khung hình phạt cao nhất 2 năm tù.
-        </p>
-      </div>
-    </div>
-    <hr />
-    <div class="new-artcle-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w660/Uploaded/bzivolby/2023_05_15/nm2_zing.jpg"
-        alt=""
-      />
-      <div class="new-artcle-infor">
-        <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
-        <p>
-          Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND quận
-          1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng với
-          khung hình phạt cao nhất 2 năm tù.
-        </p>
-      </div>
-    </div>
-    <hr />
-    <div class="new-artcle-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w660/Uploaded/bzivolby/2023_05_15/nm2_zing.jpg"
-        alt=""
-      />
-      <div class="new-artcle-infor">
-        <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
-        <p>
-          Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND quận
-          1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng với
-          khung hình phạt cao nhất 2 năm tù.
-        </p>
-      </div>
-    </div>
-    <hr />
-    <div class="new-artcle-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w660/Uploaded/bzivolby/2023_05_15/nm2_zing.jpg"
-        alt=""
-      />
-      <div class="new-artcle-infor">
-        <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
-        <p>
-          Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND quận
-          1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng với
-          khung hình phạt cao nhất 2 năm tù.
-        </p>
-      </div>
+      <hr />
     </div>
   </div>
   <div class="artcles-view-most">
