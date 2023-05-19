@@ -3,17 +3,13 @@
   #slickModal="slick-carousel"
   [config]="slideConfig"
 >
-  <div
-    ngxSlickItem
-    class="item-slide"
-    *ngFor="let item of books.new_articles_categories"
-  >
-    <div class="card" href="/trang-chu">
+  <div ngxSlickItem class="item-slide" *ngFor="let item of books">
+    <div class="card">
       <div class="image">
-        <img [src]="item.new_article.avatar" alt="" />
+        <img [src]="item.avatar" alt="" />
       </div>
       <div class="card-infor">
-        <b>{{ item.new_article.title }}</b>
+        <b>{{ item.title }}</b>
       </div>
     </div>
   </div>

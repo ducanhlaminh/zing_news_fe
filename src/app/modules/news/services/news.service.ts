@@ -16,4 +16,10 @@ export class NewsService {
   getNewArtcles() {
     return this.http.get(environment.API_NEW_ARTCLES);
   }
+  getArticlesView() {
+    return this.http.get(environment.API_ARTICLES_VIEWS);
+  }
+  getartclesHotCate() {
+    return this.http.get(environment.API_ARTICLES_HOT_CATE);
+  }
 }

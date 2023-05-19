@@ -10,11 +10,15 @@ export class HomeComponent implements OnInit {
   artclesHotMain: any;
   artclesHotCate: any;
   newArtcles: any;
-  constructor(private NewsService: NewsService) {}
+  articlesViews: any;
+  constructor(public NewsService: NewsService) {}
   ngOnInit(): void {
     this.getHotNews();
     this.getNewArtcles();
+    this.getArticlesViews();
+    this.getartclesHotCate();
   }
+  // tin hot
   getHotNews() {
     this.NewsService.getHotMain().subscribe(
       (data: any) => (
@@ -23,9 +27,21 @@ export class HomeComponent implements OnInit {
       )
     );
   }
+  // tin moi
   getNewArtcles() {
     this.NewsService.getNewArtcles().subscribe(
       (data) => (this.newArtcles = data)
+    );
+  }
+  // tin nhieu luot doc
+  getArticlesViews() {
+    return this.NewsService.getArticlesView().subscribe(
+      (data: any) => (this.articlesViews = data)
+    );
+  }
+  getartclesHotCate() {
+    return this.NewsService.getartclesHotCate().subscribe(
+      (data: any) => (this.artclesHotCate = data)
     );
   }
 }

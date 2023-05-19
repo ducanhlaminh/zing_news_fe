@@ -55,50 +55,50 @@
 .center-page {
   gap : 20px;
   display: flex;
-  position: relative;
-  .artcles-view-most {
-    border: 1px solid rgba(161, 161, 161, 0.26);
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    gap : 20px;
-    top: 0px;
-    position: absolute;
-    right: 0;
-    width: 300px;
-    box-sizing: border-box;
-    padding: 20px;
-    h3 {
-      margin: 0;
-      font-size: 20px;
-      padding-left: 20px;
-      position: relative;
-    }
-    .artcles-view-most-item {
-      height: 72px;
+  .center-page-right{
+    width: 30%;
+    .artcles-view-most {
+      border: 1px solid rgba(161, 161, 161, 0.26);
+      border-radius: 5px;
       display: flex;
-      .artcles-view-most-item-infor{
-        padding-left: 7px;
-        .most-item-infor-cate{
-          margin-top: 0;
-          font-size: 11px;
-          color:gray
-        }
-        .most-item-infor-title{
-          font-size: 14px;
-        }
+      flex-direction: column;
+      width: 100%;
+      gap:12px;
+      box-sizing: border-box;
+      padding: 20px;
+      h3 {
+        margin: 0;
+        font-size: 20px;
+        padding-left: 20px;
+        position: relative;
       }
-      img{
-        height: 100%;
-        width: 72px;
-        border-radius: 7px;
-        object-fit: cover;
+      .artcles-view-most-item {
+        height: 72px;
+        display: flex;
+        .artcles-view-most-item-infor{
+          padding-left: 7px;
+          .most-item-infor-cate{
+            margin-top: 0;
+            font-size: 11px;
+            color:gray
+          }
+          .most-item-infor-title{
+            font-size: 14px;
+          }
+        }
+        img{
+          height: 100%;
+          width: 72px;
+          border-radius: 7px;
+          object-fit: cover;
+        }
       }
     }
   }
+
   .new-artcles {
   padding-top: 12px;
-  width: 780px;
+  width: 70%;
   .new-artcle-item {
     display: flex;
     width: 100%;
@@ -129,6 +129,8 @@
 .hot-artcles-category {
   display: flex;
   gap: 20px;
+  background: #ffde76;
+  padding: 20px;
   .hot-artcles-category-right{
     width: 27%;
     .artcle-category-right-item {
@@ -186,6 +188,7 @@
 .title {
   position: relative;
   padding-left: 20px;
+  margin-top: 0;
 }
 .hot-new-categories{
   display: flex;

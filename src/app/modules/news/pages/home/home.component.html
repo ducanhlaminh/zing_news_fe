@@ -87,79 +87,28 @@
   <div class="new-artcles">
     <div class="" *ngFor="let item of newArtcles">
       <div class="new-artcle-item">
-        <img [src]="item.avatar" alt="" />
+        <img [src]="item.new_article.avatar" alt="" />
         <div class="new-artcle-infor">
-          <h2>Sắp xét xử Trang Nemo và đồng phạm</h2>
+          <h2>{{ item.new_article.title }}</h2>
           <p>
-            Nguyễn Xuân Hương Trang (tức Trang Nemo) và đồng phạm sắp bị TAND
-            quận 1, TP.HCM, đưa ra xét xử về hành vi gây rối trật tự công cộng
-            với khung hình phạt cao nhất 2 năm tù.
+            {{ item.new_article.sapo }}
           </p>
         </div>
       </div>
       <hr />
     </div>
   </div>
-  <div class="artcles-view-most">
-    <h3 class="title">Đọc nhiều</h3>
-    <div class="artcles-view-most-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w210/Uploaded/ywfrd/2023_05_14/z4344779689018_1086201b88498ff8c7d1d689da8c281e.jpg"
-        alt=""
-      />
-      <div class="artcles-view-most-item-infor">
-        <p class="most-item-infor-cate">Đời sống</p>
-        <b class="most-item-infor-title"
-          >KOL thể hình hối hận vì dùng thuốc tăng cơ bắp để lừa fan</b
-        >
-      </div>
-    </div>
-    <div class="artcles-view-most-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w210/Uploaded/ywfrd/2023_05_14/z4344779689018_1086201b88498ff8c7d1d689da8c281e.jpg"
-        alt=""
-      />
-      <div class="artcles-view-most-item-infor">
-        <p class="most-item-infor-cate">Đời sống</p>
-        <b class="most-item-infor-title"
-          >KOL thể hình hối hận vì dùng thuốc tăng cơ bắp để lừa fan</b
-        >
-      </div>
-    </div>
-    <div class="artcles-view-most-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w210/Uploaded/ywfrd/2023_05_14/z4344779689018_1086201b88498ff8c7d1d689da8c281e.jpg"
-        alt=""
-      />
-      <div class="artcles-view-most-item-infor">
-        <p class="most-item-infor-cate">Đời sống</p>
-        <b class="most-item-infor-title"
-          >KOL thể hình hối hận vì dùng thuốc tăng cơ bắp để lừa fan</b
-        >
-      </div>
-    </div>
-    <div class="artcles-view-most-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w210/Uploaded/ywfrd/2023_05_14/z4344779689018_1086201b88498ff8c7d1d689da8c281e.jpg"
-        alt=""
-      />
-      <div class="artcles-view-most-item-infor">
-        <p class="most-item-infor-cate">Đời sống</p>
-        <b class="most-item-infor-title"
-          >KOL thể hình hối hận vì dùng thuốc tăng cơ bắp để lừa fan</b
-        >
-      </div>
-    </div>
-    <div class="artcles-view-most-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w210/Uploaded/ywfrd/2023_05_14/z4344779689018_1086201b88498ff8c7d1d689da8c281e.jpg"
-        alt=""
-      />
-      <div class="artcles-view-most-item-infor">
-        <p class="most-item-infor-cate">Đời sống</p>
-        <b class="most-item-infor-title"
-          >KOL thể hình hối hận vì dùng thuốc tăng cơ bắp để lừa fan</b
-        >
+  <div class="center-page-right">
+    <div class="artcles-view-most">
+      <h3 class="title">Đọc nhiều</h3>
+      <div class="artcles-view-most-item" *ngFor="let item of articlesViews">
+        <img [src]="item.avatar" alt="" />
+        <div class="artcles-view-most-item-infor">
+          <p class="most-item-infor-cate">
+            {{ item.new_articles_categories[0].dataCategory.name }}
+          </p>
+          <b class="most-item-infor-title">{{ item.title }}</b>
+        </div>
       </div>
     </div>
   </div>
