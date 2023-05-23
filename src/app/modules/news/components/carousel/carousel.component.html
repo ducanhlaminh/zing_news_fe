@@ -6,10 +6,10 @@
   <div ngxSlickItem class="item-slide" *ngFor="let item of books">
     <div class="card">
       <div class="image">
-        <img [src]="item.avatar" alt="" />
+        <img [src]="item.new_article.avatar" alt="" />
       </div>
       <div class="card-infor">
-        <b>{{ item.title }}</b>
+        <b>{{ item.new_article.title }}</b>
       </div>
     </div>
   </div>

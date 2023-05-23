@@ -13,8 +13,13 @@ export class NewsService {
   getBooks() {
     return this.http.get(environment.API_BOOKS);
   }
-  getNewArtcles() {
-    return this.http.get(environment.API_NEW_ARTCLES);
+  getNewArtclesMain() {
+    return this.http.get(environment.API_NEW_ARTCLES_MAIN);
+  }
+  getNewArtclesCate(slug: string = 'sach', slug_crc: number = 476225655) {
+    return this.http.get(
+      environment.API_NEW_ARTCLES_CATE + slug + '/' + slug_crc
+    );
   }
   getArticlesView() {
     return this.http.get(environment.API_ARTICLES_VIEWS);

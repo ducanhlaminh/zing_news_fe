@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   }
   // tin moi
   getNewArtcles() {
-    this.NewsService.getNewArtcles().subscribe(
+    this.NewsService.getNewArtclesMain().subscribe(
       (data) => (this.newArtcles = data)
     );
   }

@@ -16,23 +16,30 @@ export class CarouselComponent implements AfterViewInit, OnInit {
     autoplay: true,
     autoplaySpeed: 2000,
   };
-  books = [
+  books: any = [
     {
-      id: 4,
-      slug: 'khuc-tramg-ca-3',
-      slug_crc: 1166645183,
-      content:
-        'Elizabeth Wraige nhớ lại lần đầu tiên bà đưa ra chẩn đoán về căn bệnh SMA cho một bệnh nhi. Bệnh nhân của bà được sinh ra trong niềm vui sướng khôn xiết của cha mẹ 6 tháng trước đó.\n\nTuy nhiên, họ bắt đầu cảm thấy có gì đó không ổn, khi cậu bé dường như k',
-      sapo: 'Bơi lội giúp trẻ khỏe mạnh, năng động, tăng sức bền, cải thiện sức khỏe tim mạch, đặc biệt là hạn chế nguy cơ đuối nước.',
-      status: 1,
-      views: 0,
-      created_user_id: null,
-      publishAt: '2023-05-17T09:38:34.000Z',
-      title: 'Khúc tráng ca thảo nguyên từ Trung Á 3',
-      avatar:
-        'https://znews-photo.zingcdn.me/w210/Uploaded/natmts/2023_05_14/bia_3_bo.jpg',
-      createdAt: '2023-05-17T09:38:09.000Z',
-      updatedAt: '2023-05-17T09:38:34.000Z',
+      id: 15,
+      article_id: 15,
+      category_id: 4,
+      createdAt: '2023-05-23T17:23:33.000Z',
+      updatedAt: '2023-05-23T17:23:33.000Z',
+      new_article: {
+        id: 15,
+        title: 'Lợi dụng thói quen xấu để đem lại hiệu quả',
+        slug: 'loi-dung-thoi-quen-xau-de-dem-lai-hieu-qua',
+        slug_crc: 2147483647,
+        content:
+          'Elizabeth Wraige nhớ lại lần đầu tiên bà đưa ra chẩn đoán về căn bệnh SMA cho một bệnh nhi. Bệnh nhân của bà được sinh ra trong niềm vui sướng khôn xiết của cha mẹ 6 tháng trước đó.\n\nTuy nhiên, họ bắt đầu cảm thấy có gì đó không ổn, khi cậu bé dường như k',
+        sapo: 'Tất cả những người trì hoãn đều có thói quen để dành cho công việc. Trì hoãn có tổ chức chính là nghệ thuật lợi dụng thói quen xấu đó.',
+        avatar:
+          'https://znews-photo.zingcdn.me/w960/Uploaded/natmts/2023_05_04/z4319512309977_51bc7365424c81b45.jpg',
+        views: 0,
+        publishAt: '2023-05-23T17:25:45.000Z',
+        status: 1,
+        created_user_id: null,
+        updatedAt: '2023-05-23T17:25:45.000Z',
+        createdAt: '2023-05-23T17:23:33.000Z',
+      },
     },
   ];
   constructor(private NewsService: NewsService) {}
@@ -50,8 +57,10 @@ export class CarouselComponent implements AfterViewInit, OnInit {
     this.getBooks();
   }
   getBooks() {
-    this.NewsService.getBooks().subscribe((data: any) => {
-      this.books = data.books;
+    this.NewsService.getNewArtclesCate().subscribe((data: any) => {
+      this.books = data.list_article_new;
+
+      console.log(this.books);
     });
   }
 }
