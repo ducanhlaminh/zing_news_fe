@@ -1,57 +1,35 @@
 <div class="hot-artcles">
   <div class="hot-artcles-left">
-    <div class="artcle-left-item">
-      <img
-        [src]="artclesHotMain && artclesHotMain[3]?.new_article?.avatar"
-        alt=""
-      />
-      <div class="artcle-left-item-infor">
-        <b>{{ artclesHotMain && artclesHotMain[3].new_article?.title }}</b>
+    <ng-container *ngFor="let item of artclesHotMain; let i = index">
+      <div *ngIf="i >= 3 && i <= 7">
+        <div
+          class="artcle-left-item"
+          [routerLink]="[
+            '/',
+            'bai-viet',
+            item?.new_article?.slug,
+            item?.new_article?.slug_crc
+          ]"
+        >
+          <img [src]="item?.new_article?.avatar" alt="" />
+          <div class="artcle-left-item-infor">
+            <b>{{ item.new_article?.title }}</b>
+          </div>
+        </div>
+        <hr />
       </div>
-    </div>
-    <hr />
-    <div class="artcle-left-item">
-      <img
-        [src]="artclesHotMain && artclesHotMain[4]?.new_article.avatar"
-        alt=""
-      />
-      <div class="artcle-left-item-infor">
-        <b>{{ artclesHotMain && artclesHotMain[4].new_article.title }}</b>
-      </div>
-    </div>
-    <hr />
-    <div class="artcle-left-item">
-      <img
-        [src]="artclesHotMain && artclesHotMain[5]?.new_article.avatar"
-        alt=""
-      />
-      <div class="artcle-left-item-infor">
-        <b>{{ artclesHotMain && artclesHotMain[5].new_article.title }}</b>
-      </div>
-    </div>
-    <hr />
-    <div class="artcle-left-item">
-      <img
-        [src]="artclesHotMain && artclesHotMain[6]?.new_article.avatar"
-        alt=""
-      />
-      <div class="artcle-left-item-infor">
-        <b>{{ artclesHotMain && artclesHotMain[6].new_article.title }}</b>
-      </div>
-    </div>
-    <hr />
-    <div class="artcle-left-item">
-      <img
-        [src]="artclesHotMain && artclesHotMain[7]?.new_article.avatar"
-        alt=""
-      />
-      <div class="artcle-left-item-infor">
-        <b>{{ artclesHotMain && artclesHotMain[7].new_article.title }}</b>
-      </div>
-    </div>
+    </ng-container>
   </div>
   <div class="hot-artcles-center">
-    <div class="artcle-center-item">
+    <div
+      class="artcle-center-item"
+      [routerLink]="[
+        '/',
+        'bai-viet',
+        artclesHotMain[0]?.new_article?.slug,
+        artclesHotMain[0]?.new_article?.slug_crc
+      ]"
+    >
       <img
         [src]="artclesHotMain && artclesHotMain[0]?.new_article.avatar"
         alt=""
@@ -63,20 +41,21 @@
     </div>
   </div>
   <div class="hot-artcles-right">
-    <div class="artcle-right-item">
-      <img
-        [src]="artclesHotMain && artclesHotMain[1]?.new_article.avatar"
-        alt=""
-      />
-      <b>{{ artclesHotMain && artclesHotMain[1].new_article.title }}</b>
-    </div>
-    <div class="artcle-right-item">
-      <img
-        [src]="artclesHotMain && artclesHotMain[2]?.new_article.avatar"
-        alt=""
-      />
-      <b>{{ artclesHotMain && artclesHotMain[2].new_article.title }}</b>
-    </div>
+    <ng-container *ngFor="let item of artclesHotMain; let i = index">
+      <div
+        class="artcle-right-item"
+        *ngIf="i === 1 || i == 2"
+        [routerLink]="[
+          '/',
+          'bai-viet',
+          item?.new_article?.slug,
+          item?.new_article?.slug_crc
+        ]"
+      >
+        <img [src]="item.new_article.avatar" alt="" />
+        <b>{{ item.new_article.title }}</b>
+      </div>
+    </ng-container>
   </div>
 </div>
 <hr />
@@ -114,591 +93,125 @@
   </div>
 </div>
 <!-- slide -->
-<h2 class="title">Kinh doanh</h2>
-<div class="hot-artcles-category">
-  <div class="hot-artcles-category-left">
-    <div class="artcle-category-left-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
-        alt=""
-      />
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
-      <p>
-        Cảnh sát đến hiện trường đập cửa sổ phòng ở lầu 3, căn nhà cao 4 tầng
-        trên đường Hưng Hóa, quận Tân Bình (TP.HCM), khống chế hỏa hoạn.
-      </p>
+<ng-container *ngFor="let item of artclesHotCate">
+  <div class="" *ngIf="item.new_articles_hot_categories.length >= 8">
+    <h2 class="title">Kinh doanh</h2>
+    <div class="hot-artcles-category">
+      <div class="hot-artcles-category-left">
+        <div class="artcle-category-left-item">
+          <img
+            [src]="item.new_articles_hot_categories[0].new_article.avatar"
+            alt=""
+          />
+          <b>{{ item.new_articles_hot_categories[0].new_article.title }}</b>
+          <p>
+            Cảnh sát đến hiện trường đập cửa sổ phòng ở lầu 3, căn nhà cao 4
+            tầng trên đường Hưng Hóa, quận Tân Bình (TP.HCM), khống chế hỏa
+            hoạn.
+          </p>
+        </div>
+      </div>
+      <div class="hot-artcles-category-center">
+        <div class="artcle-category-center-item">
+          <img
+            [src]="item.new_articles_hot_categories[1].new_article.avatar"
+            alt=""
+          />
+          <b>{{ item.new_articles_hot_categories[1].new_article.title }}</b>
+        </div>
+        <div class="artcle-category-center-item">
+          <img
+            [src]="item.new_articles_hot_categories[2].new_article.avatar"
+            alt=""
+          />
+          <b>{{ item.new_articles_hot_categories[2].new_article.title }}</b>
+        </div>
+      </div>
+      <div class="hot-artcles-category-right">
+        <div class="artcle-category-right-item">
+          <b>{{ item.new_articles_hot_categories[3].new_article.title }}</b>
+          <img
+            [src]="item.new_articles_hot_categories[3].new_article.avatar"
+            alt=""
+          />
+        </div>
+        <hr />
+        <div class="artcle-category-right-item">
+          <b>{{ item.new_articles_hot_categories[4].new_article.title }}</b>
+          <img
+            [src]="item.new_articles_hot_categories[4].new_article.avatar"
+            alt=""
+          />
+        </div>
+        <hr />
+        <div class="artcle-category-right-item">
+          <b>{{ item.new_articles_hot_categories[5].new_article.title }}</b>
+          <img
+            [src]="item.new_articles_hot_categories[5].new_article.avatar"
+            alt=""
+          />
+        </div>
+        <hr />
+        <div class="artcle-category-right-item">
+          <b>{{ item.new_articles_hot_categories[6].new_article.title }}</b>
+          <img
+            [src]="item.new_articles_hot_categories[6].new_article.avatar"
+            alt=""
+          />
+        </div>
+        <hr />
+        <div class="artcle-category-right-item">
+          <b>{{ item.new_articles_hot_categories[7].new_article.title }}</b>
+          <img
+            [src]="item.new_articles_hot_categories[7].new_article.avatar"
+            alt=""
+          />
+        </div>
+      </div>
     </div>
   </div>
-  <div class="hot-artcles-category-center">
-    <div class="artcle-category-center-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
-        alt=""
-      />
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
-    </div>
-    <div class="artcle-category-center-item">
-      <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
-        alt=""
-      />
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
-    </div>
-  </div>
-  <div class="hot-artcles-category-right">
-    <div class="artcle-category-right-item">
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
-      <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
-        alt=""
-      />
-    </div>
-    <hr />
-    <div class="artcle-category-right-item">
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
-      <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
-        alt=""
-      />
-    </div>
-    <hr />
-    <div class="artcle-category-right-item">
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
-      <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
-        alt=""
-      />
-    </div>
-    <hr />
-    <div class="artcle-category-right-item">
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
-      <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
-        alt=""
-      />
-    </div>
-    <hr />
-    <div class="artcle-category-right-item">
-      <b>Chuyên gia: Nhà ở xã hội vẫn là bài toán nan giải</b>
-      <img
-        src="https://znews-photo.zingcdn.me/w960/Uploaded/zyxx/2023_05_14/nha_o_xa_hoi_1_1_.jpeg"
-        alt=""
-      />
-    </div>
-  </div>
-</div>
+</ng-container>
+
 <hr />
 <div class="hot-new-categories">
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
+  <ng-container *ngFor="let item of artclesHotCate">
+    <div
+      class="hot-new-category"
+      *ngIf="
+        item.new_articles_hot_categories.length >= 3 &&
+        item.new_articles_hot_categories.length < 8
+      "
+    >
+      <h3 class="category-title title">{{ item.name }}</h3>
+      <div class="hot-new-category-main">
+        <img
+          [src]="item?.new_articles_hot_categories[0]?.new_article.avatar"
+          alt=""
+        />
+        <b class="hot-new-category-main-title">{{
+          item?.new_articles_hot_categories[0]?.new_article.title
+        }}</b>
+      </div>
+      <hr />
+      <div class="hot-new-category">
+        <img
+          [src]="item?.new_articles_hot_categories[1]?.new_article.avatar"
+          alt=""
+        />
+        <b class="hot-new-category-title">{{
+          item?.new_articles_hot_categories[1]?.new_article.title
+        }}</b>
+      </div>
+      <hr />
+      <div class="hot-new-category">
+        <img
+          [src]="item?.new_articles_hot_categories[2]?.new_article.avatar"
+          alt=""
+        />
+        <b class="hot-new-category-title">{{
+          item?.new_articles_hot_categories[2]?.new_article.title
+        }}</b>
+      </div>
     </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
-  <div class="hot-new-category">
-    <h3 class="category-title title">Xuất bản</h3>
-    <div class="hot-new-category-main">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-main-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-    <hr />
-    <div class="hot-new-category">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/mzdgi/2023_05_15/55cae6ec53b28decd4a3.jpg"
-        alt=""
-      />
-      <b class="hot-new-category-title"
-        >Dấu ấn văn hóa Pháp qua âm nhạc, văn chương</b
-      >
-    </div>
-  </div>
+  </ng-container>
 </div>

@@ -59,8 +59,6 @@ export class CarouselComponent implements AfterViewInit, OnInit {
   getBooks() {
     this.NewsService.getNewArtclesCate().subscribe((data: any) => {
       this.books = data.list_article_new;
-
-      console.log(this.books);
     });
   }
 }

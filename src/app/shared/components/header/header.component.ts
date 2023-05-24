@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   }
   getCategories() {
     this.CategoryService.getAllCategories().subscribe(
-      (data: any) => (this.categories = data.categories)
+      (data: any) => (this.CategoryService.categories = data.categories)
     );
   }
 }

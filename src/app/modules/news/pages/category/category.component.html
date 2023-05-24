@@ -1,1 +1,436 @@
-<p>category works!</p>
+<div class="category-section-header">
+  <h1>KINH DOANH</h1>
+  <div class="sub-categories-section">
+    <p
+      class="sub-category title"
+      *ngFor="let item of CategoryCurrent.new_categories"
+      [routerLink]="['/', 'danh-muc', item.slug, item.slug_crc]"
+    >
+      {{ item.name }}
+    </p>
+  </div>
+</div>
+
+<div class="hot-articles-category">
+  <div class="hot-articles-category-left">
+    <div class="hot-articles-category-left-item">
+      <img
+        src="https://znews-photo.zingcdn.me/w1000/Uploaded/mzdqa/2021_07_11/nvl_a.jpg"
+        alt=""
+      />
+      <p class="title">Sếp Novaland xin nghỉ sau gần một tháng làm việc</p>
+      <p class="sapo">
+        Thành viên HĐQT Nguyễn Trần Đăng Phước muốn từ nhiệm kể từ ngày 22/6 và
+        Giám đốc tài chính Nguyễn Đức Dũng nghỉ việc từ 23/5 theo nguyện vọng cá
+        nhân.
+      </p>
+    </div>
+  </div>
+  <div class="hot-articles-category-right">
+    <div class="hot-articles-category-right-item">
+      <p class="title">Nhiều người phải mua nhà ở xã hội bằng 'vận may'</p>
+      <img
+        src="https://znews-photo.zingcdn.me/w210/Uploaded/zyxx/2023_05_22/FA7F4C2A_ABA6_4988_94CE_B5B47307F2B8_zing.jpeg"
+        alt=""
+      />
+    </div>
+    <div class="hot-articles-category-right-item">
+      <p class="title">Nhiều người phải mua nhà ở xã hội bằng 'vận may'</p>
+      <img
+        src="https://znews-photo.zingcdn.me/w210/Uploaded/zyxx/2023_05_22/FA7F4C2A_ABA6_4988_94CE_B5B47307F2B8_zing.jpeg"
+        alt=""
+      />
+    </div>
+    <div class="hot-articles-category-right-item">
+      <p class="title">Nhiều người phải mua nhà ở xã hội bằng 'vận may'</p>
+      <img
+        src="https://znews-photo.zingcdn.me/w210/Uploaded/zyxx/2023_05_22/FA7F4C2A_ABA6_4988_94CE_B5B47307F2B8_zing.jpeg"
+        alt=""
+      />
+    </div>
+    <div class="hot-articles-category-right-item">
+      <p class="title">Nhiều người phải mua nhà ở xã hội bằng 'vận may'</p>
+      <img
+        src="https://znews-photo.zingcdn.me/w210/Uploaded/zyxx/2023_05_22/FA7F4C2A_ABA6_4988_94CE_B5B47307F2B8_zing.jpeg"
+        alt=""
+      />
+    </div>
+  </div>
+</div>
+
+<div class="hot-articels">
+  <header class="header">
+    <span class="name-header">Nổi bật</span>
+  </header>
+  <div class="articels">
+    <div class="hot-articel">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/rohuoct/2023_05_24/Tuan_Kiet_2.jpg"
+        alt=""
+      />
+      <p class="title">
+        Dịch vụ cho thuê ôtô tự lái từ Ấn Độ rời Việt Nam sau chưa đầy 2 năm
+      </p>
+    </div>
+    <div class="hot-articel">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/rohuoct/2023_05_24/Tuan_Kiet_2.jpg"
+        alt=""
+      />
+      <p class="title">
+        Dịch vụ cho thuê ôtô tự lái từ Ấn Độ rời Việt Nam sau chưa đầy 2 năm
+      </p>
+    </div>
+    <div class="hot-articel">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/rohuoct/2023_05_24/Tuan_Kiet_2.jpg"
+        alt=""
+      />
+      <p class="title">
+        Dịch vụ cho thuê ôtô tự lái từ Ấn Độ rời Việt Nam sau chưa đầy 2 năm
+      </p>
+    </div>
+    <div class="hot-articel">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/rohuoct/2023_05_24/Tuan_Kiet_2.jpg"
+        alt=""
+      />
+      <p class="title">
+        Dịch vụ cho thuê ôtô tự lái từ Ấn Độ rời Việt Nam sau chưa đầy 2 năm
+      </p>
+    </div>
+  </div>
+</div>
+<div class="list-box-hot-articels">
+  <div class="box-hot-articels-sub-cate">
+    <header class="header">
+      <span class="name-header">Doanh nhân</span>
+    </header>
+    <div class="articel-sub-cate">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/tmgtvn/2023_05_21/1.png"
+        alt=""
+      />
+      <p class="title">
+        Khối tài sản 2,5 tỷ USD của cựu Tổng thống Mỹ Donald Trump Khối tài sản
+        2,5 tỷ USD của cựu Tổng thống Mỹ Donald Trump
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Đế chế LVMH và bí mật đằng sau khả năng tăng trưởng bất chấp suy thoái
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Elon Musk: 'Tôi sẽ nói những gì mình thích, kể cả mất tiền'
+      </p>
+    </div>
+  </div>
+  <div class="box-hot-articels-sub-cate">
+    <header class="header">
+      <span class="name-header">Doanh nhân</span>
+    </header>
+    <div class="articel-sub-cate">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/tmgtvn/2023_05_21/1.png"
+        alt=""
+      />
+      <p class="title">
+        Khối tài sản 2,5 tỷ USD của cựu Tổng thống Mỹ Donald Trump
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Đế chế LVMH và bí mật đằng sau khả năng tăng trưởng bất chấp suy thoái
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Elon Musk: 'Tôi sẽ nói những gì mình thích, kể cả mất tiền'
+      </p>
+    </div>
+  </div>
+  <div class="box-hot-articels-sub-cate">
+    <header class="header">
+      <span class="name-header">Doanh nhân</span>
+    </header>
+    <div class="articel-sub-cate">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/tmgtvn/2023_05_21/1.png"
+        alt=""
+      />
+      <p class="title">
+        Khối tài sản 2,5 tỷ USD của cựu Tổng thống Mỹ Donald Trump
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Đế chế LVMH và bí mật đằng sau khả năng tăng trưởng bất chấp suy thoái
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Elon Musk: 'Tôi sẽ nói những gì mình thích, kể cả mất tiền'
+      </p>
+    </div>
+  </div>
+  <div class="box-hot-articels-sub-cate">
+    <header class="header">
+      <span class="name-header">Doanh nhân</span>
+    </header>
+    <div class="articel-sub-cate">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/tmgtvn/2023_05_21/1.png"
+        alt=""
+      />
+      <p class="title">
+        Khối tài sản 2,5 tỷ USD của cựu Tổng thống Mỹ Donald Trump
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Đế chế LVMH và bí mật đằng sau khả năng tăng trưởng bất chấp suy thoái
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Elon Musk: 'Tôi sẽ nói những gì mình thích, kể cả mất tiền'
+      </p>
+    </div>
+  </div>
+  <div class="box-hot-articels-sub-cate">
+    <header class="header">
+      <span class="name-header">Doanh nhân</span>
+    </header>
+    <div class="articel-sub-cate">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/tmgtvn/2023_05_21/1.png"
+        alt=""
+      />
+      <p class="title">
+        Khối tài sản 2,5 tỷ USD của cựu Tổng thống Mỹ Donald Trump
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Đế chế LVMH và bí mật đằng sau khả năng tăng trưởng bất chấp suy thoái
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Elon Musk: 'Tôi sẽ nói những gì mình thích, kể cả mất tiền'
+      </p>
+    </div>
+  </div>
+  <div class="box-hot-articels-sub-cate">
+    <header class="header">
+      <span class="name-header">Doanh nhân</span>
+    </header>
+    <div class="articel-sub-cate">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/tmgtvn/2023_05_21/1.png"
+        alt=""
+      />
+      <p class="title">
+        Khối tài sản 2,5 tỷ USD của cựu Tổng thống Mỹ Donald Trump
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Đế chế LVMH và bí mật đằng sau khả năng tăng trưởng bất chấp suy thoái
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Elon Musk: 'Tôi sẽ nói những gì mình thích, kể cả mất tiền'
+      </p>
+    </div>
+  </div>
+  <div class="box-hot-articels-sub-cate">
+    <header class="header">
+      <span class="name-header">Doanh nhân</span>
+    </header>
+    <div class="articel-sub-cate">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/tmgtvn/2023_05_21/1.png"
+        alt=""
+      />
+      <p class="title">
+        Khối tài sản 2,5 tỷ USD của cựu Tổng thống Mỹ Donald Trump
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Đế chế LVMH và bí mật đằng sau khả năng tăng trưởng bất chấp suy thoái
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Elon Musk: 'Tôi sẽ nói những gì mình thích, kể cả mất tiền'
+      </p>
+    </div>
+  </div>
+  <div class="box-hot-articels-sub-cate">
+    <header class="header">
+      <span class="name-header">Doanh nhân</span>
+    </header>
+    <div class="articel-sub-cate">
+      <img
+        src="https://znews-photo.zingcdn.me/w360/Uploaded/tmgtvn/2023_05_21/1.png"
+        alt=""
+      />
+      <p class="title">
+        Khối tài sản 2,5 tỷ USD của cựu Tổng thống Mỹ Donald Trump
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Đế chế LVMH và bí mật đằng sau khả năng tăng trưởng bất chấp suy thoái
+      </p>
+      <hr />
+    </div>
+    <div class="articel-sub-cate">
+      <p class="title">
+        Elon Musk: 'Tôi sẽ nói những gì mình thích, kể cả mất tiền'
+      </p>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <span class="name-header">Tin mới</span>
+</header>
+<div class="new-articles-cate">
+  <div class="new-articles-cate-left">
+    <div class="new-article-cate">
+      <div class="new-article-cate-img">
+        <img
+          src="https://znews-photo.zingcdn.me/w360/Uploaded/vpcvodbp/2023_05_23/thep_xd_hp_1683883203103_1683883203285317124953.jpg"
+          alt=""
+        />
+      </div>
+      <div class="new-article-cate-infor">
+        <p class="new-article-title">
+          Chọn thẻ tín dụng phù hợp nhu cầu và thói quen chi tiêu
+        </p>
+        <p class="new-article-sapo">
+          Có 7 năm kinh nghiệm sử dụng qua nhiều dòng thẻ tín dụng của các ngân
+          hàng khác nhau, Bảo Hân (29 tuổi, TP.HCM) cho rằng cần lựa chọn tấm
+          thẻ phù hợp với nhu cầu của bản thân.
+        </p>
+      </div>
+    </div>
+    <hr />
+    <div class="new-article-cate">
+      <div class="new-article-cate-img">
+        <img
+          src="https://znews-photo.zingcdn.me/w360/Uploaded/vpcvodbp/2023_05_23/thep_xd_hp_1683883203103_1683883203285317124953.jpg"
+          alt=""
+        />
+      </div>
+      <div class="new-article-cate-infor">
+        <p class="new-article-title">
+          Chọn thẻ tín dụng phù hợp nhu cầu và thói quen chi tiêu
+        </p>
+        <p class="new-article-sapo">
+          Có 7 năm kinh nghiệm sử dụng qua nhiều dòng thẻ tín dụng của các ngân
+          hàng khác nhau, Bảo Hân (29 tuổi, TP.HCM) cho rằng cần lựa chọn tấm
+          thẻ phù hợp với nhu cầu của bản thân.
+        </p>
+      </div>
+    </div>
+    <hr />
+    <div class="new-article-cate">
+      <div class="new-article-cate-img">
+        <img
+          src="https://znews-photo.zingcdn.me/w360/Uploaded/vpcvodbp/2023_05_23/thep_xd_hp_1683883203103_1683883203285317124953.jpg"
+          alt=""
+        />
+      </div>
+      <div class="new-article-cate-infor">
+        <p class="new-article-title">
+          Chọn thẻ tín dụng phù hợp nhu cầu và thói quen chi tiêu
+        </p>
+        <p class="new-article-sapo">
+          Có 7 năm kinh nghiệm sử dụng qua nhiều dòng thẻ tín dụng của các ngân
+          hàng khác nhau, Bảo Hân (29 tuổi, TP.HCM) cho rằng cần lựa chọn tấm
+          thẻ phù hợp với nhu cầu của bản thân.
+        </p>
+      </div>
+    </div>
+    <hr />
+    <div class="new-article-cate">
+      <div class="new-article-cate-img">
+        <img
+          src="https://znews-photo.zingcdn.me/w360/Uploaded/vpcvodbp/2023_05_23/thep_xd_hp_1683883203103_1683883203285317124953.jpg"
+          alt=""
+        />
+      </div>
+      <div class="new-article-cate-infor">
+        <p class="new-article-title">
+          Chọn thẻ tín dụng phù hợp nhu cầu và thói quen chi tiêu
+        </p>
+        <p class="new-article-sapo">
+          Có 7 năm kinh nghiệm sử dụng qua nhiều dòng thẻ tín dụng của các ngân
+          hàng khác nhau, Bảo Hân (29 tuổi, TP.HCM) cho rằng cần lựa chọn tấm
+          thẻ phù hợp với nhu cầu của bản thân.
+        </p>
+      </div>
+    </div>
+    <hr />
+    <div class="new-article-cate">
+      <div class="new-article-cate-img">
+        <img
+          src="https://znews-photo.zingcdn.me/w360/Uploaded/vpcvodbp/2023_05_23/thep_xd_hp_1683883203103_1683883203285317124953.jpg"
+          alt=""
+        />
+      </div>
+      <div class="new-article-cate-infor">
+        <p class="new-article-title">
+          Chọn thẻ tín dụng phù hợp nhu cầu và thói quen chi tiêu
+        </p>
+        <p class="new-article-sapo">
+          Có 7 năm kinh nghiệm sử dụng qua nhiều dòng thẻ tín dụng của các ngân
+          hàng khác nhau, Bảo Hân (29 tuổi, TP.HCM) cho rằng cần lựa chọn tấm
+          thẻ phù hợp với nhu cầu của bản thân.
+        </p>
+      </div>
+    </div>
+    <hr />
+    <div class="new-article-cate">
+      <div class="new-article-cate-img">
+        <img
+          src="https://znews-photo.zingcdn.me/w360/Uploaded/vpcvodbp/2023_05_23/thep_xd_hp_1683883203103_1683883203285317124953.jpg"
+          alt=""
+        />
+      </div>
+      <div class="new-article-cate-infor">
+        <p class="new-article-title">
+          Chọn thẻ tín dụng phù hợp nhu cầu và thói quen chi tiêu
+        </p>
+        <p class="new-article-sapo">
+          Có 7 năm kinh nghiệm sử dụng qua nhiều dòng thẻ tín dụng của các ngân
+          hàng khác nhau, Bảo Hân (29 tuổi, TP.HCM) cho rằng cần lựa chọn tấm
+          thẻ phù hợp với nhu cầu của bản thân.
+        </p>
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>

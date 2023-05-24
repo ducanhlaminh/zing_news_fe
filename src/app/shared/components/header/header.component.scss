@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   .logo {
-    width: 150px;
+    width: 200px;
     .header_logo {
       height: 29px;
     }
@@ -18,18 +18,33 @@
     height: 100%;
     align-items: center;
     justify-content: center;
-    width: 70%;
+    width: 65%;
     .cate-item {
       flex:1;
       height: 100%;
       text-align: center;
       font-size: 14px;
-      a {
+      cursor: pointer;
+      span {
+        position: relative;
         text-decoration: none;
-        color:black;
         font-weight: 500;
-        font-size: 16px;
+        font-size: 14px;
       }
+
     }
   }
+}
+.active{
+ color:#096ffa;
+ position: relative;
+}
+.active::after{
+  position: absolute;
+  content: "";
+  background-color: #096ffa;
+  height: 2px;
+  width: 100%;
+  left: 0;
+  bottom: -18px;
 }

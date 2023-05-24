@@ -8,8 +8,12 @@
     />
   </div>
   <div class="categories">
-    <div class="cate-item" *ngFor="let item of categories">
-      <a [routerLink]="['/', item.slug, item.slug_crc]">{{ item.name }}</a>
+    <div class="cate-item" *ngFor="let item of this.CategoryService.categories">
+      <span
+        [routerLink]="['/', 'danh-muc', item.slug, item.slug_crc]"
+        routerLinkActive="active"
+        >{{ item.name }}</span
+      >
     </div>
   </div>
 </div>

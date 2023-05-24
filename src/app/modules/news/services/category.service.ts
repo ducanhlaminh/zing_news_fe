@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class CategoryService {
   constructor(public http: HttpClient) {}
+  categories: any;
   getAllCategories() {
     return this.http.get(environment.API_CATEGORY_GET_ALL);
   }
