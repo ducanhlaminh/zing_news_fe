@@ -1,9 +1,9 @@
 <div class="category-section-header">
-  <h1>KINH DOANH</h1>
+  <h1>{{ CategoryCurrent?.name.toUpperCase() }}</h1>
   <div class="sub-categories-section">
     <p
       class="sub-category title"
-      *ngFor="let item of CategoryCurrent.new_categories"
+      *ngFor="let item of CategoryCurrent?.new_categories"
       [routerLink]="['/', 'danh-muc', item.slug, item.slug_crc]"
     >
       {{ item.name }}
