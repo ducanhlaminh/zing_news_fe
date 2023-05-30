@@ -7,8 +7,8 @@ import { NewsService } from '../../services/news.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  artclesHotMain: any;
-  artclesHotCate: any;
+  artclesHotMain: any[] = [];
+  artclesHotCate: any[] = [];
   newArtcles: any;
   articlesViews: any;
   constructor(public NewsService: NewsService) {}
@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
     this.getHotNews();
     this.getNewArtcles();
     this.getArticlesViews();
-    this.getartclesHotCate();
   }
   // tin hot
   getHotNews() {
@@ -30,18 +29,13 @@ export class HomeComponent implements OnInit {
   // tin moi
   getNewArtcles() {
     this.NewsService.getNewArtclesMain().subscribe(
-      (data) => (this.newArtcles = data)
+      (data: any) => (this.newArtcles = data.newArticleCate)
     );
   }
   // tin nhieu luot doc
   getArticlesViews() {
     return this.NewsService.getArticlesView().subscribe(
       (data: any) => (this.articlesViews = data)
-    );
-  }
-  getartclesHotCate() {
-    return this.NewsService.getartclesHotCate().subscribe(
-      (data: any) => (this.artclesHotCate = data)
     );
   }
 }

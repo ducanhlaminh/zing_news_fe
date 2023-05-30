@@ -16,15 +16,17 @@ export class NewsService {
   getNewArtclesMain() {
     return this.http.get(environment.API_NEW_ARTCLES_MAIN);
   }
-  getNewArtclesCate(slug: string = 'sach', slug_crc: number = 476225655) {
-    return this.http.get(
-      environment.API_NEW_ARTCLES_CATE + slug + '/' + slug_crc
-    );
+  getNewArtclesCate(slug: string) {
+    return this.http.get(environment.API_NEW_ARTCLES_CATE, {
+      params: { slug },
+    });
   }
   getArticlesView() {
     return this.http.get(environment.API_ARTICLES_VIEWS);
   }
-  getartclesHotCate() {
-    return this.http.get(environment.API_ARTICLES_HOT_CATE);
+  getartclesHotCate(slug_crc: string) {
+    return this.http.get(environment.API_ARTICLES_HOT_CATE, {
+      params: { slug_crc },
+    });
   }
 }
