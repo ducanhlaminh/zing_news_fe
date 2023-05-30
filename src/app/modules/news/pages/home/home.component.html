@@ -1,6 +1,8 @@
 <div class="hot-artcles">
   <div class="hot-artcles-left">
-    <ng-container *ngFor="let item of artclesHotMain; let i = index">
+    <ng-container
+      *ngFor="let item of artclesHotMain; let i = index; last as last"
+    >
       <div *ngIf="i >= 3 && i <= 7">
         <div
           class="artcle-left-item"
@@ -16,7 +18,7 @@
             <b>{{ item.new_article?.title }}</b>
           </div>
         </div>
-        <hr />
+        <hr *ngIf="!last" />
       </div>
     </ng-container>
   </div>
@@ -131,4 +133,3 @@
     </div>
   </ng-container>
 </div>
-<app-carousel></app-carousel>

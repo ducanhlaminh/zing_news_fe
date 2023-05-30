@@ -36,50 +36,14 @@
     </ng-container>
   </div>
 </div>
+<app-hot-articles-cate
+  [isCateChid]="isCateChid"
+  [hotArticles]="hotArticles"
+></app-hot-articles-cate>
 
-<div class="hot-articels" *ngIf="!isCateChid">
-  <header class="header">
-    <span class="name-header">Nổi bật</span>
-  </header>
-  <div class="articels">
-    <ng-container *ngFor="let item of hotArticles; index as idx">
-      <div class="hot-articel" *ngIf="idx >= 5 && idx <= 9">
-        <img [src]="item.new_article.avatar" alt="" />
-        <p class="title">
-          {{ item.new_article.title }}
-        </p>
-      </div>
-    </ng-container>
-  </div>
-</div>
-<div class="list-box-hot-articels">
-  <ng-container *ngFor="let item of hotArticlesSubCate; index as idx">
-    <div class="box-hot-articels-sub-cate">
-      <header class="header">
-        <span class="name-header">{{ item.name }}</span>
-      </header>
-      <div class="articel-sub-cate-first">
-        <img
-          [src]="item?.new_articles_hot_categories[0]?.new_article.avatar"
-          alt=""
-        />
-        <p class="title">
-          {{ item?.new_articles_hot_categories[0]?.new_article.title }}
-        </p>
-      </div>
-      <div class="articel-sub-cate">
-        <p class="title">
-          {{ item?.new_articles_hot_categories[1]?.new_article.title }}
-        </p>
-      </div>
-      <div class="articel-sub-cate">
-        <p class="title">
-          {{ item?.new_articles_hot_categories[2]?.new_article.title }}
-        </p>
-      </div>
-    </div>
-  </ng-container>
-</div>
+<app-boxes-hot-articels-sub-cate
+  [hotArticlesSubCate]="hotArticlesSubCate"
+></app-boxes-hot-articels-sub-cate>
 
 <div class="center">
   <div class="new-articles-cate">

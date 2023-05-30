@@ -1,0 +1,15 @@
+<div class="hot-articels" *ngIf="!isCateChid">
+  <header class="header">
+    <span class="name-header">Nổi bật</span>
+  </header>
+  <div class="articels">
+    <ng-container *ngFor="let item of hotArticles; index as idx">
+      <div class="hot-articel" *ngIf="idx >= 5 && idx <= 9">
+        <img [src]="item.new_article.avatar" alt="" />
+        <p class="title">
+          {{ item.new_article.title }}
+        </p>
+      </div>
+    </ng-container>
+  </div>
+</div>
