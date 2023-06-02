@@ -21,7 +21,12 @@ export class NewsService {
       params: { slug },
     });
   }
-  getArticlesView() {
+  getArticlesView(slug_crc: any = undefined) {
+    if (slug_crc) {
+      return this.http.get(environment.API_ARTICLES_VIEWS, {
+        params: { slug_crc },
+      });
+    }
     return this.http.get(environment.API_ARTICLES_VIEWS);
   }
   getartclesHotCate(slug_crc: string) {

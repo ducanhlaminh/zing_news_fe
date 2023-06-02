@@ -14,16 +14,14 @@
       .title {
         font-weight: 500;
         margin: 0;
-        border-bottom: 1px solid #3333335c;
-        padding: 20px 0px;
+        padding-top: 10px;
       }
     }
     .articel-sub-cate{
+      padding-top: 10px;
       .title {
         font-weight: 500;
         margin: 0;
-        border-bottom: 1px solid #3333335c;
-        padding: 20px 0px;
       }
     }
   }
@@ -45,4 +43,8 @@ header {
     left: 0;
     top: -18px;
   }
+}
+.title:hover {
+  color: #096ffa;
+  cursor: pointer;
 }

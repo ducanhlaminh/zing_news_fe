@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import 'slick-carousel';
-import { NewsService } from '../../services/news.service';
+import { NewsService } from '../../../services/news.service';
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
@@ -16,7 +16,7 @@ export class CarouselComponent implements AfterViewInit, OnInit {
     autoplay: true,
     autoplaySpeed: 2000,
   };
-  slug = '476225655';
+  slug = '2765770276';
   books: any = [
     {
       id: 15,

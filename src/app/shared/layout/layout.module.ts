@@ -5,6 +5,7 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { FooterComponent } from '../components/footer/footer.component';
 import { LayoutMainComponent } from './page/layout-main/layout-main.component';
 import { SignupComponent } from './page/signup/signup.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -12,7 +13,7 @@ import { SignupComponent } from './page/signup/signup.component';
     LayoutMainComponent,
     SignupComponent,
   ],
-  imports: [CommonModule, LayoutRoutingModule],
+  imports: [CommonModule, LayoutRoutingModule, FontAwesomeModule],
   exports: [LayoutMainComponent, SignupComponent],
 })
 export class LayoutModule {}

@@ -1,3 +1,29 @@
+<div
+  class="hot-articles-category-parent"
+  *ngIf="!isCateChid; else hotArticlesChild"
+>
+  <div class="hot-articles-category-left">
+    <div class="hot-articles-category-left-item">
+      <img [src]="hotArticles[0]?.new_article.avatar" alt="" />
+      <p class="title">{{ hotArticles[0]?.new_article.title }}</p>
+      <p class="sapo">
+        {{ hotArticles[0]?.new_article.sapo }}
+      </p>
+    </div>
+  </div>
+  <div class="hot-articles-category-right">
+    <ng-container *ngFor="let item of hotArticles; index as idx">
+      <div
+        class="hot-articles-category-right-item"
+        *ngIf="idx >= 1 && idx <= 4"
+      >
+        <p class="title">{{ item.new_article.title }}</p>
+        <img [src]="item.new_article.avatar" alt="" />
+      </div>
+    </ng-container>
+  </div>
+</div>
+
 <div class="hot-articels" *ngIf="!isCateChid">
   <header class="header">
     <span class="name-header">Nổi bật</span>
@@ -13,3 +39,26 @@
     </ng-container>
   </div>
 </div>
+
+<ng-template #hotArticlesChild>
+  <div class="hot-articles-category-child">
+    <div class="hot-articles-category-left">
+      <div class="hot-articles-category-left-item">
+        <img [src]="hotArticles[0]?.new_article.avatar" alt="" />
+        <p class="title">{{ hotArticles[0]?.new_article.title }}</p>
+      </div>
+    </div>
+    <div class="hot-articles-category-right">
+      <ng-container *ngFor="let item of hotArticles; index as idx">
+        <div
+          class="hot-articles-category-right-item"
+          *ngIf="idx >= 1 && idx <= 2"
+        >
+          <img [src]="item.new_article.avatar" alt="" />
+          <p class="title">{{ item.new_article.title }}</p>
+          <p class="sapo">{{ item.new_article.sapo }}</p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>

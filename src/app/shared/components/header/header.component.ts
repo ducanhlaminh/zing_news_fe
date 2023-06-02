@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../../modules/news/services/category.service';
+import { faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -11,6 +12,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.getCategories();
   }
+  faMagnifyingGlass = faMagnifyingGlass;
+  faUser = faUser;
   getCategories() {
     this.CategoryService.getAllCategories().subscribe(
       (data: any) => (

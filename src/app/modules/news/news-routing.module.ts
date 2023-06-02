@@ -1,25 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { CategoryComponent } from './pages/category/category.component';
-import { DetailComponent } from './pages/detail/detail.component';
+
+import { HomeContentComponent } from './components/contents/home-content/home-content.component';
+import { CategoryContentComponent } from './components/contents/category-content/category-content.component';
 const routes: Routes = [
   {
     path: 'trang-chu',
-    component: HomeComponent,
+    component: HomeContentComponent,
   },
   {
     path: 'danh-muc/:slug/:slug_crc',
-    component: CategoryComponent,
+    component: CategoryContentComponent,
   },
-  {
-    path: 'bai-viet/:slug/:slug_crc',
-    component: DetailComponent,
-  },
-  {
-    path: 'search/:title',
-    component: HomeComponent,
-  },
+  // {
+  //   path: 'bai-viet/:slug/:slug_crc',
+  //   component: DetailComponent,
+  // },
 ];
 
 @NgModule({

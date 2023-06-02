@@ -1,0 +1,63 @@
+<div class="category-section-header">
+  <h1>{{ CategoryCurrent?.name.toUpperCase() }}</h1>
+  <div class="sub-categories-section">
+    <p
+      class="sub-category title"
+      *ngFor="let item of CategoryCurrent?.new_categories"
+      [routerLink]="['/', 'danh-muc', item.slug, item.slug_crc]"
+    >
+      {{ item.name }}
+    </p>
+  </div>
+</div>
+
+<app-hot-articles-cate
+  [isCateChid]="isCateChid"
+  [hotArticles]="hotArticles"
+></app-hot-articles-cate>
+
+<app-boxes-hot-articels-sub-cate
+  [hotArticlesSubCate]="hotArticlesSubCate"
+></app-boxes-hot-articels-sub-cate>
+
+<div class="center">
+  <div class="new-articles-cate">
+    <header class="header">
+      <span class="name-header">Tin mới</span>
+    </header>
+    <div class="new-articles-cate-left">
+      <ng-container *ngFor="let item of newArticles; last as last">
+        <div class="new-article-cate">
+          <div class="new-article-cate-img">
+            <img [src]="item.new_article.avatar" alt="" />
+          </div>
+          <div class="new-article-cate-infor">
+            <p class="new-article-title">
+              {{ item.new_article.title }}
+            </p>
+            <p class="new-article-sapo">
+              {{ item.new_article.sapo }}
+            </p>
+          </div>
+        </div>
+        <hr *ngIf="!last" />
+      </ng-container>
+    </div>
+  </div>
+  <div class="articles-most-views-layout">
+    <div class="articles-most-views">
+      <header class="header">
+        <span class="name-header">Tin đọc nhiều</span>
+      </header>
+      <div class="artcles-view-most-item" *ngFor="let item of articlesViews">
+        <img [src]="item.new_article.avatar" alt="" />
+        <div class="artcles-view-most-item-infor">
+          <p class="most-item-infor-cate">
+            {{ item?.new_article.new_articles_category.new_category.name }}
+          </p>
+          <b class="most-item-infor-title">{{ item.new_article.title }}</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
