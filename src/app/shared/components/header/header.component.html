@@ -9,16 +9,17 @@
   </div>
   <div class="categories">
     <div class="cate-item" *ngFor="let item of this.CategoryService.categories">
-      <span
+      <b
         [routerLink]="['/', 'danh-muc', item.slug, item.slug_crc]"
         routerLinkActive="active"
-        >{{ item.name }}</span
       >
+        {{ item.name }}
+      </b>
     </div>
   </div>
-  <div class="tool">
+  <!-- <div class="tool">
     <input type="text" placeholder="Nhập nội dung cần tìm" />
     <fa-icon [icon]="faMagnifyingGlass" class="searchBtn"> </fa-icon>
     <fa-icon [icon]="faUser"></fa-icon>
-  </div>
+  </div> -->
 </div>

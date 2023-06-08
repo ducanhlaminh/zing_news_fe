@@ -2,6 +2,7 @@
   width: 1100px;
   display: flex;
   align-items: center;
+  height: 100%;
   .logo {
     width: 20%;
     .header_logo {
@@ -15,21 +16,18 @@
   }
   .categories {
     display: flex;
-    height: 100%;
     width: 65%;
+    height: 100%;
     .cate-item {
-      flex:1;
-      height: 100%;
-      text-align: center;
+      flex: auto;
       font-size: 14px;
+      display: flex;
+      justify-content: center;
       cursor: pointer;
-      span {
-        position: relative;
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 14px;
+      align-items: center;
+      b {
+        height: fit-content;
       }
-
     }
   }
   .tool {

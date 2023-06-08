@@ -16,10 +16,7 @@ export class HeaderComponent implements OnInit {
   faUser = faUser;
   getCategories() {
     this.CategoryService.getAllCategories().subscribe(
-      (data: any) => (
-        (this.CategoryService.categories = data.categories),
-        console.log('data-header')
-      )
+      (data: any) => (this.CategoryService.categories = data.categories)
     );
   }
 }
