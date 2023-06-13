@@ -31,7 +31,9 @@
   <div class="articels">
     <ng-container *ngFor="let item of hotArticles; index as idx">
       <div class="hot-articel" *ngIf="idx >= 5 && idx <= 9">
-        <img [src]="item.new_article.avatar" alt="" />
+        <div class="image">
+          <img [src]="item.new_article.avatar" alt="" />
+        </div>
         <p class="title">
           {{ item.new_article.title }}
         </p>
@@ -54,7 +56,9 @@
           class="hot-articles-category-right-item"
           *ngIf="idx >= 1 && idx <= 2"
         >
-          <img [src]="item.new_article.avatar" alt="" />
+          <div class="image">
+            <img [src]="item.new_article.avatar" alt="" />
+          </div>
           <p class="title">{{ item.new_article.title }}</p>
           <p class="sapo">{{ item.new_article.sapo }}</p>
         </div>

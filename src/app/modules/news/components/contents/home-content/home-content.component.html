@@ -68,7 +68,9 @@
   <div class="new-artcles">
     <div class="" *ngFor="let item of newArtcles; last as last">
       <div class="new-artcle-item">
-        <img [src]="item.new_article.avatar" alt="" />
+        <div class="img-article">
+          <img [src]="item.new_article.avatar" alt="" />
+        </div>
         <div class="new-artcle-infor">
           <h2>{{ item.new_article.title }}</h2>
           <p>
@@ -83,7 +85,9 @@
     <div class="artcles-view-most">
       <h3 class="title">Đọc nhiều</h3>
       <div class="artcles-view-most-item" *ngFor="let item of articlesViews">
-        <img [src]="item.avatar" alt="" />
+        <div class="artcles-view-most-img">
+          <img [src]="item.avatar" alt="" />
+        </div>
         <div class="artcles-view-most-item-infor">
           <p class="most-item-infor-cate">
             {{ item.new_articles_category?.new_category.name }}

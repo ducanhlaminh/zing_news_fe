@@ -50,7 +50,9 @@
         <span class="name-header">Tin đọc nhiều</span>
       </header>
       <div class="artcles-view-most-item" *ngFor="let item of articlesViews">
-        <img [src]="item.new_article.avatar" alt="" />
+        <div class="artcles-view-most-item-img">
+          <img [src]="item.new_article.avatar" alt="" />
+        </div>
         <div class="artcles-view-most-item-infor">
           <p class="most-item-infor-cate">
             {{ item?.new_article.new_articles_category.new_category.name }}

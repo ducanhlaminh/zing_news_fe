@@ -146,6 +146,7 @@
           .new-article-title{
             font-weight: 500;
             font-size: 20px;
+            margin: 0;
           }
           .new-article-sapo{
             margin-top: 10px;
@@ -162,6 +163,9 @@
       border: 1px solid #33333324;
       border-radius: 5px;
       padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       .artcles-view-most-item {
         height: 72px;
         display: flex;
