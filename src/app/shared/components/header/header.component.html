@@ -1,5 +1,5 @@
 <div class="header">
-  <div class="logo">
+  <div class="logo" (click)="clickLogo()">
     <p class="top-header">TẠP CHÍ TRI THỨC TRỰC TUYẾN</p>
     <img
       src="https://static-znews.zingcdn.me/images/logo-zing-home.svg"
@@ -22,15 +22,26 @@
       type="text"
       placeholder="Nhập nội dung cần tìm"
       #input
+      [formControl]="searchControl"
       (blur)="blurInput()"
     />
     <fa-icon
       [icon]="faMagnifyingGlass"
       class="searchBtn activeShowInput"
       #searchBtn
-      (click)="toogleInput()"
+      (mouseup)="toogleInput()"
     >
     </fa-icon>
-    <fa-icon [icon]="faUser"></fa-icon>
+    <div
+      class="avatar"
+      *ngIf="this.UserService.inforUser?.avatar; else profile"
+    >
+      <img [src]="this.UserService.inforUser?.avatar" alt="" />
+    </div>
+
+    <!-- <fa-icon [icon]="faUser"></fa-icon> -->
   </div>
 </div>
+<ng-template #profile>
+  <fa-icon [icon]="faUser"></fa-icon>
+</ng-template>

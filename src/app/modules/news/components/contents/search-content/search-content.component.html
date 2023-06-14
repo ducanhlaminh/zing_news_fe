@@ -1,80 +1,30 @@
 <div class="content">
   <form action="">
     <div class="input-form">
-      <input type="text" />
+      <input type="text" [formControl]="searchControl" />
       <div class="searchBtn">
         <fa-icon [icon]="faMagnifyingGlass" />
       </div>
     </div>
   </form>
-  <p class="count"><b>5235</b> kết quả phù hợp</p>
-  <div class="article">
-    <div class="article-img">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/zyrl/2023_06_06/Koh_Samui1.jpg"
-        alt=""
-      />
-    </div>
-    <div class="article-infor">
-      <p class="title">Hòn đảo ở Thái Lan cải tạo để thu hút Gen Z</p>
-      <p class="date">15:54 6/6/2023</p>
-      <p class="sapo">
-        Thế hệ Gen Z thường chọn Thái Lan làm điểm dừng chân cho chuyến du lịch
-        của mình vì khung cảnh tuyệt đẹp cũng như chi phí hợp lý.
-      </p>
-    </div>
-  </div>
-  <hr />
-  <div class="article">
-    <div class="article-img">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/zyrl/2023_06_06/Koh_Samui1.jpg"
-        alt=""
-      />
-    </div>
-    <div class="article-infor">
-      <p class="title">Hòn đảo ở Thái Lan cải tạo để thu hút Gen Z</p>
-      <p class="date">15:54 6/6/2023</p>
-      <p class="sapo">
-        Thế hệ Gen Z thường chọn Thái Lan làm điểm dừng chân cho chuyến du lịch
-        của mình vì khung cảnh tuyệt đẹp cũng như chi phí hợp lý.
-      </p>
-    </div>
-  </div>
-  <hr />
-  <div class="article">
-    <div class="article-img">
-      <img
-        src="https://znews-photo.zingcdn.me/w360/Uploaded/zyrl/2023_06_06/Koh_Samui1.jpg"
-        alt=""
-      />
-    </div>
-    <div class="article-infor">
-      <p class="title">Hòn đảo ở Thái Lan cải tạo để thu hút Gen Z</p>
-      <p class="date">15:54 6/6/2023</p>
-      <p class="sapo">
-        Thế hệ Gen Z thường chọn Thái Lan làm điểm dừng chân cho chuyến du lịch
-        của mình vì khung cảnh tuyệt đẹp cũng như chi phí hợp lý.
-      </p>
-    </div>
-  </div>
-  <hr />
-  <div class="">
+  <p class="count">
+    <b>{{ articles.count }}</b> kết quả phù hợp
+  </p>
+
+  <ng-container *ngFor="let item of articles.rows">
     <div class="article">
       <div class="article-img">
-        <img
-          src="https://znews-photo.zingcdn.me/w360/Uploaded/zyrl/2023_06_06/Koh_Samui1.jpg"
-          alt=""
-        />
+        <img [src]="item.avatar" alt="" />
       </div>
       <div class="article-infor">
-        <p class="title">Hòn đảo ở Thái Lan cải tạo để thu hút Gen Z</p>
-        <p class="date">15:54 6/6/2023</p>
+        <p class="title">{{ item.title }}</p>
+        <p class="date">{{ item.publishAt | date : "short" }}</p>
         <p class="sapo">
-          Thế hệ Gen Z thường chọn Thái Lan làm điểm dừng chân cho chuyến du
-          lịch của mình vì khung cảnh tuyệt đẹp cũng như chi phí hợp lý.
+          {{ item.sapo }}
         </p>
       </div>
     </div>
-  </div>
+
+    <hr />
+  </ng-container>
 </div>

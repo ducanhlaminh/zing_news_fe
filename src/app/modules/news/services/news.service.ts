@@ -21,6 +21,11 @@ export class NewsService {
       params: { slug },
     });
   }
+  getArticlesByTitle(title: string) {
+    return this.http.get(environment.API_NEW_ARTCLES_TITLE, {
+      params: { title },
+    });
+  }
   getArticlesView(slug_crc: any = undefined) {
     if (slug_crc) {
       return this.http.get(environment.API_ARTICLES_VIEWS, {

@@ -17,6 +17,7 @@ const routes: Routes = [
     path: 'tim-kiem',
     component: SearchContentComponent,
   },
+  { path: '**', redirectTo: '/trang-chu', pathMatch: 'full' },
   // {
   //   path: 'bai-viet/:slug/:slug_crc',
   //   component: DetailComponent,

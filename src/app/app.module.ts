@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './shared/layout/layout.module';
 import { NewsModule } from './modules/news/news.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { UserModule } from './modules/user/user.module';
+import { HttpInterceptorInterceptor } from './intercepter/http.interceptor';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    UserModule,
     AppRoutingModule,
     LayoutModule,
     NewsModule,
@@ -18,7 +22,13 @@ import { HttpClientModule } from '@angular/common/http';
     FontAwesomeModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
