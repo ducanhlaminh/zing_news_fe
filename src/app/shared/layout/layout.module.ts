@@ -7,6 +7,7 @@ import { LayoutMainComponent } from './page/layout-main/layout-main.component';
 import { SignupComponent } from './page/signup/signup.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -19,7 +20,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     LayoutRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
-  exports: [LayoutMainComponent, SignupComponent, ReactiveFormsModule],
+  exports: [
+    LayoutMainComponent,
+    SignupComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    FontAwesomeModule,
+  ],
 })
 export class LayoutModule {}

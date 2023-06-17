@@ -9,7 +9,8 @@ import { BoxesHotArticelsSubCateComponent } from './components/common/boxes-hot-
 import { HomeContentComponent } from './components/contents/home-content/home-content.component';
 import { CategoryContentComponent } from './components/contents/category-content/category-content.component';
 import { SearchContentComponent } from './components/contents/search-content/search-content.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { CreatePostContentComponent } from './components/contents/create-post-content/create-post-content.component';
 @NgModule({
   declarations: [
     CarouselComponent,
@@ -18,13 +19,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HomeContentComponent,
     CategoryContentComponent,
     SearchContentComponent,
+    CreatePostContentComponent,
   ],
   imports: [
     CommonModule,
     NewsRoutingModule,
     LayoutModule,
     SlickCarouselModule,
-    FontAwesomeModule,
+    EditorModule,
   ],
 })
 export class NewsModule {}
