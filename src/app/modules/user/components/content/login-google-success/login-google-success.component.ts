@@ -19,9 +19,9 @@ export class LoginGoogleSuccessComponent implements OnInit {
         localStorage.setItem('token', data.token);
       });
     });
-    setTimeout(() => {
-      this.UserService.getDataInforUser();
-    }, 1000);
+    // setTimeout(() => {
+    //   this.UserService.getDataInforUser();
+    // }, 1000);
     this.router.navigateByUrl('/trang-chu');
   }
 }

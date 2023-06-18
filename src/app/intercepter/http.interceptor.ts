@@ -5,8 +5,8 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { finalize, Observable } from 'rxjs';
+declare var Pace: any;
 @Injectable()
 export class HttpInterceptorInterceptor implements HttpInterceptor {
   intercept(
@@ -19,6 +19,11 @@ export class HttpInterceptorInterceptor implements HttpInterceptor {
         setHeaders: { Authorization: token },
       });
     }
-    return next.handle(request);
+    Pace.start(); // Kích hoạt Pace.js trước khi gửi request
+    return next.handle(request).pipe(
+      finalize(() => {
+        Pace.stop(); // Tắt Pace.js sau khi nhận được response
+      })
+    );
   }
 }
