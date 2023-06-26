@@ -11,4 +11,6 @@ export const environment = {
   API_ARTICLES_HOT_CATE: 'http://localhost:4000/api/v1/articles/hot-cate',
   API_TOKEN_GG: 'http://localhost:4000/api/v1/auth/login-success/',
   API_GET_INFOR_USER: 'http://localhost:4000/api/v1/users/get-data',
+  API_LOGIN_GG: 'http://localhost:4000/api/v1/auth/google',
+  API_GET_DETAIL: 'http://localhost:4000/api/v1/articles/',
 };

@@ -11,6 +11,9 @@ import { CategoryContentComponent } from './components/contents/category-content
 import { SearchContentComponent } from './components/contents/search-content/search-content.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { CreatePostContentComponent } from './components/contents/create-post-content/create-post-content.component';
+import { DetailContentComponent } from './components/contents/detail-content/detail-content.component';
+import { ArticleComponent } from './components/common/article/article.component';
+import { CreatePostComponent } from './components/contents/admin/create-post/create-post.component';
 @NgModule({
   declarations: [
     CarouselComponent,
@@ -20,6 +23,9 @@ import { CreatePostContentComponent } from './components/contents/create-post-co
     CategoryContentComponent,
     SearchContentComponent,
     CreatePostContentComponent,
+    DetailContentComponent,
+    ArticleComponent,
+    CreatePostComponent,
   ],
   imports: [
     CommonModule,

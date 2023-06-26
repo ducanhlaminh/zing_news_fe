@@ -4,27 +4,33 @@
       <header class="header">
         <span class="name-header">{{ item.name }}</span>
       </header>
-      <div class="articel-sub-cate-first">
-        <img
-          [src]="item?.new_articles_hot_categories[0]?.new_article.avatar"
-          alt=""
-        />
-        <p class="title">
-          {{ item?.new_articles_hot_categories[0]?.new_article.title }}
-        </p>
-      </div>
+      <app-article [articleData]="item?.new_articles_hot_categories[0]">
+        <div class="articel-sub-cate-first">
+          <img
+            [src]="item?.new_articles_hot_categories[0]?.new_article.avatar"
+            alt=""
+          />
+          <p class="title">
+            {{ item?.new_articles_hot_categories[0]?.new_article.title }}
+          </p>
+        </div>
+      </app-article>
       <hr />
-      <div class="articel-sub-cate">
-        <p class="title">
-          {{ item?.new_articles_hot_categories[1]?.new_article.title }}
-        </p>
-      </div>
+      <app-article [articleData]="item?.new_articles_hot_categories[1]">
+        <div class="articel-sub-cate">
+          <p class="title">
+            {{ item?.new_articles_hot_categories[1]?.new_article.title }}
+          </p>
+        </div>
+      </app-article>
       <hr />
-      <div class="articel-sub-cate">
-        <p class="title">
-          {{ item?.new_articles_hot_categories[2]?.new_article.title }}
-        </p>
-      </div>
+      <app-article [articleData]="item?.new_articles_hot_categories[2]">
+        <div class="articel-sub-cate">
+          <p class="title">
+            {{ item?.new_articles_hot_categories[2]?.new_article.title }}
+          </p>
+        </div>
+      </app-article>
     </div>
   </ng-container>
 </div>

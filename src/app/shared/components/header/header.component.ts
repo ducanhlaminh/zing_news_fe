@@ -1,15 +1,9 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  AfterViewInit,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CategoryService } from '../../../modules/news/services/category.service';
 import { faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/modules/user/services/user.service';
+import { UserService } from 'src/app/modules/news/services/user.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -56,5 +50,8 @@ export class HeaderComponent implements OnInit {
   }
   clickLogo() {
     this.Router.navigateByUrl('/trang-chu');
+  }
+  loginGoole() {
+    this.Router.navigateByUrl('http://localhost:4000/api/v1/auth/google');
   }
 }

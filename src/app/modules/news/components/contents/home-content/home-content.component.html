@@ -67,17 +67,20 @@
 <div class="center-page">
   <div class="new-artcles">
     <div class="" *ngFor="let item of newArtcles; last as last">
-      <div class="new-artcle-item">
-        <div class="img-article">
-          <img [src]="item.new_article.avatar" alt="" />
+      <app-article [articleData]="item">
+        <div class="new-artcle-item">
+          <div class="img-article">
+            <img [src]="item.new_article.avatar" alt="" />
+          </div>
+          <div class="new-artcle-infor">
+            <h2>{{ item.new_article.title }}</h2>
+            <p>
+              {{ item.new_article.sapo }}
+            </p>
+          </div>
         </div>
-        <div class="new-artcle-infor">
-          <h2>{{ item.new_article.title }}</h2>
-          <p>
-            {{ item.new_article.sapo }}
-          </p>
-        </div>
-      </div>
+      </app-article>
+
       <hr *ngIf="!last" />
     </div>
   </div>

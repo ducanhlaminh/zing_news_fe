@@ -7,20 +7,20 @@ import { LayoutModule } from './shared/layout/layout.module';
 import { NewsModule } from './modules/news/news.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { HttpInterceptorInterceptor } from './intercepter/http.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    UserModule,
     AppRoutingModule,
     LayoutModule,
     NewsModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
+    AuthModule,
   ],
   providers: [
     {

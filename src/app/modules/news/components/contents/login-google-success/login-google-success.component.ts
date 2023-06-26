@@ -1,0 +1,29 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { UserService } from '../../../services/user.service';
+@Component({
+  selector: 'app-login-google-success',
+  templateUrl: './login-google-success.component.html',
+  styleUrls: ['./login-google-success.component.scss'],
+})
+export class LoginGoogleSuccessComponent implements OnInit {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private AuthService: AuthService,
+    private router: Router,
+    private UserService: UserService
+  ) {}
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params: any) => {
+      const id = params['id'];
+      this.AuthService.getTokenGG(id).subscribe((data: any) => {
+        localStorage.setItem('token', data.token);
+      });
+    });
+    setTimeout(() => {
+      this.UserService.getDataInforUser();
+    }, 1000);
+    this.router.navigateByUrl('/trang-chu');
+  }
+}

@@ -39,4 +39,7 @@ export class NewsService {
       params: { slug_crc },
     });
   }
+  getDetail(slug: string, slug_crc: string) {
+    return this.http.get(environment.API_GET_DETAIL + slug + '/' + slug_crc);
+  }
 }

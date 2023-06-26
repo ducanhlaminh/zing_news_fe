@@ -1,0 +1,14 @@
+<h1>TinyMCE 6 Angular Demo</h1>
+<editor
+  id="editor"
+  apiKey="dnfnwt83r5kyu1pf95d1dc6sn2554nywf3pu0yfxzqoe2z01"
+  plugins=" image fullscreen table emoticons link "
+  menubar="file edit insert view format table tools help "
+  [init]="{
+    selector: 'textarea',
+    height: '700',
+  }"
+  [(ngModel)]="dataModel"
+  toolbar="bold italic underline  | fontfamily fontsize | styles forecolor backcolor | alignleft aligncenter alignright alignjustify |indent outdent rtl ltr | bullist numlist checklist | image table link emoticons"
+></editor>
+<button (click)="onClick()">Click</button>
