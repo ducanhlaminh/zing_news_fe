@@ -32,11 +32,8 @@
       (mouseup)="toogleInput()"
     >
     </fa-icon>
-    <div
-      class="avatar"
-      *ngIf="this.UserService.inforUser?.avatar; else profile"
-    >
-      <img [src]="this.UserService.inforUser?.avatar" alt="" />
+    <div class="avatar" *ngIf="inforUser.user; else profile">
+      <img [src]="inforUser?.user?.avatar" alt="" />
     </div>
 
     <!-- <fa-icon [icon]="faUser"></fa-icon> -->

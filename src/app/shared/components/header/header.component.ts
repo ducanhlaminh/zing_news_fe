@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   faUser = faUser;
   showInput = false;
   searchControl: FormControl = new FormControl();
+  inforUser: any;
   @ViewChild('searchBtn') searchBtn: any;
   @ViewChild('input') input: any;
   constructor(
@@ -24,7 +25,7 @@ export class HeaderComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getCategories();
-    this.UserService.getDataInforUser();
+    this.UserService.inforUser$.subscribe((data) => (this.inforUser = data));
   }
   getCategories() {
     this.CategoryService.getAllCategories().subscribe(

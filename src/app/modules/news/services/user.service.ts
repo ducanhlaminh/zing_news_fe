@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   constructor(private http: HttpClient) {}
-  inforUser: any;
+  inforUser$ = new BehaviorSubject<any>({});
 
   getDataInforUser() {
     this.http.get(environment.API_GET_INFOR_USER).subscribe((data: any) => {
-      this.inforUser = data.user;
+      this.inforUser$.next(data);
     });
   }
 }

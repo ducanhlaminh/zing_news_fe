@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'admin/create-post',
     component: CreatePostComponent,
-    // canActivate: [CheckRoleGuard],
+    canActivate: [CheckRoleGuard],
   },
   {
     path: 'tim-kiem',
