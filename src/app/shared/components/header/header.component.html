@@ -17,30 +17,43 @@
       </b>
     </div>
   </div>
-  <div class="tool">
-    <input
-      type="text"
-      placeholder="Nhập nội dung cần tìm"
-      #input
-      [formControl]="searchControl"
-      (blur)="blurInput()"
-    />
-    <fa-icon
-      [icon]="faMagnifyingGlass"
-      class="searchBtn activeShowInput"
-      #searchBtn
-      (mouseup)="toogleInput()"
+  <div class="right_header">
+    <div class="tool">
+      <input
+        type="text"
+        placeholder="Nhập nội dung cần tìm"
+        #input
+        [formControl]="searchControl"
+        (blur)="blurInput()"
+      />
+      <fa-icon
+        [icon]="faMagnifyingGlass"
+        class="searchBtn activeShowInput"
+        #searchBtn
+        (mouseup)="toogleInput()"
+      >
+      </fa-icon>
+    </div>
+    <div
+      class="avatar"
+      mat-button
+      [matMenuTriggerFor]="aboveMenu"
+      *ngIf="inforUser.user; else profile"
     >
-    </fa-icon>
-    <div class="avatar" *ngIf="inforUser.user; else profile">
       <img [src]="inforUser?.user?.avatar" alt="" />
     </div>
 
-    <!-- <fa-icon [icon]="faUser"></fa-icon> -->
+    <mat-menu #aboveMenu="matMenu" yPosition="above">
+      <button mat-menu-item (click)="signOut()">Đăng xuất</button>
+      <button mat-menu-item (click)="navigateToAdmin()">Admin</button>
+    </mat-menu>
   </div>
+
+  <!-- <fa-icon [icon]="faUser"></fa-icon> -->
 </div>
+
 <ng-template #profile>
-  <a href="http://localhost:4000/api/v1/auth/google">
-    <fa-icon [icon]="faUser"></fa-icon>
-  </a>
+  <div class="btnSignIn">
+    <button mat-raised-button (click)="signIn()">Đăng nhập</button>
+  </div>
 </ng-template>

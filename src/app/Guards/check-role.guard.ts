@@ -24,8 +24,8 @@ export class CheckRoleGuard implements CanActivate {
     | boolean
     | UrlTree {
     return this.UserService.inforUser$.pipe(
-      filter((user: any) => user.user),
-      map((user: any) => user.user.role_id === 1)
+      filter((data: any) => data.user),
+      map((data: any) => data.user.role_id === 1)
     );
   }
 }

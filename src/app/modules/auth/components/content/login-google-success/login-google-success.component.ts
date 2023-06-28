@@ -23,7 +23,7 @@ export class LoginGoogleSuccessComponent implements OnInit {
     });
     setTimeout(() => {
       this.UserService.getDataInforUser();
-    }, 1000);
-    // this.router.navigateByUrl('/trang-chu');
+      this.router.navigateByUrl('/trang-chu');
+    }, 500);
   }
 }

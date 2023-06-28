@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.development';
 export class UserService {
   constructor(private http: HttpClient) {}
   inforUser$ = new BehaviorSubject<any>({});
-
+  user: any;
   getDataInforUser() {
     this.http.get(environment.API_GET_INFOR_USER).subscribe((data: any) => {
       this.inforUser$.next(data);

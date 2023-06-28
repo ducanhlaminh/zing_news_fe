@@ -52,7 +52,14 @@ export class HeaderComponent implements OnInit {
   clickLogo() {
     this.Router.navigateByUrl('/trang-chu');
   }
-  loginGoole() {
-    this.Router.navigateByUrl('http://localhost:4000/api/v1/auth/google');
+  signIn() {
+    location.assign('http://localhost:4000/api/v1/auth/google');
+  }
+  signOut() {
+    localStorage.removeItem('token');
+    window.location.reload();
+  }
+  navigateToAdmin() {
+    this.Router.navigateByUrl('/admin/tao-bai-viet');
   }
 }

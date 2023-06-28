@@ -9,11 +9,10 @@ import { BoxesHotArticelsSubCateComponent } from './components/common/boxes-hot-
 import { HomeContentComponent } from './components/contents/home-content/home-content.component';
 import { CategoryContentComponent } from './components/contents/category-content/category-content.component';
 import { SearchContentComponent } from './components/contents/search-content/search-content.component';
-import { EditorModule } from '@tinymce/tinymce-angular';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { CreatePostContentComponent } from './components/contents/create-post-content/create-post-content.component';
 import { DetailContentComponent } from './components/contents/detail-content/detail-content.component';
 import { ArticleComponent } from './components/common/article/article.component';
-import { CreatePostComponent } from './components/contents/admin/create-post/create-post.component';
 @NgModule({
   declarations: [
     CarouselComponent,
@@ -25,7 +24,6 @@ import { CreatePostComponent } from './components/contents/admin/create-post/cre
     CreatePostContentComponent,
     DetailContentComponent,
     ArticleComponent,
-    CreatePostComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +31,9 @@ import { CreatePostComponent } from './components/contents/admin/create-post/cre
     LayoutModule,
     SlickCarouselModule,
     EditorModule,
+  ],
+  providers: [
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
   ],
 })
 export class NewsModule {}
