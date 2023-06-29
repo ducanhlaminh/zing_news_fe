@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { NewsService } from '../../../services/news.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class HomeContentComponent {
   articlesViews: any;
   artclesHotMain: any[] = [];
   artclesHotCate: any[] = [];
-  constructor(public NewsService: NewsService) {}
+  constructor(public NewsService: NewsService, public renderer: Renderer2) {}
   ngOnInit(): void {
     this.getNewArtcles();
     this.getHotNews();
@@ -36,5 +36,10 @@ export class HomeContentComponent {
         (this.artclesHotCate = data.hot_news.hot_categories)
       )
     );
+  }
+  handleImageError(event: any) {
+    const fallbackImage =
+      'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png';
+    this.renderer.setAttribute(event.target, 'src', fallbackImage);
   }
 }

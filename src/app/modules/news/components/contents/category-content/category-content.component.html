@@ -29,7 +29,11 @@
       <ng-container *ngFor="let item of newArticles; last as last">
         <div class="new-article-cate">
           <div class="new-article-cate-img">
-            <img [src]="item.new_article.avatar" alt="" />
+            <img
+              [src]="item.new_article.avatar"
+              alt=""
+              (error)="handleImageError($event)"
+            />
           </div>
           <div class="new-article-cate-infor">
             <p class="new-article-title">
@@ -51,7 +55,11 @@
       </header>
       <div class="artcles-view-most-item" *ngFor="let item of articlesViews">
         <div class="artcles-view-most-item-img">
-          <img [src]="item.new_article.avatar" alt="" />
+          <img
+            (error)="handleImageError($event)"
+            [src]="item.new_article.avatar"
+            alt=""
+          />
         </div>
         <div class="artcles-view-most-item-infor">
           <p class="most-item-infor-cate">

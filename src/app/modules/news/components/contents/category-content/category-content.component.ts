@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NewsService } from '../../../services/news.service';
 import { CategoryService } from '../../../services/category.service';
@@ -21,7 +21,8 @@ export class CategoryContentComponent {
     public CategoryService: CategoryService,
     private ActivatedRoute: ActivatedRoute,
     private Router: Router,
-    private NewsService: NewsService
+    private NewsService: NewsService,
+    public renderer: Renderer2
   ) {}
   ngOnInit(): void {
     this.ActivatedRoute.params.subscribe((params: any) => {
@@ -68,5 +69,10 @@ export class CategoryContentComponent {
         this.CategoryCurrent = data;
       }
     );
+  }
+  handleImageError(event: any) {
+    const fallbackImage =
+      'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png';
+    this.renderer.setAttribute(event.target, 'src', fallbackImage);
   }
 }

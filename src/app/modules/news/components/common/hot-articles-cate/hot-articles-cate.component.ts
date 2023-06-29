@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-hot-articles-cate',
@@ -8,4 +8,10 @@ import { Component, Input } from '@angular/core';
 export class HotArticlesCateComponent {
   @Input() isCateChid: any = false;
   @Input() hotArticles: any[] = [];
+  constructor(public renderer: Renderer2) {}
+  handleImageError(event: any) {
+    const fallbackImage =
+      'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png';
+    this.renderer.setAttribute(event.target, 'src', fallbackImage);
+  }
 }

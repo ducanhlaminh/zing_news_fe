@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,12 +6,11 @@ import { Router } from '@angular/router';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent {
+export class ArticleComponent implements OnInit {
   @Input() articleData: any;
   constructor(private Router: Router) {}
+  ngOnInit(): void {}
   navigateToDetail() {
-    console.log(`bai-viet/${this.articleData?.new_article.slug_crc}`);
-
     this.Router.navigateByUrl(
       `bai-viet/${this.articleData?.new_article.slug}/${this.articleData?.new_article.slug_crc}`
     );

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, Renderer2 } from '@angular/core';
 import * as $ from 'jquery';
 import 'slick-carousel';
 import { NewsService } from '../../../services/news.service';
@@ -43,7 +43,7 @@ export class CarouselComponent implements AfterViewInit, OnInit {
       },
     },
   ];
-  constructor(private NewsService: NewsService) {}
+  constructor(private NewsService: NewsService, public renderer: Renderer2) {}
   ngAfterViewInit() {
     (<any>$('.carousel')).slick({
       infinite: true,
@@ -61,5 +61,10 @@ export class CarouselComponent implements AfterViewInit, OnInit {
     this.NewsService.getNewArtclesCate(this.slug).subscribe((data: any) => {
       this.books = data.newArticleCate;
     });
+  }
+  handleImageError(event: any) {
+    const fallbackImage =
+      'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png';
+    this.renderer.setAttribute(event.target, 'src', fallbackImage);
   }
 }

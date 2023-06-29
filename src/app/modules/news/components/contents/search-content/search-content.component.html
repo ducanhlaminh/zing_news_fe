@@ -14,7 +14,7 @@
   <ng-container *ngFor="let item of articles.rows">
     <div class="article">
       <div class="article-img">
-        <img [src]="item.avatar" alt="" />
+        <img [src]="item.avatar" alt="" (error)="handleImageError($event)" />
       </div>
       <div class="article-infor">
         <p class="title">{{ item.title }}</p>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { NewsService } from '../../../services/news.service';
@@ -14,7 +14,8 @@ export class SearchContentComponent implements OnInit {
   searchControl: FormControl = new FormControl();
   constructor(
     private ActivatedRoute: ActivatedRoute,
-    private NewService: NewsService
+    private NewService: NewsService,
+    public renderer: Renderer2
   ) {}
   ngOnInit(): void {
     this.ActivatedRoute.queryParams.subscribe((query: any) => {
@@ -27,5 +28,10 @@ export class SearchContentComponent implements OnInit {
     this.NewService.getArticlesByTitle(title).subscribe((data: any) => {
       this.articles = data.data;
     });
+  }
+  handleImageError(event: any) {
+    const fallbackImage =
+      'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png';
+    this.renderer.setAttribute(event.target, 'src', fallbackImage);
   }
 }

@@ -9,7 +9,11 @@
       [routerLink]="['/', item?.new_article?.slug, item?.new_article?.slug_crc]"
     >
       <div class="image">
-        <img [src]="item.new_article.avatar" alt="" />
+        <img
+          [src]="item.new_article.avatar"
+          alt=""
+          (error)="handleImageError($event)"
+        />
       </div>
       <div class="card-infor">
         <b>{{ item.new_article.title }}</b>
