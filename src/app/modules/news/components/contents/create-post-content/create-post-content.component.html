@@ -1,9 +1,17 @@
 <h1>TinyMCE 6 Angular Demo</h1>
+<p>
+  <mat-form-field appearance="fill">
+    <mat-label>Fill form field</mat-label>
+    <input matInput placeholder="Placeholder" />
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
+</p>
+
 <editor
   plugins=" image fullscreen table emoticons link image  "
   menubar="file edit insert view format table tools help "
   [init]="tinyMCEInit"
   [(ngModel)]="dataModel"
-  toolbar=" bold italic underline  | fontfamily fontsize | styles forecolor backcolor | alignleft aligncenter alignright alignjustify |indent outdent rtl ltr | bullist numlist checklist | image table link emoticons"
+  toolbar=" bold italic underline  | fontfamily fontsize | styles forecolor backcolor | alignleft aligncenter alignright alignjustify |indent outdent rtl ltr | bullist numlist checklist | fullscreen image table link emoticons"
 ></editor>
 <button (click)="onClick()">Click</button>

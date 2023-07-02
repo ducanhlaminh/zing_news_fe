@@ -38,6 +38,7 @@
               }
             ],
             "styles": [
+              "src/assets/fonts/font.scss",
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "node_modules/slick-carousel/slick/slick.scss",
@@ -114,6 +115,7 @@
               "src/assets"
             ],
             "styles": [
+              "/src/assets/fonts/font.scss",
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],

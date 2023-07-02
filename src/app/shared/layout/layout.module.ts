@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -33,6 +34,7 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     FormsModule,
     MatMenuModule,
+    MatFormFieldModule,
     FontAwesomeModule,
   ],
 })

@@ -13,6 +13,9 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { CreatePostContentComponent } from './components/contents/create-post-content/create-post-content.component';
 import { DetailContentComponent } from './components/contents/detail-content/detail-content.component';
 import { ArticleComponent } from './components/common/article/article.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [
     CarouselComponent,
@@ -31,6 +34,9 @@ import { ArticleComponent } from './components/common/article/article.component'
     LayoutModule,
     SlickCarouselModule,
     EditorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
