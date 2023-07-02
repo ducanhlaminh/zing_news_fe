@@ -15,14 +15,15 @@ export class LoginGoogleSuccessComponent implements OnInit {
     private UserService: UserService
   ) {}
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params: any) => {
-      const id = params['id'];
-      this.AuthService.getTokenGG(id).subscribe((data: any) => {
+    this.activatedRoute.queryParams.subscribe((params: any) => {
+      const code = params['code'];
+      this.AuthService.getTokenGG(code).subscribe((data: any) => {
+        console.log(data);
         localStorage.setItem('token', data.token);
       });
     });
     setTimeout(() => {
-      this.UserService.getDataInforUser();
+      // this.UserService.getDataInforUser();
       this.router.navigateByUrl('/trang-chu');
     }, 500);
   }

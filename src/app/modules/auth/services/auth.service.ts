@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
-  getTokenGG(id: string) {
-    return this.http.get(environment.API_TOKEN_GG + id);
+  getTokenGG(code: string) {
+    return this.http.get(environment.API_TOKEN_GG, { params: { code } });
   }
 }

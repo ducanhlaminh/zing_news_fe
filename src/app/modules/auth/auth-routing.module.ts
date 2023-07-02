@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginGoogleSuccessComponent } from './components/content/login-google-success/login-google-success.component';
 const routes: Routes = [
   {
-    path: 'login-success/:id',
+    path: 'login-success',
     component: LoginGoogleSuccessComponent,
   },
 ];
