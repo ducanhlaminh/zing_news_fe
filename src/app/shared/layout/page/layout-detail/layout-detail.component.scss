@@ -1,0 +1,23 @@
+.layout_header {
+  display: flex;
+  justify-content: center;
+  height: 52px;
+  border-bottom: 1px solid rgba(138, 134, 134, 0.311);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: white;
+}
+.layout_content {
+  display: flex;
+  justify-content: center;
+  margin-top: 52px;
+
+
+  .content{
+    overflow: hidden;
+    min-height: 1000px;
+    padding-top: 12px;
+  }
+}

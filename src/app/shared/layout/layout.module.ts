@@ -11,12 +11,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { LayoutDetailComponent } from './page/layout-detail/layout-detail.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     LayoutMainComponent,
     SignupComponent,
+    LayoutDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -29,7 +32,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   ],
   exports: [
     LayoutMainComponent,
+    LayoutDetailComponent,
     MatButtonModule,
+    MatAutocompleteModule,
     SignupComponent,
     ReactiveFormsModule,
     FormsModule,

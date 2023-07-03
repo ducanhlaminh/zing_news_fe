@@ -3,6 +3,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bacasime+Antique&display=swap');
 
+.formInput{
+  display: flex;
+  gap:30px;
+  flex-wrap: wrap;
+  .input {
+    width: 400px;
+    display: block;
+  }
+  .btnUpload{
+    font-size: 12px;
+    .icon{
+      font-size: 20px;
+    }
+  }
 
+}
+img{
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
 
 

@@ -20,10 +20,11 @@ export class LoginGoogleSuccessComponent implements OnInit {
       this.AuthService.getTokenGG(code).subscribe((data: any) => {
         console.log(data);
         localStorage.setItem('token', data.token);
+        localStorage.setItem('role_id', data.role_id);
       });
     });
     setTimeout(() => {
-      // this.UserService.getDataInforUser();
+      this.UserService.getDataInforUser();
       this.router.navigateByUrl('/trang-chu');
     }, 500);
   }

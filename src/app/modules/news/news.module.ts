@@ -10,7 +10,7 @@ import { HomeContentComponent } from './components/contents/home-content/home-co
 import { CategoryContentComponent } from './components/contents/category-content/category-content.component';
 import { SearchContentComponent } from './components/contents/search-content/search-content.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
-import { CreatePostContentComponent } from './components/contents/create-post-content/create-post-content.component';
+import { CreatePostContentComponent } from './components/contents/admin/create-post-content/create-post-content.component';
 import { DetailContentComponent } from './components/contents/detail-content/detail-content.component';
 import { ArticleComponent } from './components/common/article/article.component';
 import { MatSelectModule } from '@angular/material/select';

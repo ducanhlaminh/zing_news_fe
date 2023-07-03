@@ -16,12 +16,12 @@ export class LoginGoogleSuccessComponent implements OnInit {
   ) {}
   ngOnInit() {
     console.log(1);
-    // this.activatedRoute.params.subscribe((params: any) => {
-    //   const id = params['id'];
-    //   this.AuthService.getTokenGG(id).subscribe((data: any) => {
-    //     localStorage.setItem('token', data.token);
-    //     this.router.navigateByUrl('/trang-chu');
-    //   });
-    // });
+    this.activatedRoute.params.subscribe((params: any) => {
+      const code = params['code'];
+      this.AuthService.getTokenGG(code).subscribe((data: any) => {
+        localStorage.setItem('token', data.token);
+        this.router.navigateByUrl('/trang-chu');
+      });
+    });
   }
 }

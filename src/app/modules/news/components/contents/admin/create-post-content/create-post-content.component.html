@@ -1,0 +1,86 @@
+<h1>TinyMCE 6 Angular Demo</h1>
+<form [formGroup]="formGroup" (ngSubmit)="onClick()">
+      <div class="formInput">
+            <mat-form-field appearance="fill" class="input">
+                  <mat-label>Tiêu đề</mat-label>
+                  <input
+                        matInput
+                        placeholder="Placeholder"
+                        formControlName="title"
+                  />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="input">
+                  <mat-label>Sapo</mat-label>
+                  <input
+                        matInput
+                        placeholder="Placeholder"
+                        formControlName="sapo"
+                  />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="input">
+                  <mat-label>Đường dẫn</mat-label>
+                  <input
+                        matInput
+                        placeholder="Placeholder"
+                        formControlName="slug"
+                  />
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                  <mat-label>Number</mat-label>
+                  <input
+                        type="text"
+                        placeholder="Pick one"
+                        aria-label="Number"
+                        matInput
+                        formControlName="categoryId"
+                        [matAutocomplete]="auto"
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option
+                              *ngFor="let option of options"
+                              [value]="option.id"
+                        >
+                              {{ option.name }}
+                        </mat-option>
+                  </mat-autocomplete>
+            </mat-form-field>
+            <button
+                  mat-fab
+                  extended
+                  color="primary"
+                  class="btnUpload"
+                  (click)="uploadAvatar()"
+            >
+                  <fa-icon [icon]="faUpload" class="icon"></fa-icon>
+                  UPLOAD ẢNH
+            </button>
+            <input
+                  type="file"
+                  name=""
+                  id=""
+                  hidden
+                  #uploadFile
+                  (change)="onChangeFile($event)"
+                  formControlName="avatar"
+            />
+      </div>
+      <img
+            [src]="
+                  !imgPreview
+                        ? 'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
+                        : imgPreview
+            "
+            alt=""
+            class="imgPreview"
+      />
+      <editor
+            plugins=" image fullscreen table emoticons link image advlist"
+            menubar="file edit insert view format table tools help "
+            [init]="tinyMCEInit"
+            formControlName="content"
+            toolbar="myCustomToolbarButton bold italic underline  | fontfamily fontsize | styles forecolor backcolor | alignleft aligncenter alignright alignjustify |indent outdent rtl ltr | fullscreen image table link emoticons"
+      >
+      </editor>
+      <button type="submit">Click</button>
+</form>

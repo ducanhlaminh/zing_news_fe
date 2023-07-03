@@ -5,28 +5,42 @@ import { CategoryContentComponent } from './components/contents/category-content
 import { SearchContentComponent } from './components/contents/search-content/search-content.component';
 import { DetailContentComponent } from './components/contents/detail-content/detail-content.component';
 import { CheckRoleGuard } from 'src/app/Guards/check-role.guard';
-import { CreatePostContentComponent } from './components/contents/create-post-content/create-post-content.component';
+import { CreatePostContentComponent } from './components/contents/admin/create-post-content/create-post-content.component';
+import { LayoutMainComponent } from 'src/app/shared/layout/page/layout-main/layout-main.component';
+import { LayoutDetailComponent } from 'src/app/shared/layout/page/layout-detail/layout-detail.component';
 const routes: Routes = [
   {
-    path: 'trang-chu',
-    component: HomeContentComponent,
+    path: '',
+    component: LayoutMainComponent,
+    children: [
+      {
+        path: 'trang-chu',
+        component: HomeContentComponent,
+      },
+      {
+        path: 'danh-muc/:slug/:slug_crc',
+        component: CategoryContentComponent,
+      },
+      {
+        path: 'admin/tao-bai-viet',
+        component: CreatePostContentComponent,
+        canActivate: [CheckRoleGuard],
+      },
+      {
+        path: 'tim-kiem',
+        component: SearchContentComponent,
+      },
+    ],
   },
   {
-    path: 'danh-muc/:slug/:slug_crc',
-    component: CategoryContentComponent,
-  },
-  {
-    path: 'bai-viet/:slug/:slug_crc',
-    component: DetailContentComponent,
-  },
-  {
-    path: 'admin/tao-bai-viet',
-    component: CreatePostContentComponent,
-    canActivate: [CheckRoleGuard],
-  },
-  {
-    path: 'tim-kiem',
-    component: SearchContentComponent,
+    path: '',
+    component: LayoutDetailComponent,
+    children: [
+      {
+        path: 'bai-viet/:slug/:slug_crc',
+        component: DetailContentComponent,
+      },
+    ],
   },
 ];
 
