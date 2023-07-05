@@ -1,0 +1,63 @@
+<div class="header">
+      <div class="header-stt">
+            <span>STT</span>
+      </div>
+      <div class="header-name">
+            <span>Tên bài viết</span>
+      </div>
+      <div class="header-avatar">
+            <span>Ảnh chính</span>
+      </div>
+      <div class="header-view">
+            <span>Lượt đọc</span>
+      </div>
+      <div class="header-slug">
+            <span>Đường dẫn</span>
+      </div>
+      <div class="header-status">
+            <span>Trạng thái</span>
+      </div>
+</div>
+
+<div class="item" *ngFor="let item of articles">
+      <div class="item-stt">
+            <span>{{ item.id }}</span>
+      </div>
+      <div class="item-name">
+            <span>{{ item.title }}</span>
+      </div>
+      <div class="item-avatar">
+            <img [src]="item.avatar" alt="" />
+      </div>
+      <div class="item-view">
+            <span>{{ item.views }}</span>
+      </div>
+      <div class="item-slug">
+            <span>{{ item.slug }}</span>
+      </div>
+      <div class="item-status">
+            <mat-chip>
+                  {{ item.status === 1 ? "Xuất bản" : "Đang chờ" }}</mat-chip
+            >
+      </div>
+      <div class="item-edit">
+            <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  aria-label="Example icon-button with a menu"
+            >
+                  <fa-icon [icon]="faEllipsisVertical"></fa-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                        <span>Xuất bản</span>
+                  </button>
+                  <button mat-menu-item>
+                        <span>Xóa</span>
+                  </button>
+                  <button mat-menu-item>
+                        <span>Sửa</span>
+                  </button>
+            </mat-menu>
+      </div>
+</div>

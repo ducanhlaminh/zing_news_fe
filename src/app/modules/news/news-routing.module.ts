@@ -8,44 +8,58 @@ import { CheckRoleGuard } from 'src/app/Guards/check-role.guard';
 import { CreatePostContentComponent } from './components/contents/admin/create-post-content/create-post-content.component';
 import { LayoutMainComponent } from 'src/app/shared/layout/page/layout-main/layout-main.component';
 import { LayoutDetailComponent } from 'src/app/shared/layout/page/layout-detail/layout-detail.component';
+import { LayoutAdminComponent } from 'src/app/shared/layout/page/layout-admin/layout-admin.component';
+import { ManageArticlesComponent } from './components/contents/admin/manage-articles/manage-articles.component';
 const routes: Routes = [
-  {
-    path: '',
-    component: LayoutMainComponent,
-    children: [
       {
-        path: 'trang-chu',
-        component: HomeContentComponent,
+            path: '',
+            component: LayoutAdminComponent,
+            children: [
+                  {
+                        path: 'admin/tao-bai-viet',
+                        component: CreatePostContentComponent,
+                        canActivate: [CheckRoleGuard],
+                  },
+                  {
+                        path: 'admin/quan-ly-bai-viet',
+                        component: ManageArticlesComponent,
+                        canActivate: [CheckRoleGuard],
+                  },
+            ],
       },
       {
-        path: 'danh-muc/:slug/:slug_crc',
-        component: CategoryContentComponent,
+            path: '',
+            component: LayoutMainComponent,
+            children: [
+                  {
+                        path: 'trang-chu',
+                        component: HomeContentComponent,
+                  },
+                  {
+                        path: 'danh-muc/:slug/:slug_crc',
+                        component: CategoryContentComponent,
+                  },
+
+                  {
+                        path: 'tim-kiem',
+                        component: SearchContentComponent,
+                  },
+            ],
       },
       {
-        path: 'admin/tao-bai-viet',
-        component: CreatePostContentComponent,
-        canActivate: [CheckRoleGuard],
+            path: '',
+            component: LayoutDetailComponent,
+            children: [
+                  {
+                        path: 'bai-viet/:slug/:slug_crc',
+                        component: DetailContentComponent,
+                  },
+            ],
       },
-      {
-        path: 'tim-kiem',
-        component: SearchContentComponent,
-      },
-    ],
-  },
-  {
-    path: '',
-    component: LayoutDetailComponent,
-    children: [
-      {
-        path: 'bai-viet/:slug/:slug_crc',
-        component: DetailContentComponent,
-      },
-    ],
-  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+      imports: [RouterModule.forChild(routes)],
+      exports: [RouterModule],
 })
 export class NewsRoutingModule {}

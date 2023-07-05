@@ -9,6 +9,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { debounceTime, switchMap } from 'rxjs';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
+import { NewsService } from 'src/app/modules/news/services/news.service';
 declare const tinymce: any;
 @Component({
       selector: 'app-create-post-content',
@@ -24,12 +25,13 @@ export class CreatePostContentComponent implements OnInit {
       options: any[] = [];
       constructor(
             private formBuilder: FormBuilder,
-            public CategoryService: CategoryService
+            public CategoryService: CategoryService,
+            private NewService: NewsService
       ) {
             this.formGroup = this.formBuilder.group({
                   title: '',
                   slug: '',
-                  avatar: '',
+                  avatar: null,
                   sapo: '',
                   content: '',
                   categoryId: '',
@@ -120,9 +122,26 @@ export class CreatePostContentComponent implements OnInit {
             });
       }
       onChangeFile(event: any): void {
+            console.log(event.target.files[0]);
+
+            this.formGroup.get('avatar').patchValue(event.target.files[0]);
             this.imgPreview = URL.createObjectURL(event.target.files[0]);
       }
       onClick() {
-            console.log(this.formGroup.value);
+            this.convertObjectToFormData(this.formGroup.value);
+      }
+      convertObjectToFormData(obj: any): any {
+            let formData = new FormData();
+            for (const key in obj) {
+                  if (obj.hasOwnProperty(key)) {
+                        let value = obj[key];
+                        if (key === 'avatar') {
+                              console.log(obj[key]);
+                        }
+
+                        formData.append(key, value);
+                  }
+            }
+            this.NewService.createArticle(formData).subscribe();
       }
 }

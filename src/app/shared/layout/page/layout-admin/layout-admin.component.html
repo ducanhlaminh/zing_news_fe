@@ -1,0 +1,29 @@
+<div class="layout_header">
+      <app-header></app-header>
+</div>
+<div class="layout_content">
+      <mat-drawer-container class="example-container" autosize>
+            <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+                  <div
+                        class="item_navigate"
+                        [routerLink]="['/admin/tao-bai-viet']"
+                        routerLinkActive="active_navigation"
+                  >
+                        <p>Tạo bài viết</p>
+                  </div>
+                  <div
+                        class="item_navigate"
+                        [routerLink]="['admin/quan-ly-bai-viet']"
+                        routerLinkActive="active_navigation"
+                  >
+                        <p>Quản lý bài viết</p>
+                  </div>
+            </mat-drawer>
+
+            <div class="example-sidenav-content">
+                  <div class="content">
+                        <router-outlet></router-outlet>
+                  </div>
+            </div>
+      </mat-drawer-container>
+</div>

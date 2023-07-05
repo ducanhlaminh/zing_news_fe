@@ -13,34 +13,48 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LayoutDetailComponent } from './page/layout-detail/layout-detail.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { LayoutAdminComponent } from './page/layout-admin/layout-admin.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatChipsModule } from '@angular/material/chips';
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    LayoutMainComponent,
-    SignupComponent,
-    LayoutDetailComponent,
-  ],
-  imports: [
-    CommonModule,
-    LayoutRoutingModule,
-    FontAwesomeModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatMenuModule,
-    MatButtonModule,
-  ],
-  exports: [
-    LayoutMainComponent,
-    LayoutDetailComponent,
-    MatButtonModule,
-    MatAutocompleteModule,
-    SignupComponent,
-    ReactiveFormsModule,
-    FormsModule,
-    MatMenuModule,
-    MatFormFieldModule,
-    FontAwesomeModule,
-  ],
+      declarations: [
+            HeaderComponent,
+            FooterComponent,
+            LayoutMainComponent,
+            SignupComponent,
+            LayoutDetailComponent,
+            LayoutAdminComponent,
+      ],
+      imports: [
+            CommonModule,
+            MatSidenavModule,
+            LayoutRoutingModule,
+            FontAwesomeModule,
+            ReactiveFormsModule,
+            FormsModule,
+            MatMenuModule,
+            MatButtonModule,
+      ],
+      exports: [
+            LayoutMainComponent,
+            LayoutDetailComponent,
+            MatButtonModule,
+            MatAutocompleteModule,
+            SignupComponent,
+            ReactiveFormsModule,
+            FormsModule,
+            MatMenuModule,
+            MatChipsModule,
+            MatFormFieldModule,
+            FontAwesomeModule,
+            MatTableModule,
+            MatSortModule,
+            MatPaginatorModule,
+            MatStepperModule,
+      ],
 })
 export class LayoutModule {}

@@ -16,6 +16,7 @@ import { ArticleComponent } from './components/common/article/article.component'
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ManageArticlesComponent } from './components/contents/admin/manage-articles/manage-articles.component';
 @NgModule({
   declarations: [
     CarouselComponent,
@@ -27,6 +28,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CreatePostContentComponent,
     DetailContentComponent,
     ArticleComponent,
+    ManageArticlesComponent,
   ],
   imports: [
     CommonModule,
