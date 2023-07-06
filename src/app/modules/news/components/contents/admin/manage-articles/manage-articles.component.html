@@ -1,21 +1,28 @@
 <div class="header">
       <div class="header-stt">
-            <span>STT</span>
+            <span>ID</span>
+            <fa-icon [icon]="faCaretDown"></fa-icon>
       </div>
       <div class="header-name">
-            <span>Tên bài viết</span>
+            <span>Tên bài viết</span><fa-icon [icon]="faCaretDown"></fa-icon>
       </div>
-      <div class="header-avatar">
-            <span>Ảnh chính</span>
+      <div class="header-cate">
+            <span>Danh mục</span><fa-icon [icon]="faCaretDown"></fa-icon>
       </div>
       <div class="header-view">
-            <span>Lượt đọc</span>
+            <span>Lượt đọc</span><fa-icon [icon]="faCaretDown"></fa-icon>
       </div>
       <div class="header-slug">
-            <span>Đường dẫn</span>
+            <span>Đường dẫn</span><fa-icon [icon]="faCaretDown"></fa-icon>
+      </div>
+      <div class="header-date-published">
+            <span>Ngày xuất bản</span><fa-icon [icon]="faCaretDown"></fa-icon>
+      </div>
+      <div class="header-date-created">
+            <span>Ngày xuất bản</span><fa-icon [icon]="faCaretDown"></fa-icon>
       </div>
       <div class="header-status">
-            <span>Trạng thái</span>
+            <span>Trạng thái</span><fa-icon [icon]="faCaretDown"></fa-icon>
       </div>
 </div>
 
@@ -26,8 +33,10 @@
       <div class="item-name">
             <span>{{ item.title }}</span>
       </div>
-      <div class="item-avatar">
-            <img [src]="item.avatar" alt="" />
+      <div class="item-cate">
+            <span>{{
+                  item?.new_articles_categories[0]?.new_category.name
+            }}</span>
       </div>
       <div class="item-view">
             <span>{{ item.views }}</span>
@@ -35,6 +44,13 @@
       <div class="item-slug">
             <span>{{ item.slug }}</span>
       </div>
+      <div class="item-date-published">
+            <span>{{ item.publishAt | datePipe }}</span>
+      </div>
+      <div class="item-date-created">
+            <span>{{ item.createdAt | datePipe }}</span>
+      </div>
+
       <div class="item-status">
             <mat-chip>
                   {{ item.status === 1 ? "Xuất bản" : "Đang chờ" }}</mat-chip
@@ -61,3 +77,13 @@
             </mat-menu>
       </div>
 </div>
+<mat-paginator
+      #paginator
+      class="demo-paginator"
+      aria-label="Select page"
+      [length]="length"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      (page)="handlePageEvent($event)"
+>
+</mat-paginator>

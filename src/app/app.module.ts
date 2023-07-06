@@ -11,24 +11,24 @@ import { AuthModule } from './modules/auth/auth.module';
 import { HttpInterceptorInterceptor } from './intercepter/http.interceptor';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    LayoutModule,
-    NewsModule,
-    BrowserAnimationsModule,
-    FontAwesomeModule,
-    HttpClientModule,
-    AuthModule,
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorInterceptor,
-      multi: true,
-    },
-  ],
-  bootstrap: [AppComponent],
+      declarations: [AppComponent],
+      imports: [
+            BrowserModule,
+            AppRoutingModule,
+            LayoutModule,
+            NewsModule,
+            BrowserAnimationsModule,
+            FontAwesomeModule,
+            HttpClientModule,
+            AuthModule,
+      ],
+      providers: [
+            {
+                  provide: HTTP_INTERCEPTORS,
+                  useClass: HttpInterceptorInterceptor,
+                  multi: true,
+            },
+      ],
+      bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -47,7 +47,11 @@ export class NewsService {
       createArticle(data: any) {
             return this.http.post(environment.API_CREATE_ARTICLE, data);
       }
-      getAllByAd() {
-            return this.http.get(environment.API_GET_ALL_ARTICLES);
+      getAllByAd(data: any) {
+            if (data) {
+                  return this.http.get(environment.API_GET_ALL_ARTICLES, {
+                        params: { ...data },
+                  });
+            } else return this.http.get(environment.API_GET_ALL_ARTICLES);
       }
 }

@@ -17,31 +17,33 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ManageArticlesComponent } from './components/contents/admin/manage-articles/manage-articles.component';
+import { DatePipe } from 'src/app/shared/pipe/date.pipe';
 @NgModule({
-  declarations: [
-    CarouselComponent,
-    HotArticlesCateComponent,
-    BoxesHotArticelsSubCateComponent,
-    HomeContentComponent,
-    CategoryContentComponent,
-    SearchContentComponent,
-    CreatePostContentComponent,
-    DetailContentComponent,
-    ArticleComponent,
-    ManageArticlesComponent,
-  ],
-  imports: [
-    CommonModule,
-    NewsRoutingModule,
-    LayoutModule,
-    SlickCarouselModule,
-    EditorModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-  ],
-  providers: [
-    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
-  ],
+      declarations: [
+            DatePipe,
+            CarouselComponent,
+            HotArticlesCateComponent,
+            BoxesHotArticelsSubCateComponent,
+            HomeContentComponent,
+            CategoryContentComponent,
+            SearchContentComponent,
+            CreatePostContentComponent,
+            DetailContentComponent,
+            ArticleComponent,
+            ManageArticlesComponent,
+      ],
+      imports: [
+            CommonModule,
+            NewsRoutingModule,
+            LayoutModule,
+            SlickCarouselModule,
+            EditorModule,
+            MatFormFieldModule,
+            MatInputModule,
+            MatSelectModule,
+      ],
+      providers: [
+            { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
+      ],
 })
 export class NewsModule {}
