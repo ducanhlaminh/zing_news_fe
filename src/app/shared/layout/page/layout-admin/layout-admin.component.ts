@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-
+import {
+      faPenToSquare,
+      faListCheck,
+      faNewspaper,
+} from '@fortawesome/free-solid-svg-icons';
 @Component({
       selector: 'app-layout-admin',
       templateUrl: './layout-admin.component.html',
@@ -7,4 +11,7 @@ import { Component } from '@angular/core';
 })
 export class LayoutAdminComponent {
       showFiller = true;
+      faPenSquare = faPenToSquare;
+      faListCheck = faListCheck;
+      faNewspaper = faNewspaper;
 }

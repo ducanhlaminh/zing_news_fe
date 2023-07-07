@@ -10,6 +10,9 @@ export class CategoryService {
       getAllCategories() {
             return this.http.get(environment.API_CATEGORY_GET_ALL);
       }
+      getAllCategoriesByAd() {
+            return this.http.get(environment.API_CATEGORY_GET_ALL_ADMIN);
+      }
       getSubCategory(slug_crc: any) {
             return this.http.get(
                   environment.API_CATEGORY_GET_SUB_CATE + slug_crc

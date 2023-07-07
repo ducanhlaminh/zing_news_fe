@@ -1,0 +1,158 @@
+<div class="header">
+      <div class="header-stt" (click)="filterFn('id')">
+            <span>ID</span>
+            <div [ngSwitch]="filterCurr.id">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
+      </div>
+      <div class="header-name" (click)="filterFn('title')">
+            <span>Tên danh mục</span>
+            <div [ngSwitch]="filterCurr.title">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
+      </div>
+      <div class="header-cate" (click)="filterFn('category_id')">
+            <span>Số lượng bài viết</span>
+            <div [ngSwitch]="filterCurr.category_id">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
+      </div>
+      <div class="header-view" (click)="filterFn('views')">
+            <span>Số danh mục con</span>
+            <div [ngSwitch]="filterCurr.views">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
+      </div>
+      <div class="header-slug" (click)="filterFn('slug')">
+            <span>Đường dẫn</span>
+            <div [ngSwitch]="filterCurr.slug">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
+      </div>
+      <div class="header-date-published" (click)="filterFn('publishAt')">
+            <span>Ngày tạo</span>
+            <div [ngSwitch]="filterCurr.publishAt">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
+      </div>
+      <div class="header-date-published" (click)="filterFn('publishAt')">
+            <span>Ngày cập nhật</span>
+            <div [ngSwitch]="filterCurr.publishAt">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
+      </div>
+</div>
+
+<div class="" *ngFor="let item of this.CategoryService.categories">
+      <div class="item">
+            <div class="item-stt">
+                  <span>{{ item.id }}</span>
+            </div>
+            <div class="item-name">
+                  <span>{{ item.name }}</span>
+            </div>
+            <div class="item-cate">
+                  <span>{{ item?.new_articles_categories?.length }}</span>
+            </div>
+            <div class="item-view">
+                  <span>{{ item.new_categories.length }}</span>
+            </div>
+            <div class="item-slug">
+                  <span>{{ item.slug }}</span>
+            </div>
+            <div class="item-date-published">
+                  <span>{{ item.createdAt | datePipe }}</span>
+            </div>
+            <div class="item-date-created">
+                  <span>{{ item.createdAt | datePipe }}</span>
+            </div>
+            <div class="item-edit">
+                  <button
+                        mat-icon-button
+                        [matMenuTriggerFor]="menu"
+                        aria-label="Example icon-button with a menu"
+                  >
+                        <fa-icon [icon]="faEllipsisVertical"></fa-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                              <span>Xuất bản</span>
+                        </button>
+                        <button mat-menu-item>
+                              <span>Xóa</span>
+                        </button>
+                        <button mat-menu-item>
+                              <span>Sửa</span>
+                        </button>
+                  </mat-menu>
+            </div>
+            <div class="item-edit">
+                  <button
+                        mat-icon-button
+                        aria-label="Example icon-button with a menu"
+                  >
+                        <fa-icon [icon]="faAngleDown"></fa-icon>
+                  </button>
+            </div>
+      </div>
+      <div class="item sub-item" *ngFor="let sub_item of item.new_categories">
+            <div class="item-stt">
+                  <span>{{ sub_item.id }}</span>
+            </div>
+            <div class="item-name">
+                  <span>{{ sub_item.name }}</span>
+            </div>
+            <div class="item-cate">
+                  <span>{{ item?.new_articles_categories?.length }}</span>
+            </div>
+            <div class="item-view">
+                  <span>{{ item?.new_categories.length }}</span>
+            </div>
+            <div class="item-slug">
+                  <span>{{ item.slug }}</span>
+            </div>
+            <div class="item-date-published">
+                  <span>{{ item.createdAt | datePipe }}</span>
+            </div>
+            <div class="item-date-created">
+                  <span>{{ item.createdAt | datePipe }}</span>
+            </div>
+            <div class="item-edit">
+                  <button
+                        mat-icon-button
+                        [matMenuTriggerFor]="menu"
+                        aria-label="Example icon-button with a menu"
+                  >
+                        <fa-icon [icon]="faEllipsisVertical"></fa-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                              <span>Xuất bản</span>
+                        </button>
+                        <button mat-menu-item>
+                              <span>Xóa</span>
+                        </button>
+                        <button mat-menu-item>
+                              <span>Sửa</span>
+                        </button>
+                  </mat-menu>
+            </div>
+      </div>
+</div>
+<mat-paginator
+      #paginator
+      class="demo-paginator"
+      aria-label="Select page"
+      [length]="length"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      (page)="handlePageEvent($event)"
+>
+</mat-paginator>

@@ -3,18 +3,20 @@ import {
       faEllipsisVertical,
       faCaretDown,
       faCaretUp,
+      faAngleDown,
 } from '@fortawesome/free-solid-svg-icons';
-import { NewsService } from 'src/app/modules/news/services/news.service';
-import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+import { CategoryService } from 'src/app/modules/news/services/category.service';
+
 @Component({
-      selector: 'app-manage-articles',
-      templateUrl: './manage-articles.component.html',
-      styleUrls: ['./manage-articles.component.scss'],
+      selector: 'app-manage-categories',
+      templateUrl: './manage-categories.component.html',
+      styleUrls: ['./manage-categories.component.scss'],
 })
-export class ManageArticlesComponent implements OnInit {
+export class ManageCategoriesComponent {
       faEllipsisVertical = faEllipsisVertical;
       faCaretDown = faCaretDown;
       faCaretUp = faCaretUp;
+      faAngleDown = faAngleDown;
       articles: any = [];
       length = 100;
       pageSize = 10;
@@ -31,14 +33,14 @@ export class ManageArticlesComponent implements OnInit {
       };
       order: any = [];
       queries: any = {};
-      constructor(private NewService: NewsService) {}
+      constructor(public CategoryService: CategoryService) {}
       ngOnInit(): void {
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
-            this.NewService.getAllByAd({ ...this.queries }).subscribe(
+            this.CategoryService.getAllCategoriesByAd().subscribe(
                   (data: any) => {
-                        this.articles = data.rows;
-                        this.length = data.count;
+                        this.CategoryService.categories = data.rows;
+                        this.pageIndex = data.count;
                   }
             );
       }
@@ -49,10 +51,10 @@ export class ManageArticlesComponent implements OnInit {
             if (this.order.length > 0)
                   this.queries.order = JSON.stringify(this.order);
             this.queries.page = this.pageIndex + 1;
-            this.NewService.getAllByAd({ ...this.queries }).subscribe(
+            this.CategoryService.getAllCategoriesByAd().subscribe(
                   (data: any) => {
-                        this.articles = data.rows;
-                        this.length = data.count;
+                        this.CategoryService.categories = data.rows;
+                        this.pageIndex = data.count;
                   }
             );
       }
@@ -85,11 +87,11 @@ export class ManageArticlesComponent implements OnInit {
                   this.queries.order = JSON.stringify(this.order);
             this.queries.page = this.pageIndex + 1;
 
-            this.NewService.getAllByAd({ ...this.queries }).subscribe(
-                  (data: any) => {
-                        this.articles = data.rows;
-                        this.length = data.count;
-                  }
-            );
+            // this.NewService.getAllByAd({ ...this.queries }).subscribe(
+            //       (data: any) => {
+            //             this.articles = data.rows;
+            //             this.length = data.count;
+            //       }
+            // );
       }
 }

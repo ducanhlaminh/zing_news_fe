@@ -9,14 +9,39 @@
                         [routerLink]="['/admin/tao-bai-viet']"
                         routerLinkActive="active_navigation"
                   >
-                        <p>Tạo bài viết</p>
+                        <p>
+                              <fa-icon
+                                    [icon]="faPenSquare"
+                                    class="icon"
+                              ></fa-icon>
+                              Tạo bài viết
+                        </p>
                   </div>
                   <div
                         class="item_navigate"
                         [routerLink]="['admin/quan-ly-bai-viet']"
                         routerLinkActive="active_navigation"
                   >
-                        <p>Quản lý bài viết</p>
+                        <p>
+                              <fa-icon
+                                    [icon]="faListCheck"
+                                    class="icon"
+                              ></fa-icon
+                              >Quản lý bài viết
+                        </p>
+                  </div>
+                  <div
+                        class="item_navigate"
+                        [routerLink]="['/admin/quan-ly-danh-muc']"
+                        routerLinkActive="active_navigation"
+                  >
+                        <p>
+                              <fa-icon
+                                    [icon]="faNewspaper"
+                                    class="icon"
+                              ></fa-icon>
+                              Quản lý danh mục
+                        </p>
                   </div>
             </mat-drawer>
 

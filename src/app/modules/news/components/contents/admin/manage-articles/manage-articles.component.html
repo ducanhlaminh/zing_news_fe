@@ -1,28 +1,59 @@
 <div class="header">
-      <div class="header-stt">
+      <div class="header-stt" (click)="filterFn('id')">
             <span>ID</span>
-            <fa-icon [icon]="faCaretDown"></fa-icon>
+            <div [ngSwitch]="filterCurr.id">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
       </div>
-      <div class="header-name">
-            <span>Tên bài viết</span><fa-icon [icon]="faCaretDown"></fa-icon>
+      <div class="header-name" (click)="filterFn('title')">
+            <span>Tên bài viết</span>
+            <div [ngSwitch]="filterCurr.title">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
       </div>
-      <div class="header-cate">
-            <span>Danh mục</span><fa-icon [icon]="faCaretDown"></fa-icon>
+      <div class="header-cate" (click)="filterFn('category_id')">
+            <span>Danh mục</span>
+            <div [ngSwitch]="filterCurr.category_id">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
       </div>
-      <div class="header-view">
-            <span>Lượt đọc</span><fa-icon [icon]="faCaretDown"></fa-icon>
+      <div class="header-view" (click)="filterFn('views')">
+            <span>Lượt đọc</span>
+            <div [ngSwitch]="filterCurr.views">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
       </div>
-      <div class="header-slug">
-            <span>Đường dẫn</span><fa-icon [icon]="faCaretDown"></fa-icon>
+      <div class="header-slug" (click)="filterFn('slug')">
+            <span>Đường dẫn</span>
+            <div [ngSwitch]="filterCurr.slug">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
       </div>
-      <div class="header-date-published">
-            <span>Ngày xuất bản</span><fa-icon [icon]="faCaretDown"></fa-icon>
+      <div class="header-date-published" (click)="filterFn('publishAt')">
+            <span>Ngày xuất bản</span>
+            <div [ngSwitch]="filterCurr.publishAt">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
       </div>
-      <div class="header-date-created">
-            <span>Ngày xuất bản</span><fa-icon [icon]="faCaretDown"></fa-icon>
+      <div class="header-date-created" (click)="filterFn('createdAt')">
+            <span>Ngày xuất bản</span>
+            <div [ngSwitch]="filterCurr.createdAt">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
       </div>
-      <div class="header-status">
-            <span>Trạng thái</span><fa-icon [icon]="faCaretDown"></fa-icon>
+      <div class="header-status" (click)="filterFn('status')">
+            <span>Trạng thái</span>
+            <div [ngSwitch]="filterCurr.status">
+                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
+                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
+            </div>
       </div>
 </div>
 
@@ -35,7 +66,7 @@
       </div>
       <div class="item-cate">
             <span>{{
-                  item?.new_articles_categories[0]?.new_category.name
+                  item?.new_articles_categories[0]?.new_category?.name
             }}</span>
       </div>
       <div class="item-view">
@@ -52,9 +83,18 @@
       </div>
 
       <div class="item-status">
-            <mat-chip>
+            <!-- <mat-chip>
                   {{ item.status === 1 ? "Xuất bản" : "Đang chờ" }}</mat-chip
+            > -->
+            <div
+                  class="status"
+                  [ngClass]="{
+                        success: item.status === 1,
+                        pending: item.status === 0
+                  }"
             >
+                  {{ item.status === 1 ? "Xuất bản" : "Đang chờ" }}
+            </div>
       </div>
       <div class="item-edit">
             <button

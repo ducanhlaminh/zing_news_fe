@@ -14,12 +14,12 @@
             gap: 5px
       };
       .header-name{
-            width: 17%;
+            width: 10%;
             display: flex;
             gap: 5px
       };
       .header-cate{
-            width: 8%;
+            width: 10%;
             display: flex;
             gap: 5px
       }
@@ -39,7 +39,7 @@
       }
       .header-view{
             text-align: center;
-            width: 7%;
+            width: 10%;
             display: flex;
             gap: 5px
       };
@@ -68,22 +68,26 @@
             padding-left: 5px;
       };
       .item-name{
-            width: 17%;
+            width: 10%;
       };
       .item-cate{
-            width: 8%;
+            width: 10%;
+            text-align: center;
       }
       .item-date-published{
             width: 10%;
+            text-align: center;
       }
       .item-date-created{
             width: 10%;
       }
       .item-view{
-            width: 7%;
+            width: 10%;
+            text-align: center;
       };
       .item-slug{
             width: 15%;
+
       };
 
       .item-status{
@@ -107,11 +111,15 @@
             }
       };
       .item-edit{
-            width: 10%;
+            width: 5%;
             display: flex;
             justify-content: center;
       }
 
+
+}
+.sub-item{
+      padding-left: 35px;
 }
 .demo-paginator{
       background: rgb(221, 219, 219);

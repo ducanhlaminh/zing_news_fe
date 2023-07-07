@@ -10,6 +10,7 @@ import { LayoutMainComponent } from 'src/app/shared/layout/page/layout-main/layo
 import { LayoutDetailComponent } from 'src/app/shared/layout/page/layout-detail/layout-detail.component';
 import { LayoutAdminComponent } from 'src/app/shared/layout/page/layout-admin/layout-admin.component';
 import { ManageArticlesComponent } from './components/contents/admin/manage-articles/manage-articles.component';
+import { ManageCategoriesComponent } from './components/contents/admin/manage-categories/manage-categories.component';
 const routes: Routes = [
       {
             path: '',
@@ -23,6 +24,11 @@ const routes: Routes = [
                   {
                         path: 'admin/quan-ly-bai-viet',
                         component: ManageArticlesComponent,
+                        canActivate: [CheckRoleGuard],
+                  },
+                  {
+                        path: 'admin/quan-ly-danh-muc',
+                        component: ManageCategoriesComponent,
                         canActivate: [CheckRoleGuard],
                   },
             ],

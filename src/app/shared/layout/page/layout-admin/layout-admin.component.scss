@@ -18,12 +18,17 @@
       }
       .example-sidenav{
             width: 15%;
+            padding: 15px;
             .item_navigate {
                   padding: 5px 20px;
                   font-size: 16px;
                   font-weight: 600;
                   &:hover {
                         cursor: pointer;
+                  }
+                  .icon{
+                        font-size: 20px;
+                        margin-right: 10px;
                   }
             }
       }
@@ -34,12 +39,13 @@
                   box-sizing: border-box;
                   // overflow: hidden;
                   min-height: 600px;
-                  padding: 30px;
                   background-color: white;
                   border-radius: 10px;
             }
       }
 }
 .active_navigation {
-      background: #d4d4d4;
+      background: #1c77f767;
+      border-radius: 10px;
+      // color :#096ffa;
 }

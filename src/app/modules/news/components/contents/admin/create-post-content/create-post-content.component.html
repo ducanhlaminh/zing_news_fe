@@ -1,167 +1,191 @@
-<small>*Vui lòng điền các trường thông tin sau để tạo bài viết</small>
-<hr />
-<mat-stepper linear #stepper orientation="vertical">
-      <mat-step>
-            <ng-template matStepLabel>Điền tiêu đề bài viết</ng-template>
-            <form [formGroup]="formGroup">
-                  <div class="formInput">
-                        <div class="fieldText">
-                              <mat-form-field appearance="fill" class="input">
-                                    <mat-label>Tiêu đề</mat-label>
-                                    <textarea
-                                          matInput
-                                          placeholder="Tiêu đề"
-                                          formControlName="title"
-                                    ></textarea>
-                              </mat-form-field>
+<div class="content-create-article">
+      <small>*Vui lòng điền các trường thông tin sau để tạo bài viết</small>
+      <hr />
+      <mat-stepper linear #stepper orientation="vertical">
+            <mat-step>
+                  <ng-template matStepLabel>Điền tiêu đề bài viết</ng-template>
+                  <form [formGroup]="formGroup">
+                        <div class="formInput">
+                              <div class="fieldText">
+                                    <mat-form-field
+                                          appearance="fill"
+                                          class="input"
+                                    >
+                                          <mat-label>Tiêu đề</mat-label>
+                                          <textarea
+                                                matInput
+                                                placeholder="Tiêu đề"
+                                                formControlName="title"
+                                          ></textarea>
+                                    </mat-form-field>
+                              </div>
+                              <button mat-button matStepperNext>Next</button>
                         </div>
-                        <button mat-button matStepperNext>Next</button>
-                  </div>
-            </form>
-      </mat-step>
-      <mat-step>
-            <ng-template matStepLabel>Điền mô tả bài viết</ng-template>
-            <form [formGroup]="formGroup">
-                  <div class="formInput">
-                        <div class="fieldText">
-                              <mat-form-field appearance="fill" class="input">
-                                    <mat-label>Mô tả bài viết</mat-label>
-                                    <textarea
-                                          matInput
-                                          placeholder="Sapo"
-                                          formControlName="sapo"
-                                    ></textarea>
-                              </mat-form-field>
-                              <div class="">
-                                    <button mat-button matStepperPrevious>
-                                          Back
-                                    </button>
-                                    <button mat-button matStepperNext>
-                                          Next
-                                    </button>
+                  </form>
+            </mat-step>
+            <mat-step>
+                  <ng-template matStepLabel>Điền mô tả bài viết</ng-template>
+                  <form [formGroup]="formGroup">
+                        <div class="formInput">
+                              <div class="fieldText">
+                                    <mat-form-field
+                                          appearance="fill"
+                                          class="input"
+                                    >
+                                          <mat-label>Mô tả bài viết</mat-label>
+                                          <textarea
+                                                matInput
+                                                placeholder="Sapo"
+                                                formControlName="sapo"
+                                          ></textarea>
+                                    </mat-form-field>
+                                    <div class="">
+                                          <button mat-button matStepperPrevious>
+                                                Back
+                                          </button>
+                                          <button mat-button matStepperNext>
+                                                Next
+                                          </button>
+                                    </div>
                               </div>
                         </div>
-                  </div>
-            </form>
-      </mat-step>
-      <mat-step>
-            <ng-template matStepLabel>Điền đường dẫn bài viết</ng-template>
-            <form [formGroup]="formGroup">
-                  <div class="formInput">
-                        <div class="fieldText">
-                              <mat-form-field appearance="fill" class="input">
-                                    <mat-label>Đường dẫn</mat-label>
-                                    <textarea
-                                          matInput
-                                          placeholder="Đường dẫn"
-                                          formControlName="slug"
-                                    ></textarea>
-                              </mat-form-field>
-                              <div class="">
-                                    <button mat-button matStepperPrevious>
-                                          Back
-                                    </button>
-                                    <button mat-button matStepperNext>
-                                          Next
-                                    </button>
-                              </div>
-                        </div>
-                  </div>
-            </form>
-      </mat-step>
-      <mat-step>
-            <ng-template matStepLabel>Chọn danh mục bài viết</ng-template>
-            <form [formGroup]="formGroup">
-                  <div class="formInput">
-                        <div class="fieldText">
-                              <mat-form-field
-                                    class="example-full-width"
-                                    class="input"
-                              >
-                                    <mat-label>Tên danh mục</mat-label>
-                                    <input
-                                          type="text"
-                                          matInput
-                                          formControlName="categoryId"
-                                          [matAutocomplete]="auto"
-                                    />
-                                    <mat-autocomplete #auto="matAutocomplete">
-                                          <mat-option
-                                                *ngFor="let option of options"
-                                                [value]="option.id"
-                                          >
-                                                {{ option.name }}
-                                          </mat-option>
-                                    </mat-autocomplete>
-                              </mat-form-field>
-                        </div>
-                  </div>
-            </form>
-      </mat-step>
-      <mat-step>
-            <form [formGroup]="formGroup">
+                  </form>
+            </mat-step>
+            <mat-step>
                   <ng-template matStepLabel
-                        >Tải ảnh đại diện cho bài viết</ng-template
+                        >Điền đường dẫn bài viết</ng-template
                   >
-                  <button
-                        type="button"
-                        mat-fab
-                        extended
-                        color="primary"
-                        class="btnUpload"
-                        (click)="uploadAvatar()"
-                  >
-                        <fa-icon [icon]="faUpload" class="icon"></fa-icon>
-                        UPLOAD ẢNH
-                  </button>
-                  <input
-                        type="file"
-                        name=""
-                        id=""
-                        hidden
-                        #uploadFile
-                        (change)="onChangeFile($event)"
-                  />
-                  <div class="">
-                        <img
-                              [src]="
-                                    !imgPreview
-                                          ? 'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
-                                          : imgPreview
-                              "
-                              alt=""
-                              class="imgPreview"
+                  <form [formGroup]="formGroup">
+                        <div class="formInput">
+                              <div class="fieldText">
+                                    <mat-form-field
+                                          appearance="fill"
+                                          class="input"
+                                    >
+                                          <mat-label>Đường dẫn</mat-label>
+                                          <textarea
+                                                matInput
+                                                placeholder="ví dụ : zing-news"
+                                                formControlName="slug"
+                                          ></textarea>
+                                    </mat-form-field>
+                                    <div class="">
+                                          <button mat-button matStepperPrevious>
+                                                Back
+                                          </button>
+                                          <button mat-button matStepperNext>
+                                                Next
+                                          </button>
+                                    </div>
+                              </div>
+                        </div>
+                  </form>
+            </mat-step>
+            <mat-step>
+                  <ng-template matStepLabel>Chọn danh mục bài viết</ng-template>
+                  <form [formGroup]="formGroup">
+                        <div class="formInput">
+                              <div class="fieldText">
+                                    <mat-form-field
+                                          class="example-full-width"
+                                          class="input"
+                                    >
+                                          <mat-label>Tên danh mục</mat-label>
+                                          <input
+                                                type="text"
+                                                matInput
+                                                formControlName="categoryId"
+                                                [matAutocomplete]="auto"
+                                          />
+                                          <mat-autocomplete
+                                                #auto="matAutocomplete"
+                                          >
+                                                <mat-option
+                                                      *ngFor="
+                                                            let option of options
+                                                      "
+                                                      [value]="option.id"
+                                                >
+                                                      {{ option.name }}
+                                                </mat-option>
+                                          </mat-autocomplete>
+                                    </mat-form-field>
+                              </div>
+                        </div>
+                  </form>
+            </mat-step>
+            <mat-step>
+                  <form [formGroup]="formGroup">
+                        <ng-template matStepLabel
+                              >Tải ảnh đại diện cho bài viết</ng-template
+                        >
+                        <button
+                              type="button"
+                              mat-fab
+                              extended
+                              color="primary"
+                              class="btnUpload"
+                              (click)="uploadAvatar()"
+                        >
+                              <fa-icon [icon]="faUpload" class="icon"></fa-icon>
+                              UPLOAD ẢNH
+                        </button>
+                        <input
+                              type="file"
+                              name=""
+                              id=""
+                              hidden
+                              #uploadFile
+                              (change)="onChangeFile($event)"
                         />
-                  </div>
-                  <div class="">
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext>Next</button>
-                  </div>
-            </form>
-      </mat-step>
-      <mat-step>
-            <ng-template matStepLabel>Nội dung bài viết</ng-template>
-            <form action="" [formGroup]="formGroup" (ngSubmit)="onClick()">
-                  <editor
-                        plugins=" image fullscreen table emoticons link image advlist"
-                        menubar="file edit insert view format table tools help "
-                        [init]="tinyMCEInit"
-                        formControlName="content"
-                        toolbar="myCustomToolbarButton bold italic underline  | fontfamily fontsize | styles forecolor backcolor | alignleft aligncenter alignright alignjustify |indent outdent rtl ltr | fullscreen image table link emoticons"
+                        <div class="">
+                              <img
+                                    [src]="
+                                          !imgPreview
+                                                ? 'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
+                                                : imgPreview
+                                    "
+                                    alt=""
+                                    class="imgPreview"
+                              />
+                        </div>
+                        <div class="">
+                              <button mat-button matStepperPrevious>
+                                    Back
+                              </button>
+                              <button mat-button matStepperNext>Next</button>
+                        </div>
+                  </form>
+            </mat-step>
+            <mat-step>
+                  <ng-template matStepLabel>Nội dung bài viết</ng-template>
+                  <form
+                        action=""
+                        [formGroup]="formGroup"
+                        (ngSubmit)="onClick()"
                   >
-                  </editor>
-                  <button
-                        type="submit"
-                        mat-fab
-                        extended
-                        color="primary"
-                        class="btnUpload"
-                  >
-                        TẠO BÀI VIẾT
-                  </button>
-            </form>
-      </mat-step>
-</mat-stepper>
+                        <editor
+                              plugins=" image fullscreen table emoticons link image advlist"
+                              menubar="file edit insert view format table tools help "
+                              [init]="tinyMCEInit"
+                              formControlName="content"
+                              toolbar="myCustomToolbarButton bold italic underline  | fontfamily fontsize | styles forecolor backcolor | alignleft aligncenter alignright alignjustify |indent outdent rtl ltr | fullscreen image table link emoticons"
+                        >
+                        </editor>
+                        <button
+                              type="submit"
+                              mat-fab
+                              extended
+                              color="primary"
+                              class="btnUpload"
+                        >
+                              TẠO BÀI VIẾT
+                        </button>
+                  </form>
+            </mat-step>
+      </mat-stepper>
+</div>
+
 <!-- <form
       [formGroup]="formGroup"
       (ngSubmit)="onClick()"
