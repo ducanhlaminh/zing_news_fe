@@ -12,13 +12,16 @@
 .layout_content {
       display: flex;
       justify-content: center;
-      margin-top: 52px;
+      padding-top: 52px;
+      height: 100vh;
       .example-container {
             width: 100%;
       }
       .example-sidenav{
             width: 15%;
             padding: 15px;
+            background: #343A40;
+            color: #f1eeee;
             .item_navigate {
                   padding: 5px 20px;
                   font-size: 16px;
@@ -45,7 +48,7 @@
       }
 }
 .active_navigation {
-      background: #1c77f767;
+      background: #007BFF;
       border-radius: 10px;
       // color :#096ffa;
 }

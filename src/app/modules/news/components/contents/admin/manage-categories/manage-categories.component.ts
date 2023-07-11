@@ -4,6 +4,7 @@ import {
       faCaretDown,
       faCaretUp,
       faAngleDown,
+      faAngleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
 
@@ -17,11 +18,13 @@ export class ManageCategoriesComponent {
       faCaretDown = faCaretDown;
       faCaretUp = faCaretUp;
       faAngleDown = faAngleDown;
+      faAngleUp = faAngleUp;
       articles: any = [];
       length = 100;
       pageSize = 10;
       pageIndex = 0;
       typefilters = ['', 'DESC', 'ASC'];
+      categories: any;
       filterCurr: any = {
             id: 0,
             title: 0,
@@ -39,7 +42,10 @@ export class ManageCategoriesComponent {
             this.queries.page = this.pageIndex + 1;
             this.CategoryService.getAllCategoriesByAd().subscribe(
                   (data: any) => {
-                        this.CategoryService.categories = data.rows;
+                        this.categories = data.rows;
+                        this.categories.map((item: any) => {
+                              item.opened = false;
+                        });
                         this.pageIndex = data.count;
                   }
             );
@@ -93,5 +99,11 @@ export class ManageCategoriesComponent {
             //             this.length = data.count;
             //       }
             // );
+      }
+      log(idx: any): any {
+            if (this.categories[idx].opened === false) {
+                  return (this.categories[idx].opened = true);
+            }
+            return (this.categories[idx].opened = false);
       }
 }
