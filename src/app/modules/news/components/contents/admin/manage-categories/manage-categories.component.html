@@ -202,6 +202,21 @@
                   </div>
             </th>
             <th>
+                  <div class="header-slug" (click)="filterFn('slug')">
+                        <span>Trạng thái</span>
+                        <div [ngSwitch]="filterCurr.slug">
+                              <fa-icon
+                                    [icon]="faCaretDown"
+                                    *ngSwitchCase="'1'"
+                              ></fa-icon>
+                              <fa-icon
+                                    [icon]="faCaretUp"
+                                    *ngSwitchCase="'2'"
+                              ></fa-icon>
+                        </div>
+                  </div>
+            </th>
+            <th>
                   <div
                         class="header-date-published"
                         (click)="filterFn('publishAt')"
@@ -237,9 +252,10 @@
                         </div>
                   </div>
             </th>
+            <th></th>
       </tr>
       <ng-container *ngFor="let item of categories; let i = index">
-            <tr class="">
+            <tr class="" [ngClass]="{ selected: item.opened }">
                   <td class="item-stt" (click)="log(i)">
                         <div class="icon" *ngIf="item.opened; else close">
                               <fa-icon [icon]="faAngleUp"></fa-icon>
@@ -249,13 +265,16 @@
                         <span>{{ item.name }}</span>
                   </td>
                   <td class="item-cate">
-                        <span>{{ item?.new_articles_categories?.length }}</span>
+                        <span>{{ item?.articles?.length }}</span>
                   </td>
                   <td class="item-view">
-                        <span>{{ item.new_categories.length }}</span>
+                        <span>{{ item.childCategories.length }}</span>
                   </td>
                   <td class="item-slug">
                         <span>{{ item.slug }}</span>
+                  </td>
+                  <td class="item-status">
+                        <span class="pending">Đang chờ xét duyệt</span>
                   </td>
                   <td class="item-date-published">
                         <span>{{ item.createdAt | datePipe }}</span>
@@ -272,10 +291,7 @@
                               <fa-icon [icon]="faEllipsisVertical"></fa-icon>
                         </button>
                         <mat-menu #menu="matMenu">
-                              <button mat-menu-item>
-                                    <span>Xuất bản</span>
-                              </button>
-                              <button mat-menu-item>
+                              <button mat-menu-item (click)="openDialog(item)">
                                     <span>Xóa</span>
                               </button>
                               <button mat-menu-item>
@@ -284,202 +300,56 @@
                         </mat-menu>
                   </td>
             </tr>
-
-            <tr *ngIf="item.opened">
-                  <td></td>
-                  <td>
-                        <tr>
-                              <td>
-                                    <tr>
-                                          <th>
-                                                <div
-                                                      class="header-name"
-                                                      (click)="
-                                                            filterFn('title')
-                                                      "
-                                                >
-                                                      <span>Tên danh mục</span>
-                                                      <div
-                                                            [ngSwitch]="
-                                                                  filterCurr.title
-                                                            "
-                                                      >
-                                                            <fa-icon
-                                                                  [icon]="
-                                                                        faCaretDown
-                                                                  "
-                                                                  *ngSwitchCase="
-                                                                        '1'
-                                                                  "
-                                                            ></fa-icon>
-                                                            <fa-icon
-                                                                  [icon]="
-                                                                        faCaretUp
-                                                                  "
-                                                                  *ngSwitchCase="
-                                                                        '2'
-                                                                  "
-                                                            ></fa-icon>
-                                                      </div>
-                                                </div>
-                                          </th>
-                                    </tr>
-                              </td>
-
-                              <th>
-                                    <div
-                                          class="header-cate"
-                                          (click)="filterFn('category_id')"
-                                    >
-                                          <span>Số lượng bài viết</span>
-                                          <div
-                                                [ngSwitch]="
-                                                      filterCurr.category_id
-                                                "
-                                          >
-                                                <fa-icon
-                                                      [icon]="faCaretDown"
-                                                      *ngSwitchCase="'1'"
-                                                ></fa-icon>
-                                                <fa-icon
-                                                      [icon]="faCaretUp"
-                                                      *ngSwitchCase="'2'"
-                                                ></fa-icon>
-                                          </div>
-                                    </div>
-                              </th>
-                              <th>
-                                    <div
-                                          class="header-view"
-                                          (click)="filterFn('views')"
-                                    >
-                                          <span>Số danh mục con</span>
-                                          <div [ngSwitch]="filterCurr.views">
-                                                <fa-icon
-                                                      [icon]="faCaretDown"
-                                                      *ngSwitchCase="'1'"
-                                                ></fa-icon>
-                                                <fa-icon
-                                                      [icon]="faCaretUp"
-                                                      *ngSwitchCase="'2'"
-                                                ></fa-icon>
-                                          </div>
-                                    </div>
-                              </th>
-                              <th>
-                                    <div
-                                          class="header-slug"
-                                          (click)="filterFn('slug')"
-                                    >
-                                          <span>Đường dẫn</span>
-                                          <div [ngSwitch]="filterCurr.slug">
-                                                <fa-icon
-                                                      [icon]="faCaretDown"
-                                                      *ngSwitchCase="'1'"
-                                                ></fa-icon>
-                                                <fa-icon
-                                                      [icon]="faCaretUp"
-                                                      *ngSwitchCase="'2'"
-                                                ></fa-icon>
-                                          </div>
-                                    </div>
-                              </th>
-                              <th>
-                                    <div
-                                          class="header-date-published"
-                                          (click)="filterFn('publishAt')"
-                                    >
-                                          <span>Ngày tạo</span>
-                                          <div
-                                                [ngSwitch]="
-                                                      filterCurr.publishAt
-                                                "
-                                          >
-                                                <fa-icon
-                                                      [icon]="faCaretDown"
-                                                      *ngSwitchCase="'1'"
-                                                ></fa-icon>
-                                                <fa-icon
-                                                      [icon]="faCaretUp"
-                                                      *ngSwitchCase="'2'"
-                                                ></fa-icon>
-                                          </div>
-                                    </div>
-                              </th>
-                              <th>
-                                    <div
-                                          class="header-date-published"
-                                          (click)="filterFn('publishAt')"
-                                    >
-                                          <span>Ngày cập nhật</span>
-                                          <div
-                                                [ngSwitch]="
-                                                      filterCurr.publishAt
-                                                "
-                                          >
-                                                <fa-icon
-                                                      [icon]="faCaretDown"
-                                                      *ngSwitchCase="'1'"
-                                                ></fa-icon>
-                                                <fa-icon
-                                                      [icon]="faCaretUp"
-                                                      *ngSwitchCase="'2'"
-                                                ></fa-icon>
-                                          </div>
-                                    </div>
-                              </th>
-                        </tr>
-                        <tr
-                              class=""
-                              *ngFor="let sub_item of item.new_categories"
-                        >
-                              <td class="item-name">
-                                    <span>{{ sub_item.name }}</span>
-                              </td>
-                              <td class="item-cate">
-                                    <span>{{
-                                          item?.new_articles_categories?.length
-                                    }}</span>
-                              </td>
-                              <td class="item-view">
-                                    <span>{{
-                                          item?.new_categories.length
-                                    }}</span>
-                              </td>
-                              <td class="item-slug">
-                                    <span>{{ item.slug }}</span>
-                              </td>
-                              <td class="item-date-published">
-                                    <span>{{ item.createdAt | datePipe }}</span>
-                              </td>
-                              <td class="item-date-created">
-                                    <span>{{ item.createdAt | datePipe }}</span>
-                              </td>
-                              <td class="item-edit">
-                                    <button
-                                          mat-icon-button
-                                          [matMenuTriggerFor]="menu"
-                                          aria-label="Example icon-button with a menu"
-                                    >
-                                          <fa-icon
-                                                [icon]="faEllipsisVertical"
-                                          ></fa-icon>
+            <ng-container *ngIf="item.opened">
+                  <tr
+                        *ngFor="let sub_item of item.childCategories"
+                        class="sub-item"
+                  >
+                        <td></td>
+                        <td>
+                              <span>{{ sub_item.name }}</span>
+                        </td>
+                        <td>
+                              <span>{{ sub_item.articles.length }}</span>
+                        </td>
+                        <td></td>
+                        <td>
+                              <span>{{ sub_item.slug }}</span>
+                        </td>
+                        <td><span class="success">Xuất bản</span></td>
+                        <td>
+                              <span>{{ sub_item.createdAt | datePipe }}</span>
+                        </td>
+                        <td>
+                              <span>{{ sub_item.createdAt | datePipe }}</span>
+                        </td>
+                        <td>
+                              <button
+                                    mat-icon-button
+                                    [matMenuTriggerFor]="menu"
+                                    aria-label="Example icon-button with a menu"
+                              >
+                                    <fa-icon
+                                          [icon]="faEllipsisVertical"
+                                    ></fa-icon>
+                              </button>
+                              <mat-menu #menu="matMenu">
+                                    <button mat-menu-item>
+                                          <span>Xuất bản</span>
                                     </button>
-                                    <mat-menu #menu="matMenu">
-                                          <button mat-menu-item>
-                                                <span>Xuất bản</span>
-                                          </button>
-                                          <button mat-menu-item>
-                                                <span>Xóa</span>
-                                          </button>
-                                          <button mat-menu-item>
-                                                <span>Sửa</span>
-                                          </button>
-                                    </mat-menu>
-                              </td>
-                        </tr>
-                  </td>
-            </tr>
+                                    <button
+                                          mat-menu-item
+                                          (click)="openDialog(sub_item)"
+                                    >
+                                          <span>Xóa</span>
+                                    </button>
+                                    <button mat-menu-item>
+                                          <span>Sửa</span>
+                                    </button>
+                              </mat-menu>
+                        </td>
+                  </tr>
+            </ng-container>
       </ng-container>
 </table>
 <mat-paginator

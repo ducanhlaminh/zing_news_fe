@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment.development';
 export class CategoryService {
       constructor(public http: HttpClient) {}
       categories: any;
+      length: any;
       getAllCategories() {
             return this.http.get(environment.API_CATEGORY_GET_ALL);
       }
@@ -21,6 +22,23 @@ export class CategoryService {
       getSubCategoryByName(name: any) {
             return this.http.get(environment.API_CATEGORIES_BY_NAME, {
                   params: { name },
+            });
+      }
+      createCategory(data: any) {
+            return this.http.post(environment.API_CATEGORIES_BY_NAME, data);
+      }
+      deleteCategory(id: any) {
+            return this.http.delete(environment.API_CATEGORY_DELETE, {
+                  params: { id },
+            });
+      }
+      getData() {
+            this.getAllCategoriesByAd().subscribe((data: any) => {
+                  this.categories = data.rows;
+                  this.categories.map((item: any) => {
+                        item.opened = false;
+                  });
+                  this.length = data.rows.length;
             });
       }
 }

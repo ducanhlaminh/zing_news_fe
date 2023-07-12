@@ -21,4 +21,5 @@ export const environment = {
       API_GET_ALL_ARTICLES: 'http://localhost:4000/api/v1/articles/get-all',
       API_CATEGORY_GET_ALL_ADMIN:
             'http://localhost:4000/api/v1/categories/admin/get-all',
+      API_CATEGORY_DELETE: 'http://localhost:4000/api/v1/categories/admin',
 };

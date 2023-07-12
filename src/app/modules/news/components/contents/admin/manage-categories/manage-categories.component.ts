@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import {
       faEllipsisVertical,
       faCaretDown,
@@ -7,6 +9,7 @@ import {
       faAngleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
       selector: 'app-manage-categories',
@@ -36,19 +39,15 @@ export class ManageCategoriesComponent {
       };
       order: any = [];
       queries: any = {};
-      constructor(public CategoryService: CategoryService) {}
+      constructor(
+            public CategoryService: CategoryService,
+            public dialog: MatDialog
+      ) {}
       ngOnInit(): void {
+            this.CategoryService.getData();
+
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
-            this.CategoryService.getAllCategoriesByAd().subscribe(
-                  (data: any) => {
-                        this.categories = data.rows;
-                        this.categories.map((item: any) => {
-                              item.opened = false;
-                        });
-                        this.pageIndex = data.count;
-                  }
-            );
       }
       handlePageEvent(e: any) {
             this.length = e.length;
@@ -105,5 +104,10 @@ export class ManageCategoriesComponent {
                   return (this.categories[idx].opened = true);
             }
             return (this.categories[idx].opened = false);
+      }
+      openDialog(data: any) {
+            this.dialog.open(DialogComponent, {
+                  data,
+            });
       }
 }

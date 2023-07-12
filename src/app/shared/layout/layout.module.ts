@@ -20,6 +20,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
       declarations: [
@@ -42,6 +43,7 @@ import { MatChipsModule } from '@angular/material/chips';
       ],
       exports: [
             LayoutMainComponent,
+            MatDialogModule,
             LayoutDetailComponent,
             MatButtonModule,
             MatAutocompleteModule,

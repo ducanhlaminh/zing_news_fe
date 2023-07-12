@@ -11,6 +11,7 @@ import { LayoutDetailComponent } from 'src/app/shared/layout/page/layout-detail/
 import { LayoutAdminComponent } from 'src/app/shared/layout/page/layout-admin/layout-admin.component';
 import { ManageArticlesComponent } from './components/contents/admin/manage-articles/manage-articles.component';
 import { ManageCategoriesComponent } from './components/contents/admin/manage-categories/manage-categories.component';
+import { CreateCategoryComponent } from './components/contents/admin/create-category/create-category.component';
 const routes: Routes = [
       {
             path: '',
@@ -29,6 +30,11 @@ const routes: Routes = [
                   {
                         path: 'admin/quan-ly-danh-muc',
                         component: ManageCategoriesComponent,
+                        canActivate: [CheckRoleGuard],
+                  },
+                  {
+                        path: 'admin/tao-danh-muc',
+                        component: CreateCategoryComponent,
                         canActivate: [CheckRoleGuard],
                   },
             ],

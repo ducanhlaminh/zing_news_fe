@@ -8,52 +8,6 @@
       gap:10px;
       box-sizing: border-box;
       user-select: none;
-      .header-stt{
-            width: 3%;
-            display: flex;
-            gap: 5px
-      };
-      .header-name{
-            width: 17%;
-            display: flex;
-            gap: 5px
-      };
-      .header-cate{
-            width: 8%;
-            display: flex;
-            gap: 5px
-      }
-      .header-avatar{
-            width: 10%;
-            text-align: center
-      };
-      .header-date-published{
-            width: 10%;
-            display: flex;
-            gap: 5px
-      }
-      .header-date-created{
-            width: 10%;
-            display: flex;
-            gap: 5px
-      }
-      .header-view{
-            text-align: center;
-            width: 7%;
-            display: flex;
-            gap: 5px
-      };
-      .header-slug{
-            text-align: center;
-            width: 15%;
-            display: flex;
-            gap: 5px
-      };
-      .header-status{
-            width: 10%;
-            gap: 5px;
-            display: flex;
-      };
 }
 .item{
       display: flex;
@@ -112,6 +66,50 @@
             justify-content: center;
       }
 
+}
+td, th {
+      border: 1px solid;
+      text-align: center;
+      min-width: 40px;
+      max-width: 150px;
+      padding: 5px 0;
+    }
+th {
+      background: #9a9a9a69;
+      font-weight: 600;
+      color: rgba(93, 93, 93, 0.759);
+      padding: 15px 0;
+
+}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .selected {
+      color: black;
+      font-weight: 700;
+    }
+    .sub-item{
+      background: #9a9a9a69;
+    }
+
+.pending{
+      padding: 5px 10px;
+      color: whitesmoke;
+      background: #d08122;
+      border-radius: 7px;
+      font-weight: 600;
+}
+.success{
+      padding: 5px 10px;
+      color: whitesmoke;
+      background: #29CFA0;
+      border-radius: 7px;
+      font-weight: 600;
+}
+.item-stt{
+      cursor: pointer;
 }
 .demo-paginator{
       background: rgb(221, 219, 219);

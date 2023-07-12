@@ -89,15 +89,15 @@
                         <div class="new-artcle-item">
                               <div class="img-article">
                                     <img
-                                          [src]="item.new_article.avatar"
+                                          [src]="item.avatar"
                                           alt=""
                                           (error)="handleImageError($event)"
                                     />
                               </div>
                               <div class="new-artcle-infor">
-                                    <h2>{{ item.new_article.title }}</h2>
+                                    <h2>{{ item.title }}</h2>
                                     <p>
-                                          {{ item.new_article.sapo }}
+                                          {{ item.sapo }}
                                     </p>
                               </div>
                         </div>
@@ -120,7 +120,7 @@
                               <p class="most-item-infor-cate">
                                     {{
                                           item.new_articles_categories[0]
-                                                ?.new_category.name
+                                                ?.category.name
                                     }}
                               </p>
                               <b class="most-item-infor-title">{{
@@ -144,7 +144,7 @@
                         <img
                               [src]="
                                     item?.new_articles_hot_categories[0]
-                                          ?.new_article.avatar
+                                          ?.new_article?.avatar
                               "
                               alt=""
                               (error)="handleImageError($event)"

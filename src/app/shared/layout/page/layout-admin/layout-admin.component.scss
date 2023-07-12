@@ -16,6 +16,7 @@
       height: 100vh;
       .example-container {
             width: 100%;
+
       }
       .example-sidenav{
             width: 15%;
@@ -37,11 +38,8 @@
       }
       .example-sidenav-content{
             padding: 30px;
-            background: #e9e8e8b1;
             .content {
                   box-sizing: border-box;
-                  // overflow: hidden;
-                  min-height: 600px;
                   background-color: white;
                   border-radius: 10px;
             }
