@@ -6,7 +6,12 @@ import {
       AfterViewInit,
 } from '@angular/core';
 import myCustomPlugin from './tinymce-plugin/test';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import {
+      FormGroup,
+      FormControl,
+      FormBuilder,
+      Validators,
+} from '@angular/forms';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { debounceTime, switchMap } from 'rxjs';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
@@ -26,18 +31,19 @@ export class CreatePostContentComponent implements OnInit {
       formGroup: any;
       options: any[] = [];
       imageCropper: any;
+      editable = false;
       constructor(
             private formBuilder: FormBuilder,
             public CategoryService: CategoryService,
             private NewService: NewsService
       ) {
             this.formGroup = this.formBuilder.group({
-                  title: '',
-                  slug: '',
-                  avatar: null,
-                  sapo: '',
-                  content: '',
-                  categoryId: '',
+                  title: ['', Validators.required],
+                  slug: ['', Validators.required],
+                  avatar: [null, Validators.required],
+                  sapo: ['', Validators.required],
+                  content: ['', Validators.required],
+                  categoryId: ['', Validators.required],
             });
       }
 

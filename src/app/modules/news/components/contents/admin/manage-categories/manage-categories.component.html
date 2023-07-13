@@ -254,7 +254,9 @@
             </th>
             <th></th>
       </tr>
-      <ng-container *ngFor="let item of categories; let i = index">
+      <ng-container
+            *ngFor="let item of CategoryService.categories; let i = index"
+      >
             <tr class="" [ngClass]="{ selected: item.opened }">
                   <td class="item-stt" (click)="log(i)">
                         <div class="icon" *ngIf="item.opened; else close">
@@ -356,7 +358,7 @@
       #paginator
       class="demo-paginator"
       aria-label="Select page"
-      [length]="length"
+      [length]="CategoryService.length"
       [pageSize]="pageSize"
       [pageIndex]="pageIndex"
       (page)="handlePageEvent($event)"

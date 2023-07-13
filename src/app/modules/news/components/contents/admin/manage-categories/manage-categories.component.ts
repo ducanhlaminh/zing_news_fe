@@ -50,7 +50,7 @@ export class ManageCategoriesComponent {
             this.queries.page = this.pageIndex + 1;
       }
       handlePageEvent(e: any) {
-            this.length = e.length;
+            this.CategoryService.length = e.length;
             this.pageSize = e.pageSize;
             this.pageIndex = e.pageIndex;
             if (this.order.length > 0)
@@ -100,10 +100,10 @@ export class ManageCategoriesComponent {
             // );
       }
       log(idx: any): any {
-            if (this.categories[idx].opened === false) {
-                  return (this.categories[idx].opened = true);
+            if (this.CategoryService.categories[idx].opened === false) {
+                  return (this.CategoryService.categories[idx].opened = true);
             }
-            return (this.categories[idx].opened = false);
+            return (this.CategoryService.categories[idx].opened = false);
       }
       openDialog(data: any) {
             this.dialog.open(DialogComponent, {

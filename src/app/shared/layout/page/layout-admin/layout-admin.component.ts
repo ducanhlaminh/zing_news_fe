@@ -4,6 +4,8 @@ import {
       faListCheck,
       faNewspaper,
 } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
       selector: 'app-layout-admin',
       templateUrl: './layout-admin.component.html',
@@ -14,4 +16,10 @@ export class LayoutAdminComponent {
       faPenSquare = faPenToSquare;
       faListCheck = faListCheck;
       faNewspaper = faNewspaper;
+      constructor(private toastr: ToastrService) {
+            this.showSuccess();
+      }
+      showSuccess() {
+            this.toastr.success('Hello world!', 'Toastr fun!');
+      }
 }

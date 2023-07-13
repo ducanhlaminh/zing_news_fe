@@ -9,9 +9,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './modules/auth/auth.module';
 import { HttpInterceptorInterceptor } from './intercepter/http.interceptor';
-
+import { ToastrModule } from 'ngx-toastr';
+import { ToastrComponent } from './shared/components/toastr/toastr.component';
 @NgModule({
-      declarations: [AppComponent],
+      declarations: [AppComponent, ToastrComponent],
       imports: [
             BrowserModule,
             AppRoutingModule,
@@ -21,6 +22,12 @@ import { HttpInterceptorInterceptor } from './intercepter/http.interceptor';
             FontAwesomeModule,
             HttpClientModule,
             AuthModule,
+            BrowserAnimationsModule, // required animations module
+            ToastrModule.forRoot({
+                  timeOut: 5000,
+                  positionClass: 'toast-bottom-right',
+                  preventDuplicates: true,
+            }),
       ],
       providers: [
             {
