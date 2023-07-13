@@ -364,6 +364,42 @@
       (page)="handlePageEvent($event)"
 >
 </mat-paginator>
+<div cdkDropListGroup>
+      <div class="example-container">
+            <h2>To do</h2>
+
+            <div
+                  cdkDropList
+                  [cdkDropListData]="todo"
+                  class="example-list-1"
+                  (cdkDropListDropped)="drop($event)"
+            >
+                  <div
+                        class="example-box"
+                        *ngFor="let item of this.CategoryService.categories"
+                        cdkDrag
+                  >
+                        {{ item.name }}
+                  </div>
+            </div>
+      </div>
+
+      <div class="example-container">
+            <h2>Done</h2>
+
+            <div
+                  cdkDropList
+                  [cdkDropListData]="done"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)"
+                  cdkDropListOrientation="horizontal"
+            >
+                  <div class="example-box" *ngFor="let item of done" cdkDrag>
+                        {{ item }}
+                  </div>
+            </div>
+      </div>
+</div>
 <ng-template #close>
       <fa-icon [icon]="faAngleDown"></fa-icon>
 </ng-template>

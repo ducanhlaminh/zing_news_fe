@@ -10,6 +10,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
 import { DialogComponent } from '../dialog/dialog.component';
+import {
+      CdkDragDrop,
+      CdkDrag,
+      CdkDropList,
+      CdkDropListGroup,
+      moveItemInArray,
+      transferArrayItem,
+} from '@angular/cdk/drag-drop';
 
 @Component({
       selector: 'app-manage-categories',
@@ -23,11 +31,19 @@ export class ManageCategoriesComponent {
       faAngleDown = faAngleDown;
       faAngleUp = faAngleUp;
       articles: any = [];
+      todo: any = [];
+
+      done = [
+            'Get up',
+            'Brush teeth',
+            'Take a shower',
+            'Check e-mail',
+            'Walk dog',
+      ];
       length = 100;
       pageSize = 10;
       pageIndex = 0;
       typefilters = ['', 'DESC', 'ASC'];
-      categories: any;
       filterCurr: any = {
             id: 0,
             title: 0,
@@ -48,6 +64,22 @@ export class ManageCategoriesComponent {
 
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
+      }
+      drop(event: CdkDragDrop<string[]>) {
+            if (event.previousContainer === event.container) {
+                  moveItemInArray(
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex
+                  );
+            } else {
+                  transferArrayItem(
+                        event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex
+                  );
+            }
       }
       handlePageEvent(e: any) {
             this.CategoryService.length = e.length;

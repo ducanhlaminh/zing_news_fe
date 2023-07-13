@@ -21,6 +21,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
       declarations: [
@@ -58,6 +59,7 @@ import { MatDialogModule } from '@angular/material/dialog';
             MatSortModule,
             MatPaginatorModule,
             MatStepperModule,
+            DragDropModule,
       ],
 })
 export class LayoutModule {}
