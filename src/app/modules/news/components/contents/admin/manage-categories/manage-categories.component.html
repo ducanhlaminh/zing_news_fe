@@ -1,143 +1,3 @@
-<!-- <div class="header">
-      <div class="header-stt"></div>
-      <div class="header-name" (click)="filterFn('title')">
-            <span>Tên danh mục</span>
-            <div [ngSwitch]="filterCurr.title">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-cate" (click)="filterFn('category_id')">
-            <span>Số lượng bài viết</span>
-            <div [ngSwitch]="filterCurr.category_id">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-view" (click)="filterFn('views')">
-            <span>Số danh mục con</span>
-            <div [ngSwitch]="filterCurr.views">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-slug" (click)="filterFn('slug')">
-            <span>Đường dẫn</span>
-            <div [ngSwitch]="filterCurr.slug">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-date-published" (click)="filterFn('publishAt')">
-            <span>Ngày tạo</span>
-            <div [ngSwitch]="filterCurr.publishAt">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-date-published" (click)="filterFn('publishAt')">
-            <span>Ngày cập nhật</span>
-            <div [ngSwitch]="filterCurr.publishAt">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-</div>
-
-<div class="" *ngFor="let item of categories; let i = index">
-      <div class="item">
-            <div class="item-stt" (click)="log(i)">
-                  <div class="icon" *ngIf="item.opened; else close">
-                        <fa-icon [icon]="faAngleUp"></fa-icon>
-                  </div>
-            </div>
-            <div class="item-name">
-                  <span>{{ item.name }}</span>
-            </div>
-            <div class="item-cate">
-                  <span>{{ item?.new_articles_categories?.length }}</span>
-            </div>
-            <div class="item-view">
-                  <span>{{ item.new_categories.length }}</span>
-            </div>
-            <div class="item-slug">
-                  <span>{{ item.slug }}</span>
-            </div>
-            <div class="item-date-published">
-                  <span>{{ item.createdAt | datePipe }}</span>
-            </div>
-            <div class="item-date-created">
-                  <span>{{ item.createdAt | datePipe }}</span>
-            </div>
-            <div class="item-edit">
-                  <button
-                        mat-icon-button
-                        [matMenuTriggerFor]="menu"
-                        aria-label="Example icon-button with a menu"
-                  >
-                        <fa-icon [icon]="faEllipsisVertical"></fa-icon>
-                  </button>
-                  <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                              <span>Xuất bản</span>
-                        </button>
-                        <button mat-menu-item>
-                              <span>Xóa</span>
-                        </button>
-                        <button mat-menu-item>
-                              <span>Sửa</span>
-                        </button>
-                  </mat-menu>
-            </div>
-            <div class="item-edit"></div>
-      </div>
-      <div *ngIf="item.opened" class="">
-            <div class="item" *ngFor="let sub_item of item.new_categories">
-                  <div class="item-stt">
-                        <span>{{ sub_item.id }}</span>
-                  </div>
-                  <div class="item-name">
-                        <span>{{ sub_item.name }}</span>
-                  </div>
-                  <div class="item-cate">
-                        <span>{{ item?.new_articles_categories?.length }}</span>
-                  </div>
-                  <div class="item-view">
-                        <span>{{ item?.new_categories.length }}</span>
-                  </div>
-                  <div class="item-slug">
-                        <span>{{ item.slug }}</span>
-                  </div>
-                  <div class="item-date-published">
-                        <span>{{ item.createdAt | datePipe }}</span>
-                  </div>
-                  <div class="item-date-created">
-                        <span>{{ item.createdAt | datePipe }}</span>
-                  </div>
-                  <div class="item-edit">
-                        <button
-                              mat-icon-button
-                              [matMenuTriggerFor]="menu"
-                              aria-label="Example icon-button with a menu"
-                        >
-                              <fa-icon [icon]="faEllipsisVertical"></fa-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                              <button mat-menu-item>
-                                    <span>Xuất bản</span>
-                              </button>
-                              <button mat-menu-item>
-                                    <span>Xóa</span>
-                              </button>
-                              <button mat-menu-item>
-                                    <span>Sửa</span>
-                              </button>
-                        </mat-menu>
-                  </div>
-            </div>
-      </div>
-</div> -->
-
 <table>
       <tr>
             <th><div class="header-stt"></div></th>
@@ -254,12 +114,10 @@
             </th>
             <th></th>
       </tr>
-      <ng-container
-            *ngFor="let item of CategoryService.categories; let i = index"
-      >
+      <ng-container *ngFor="let item of categories; let i = index">
             <tr class="" [ngClass]="{ selected: item.opened }">
                   <td class="item-stt" (click)="log(i)">
-                        <div class="icon" *ngIf="item.opened; else close">
+                        <div class="icon">
                               <fa-icon [icon]="faAngleUp"></fa-icon>
                         </div>
                   </td>
@@ -312,7 +170,7 @@
                               <span>{{ sub_item.name }}</span>
                         </td>
                         <td>
-                              <span>{{ sub_item.articles.length }}</span>
+                              <span>{{ sub_item.articles?.length }}</span>
                         </td>
                         <td></td>
                         <td>
@@ -364,42 +222,78 @@
       (page)="handlePageEvent($event)"
 >
 </mat-paginator>
-<div cdkDropListGroup>
-      <div class="example-container">
-            <h2>To do</h2>
-
-            <div
-                  cdkDropList
-                  [cdkDropListData]="todo"
-                  class="example-list-1"
-                  (cdkDropListDropped)="drop($event)"
-            >
+<div class="layout-edit-cateogries">
+      <p class="title">
+            <b>Chỉnh vị trí của danh mục trên thanh điều hướng ( Header )</b>
+      </p>
+      <div cdkDropListGroup>
+            <div class="example-container">
+                  <h4>Danh sách danh mục</h4>
                   <div
-                        class="example-box"
-                        *ngFor="let item of this.CategoryService.categories"
-                        cdkDrag
+                        cdkDropList
+                        [cdkDropListData]="categorySort"
+                        class="example-list-1"
+                        (cdkDropListDropped)="drop($event)"
                   >
-                        {{ item.name }}
+                        <div
+                              class="example-box"
+                              *ngFor="let item of categorySort"
+                              cdkDrag
+                        >
+                              {{ item.name }}
+                        </div>
                   </div>
             </div>
-      </div>
 
-      <div class="example-container">
-            <h2>Done</h2>
-
-            <div
-                  cdkDropList
-                  [cdkDropListData]="done"
-                  class="example-list"
-                  (cdkDropListDropped)="drop($event)"
-                  cdkDropListOrientation="horizontal"
-            >
-                  <div class="example-box" *ngFor="let item of done" cdkDrag>
-                        {{ item }}
+            <div class="example-container">
+                  <div
+                        cdkDropList
+                        [cdkDropListData]="done"
+                        class="example-list"
+                        (cdkDropListDropped)="drop($event)"
+                        cdkDropListOrientation="horizontal"
+                  >
+                        <div class="header">
+                              <div class="logo">
+                                    <p class="top-header">
+                                          TẠP CHÍ TRI THỨC TRỰC TUYẾN
+                                    </p>
+                                    <img
+                                          src="https://static-znews.zingcdn.me/images/logo-zing-home.svg"
+                                          alt=""
+                                          class="header_logo"
+                                    />
+                              </div>
+                              <div class="categories">
+                                    <ng-container
+                                          *ngIf="done.length !== 0; else empty"
+                                    >
+                                          <div
+                                                class="example-box"
+                                                *ngFor="let item of done"
+                                                cdkDrag
+                                          >
+                                                {{ item.name }}
+                                          </div>
+                                    </ng-container>
+                              </div>
+                              <div class="right_header">
+                                    <div class="avatar" mat-button>
+                                          <div class="btnSignIn">
+                                                <button mat-raised-button>
+                                                      Đăng nhập
+                                                </button>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
                   </div>
             </div>
       </div>
 </div>
-<ng-template #close>
-      <fa-icon [icon]="faAngleDown"></fa-icon>
+
+<ng-template #empty>
+      <div class="empty">
+            <small>* Vui lòng kéo danh mục vào đây</small>
+      </div>
 </ng-template>

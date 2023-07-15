@@ -31,15 +31,9 @@ export class ManageCategoriesComponent {
       faAngleDown = faAngleDown;
       faAngleUp = faAngleUp;
       articles: any = [];
-      todo: any = [];
-
-      done = [
-            'Get up',
-            'Brush teeth',
-            'Take a shower',
-            'Check e-mail',
-            'Walk dog',
-      ];
+      categories: any = [];
+      categorySort: any = [];
+      done: any = [];
       length = 100;
       pageSize = 10;
       pageIndex = 0;
@@ -60,7 +54,16 @@ export class ManageCategoriesComponent {
             public dialog: MatDialog
       ) {}
       ngOnInit(): void {
-            this.CategoryService.getData();
+            this.CategoryService.getAllCategoriesByAd().subscribe(
+                  (data: any) => {
+                        this.categories = data.rows;
+                        this.categories.map((item: any) => {
+                              item.opened = false;
+                        });
+                        this.length = data.rows.length;
+                        this.categorySort = [...data.rows];
+                  }
+            );
 
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
@@ -132,10 +135,10 @@ export class ManageCategoriesComponent {
             // );
       }
       log(idx: any): any {
-            if (this.CategoryService.categories[idx].opened === false) {
-                  return (this.CategoryService.categories[idx].opened = true);
+            if (this.categories[idx].opened === false) {
+                  return (this.categories[idx].opened = true);
             }
-            return (this.CategoryService.categories[idx].opened = false);
+            return (this.categories[idx].opened = false);
       }
       openDialog(data: any) {
             this.dialog.open(DialogComponent, {

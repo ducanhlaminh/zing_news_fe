@@ -304,3 +304,219 @@
       (page)="handlePageEvent($event)"
 >
 </mat-paginator>
+<div class="layout-edit-cateogries">
+      <p class="title">
+            <b>Chỉnh vị trí của bài viết trong tin nổi bật ( Hot News )</b>
+      </p>
+      <hr />
+      <div cdkDropListGroup class="layout">
+            <div class="example-container">
+                  <h4>Danh sách bài viết :</h4>
+                  <div
+                        cdkDropList
+                        [cdkDropListData]="listArticles"
+                        class="example-list-1"
+                        (cdkDropListDropped)="drop($event)"
+                  >
+                        <div
+                              class="example-box"
+                              *ngFor="let item of listArticles"
+                              cdkDrag
+                        >
+                              {{ item.title }}
+                        </div>
+                  </div>
+            </div>
+
+            <div class="example-container">
+                  <div>
+                        <div class="hot-artcles">
+                              <div
+                                    cdkDropList
+                                    [cdkDropListData]="listHotArticles"
+                                    class="example-list"
+                                    (cdkDropListDropped)="drop($event)"
+                                    cdkDropListOrientation="horizontal"
+                              >
+                                    <div
+                                          class="example-box"
+                                          *ngFor="let item of listHotArticles"
+                                          cdkDrag
+                                    >
+                                          {{ item.title }}
+                                    </div>
+                                    <!-- <ng-container
+                                          *ngFor="
+                                                let item of listHotArticles;
+                                                let i = index;
+                                                last as last
+                                          "
+                                    >
+                                          <div *ngIf="i >= 3 && i <= 7">
+                                                <div
+                                                      class="artcle-left-item example-box"
+                                                      cdkDrag
+                                                >
+                                                      <img
+                                                            [src]="
+                                                                  item
+                                                                        ?.new_article
+                                                                        ?.avatar
+                                                            "
+                                                            alt=""
+                                                      />
+                                                      <div
+                                                            class="artcle-left-item-infor"
+                                                      >
+                                                            <b>{{
+                                                                  item
+                                                                        .new_article
+                                                                        ?.title
+                                                            }}</b>
+                                                            <b
+                                                                  *cdkDragPreview
+                                                                  >{{
+                                                                        item
+                                                                              .new_article
+                                                                              ?.title
+                                                                  }}</b
+                                                            >
+                                                      </div>
+                                                </div>
+                                                <hr *ngIf="!last" />
+                                          </div>
+                                    </ng-container> -->
+                                    <!-- <div
+                                          class="example-box"
+                                          cdkDrag
+                                          *ngFor="let item of listHotArticles"
+                                    >
+                                          <img [src]="item?.avatar" alt="" />
+                                          <p>1</p>
+                                    </div>
+                              </div>
+                              <div class="hot-artcles-center">
+                                    <div class="artcle-center-item" cdkDrag>
+                                          <img
+                                                [src]="
+                                                      listHotArticles[0]
+                                                            ?.new_article.avatar
+                                                "
+                                                alt=""
+                                          />
+                                          <b>{{
+                                                listHotArticles[0]?.new_article
+                                                      .title
+                                          }}</b>
+                                          <p *cdkDragPreview>
+                                                {{
+                                                      listHotArticles[0]
+                                                            ?.new_article.title
+                                                }}
+                                          </p>
+                                    </div>
+                                    <div class="artcle-center-item">
+                                          <img
+                                                [src]="
+                                                      'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
+                                                "
+                                                alt=""
+                                          />
+                                    </div>
+                              </div>
+                              <div class="hot-artcles-right">
+                                     <ng-container
+                                          *ngFor="
+                                                let item of listHotArticles;
+                                                let i = index
+                                          "
+                                    >
+                                          <div
+                                                class="artcle-right-item"
+                                                *ngIf="i === 1 || i == 2"
+                                                cdkDrag
+                                          >
+                                                <img
+                                                      [src]="
+                                                            item.new_article
+                                                                  .avatar
+                                                      "
+                                                      alt=""
+                                                />
+                                                <b *cdkDragPreview>{{
+                                                      item.new_article.title
+                                                }}</b>
+                                                <b>{{
+                                                      item.new_article.title
+                                                }}</b>
+                                          </div>
+                                    </ng-container> -->
+                                    <!-- <div class="artcle-right-item">
+                                          <img
+                                                [src]="
+                                                      'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
+                                                "
+                                                alt=""
+                                          />
+                                    </div>
+                                    <div class="artcle-right-item">
+                                          <img
+                                                [src]="
+                                                      'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
+                                                "
+                                                alt=""
+                                          />
+                                    </div> -->
+                              </div>
+                        </div>
+                        <div cdkDropListGroup>
+                              <div class="example-container">
+                                    <h2>Available items</h2>
+
+                                    <div
+                                          cdkDropList
+                                          [cdkDropListData]="items"
+                                          class="example-list"
+                                          cdkDropListSortingDisabled
+                                          (cdkDropListDropped)="drop($event)"
+                                    >
+                                          <div
+                                                class="example-box"
+                                                *ngFor="let item of items"
+                                                cdkDrag
+                                          >
+                                                {{ item }}
+                                          </div>
+                                    </div>
+                              </div>
+
+                              <div class="example-container">
+                                    <h2>Shopping basket</h2>
+
+                                    <div
+                                          cdkDropList
+                                          [cdkDropListData]="basket"
+                                          class="example-list"
+                                          (cdkDropListDropped)="drop($event)"
+                                    >
+                                          <div
+                                                class="example-box"
+                                                *ngFor="let item of basket"
+                                                cdkDrag
+                                          >
+                                                {{ item }}
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                        <!-- <div
+                              class="example-box"
+                              *ngFor="let item of listHotArticles"
+                              cdkDrag
+                        >
+                              {{ item.name }}
+                        </div> -->
+                  </div>
+            </div>
+      </div>
+</div>

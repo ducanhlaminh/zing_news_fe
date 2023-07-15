@@ -6,6 +6,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { NewsService } from 'src/app/modules/news/services/news.service';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+import {
+      CdkDragDrop,
+      moveItemInArray,
+      transferArrayItem,
+} from '@angular/cdk/drag-drop';
 @Component({
       selector: 'app-manage-articles',
       templateUrl: './manage-articles.component.html',
@@ -19,6 +24,8 @@ export class ManageArticlesComponent implements OnInit {
       length = 100;
       pageSize = 10;
       pageIndex = 0;
+      listArticles: any = [];
+      listHotArticles: any = [];
       typefilters = ['', 'DESC', 'ASC'];
       filterCurr: any = {
             id: 0,
@@ -29,6 +36,9 @@ export class ManageArticlesComponent implements OnInit {
             publishAt: 0,
             slug: 0,
       };
+      items = ['Carrots', 'Tomatoes', 'Onions', 'Apples', 'Avocados'];
+
+      basket = ['Oranges', 'Bananas', 'Cucumbers'];
       order: any = [];
       queries: any = {};
       constructor(private NewService: NewsService) {}
@@ -39,6 +49,7 @@ export class ManageArticlesComponent implements OnInit {
                   (data: any) => {
                         this.articles = data.rows;
                         this.length = data.count;
+                        this.listArticles = [...data.rows];
                   }
             );
       }
@@ -55,6 +66,25 @@ export class ManageArticlesComponent implements OnInit {
                         this.length = data.count;
                   }
             );
+      }
+      drop(event: CdkDragDrop<string[]>) {
+            console.log(event.previousIndex, event.currentIndex);
+
+            if (event.previousContainer === event.container) {
+                  moveItemInArray(
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex
+                  );
+            } else {
+                  transferArrayItem(
+                        event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex
+                  );
+            }
+            console.log(this.listHotArticles);
       }
       filterFn(type: any) {
             ++this.filterCurr[type];
