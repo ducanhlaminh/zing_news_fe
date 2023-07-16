@@ -20,12 +20,15 @@ export class ManageArticlesComponent implements OnInit {
       faEllipsisVertical = faEllipsisVertical;
       faCaretDown = faCaretDown;
       faCaretUp = faCaretUp;
+
       articles: any = [];
+      listArticles: any = [];
+      listHotArticles: any = [];
+
       length = 100;
       pageSize = 10;
       pageIndex = 0;
-      listArticles: any = [];
-      listHotArticles: any = [];
+
       typefilters = ['', 'DESC', 'ASC'];
       filterCurr: any = {
             id: 0,
@@ -36,9 +39,7 @@ export class ManageArticlesComponent implements OnInit {
             publishAt: 0,
             slug: 0,
       };
-      items = ['Carrots', 'Tomatoes', 'Onions', 'Apples', 'Avocados'];
 
-      basket = ['Oranges', 'Bananas', 'Cucumbers'];
       order: any = [];
       queries: any = {};
       constructor(private NewService: NewsService) {}
@@ -51,6 +52,9 @@ export class ManageArticlesComponent implements OnInit {
                         this.length = data.count;
                         this.listArticles = [...data.rows];
                   }
+            );
+            this.NewService.getHotMain().subscribe(
+                  (data) => (this.listHotArticles = data)
             );
       }
       handlePageEvent(e: any) {
@@ -66,25 +70,6 @@ export class ManageArticlesComponent implements OnInit {
                         this.length = data.count;
                   }
             );
-      }
-      drop(event: CdkDragDrop<string[]>) {
-            console.log(event.previousIndex, event.currentIndex);
-
-            if (event.previousContainer === event.container) {
-                  moveItemInArray(
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex
-                  );
-            } else {
-                  transferArrayItem(
-                        event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex
-                  );
-            }
-            console.log(this.listHotArticles);
       }
       filterFn(type: any) {
             ++this.filterCurr[type];

@@ -1,118 +1,3 @@
-<!-- <div class="header">
-      <div class="header-stt" (click)="filterFn('id')">
-            <span>ID</span>
-            <div [ngSwitch]="filterCurr.id">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-name" (click)="filterFn('title')">
-            <span>Tên bài viết</span>
-            <div [ngSwitch]="filterCurr.title">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-cate" (click)="filterFn('category_id')">
-            <span>Danh mục</span>
-            <div [ngSwitch]="filterCurr.category_id">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-view" (click)="filterFn('views')">
-            <span>Lượt đọc</span>
-            <div [ngSwitch]="filterCurr.views">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-slug" (click)="filterFn('slug')">
-            <span>Đường dẫn</span>
-            <div [ngSwitch]="filterCurr.slug">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-date-published" (click)="filterFn('publishAt')">
-            <span>Ngày xuất bản</span>
-            <div [ngSwitch]="filterCurr.publishAt">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-date-created" (click)="filterFn('createdAt')">
-            <span>Ngày xuất bản</span>
-            <div [ngSwitch]="filterCurr.createdAt">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-      <div class="header-status" (click)="filterFn('status')">
-            <span>Trạng thái</span>
-            <div [ngSwitch]="filterCurr.status">
-                  <fa-icon [icon]="faCaretDown" *ngSwitchCase="'1'"></fa-icon>
-                  <fa-icon [icon]="faCaretUp" *ngSwitchCase="'2'"></fa-icon>
-            </div>
-      </div>
-</div>
-
-<div class="item" *ngFor="let item of articles">
-      <div class="item-stt">
-            <span>{{ item.id }}</span>
-      </div>
-      <div class="item-name">
-            <span>{{ item.title }}</span>
-      </div>
-      <div class="item-cate">
-            <span>{{
-                  item?.new_articles_categories[0]?.new_category?.name
-            }}</span>
-      </div>
-      <div class="item-view">
-            <span>{{ item.views }}</span>
-      </div>
-      <div class="item-slug">
-            <span>{{ item.slug }}</span>
-      </div>
-      <div class="item-date-published">
-            <span>{{ item.publishAt | datePipe }}</span>
-      </div>
-      <div class="item-date-created">
-            <span>{{ item.createdAt | datePipe }}</span>
-      </div>
-      <div class="item-status">
-            <div
-                  class="status"
-                  [ngClass]="{
-                        success: item.status === 1,
-                        pending: item.status === 0
-                  }"
-            >
-                  {{ item.status === 1 ? "Xuất bản" : "Đang chờ" }}
-            </div>
-      </div>
-      <div class="item-edit">
-            <button
-                  mat-icon-button
-                  [matMenuTriggerFor]="menu"
-                  aria-label="Example icon-button with a menu"
-            >
-                  <fa-icon [icon]="faEllipsisVertical"></fa-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                  <button mat-menu-item>
-                        <span>Xuất bản</span>
-                  </button>
-                  <button mat-menu-item>
-                        <span>Xóa</span>
-                  </button>
-                  <button mat-menu-item>
-                        <span>Sửa</span>
-                  </button>
-            </mat-menu>
-      </div>
-</div> -->
 <table>
       <tr>
             <th>
@@ -304,219 +189,246 @@
       (page)="handlePageEvent($event)"
 >
 </mat-paginator>
-<div class="layout-edit-cateogries">
-      <p class="title">
-            <b>Chỉnh vị trí của bài viết trong tin nổi bật ( Hot News )</b>
-      </p>
+<div class="layout">
+      <h2>Xét bài bài viết nổi bật <small>( Trang chủ )</small></h2>
       <hr />
-      <div cdkDropListGroup class="layout">
-            <div class="example-container">
-                  <h4>Danh sách bài viết :</h4>
-                  <div
-                        cdkDropList
-                        [cdkDropListData]="listArticles"
-                        class="example-list-1"
-                        (cdkDropListDropped)="drop($event)"
-                  >
-                        <div
-                              class="example-box"
-                              *ngFor="let item of listArticles"
-                              cdkDrag
-                        >
-                              {{ item.title }}
-                        </div>
-                  </div>
-            </div>
-
-            <div class="example-container">
-                  <div>
-                        <div class="hot-artcles">
-                              <div
-                                    cdkDropList
-                                    [cdkDropListData]="listHotArticles"
-                                    class="example-list"
-                                    (cdkDropListDropped)="drop($event)"
-                                    cdkDropListOrientation="horizontal"
+      <div class="layout-content">
+            <div class="form">
+                  <form action="">
+                        <mat-form-field class="example-full-width input">
+                              <mat-label>Tên bài viết</mat-label>
+                              <input
+                                    type="text"
+                                    matInput
+                                    formControlName="categoryId"
+                                    [matAutocomplete]="auto"
+                                    required
+                              />
+                              <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option> </mat-option>
+                              </mat-autocomplete>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width input">
+                              <mat-label
+                                    >Vị trí muốn đặt trong bộ cục</mat-label
                               >
-                                    <div
-                                          class="example-box"
-                                          *ngFor="let item of listHotArticles"
-                                          cdkDrag
-                                    >
-                                          {{ item.title }}
-                                    </div>
-                                    <!-- <ng-container
-                                          *ngFor="
-                                                let item of listHotArticles;
-                                                let i = index;
-                                                last as last
-                                          "
-                                    >
-                                          <div *ngIf="i >= 3 && i <= 7">
-                                                <div
-                                                      class="artcle-left-item example-box"
-                                                      cdkDrag
-                                                >
-                                                      <img
-                                                            [src]="
-                                                                  item
-                                                                        ?.new_article
-                                                                        ?.avatar
-                                                            "
-                                                            alt=""
-                                                      />
-                                                      <div
-                                                            class="artcle-left-item-infor"
-                                                      >
-                                                            <b>{{
-                                                                  item
-                                                                        .new_article
-                                                                        ?.title
-                                                            }}</b>
-                                                            <b
-                                                                  *cdkDragPreview
-                                                                  >{{
-                                                                        item
-                                                                              .new_article
-                                                                              ?.title
-                                                                  }}</b
-                                                            >
-                                                      </div>
-                                                </div>
-                                                <hr *ngIf="!last" />
-                                          </div>
-                                    </ng-container> -->
-                                    <!-- <div
-                                          class="example-box"
-                                          cdkDrag
-                                          *ngFor="let item of listHotArticles"
-                                    >
-                                          <img [src]="item?.avatar" alt="" />
-                                          <p>1</p>
-                                    </div>
-                              </div>
-                              <div class="hot-artcles-center">
-                                    <div class="artcle-center-item" cdkDrag>
-                                          <img
-                                                [src]="
-                                                      listHotArticles[0]
-                                                            ?.new_article.avatar
-                                                "
-                                                alt=""
-                                          />
-                                          <b>{{
-                                                listHotArticles[0]?.new_article
-                                                      .title
-                                          }}</b>
-                                          <p *cdkDragPreview>
-                                                {{
-                                                      listHotArticles[0]
-                                                            ?.new_article.title
-                                                }}
-                                          </p>
-                                    </div>
-                                    <div class="artcle-center-item">
-                                          <img
-                                                [src]="
-                                                      'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
-                                                "
-                                                alt=""
-                                          />
-                                    </div>
-                              </div>
-                              <div class="hot-artcles-right">
-                                     <ng-container
-                                          *ngFor="
-                                                let item of listHotArticles;
-                                                let i = index
-                                          "
-                                    >
-                                          <div
-                                                class="artcle-right-item"
-                                                *ngIf="i === 1 || i == 2"
-                                                cdkDrag
-                                          >
-                                                <img
-                                                      [src]="
-                                                            item.new_article
-                                                                  .avatar
-                                                      "
-                                                      alt=""
-                                                />
-                                                <b *cdkDragPreview>{{
-                                                      item.new_article.title
-                                                }}</b>
-                                                <b>{{
-                                                      item.new_article.title
-                                                }}</b>
-                                          </div>
-                                    </ng-container> -->
-                                    <!-- <div class="artcle-right-item">
-                                          <img
-                                                [src]="
-                                                      'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
-                                                "
-                                                alt=""
-                                          />
-                                    </div>
-                                    <div class="artcle-right-item">
-                                          <img
-                                                [src]="
-                                                      'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
-                                                "
-                                                alt=""
-                                          />
-                                    </div> -->
-                              </div>
-                        </div>
-                        <div cdkDropListGroup>
-                              <div class="example-container">
-                                    <h2>Available items</h2>
+                              <input
+                                    type="text"
+                                    matInput
+                                    formControlName="categoryId"
+                                    required
+                              />
+                        </mat-form-field>
+                        <button mat-raised-button color="primary" disabled>
+                              Xác nhận
+                        </button>
+                  </form>
 
-                                    <div
-                                          cdkDropList
-                                          [cdkDropListData]="items"
-                                          class="example-list"
-                                          cdkDropListSortingDisabled
-                                          (cdkDropListDropped)="drop($event)"
-                                    >
-                                          <div
-                                                class="example-box"
-                                                *ngFor="let item of items"
-                                                cdkDrag
-                                          >
-                                                {{ item }}
-                                          </div>
-                                    </div>
-                              </div>
-
-                              <div class="example-container">
-                                    <h2>Shopping basket</h2>
-
-                                    <div
-                                          cdkDropList
-                                          [cdkDropListData]="basket"
-                                          class="example-list"
-                                          (cdkDropListDropped)="drop($event)"
-                                    >
-                                          <div
-                                                class="example-box"
-                                                *ngFor="let item of basket"
-                                                cdkDrag
-                                          >
-                                                {{ item }}
-                                          </div>
-                                    </div>
-                              </div>
-                        </div>
-                        <!-- <div
-                              class="example-box"
-                              *ngFor="let item of listHotArticles"
-                              cdkDrag
+                  <table>
+                        <tr>
+                              <th>Vị trí</th>
+                              <th>Tên bài viết</th>
+                              <th></th>
+                        </tr>
+                        <tr
+                              *ngFor="
+                                    let item of listHotArticles.hot_news
+                                          .hot_main
+                              "
+                              class="item-hot-articles"
                         >
-                              {{ item.name }}
-                        </div> -->
-                  </div>
+                              <td>{{ item.position }}</td>
+                              <td>{{ item.new_article.title }}</td>
+                              <td>
+                                    <button
+                                          mat-icon-button
+                                          [matMenuTriggerFor]="menu"
+                                          aria-label="Example icon-button with a menu"
+                                    >
+                                          <fa-icon
+                                                [icon]="faEllipsisVertical"
+                                          ></fa-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                          <button mat-menu-item>
+                                                <span>Xóa</span>
+                                          </button>
+                                          <button mat-menu-item>
+                                                <span>Sửa</span>
+                                          </button>
+                                    </mat-menu>
+                              </td>
+                        </tr>
+                  </table>
+            </div>
+            <div class="img-example">
+                  <b>Vị trí bố cục</b>
+                  <img
+                        src="../../../../../../../assets/Screenshot 2023-07-17 002523.png"
+                        alt=""
+                  />
+            </div>
+      </div>
+</div>
+<div class="layout">
+      <h2>Xét bài bài viết nổi bật <small>( Danh muc )</small></h2>
+      <hr />
+      <div class="layout-content">
+            <div class="form">
+                  <form action="">
+                        <mat-form-field class="example-full-width input">
+                              <mat-label>Tên bài viết</mat-label>
+                              <input
+                                    type="text"
+                                    matInput
+                                    formControlName="categoryId"
+                                    [matAutocomplete]="auto"
+                                    required
+                              />
+                              <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option> </mat-option>
+                              </mat-autocomplete>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width input">
+                              <mat-label
+                                    >Vị trí muốn đặt trong bộ cục</mat-label
+                              >
+                              <input
+                                    type="text"
+                                    matInput
+                                    formControlName="categoryId"
+                                    required
+                              />
+                        </mat-form-field>
+                        <button mat-raised-button color="primary" disabled>
+                              Xác nhận
+                        </button>
+                  </form>
+
+                  <table>
+                        <tr>
+                              <th>Vị trí</th>
+                              <th>Tên bài viết</th>
+                              <th></th>
+                        </tr>
+                        <tr
+                              *ngFor="
+                                    let item of listHotArticles.hot_news
+                                          .hot_main
+                              "
+                              class="item-hot-articles"
+                        >
+                              <td>{{ item.position }}</td>
+                              <td>{{ item.new_article.title }}</td>
+                              <td>
+                                    <button
+                                          mat-icon-button
+                                          [matMenuTriggerFor]="menu"
+                                          aria-label="Example icon-button with a menu"
+                                    >
+                                          <fa-icon
+                                                [icon]="faEllipsisVertical"
+                                          ></fa-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                          <button mat-menu-item>
+                                                <span>Xóa</span>
+                                          </button>
+                                          <button mat-menu-item>
+                                                <span>Sửa</span>
+                                          </button>
+                                    </mat-menu>
+                              </td>
+                        </tr>
+                  </table>
+            </div>
+            <div class="img-example">
+                  <b>Vị trí bố cục</b>
+                  <img
+                        src="../../../../../../../assets/Screenshot 2023-07-17 002523.png"
+                        alt=""
+                  />
+            </div>
+      </div>
+</div>
+<div class="layout">
+      <h2>Xét bài bài viết nổi bật <small>( Danh muc con )</small></h2>
+      <hr />
+      <div class="layout-content">
+            <div class="form">
+                  <form action="">
+                        <mat-form-field class="example-full-width input">
+                              <mat-label>Tên bài viết</mat-label>
+                              <input
+                                    type="text"
+                                    matInput
+                                    formControlName="categoryId"
+                                    [matAutocomplete]="auto"
+                                    required
+                              />
+                              <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option> </mat-option>
+                              </mat-autocomplete>
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width input">
+                              <mat-label
+                                    >Vị trí muốn đặt trong bộ cục</mat-label
+                              >
+                              <input
+                                    type="text"
+                                    matInput
+                                    formControlName="categoryId"
+                                    required
+                              />
+                        </mat-form-field>
+                        <button mat-raised-button color="primary" disabled>
+                              Xác nhận
+                        </button>
+                  </form>
+
+                  <table>
+                        <tr>
+                              <th>Vị trí</th>
+                              <th>Tên bài viết</th>
+                              <th></th>
+                        </tr>
+                        <tr
+                              *ngFor="
+                                    let item of listHotArticles.hot_news
+                                          .hot_main
+                              "
+                              class="item-hot-articles"
+                        >
+                              <td>{{ item.position }}</td>
+                              <td>{{ item.new_article.title }}</td>
+                              <td>
+                                    <button
+                                          mat-icon-button
+                                          [matMenuTriggerFor]="menu"
+                                          aria-label="Example icon-button with a menu"
+                                    >
+                                          <fa-icon
+                                                [icon]="faEllipsisVertical"
+                                          ></fa-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                          <button mat-menu-item>
+                                                <span>Xóa</span>
+                                          </button>
+                                          <button mat-menu-item>
+                                                <span>Sửa</span>
+                                          </button>
+                                    </mat-menu>
+                              </td>
+                        </tr>
+                  </table>
+            </div>
+            <div class="img-example">
+                  <b>Vị trí bố cục</b>
+                  <img
+                        src="../../../../../../../assets/Screenshot 2023-07-17 002523.png"
+                        alt=""
+                  />
             </div>
       </div>
 </div>
