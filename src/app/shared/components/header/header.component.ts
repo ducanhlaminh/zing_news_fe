@@ -25,9 +25,9 @@ export class HeaderComponent implements OnInit {
       ) {}
       ngOnInit(): void {
             this.getCategories();
-            this.UserService.inforUser$.subscribe(
-                  (data) => (this.inforUser = data)
-            );
+            this.UserService.inforUser$.subscribe((data) => {
+                  this.inforUser = data;
+            });
       }
       getCategories() {
             this.CategoryService.getAllCategories().subscribe(

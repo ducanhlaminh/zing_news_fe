@@ -11,6 +11,8 @@ import {
       moveItemInArray,
       transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { debounceTime, switchMap } from 'rxjs';
 @Component({
       selector: 'app-manage-articles',
       templateUrl: './manage-articles.component.html',
@@ -24,6 +26,9 @@ export class ManageArticlesComponent implements OnInit {
       articles: any = [];
       listArticles: any = [];
       listHotArticles: any = [];
+      myForm!: FormGroup;
+      option: any;
+      update: boolean = true;
 
       length = 100;
       pageSize = 10;
@@ -42,8 +47,21 @@ export class ManageArticlesComponent implements OnInit {
 
       order: any = [];
       queries: any = {};
-      constructor(private NewService: NewsService) {}
+      constructor(
+            private NewService: NewsService,
+            private formBuilder: FormBuilder
+      ) {}
       ngOnInit(): void {
+            this.initForm();
+            this.myForm
+                  .get('nameArticle')
+                  ?.valueChanges.pipe(
+                        debounceTime(500),
+                        switchMap((value) =>
+                              this.NewService.getArticlesByTitle(value || '')
+                        )
+                  )
+                  .subscribe((data: any) => (this.option = data.data.rows));
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
             this.NewService.getAllByAd({ ...this.queries }).subscribe(
@@ -53,9 +71,25 @@ export class ManageArticlesComponent implements OnInit {
                         this.listArticles = [...data.rows];
                   }
             );
-            this.NewService.getHotMain().subscribe(
-                  (data) => (this.listHotArticles = data)
-            );
+            this.getHotMain();
+      }
+      initForm() {
+            this.myForm = this.formBuilder.group({
+                  nameArticle: '',
+                  position: '',
+            });
+      }
+      createHotArticle() {
+            this.NewService.createHotMain({
+                  id: this.myForm.value.nameArticle.id,
+                  position: this.myForm.value.position,
+            }).subscribe(() => {
+                  this.getHotMain();
+                  this.myForm.patchValue({ nameArticle: '', position: '' });
+            });
+      }
+      getOptionText(option: any) {
+            return option.title;
       }
       handlePageEvent(e: any) {
             this.length = e.length;
@@ -106,5 +140,37 @@ export class ManageArticlesComponent implements OnInit {
                         this.length = data.count;
                   }
             );
+      }
+      deleteHotMain(id: number, position: number): void {
+            this.NewService.deleteHotMain({ id, position }).subscribe(() =>
+                  this.getHotMain()
+            );
+      }
+      getHotMain() {
+            this.NewService.getHotMain().subscribe(
+                  (data) => (this.listHotArticles = data)
+            );
+      }
+      updateItem(item: any) {
+            this.update = false;
+
+            this.myForm?.setValue({
+                  nameArticle: item.new_article,
+                  position: item.position,
+            });
+      }
+      updateHot() {
+            this.NewService.updateHotMain({
+                  id: this.myForm.value.nameArticle.id,
+                  position: this.myForm.value.position,
+            }).subscribe(() => {
+                  this.getHotMain();
+                  this.myForm.patchValue({ nameArticle: '', position: '' });
+                  this.update = true;
+            });
+      }
+      cancel() {
+            this.update = true;
+            this.myForm.patchValue({ nameArticle: '', position: '' });
       }
 }

@@ -24,9 +24,10 @@
     flex-direction: column;
     gap: 10px;
     .artcle-right-item{
+      height: 50%;
       img {
         width: 100%;
-        height: 183px;
+        height:80%;
         object-fit: cover;
       }
     }
@@ -37,6 +38,7 @@
     flex-direction: column;
     gap: 10px;
     .artcle-center-item{
+      height: 100%;
       b {
         font-family: Arial;
         font-size: 32px;
@@ -47,7 +49,7 @@
       }
     img {
       width: 100%;
-      height: 325px;
+      height: 70%;
       object-fit: cover;
     }
   }

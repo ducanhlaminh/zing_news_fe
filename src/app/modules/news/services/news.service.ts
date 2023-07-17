@@ -54,4 +54,17 @@ export class NewsService {
                   });
             } else return this.http.get(environment.API_GET_ALL_ARTICLES);
       }
+      deleteHotMain(data: any) {
+            return this.http.delete(environment.API_NEWS_HOT_MAIN, {
+                  params: { ...data },
+            });
+      }
+      createHotMain(data: any) {
+            return this.http.post(environment.API_NEWS_HOT_MAIN, {
+                  data,
+            });
+      }
+      updateHotMain(data: any) {
+            return this.http.put(environment.API_NEWS_HOT_MAIN + data.id, data);
+      }
 }

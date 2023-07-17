@@ -4,7 +4,7 @@ export const environment = {
             'http://localhost:4000/api/v1/categories/sub-cate/',
       API_CATEGORIES_BY_NAME: 'http://localhost:4000/api/v1/categories/',
 
-      API_NEWS_HOT_MAIN: 'http://localhost:4000/api/v1/articles/hot-main',
+      API_NEWS_HOT_MAIN: 'http://localhost:4000/api/v1/articles/hot-main/',
       API_BOOKS: 'http://localhost:4000/api/v1/articles/books',
       API_NEW_ARTCLES_MAIN: 'http://localhost:4000/api/v1/articles/publish_at',
       API_NEW_ARTCLES_CATE: 'http://localhost:4000/api/v1/articles/publish_at/',
