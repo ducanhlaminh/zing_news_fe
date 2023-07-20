@@ -5,14 +5,9 @@ import {
       faCaretUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { NewsService } from 'src/app/modules/news/services/news.service';
-import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
-import {
-      CdkDragDrop,
-      moveItemInArray,
-      transferArrayItem,
-} from '@angular/cdk/drag-drop';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, switchMap } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { combineLatest, debounceTime, switchMap } from 'rxjs';
+import { CategoryService } from 'src/app/modules/news/services/category.service';
 @Component({
       selector: 'app-manage-articles',
       templateUrl: './manage-articles.component.html',
@@ -26,9 +21,15 @@ export class ManageArticlesComponent implements OnInit {
       articles: any = [];
       listArticles: any = [];
       listHotArticles: any = [];
+      listHotCateArticles: any = [];
       myForm!: FormGroup;
+      myForm2!: FormGroup;
       option: any;
+      option2: any;
       update: boolean = true;
+      optionCategories: any = [];
+      optionSubCategories: any = [];
+      idSelectedCate: any;
 
       length = 100;
       pageSize = 10;
@@ -49,19 +50,12 @@ export class ManageArticlesComponent implements OnInit {
       queries: any = {};
       constructor(
             private NewService: NewsService,
+            private CategoryService: CategoryService,
             private formBuilder: FormBuilder
       ) {}
       ngOnInit(): void {
             this.initForm();
-            this.myForm
-                  .get('nameArticle')
-                  ?.valueChanges.pipe(
-                        debounceTime(500),
-                        switchMap((value) =>
-                              this.NewService.getArticlesByTitle(value || '')
-                        )
-                  )
-                  .subscribe((data: any) => (this.option = data.data.rows));
+            this.initForm2();
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
             this.NewService.getAllByAd({ ...this.queries }).subscribe(
@@ -72,13 +66,57 @@ export class ManageArticlesComponent implements OnInit {
                   }
             );
             this.getHotMain();
+            this.optionCategories = this.CategoryService.categories;
+      }
+      sreach() {
+            console.log(this.myForm.value);
+
+            this.myForm
+                  .get('nameArticle')
+                  ?.valueChanges.pipe(
+                        debounceTime(500),
+                        switchMap((value) =>
+                              this.NewService.getArticlesByTitle(
+                                    '',
+                                    value || ''
+                              )
+                        )
+                  )
+                  .subscribe((data: any) => (this.option = data.data.rows));
+      }
+      sreach2() {
+            console.log(2);
+
+            this.myForm2
+                  .get('nameArticle')
+                  ?.valueChanges.pipe(
+                        debounceTime(500),
+                        switchMap((value) =>
+                              this.NewService.getArticlesByTitle(
+                                    this.idSelectedCate,
+                                    value || ''
+                              )
+                        )
+                  )
+                  .subscribe((data: any) => {
+                        this.option2 = data;
+                  });
       }
       initForm() {
             this.myForm = this.formBuilder.group({
-                  nameArticle: '',
-                  position: '',
+                  nameArticle: ['', Validators.required],
+                  position: ['', Validators.required],
             });
       }
+      initForm2() {
+            this.myForm2 = this.formBuilder.group({
+                  nameArticle: [''],
+                  nameCategory: [''],
+                  nameSubCategory: [''],
+                  position: [''],
+            });
+      }
+
       createHotArticle() {
             this.NewService.createHotMain({
                   id: this.myForm.value.nameArticle.id,
@@ -87,6 +125,10 @@ export class ManageArticlesComponent implements OnInit {
                   this.getHotMain();
                   this.myForm.patchValue({ nameArticle: '', position: '' });
             });
+      }
+      onChangeCate(e: any) {
+            this.idSelectedCate = e.value.id;
+            this.optionSubCategories = e.value.childCategories;
       }
       getOptionText(option: any) {
             return option.title;
@@ -146,9 +188,18 @@ export class ManageArticlesComponent implements OnInit {
                   this.getHotMain()
             );
       }
+      createHotCateArticles() {
+            console.log(this.myForm2.value);
+      }
       getHotMain() {
             this.NewService.getHotMain().subscribe(
                   (data) => (this.listHotArticles = data)
+            );
+      }
+      getHotCateArticles(crc: any) {
+            this.NewService.getartclesHotCate(crc).subscribe(
+                  (data: any) =>
+                        (this.listHotCateArticles = data.hotArticlesCate)
             );
       }
       updateItem(item: any) {

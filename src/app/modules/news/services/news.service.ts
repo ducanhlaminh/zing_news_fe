@@ -21,10 +21,16 @@ export class NewsService {
                   params: { slug },
             });
       }
-      getArticlesByTitle(title: string) {
-            return this.http.get(environment.API_NEW_ARTCLES_TITLE, {
-                  params: { title },
-            });
+      getArticlesByTitle(category_id: any, title: string) {
+            if (category_id === '') {
+                  return this.http.get(environment.API_NEW_ARTCLES_TITLE, {
+                        params: { title },
+                  });
+            } else {
+                  return this.http.get(environment.API_NEW_ARTCLES_TITLE, {
+                        params: { title, category_id },
+                  });
+            }
       }
       getArticlesView(slug_crc: any = undefined) {
             if (slug_crc) {

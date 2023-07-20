@@ -3,7 +3,7 @@
       <div class="sub-categories-section">
             <p
                   class="sub-category title"
-                  *ngFor="let item of CategoryCurrent?.new_categories"
+                  *ngFor="let item of CategoryCurrent?.childCategories"
                   [routerLink]="['/', 'danh-muc', item.slug, item.slug_crc]"
             >
                   {{ item.name }}
