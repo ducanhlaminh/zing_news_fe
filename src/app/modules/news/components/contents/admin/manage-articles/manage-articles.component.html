@@ -275,6 +275,7 @@
                         <tr>
                               <th>Vị trí</th>
                               <th>Tên bài viết</th>
+                              <th>Danh mục</th>
                               <th></th>
                         </tr>
                         <tr
@@ -291,6 +292,7 @@
                               <td>
                                     {{ item?.new_article?.title }}
                               </td>
+                              <td></td>
                               <td>
                                     <button
                                           mat-icon-button
@@ -356,14 +358,14 @@
                                     type="text"
                                     matInput
                                     formControlName="nameArticle"
-                                    [matAutocomplete]="auto"
+                                    [matAutocomplete]="auto1"
                               />
                               <mat-error
                                     *ngIf="!myForm.get('nameArticle')?.valid"
                                     >You must enter a value</mat-error
                               >
                               <mat-autocomplete
-                                    #auto="matAutocomplete"
+                                    #auto1="matAutocomplete"
                                     [displayWith]="getOptionText"
                               >
                                     <mat-option

@@ -56,6 +56,8 @@ export class ManageArticlesComponent implements OnInit {
       ngOnInit(): void {
             this.initForm();
             this.initForm2();
+            this.sreach();
+            this.sreach2();
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
             this.NewService.getAllByAd({ ...this.queries }).subscribe(
@@ -69,8 +71,6 @@ export class ManageArticlesComponent implements OnInit {
             this.optionCategories = this.CategoryService.categories;
       }
       sreach() {
-            console.log(this.myForm.value);
-
             this.myForm
                   .get('nameArticle')
                   ?.valueChanges.pipe(
@@ -192,9 +192,11 @@ export class ManageArticlesComponent implements OnInit {
             console.log(this.myForm2.value);
       }
       getHotMain() {
-            this.NewService.getHotMain().subscribe(
-                  (data) => (this.listHotArticles = data)
-            );
+            this.NewService.getHotMain().subscribe((data: any) => {
+                  (this.listHotArticles = data),
+                        (this.listHotCateArticles =
+                              data.hot_news.hot_categories);
+            });
       }
       getHotCateArticles(crc: any) {
             this.NewService.getartclesHotCate(crc).subscribe(
