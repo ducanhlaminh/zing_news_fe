@@ -3,6 +3,8 @@ import {
       faEllipsisVertical,
       faCaretDown,
       faCaretUp,
+      faXmark,
+      faEdit,
 } from '@fortawesome/free-solid-svg-icons';
 import { NewsService } from 'src/app/modules/news/services/news.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,6 +19,8 @@ export class ManageArticlesComponent implements OnInit {
       faEllipsisVertical = faEllipsisVertical;
       faCaretDown = faCaretDown;
       faCaretUp = faCaretUp;
+      faXmark = faXmark;
+      faEdit = faEdit;
 
       articles: any = [];
       listArticles: any = [];
@@ -28,8 +32,9 @@ export class ManageArticlesComponent implements OnInit {
       option2: any;
       update: boolean = true;
       optionCategories: any = [];
-      optionSubCategories: any = [];
-      idSelectedCate: any;
+      selectedCate: any;
+      updateHotCate: any = true;
+      show = { hotMain: false, hotCate: false };
 
       length = 100;
       pageSize = 10;
@@ -56,8 +61,6 @@ export class ManageArticlesComponent implements OnInit {
       ngOnInit(): void {
             this.initForm();
             this.initForm2();
-            this.sreach();
-            this.sreach2();
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
             this.NewService.getAllByAd({ ...this.queries }).subscribe(
@@ -68,9 +71,30 @@ export class ManageArticlesComponent implements OnInit {
                   }
             );
             this.getHotMain();
-            this.optionCategories = this.CategoryService.categories;
+            this.getOptionCategories();
       }
-      sreach() {
+      getOptionCategories() {
+            this.CategoryService.getAllCategoriesByAd().subscribe(
+                  (data: any) => {
+                        this.CategoryService.categories = data.rows;
+                        this.CategoryService.categories.map((item: any) => {
+                              item.opened = false;
+                        });
+                        this.length = data.rows.length;
+                        this.optionCategories = this.CategoryService.categories;
+                        const tempArray = this.optionCategories.map(
+                              (item: any) => [item, ...item.childCategories]
+                        );
+                        const arrayB = tempArray.flat();
+                        this.optionCategories = arrayB;
+                  }
+            );
+      }
+      initForm() {
+            this.myForm = this.formBuilder.group({
+                  nameArticle: ['', Validators.required],
+                  position: ['', Validators.required],
+            });
             this.myForm
                   .get('nameArticle')
                   ?.valueChanges.pipe(
@@ -84,16 +108,19 @@ export class ManageArticlesComponent implements OnInit {
                   )
                   .subscribe((data: any) => (this.option = data.data.rows));
       }
-      sreach2() {
-            console.log(2);
-
+      initForm2() {
+            this.myForm2 = this.formBuilder.group({
+                  article: [''],
+                  category: [''],
+                  position: [''],
+            });
             this.myForm2
-                  .get('nameArticle')
+                  .get('article')
                   ?.valueChanges.pipe(
                         debounceTime(500),
                         switchMap((value) =>
                               this.NewService.getArticlesByTitle(
-                                    this.idSelectedCate,
+                                    this.selectedCate.id,
                                     value || ''
                               )
                         )
@@ -101,20 +128,6 @@ export class ManageArticlesComponent implements OnInit {
                   .subscribe((data: any) => {
                         this.option2 = data;
                   });
-      }
-      initForm() {
-            this.myForm = this.formBuilder.group({
-                  nameArticle: ['', Validators.required],
-                  position: ['', Validators.required],
-            });
-      }
-      initForm2() {
-            this.myForm2 = this.formBuilder.group({
-                  nameArticle: [''],
-                  nameCategory: [''],
-                  nameSubCategory: [''],
-                  position: [''],
-            });
       }
 
       createHotArticle() {
@@ -127,11 +140,14 @@ export class ManageArticlesComponent implements OnInit {
             });
       }
       onChangeCate(e: any) {
-            this.idSelectedCate = e.value.id;
-            this.optionSubCategories = e.value.childCategories;
+            this.selectedCate = e.value;
+            e.value && this.getArtclesHotCate(this.selectedCate);
       }
       getOptionText(option: any) {
             return option.title;
+      }
+      getOption2Text(option: any) {
+            return option.new_article?.title;
       }
       handlePageEvent(e: any) {
             this.length = e.length;
@@ -188,8 +204,31 @@ export class ManageArticlesComponent implements OnInit {
                   this.getHotMain()
             );
       }
+      deleteHotCate(item: any): void {
+            this.NewService.deleteHotCate({
+                  article_id: item.article_id,
+                  position: item.position,
+                  category_id: item.category_id,
+            }).subscribe(() => this.getArtclesHotCate(this.selectedCate));
+      }
+      getArtclesHotCate(e: any) {
+            this.NewService.getartclesHotCate(e.slug_crc).subscribe(
+                  (data: any) =>
+                        (this.listHotCateArticles = data.hotArticlesCate)
+            );
+      }
       createHotCateArticles() {
-            console.log(this.myForm2.value);
+            this.NewService.createArtclesHotCate({
+                  article_id: this.myForm2.value.article.article_id,
+                  position: this.myForm2.value.position,
+                  category_id: this.myForm2.value.category.id,
+            }).subscribe(() => {
+                  this.getArtclesHotCate(this.selectedCate);
+                  this.myForm2.patchValue({
+                        article: '',
+                        position: '',
+                  });
+            });
       }
       getHotMain() {
             this.NewService.getHotMain().subscribe((data: any) => {
@@ -198,17 +237,19 @@ export class ManageArticlesComponent implements OnInit {
                               data.hot_news.hot_categories);
             });
       }
-      getHotCateArticles(crc: any) {
-            this.NewService.getartclesHotCate(crc).subscribe(
-                  (data: any) =>
-                        (this.listHotCateArticles = data.hotArticlesCate)
-            );
-      }
       updateItem(item: any) {
             this.update = false;
 
             this.myForm?.setValue({
                   nameArticle: item.new_article,
+                  position: item.position,
+            });
+      }
+      updateItem2(item: any) {
+            this.updateHotCate = false;
+
+            this.myForm2?.patchValue({
+                  article: item,
                   position: item.position,
             });
       }
@@ -222,8 +263,21 @@ export class ManageArticlesComponent implements OnInit {
                   this.update = true;
             });
       }
+      updateHotCateArticle() {
+            this.NewService.updateArtclesHotCate({
+                  position: this.myForm2.value.position,
+            }).subscribe(() => {
+                  this.getArtclesHotCate(this.selectedCate);
+                  this.myForm2.patchValue({ article: '', position: '' });
+                  this.updateHotCate = true;
+            });
+      }
       cancel() {
             this.update = true;
             this.myForm.patchValue({ nameArticle: '', position: '' });
+      }
+      cancel2() {
+            this.updateHotCate = true;
+            this.myForm2.patchValue({ article: '', position: '' });
       }
 }

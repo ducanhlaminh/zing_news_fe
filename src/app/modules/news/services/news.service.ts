@@ -73,4 +73,20 @@ export class NewsService {
       updateHotMain(data: any) {
             return this.http.put(environment.API_NEWS_HOT_MAIN + data.id, data);
       }
+      updateArtclesHotCate(data: any) {
+            return this.http.put(
+                  environment.API_ARTICLES_HOT_CATE + data.id,
+                  data
+            );
+      }
+      createArtclesHotCate(data: any) {
+            return this.http.post(environment.API_ARTICLES_HOT_CATE, {
+                  ...data,
+            });
+      }
+      deleteHotCate(data: any) {
+            return this.http.delete(environment.API_ARTICLES_HOT_CATE, {
+                  params: { ...data },
+            });
+      }
 }

@@ -1,14 +1,4 @@
-.header{
-      display: flex;
-      font-weight: 500;
-      padding: 20px 30px;
-      border-radius: 10px 10px  0 0;
-      border-bottom: 2px solid #000;
-      background-color: #1c77f767;
-      gap:10px;
-      box-sizing: border-box;
-      user-select: none;
-}
+
 .item{
       display: flex;
       padding: 10px 0;
@@ -115,6 +105,13 @@ th {
       background: rgb(221, 219, 219);
 }
 .layout{
+      .layout-header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid #333;
+      }
       .layout-content{
             padding: 10px;
             display: flex;

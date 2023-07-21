@@ -74,9 +74,9 @@
                   </div>
             </th>
             <th>
-                  <div class="header-slug" (click)="filterFn('slug')">
+                  <div class="header-slug" (click)="filterFn('status')">
                         <span>Trạng thái</span>
-                        <div [ngSwitch]="filterCurr.slug">
+                        <div [ngSwitch]="filterCurr.status">
                               <fa-icon
                                     [icon]="faCaretDown"
                                     *ngSwitchCase="'1'"
@@ -148,7 +148,22 @@
                         <span>{{ item.slug }}</span>
                   </td>
                   <td class="item-status">
-                        <span class="pending">Đang chờ</span>
+                        <span
+                              [class]="
+                                    item.status === 1
+                                          ? 'success'
+                                          : item.status === 0
+                                          ? 'pending'
+                                          : ''
+                              "
+                              >{{
+                                    item.status === 1
+                                          ? "Xuất bản"
+                                          : item.status === 0
+                                          ? "Đang chờ"
+                                          : "Hủy Bỏ"
+                              }}</span
+                        >
                   </td>
                   <td class="item-date-published">
                         <span>{{ item.createdAt | datePipe }}</span>
@@ -190,64 +205,62 @@
 >
 </mat-paginator>
 <div class="layout">
-      <h2>Xét bài bài viết nổi bật <small>( Danh mục )</small></h2>
-      <hr />
-      <div class="layout-content">
+      <div class="layout-header">
+            <h2>Xét bài viết nổi bật <small>( Danh mục )</small></h2>
+            <button
+                  mat-mini-fab
+                  color="primary"
+                  aria-label="Example icon button with a home icon"
+                  (click)="show.hotCate = !show.hotCate"
+            >
+                  <fa-icon [icon]="show.hotCate ? faXmark : faEdit"></fa-icon>
+            </button>
+      </div>
+
+      <div class="layout-content" *ngIf="show.hotCate">
             <div class="form">
                   <form
                         [formGroup]="myForm2"
                         (submit)="createHotCateArticles()"
                   >
                         <mat-form-field class="example-full-width input">
-                              <mat-label>Tên bài viết</mat-label>
-                              <input
-                                    type="text"
-                                    matInput
-                                    formControlName="nameArticle"
-                                    [matAutocomplete]="auto"
-                                    (focus)="sreach()"
-                              />
-                              <mat-error
-                                    *ngIf="!myForm2.get('nameArticle')?.valid"
-                                    >You must enter a value</mat-error
-                              >
-                              <mat-autocomplete
-                                    #auto="matAutocomplete"
-                                    [displayWith]="getOptionText"
-                              >
-                                    <mat-option *ngFor="let item of option2">
-                                          {{ item.new_article.title }}
-                                    </mat-option>
-                              </mat-autocomplete>
-                        </mat-form-field>
-                        <mat-form-field class="example-full-width">
                               <mat-label>Tên danh mục</mat-label>
                               <mat-select
                                     (selectionChange)="onChangeCate($event)"
-                                    formControlName="nameCategory"
+                                    formControlName="category"
                               >
                                     <mat-option
                                           [value]="item"
                                           *ngFor="let item of optionCategories"
                                     >
-                                          {{ item?.name }}
+                                          {{ item.name }}
                                     </mat-option>
                               </mat-select>
                         </mat-form-field>
-                        <mat-form-field class="example-full-width">
-                              <mat-label>Tên danh mục con</mat-label>
-
-                              <mat-select formControlName="nameSubCategory">
+                        <mat-form-field class="example-full-width input">
+                              <mat-label>Tên bài viết</mat-label>
+                              <input
+                                    type="text"
+                                    matInput
+                                    formControlName="article"
+                                    [matAutocomplete]="auto"
+                              />
+                              <mat-error *ngIf="!myForm2.get('article')?.valid"
+                                    >You must enter a value</mat-error
+                              >
+                              <mat-autocomplete
+                                    #auto="matAutocomplete"
+                                    [displayWith]="getOption2Text"
+                              >
                                     <mat-option
+                                          *ngFor="let item of option2"
                                           [value]="item"
-                                          *ngFor="
-                                                let item of optionSubCategories
-                                          "
                                     >
-                                          {{ item?.name }}
+                                          {{ item?.new_article.title }}
                                     </mat-option>
-                              </mat-select>
+                              </mat-autocomplete>
                         </mat-form-field>
+
                         <mat-form-field class="example-full-width input">
                               <mat-label
                                     >Vị trí muốn đặt trong bộ cục</mat-label
@@ -261,7 +274,10 @@
                                     >You must enter a value</mat-error
                               >
                         </mat-form-field>
-                        <div class="groupBtn" *ngIf="update; else updateBTn">
+                        <div
+                              class="groupBtn"
+                              *ngIf="updateHotCate; else updateBtnCate"
+                        >
                               <button
                                     mat-raised-button
                                     color="primary"
@@ -275,13 +291,11 @@
                         <tr>
                               <th>Vị trí</th>
                               <th>Tên bài viết</th>
-                              <th>Danh mục</th>
                               <th></th>
                         </tr>
                         <tr
                               *ngFor="
-                                    let item of listHotArticles.hot_news
-                                          ?.hot_main;
+                                    let item of listHotCateArticles.new_articles_hot_categories;
                                     index as idx
                               "
                               class="item-hot-articles"
@@ -292,7 +306,6 @@
                               <td>
                                     {{ item?.new_article?.title }}
                               </td>
-                              <td></td>
                               <td>
                                     <button
                                           mat-icon-button
@@ -306,18 +319,13 @@
                                     <mat-menu #menu="matMenu">
                                           <button
                                                 mat-menu-item
-                                                (click)="
-                                                      deleteHotMain(
-                                                            item.article_id,
-                                                            item.position
-                                                      )
-                                                "
+                                                (click)="deleteHotCate(item)"
                                           >
                                                 <span>Xóa</span>
                                           </button>
                                           <button
                                                 mat-menu-item
-                                                (click)="updateItem(item)"
+                                                (click)="updateItem2(item)"
                                           >
                                                 <span>Cập nhật</span>
                                           </button>
@@ -343,9 +351,18 @@
       </div>
 </div>
 <div class="layout">
-      <h2>Xét bài bài viết nổi bật <small>( Trang chủ )</small></h2>
-      <hr />
-      <div class="layout-content">
+      <div class="layout-header">
+            <h2>Xét bài viết nổi bật <small>( Trang chủ )</small></h2>
+            <button
+                  mat-mini-fab
+                  color="primary"
+                  aria-label="Example icon button with a home icon"
+                  (click)="show.hotMain = !show.hotMain"
+            >
+                  <fa-icon [icon]="show.hotCate ? faXmark : faEdit"></fa-icon>
+            </button>
+      </div>
+      <div class="layout-content" *ngIf="show.hotMain">
             <div class="form">
                   <form
                         action=""
@@ -389,7 +406,10 @@
                                     >You must enter a value</mat-error
                               >
                         </mat-form-field>
-                        <div class="groupBtn" *ngIf="update; else updateBTn">
+                        <div
+                              class="groupBtn"
+                              *ngIf="update; else updateBtnMain"
+                        >
                               <button
                                     mat-raised-button
                                     color="primary"
@@ -469,12 +489,26 @@
       </div>
 </div>
 
-<ng-template #updateBTn>
+<ng-template #updateBtnMain>
       <div class="groupBtn">
             <button mat-raised-button color="primary" (click)="updateHot()">
                   Cập nhật
             </button>
             <button mat-raised-button color="primary" (click)="cancel()">
+                  Hủy bỏ
+            </button>
+      </div>
+</ng-template>
+<ng-template #updateBtnCate>
+      <div class="groupBtn">
+            <button
+                  mat-raised-button
+                  color="primary"
+                  (click)="updateHotCateArticle()"
+            >
+                  Cập nhật
+            </button>
+            <button mat-raised-button color="primary" (click)="cancel2()">
                   Hủy bỏ
             </button>
       </div>
