@@ -22,7 +22,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
       declarations: [
             HeaderComponent,
@@ -60,6 +60,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
             MatPaginatorModule,
             MatStepperModule,
             DragDropModule,
+            MatInputModule,
       ],
 })
 export class LayoutModule {}

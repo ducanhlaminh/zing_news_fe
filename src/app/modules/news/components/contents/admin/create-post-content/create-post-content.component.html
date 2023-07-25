@@ -1,3 +1,4 @@
+<pre>{{ this.previewImg || "123" }}</pre>
 <div class="content-create-article">
       <small>*Vui lòng điền các trường thông tin sau để tạo bài viết</small>
       <hr />
@@ -170,6 +171,7 @@
                   </form>
             </mat-step>
             <mat-step [editable]="editable">
+                  <button (click)="this.previewImg = '1235'"></button>
                   <ng-template matStepLabel>Nội dung bài viết</ng-template>
                   <form
                         action=""
@@ -177,11 +179,11 @@
                         (ngSubmit)="onClick()"
                   >
                         <editor
-                              plugins=" image fullscreen table emoticons link image example template"
+                              plugins=" image fullscreen table emoticons link image example"
                               menubar="file edit insert view format table tools help "
                               [init]="tinyMCEInit"
                               formControlName="content"
-                              toolbar="myCustomToolbarButton mycustombutton template bold italic underline  | fontfamily fontsizeinput  | styles forecolor backcolor | alignleft aligncenter alignright alignjustify |indent outdent rtl ltr | fullscreen image table link emoticons"
+                              toolbar="myCustomToolbarButton mycustombutton cancel bold italic underline  | fontfamily fontsizeinput  | styles forecolor backcolor | alignleft aligncenter alignright alignjustify |indent outdent rtl ltr | fullscreen image table link emoticons"
                         >
                         </editor>
                         <button

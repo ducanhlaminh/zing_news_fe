@@ -13,10 +13,13 @@ import {
       Validators,
 } from '@angular/forms';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { debounceTime, switchMap } from 'rxjs';
+import { async, debounceTime, switchMap } from 'rxjs';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
 import { NewsService } from 'src/app/modules/news/services/news.service';
 import { CarouselComponent } from '../../../common/carousel/carousel.component';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { LoadedImage } from 'ngx-image-cropper';
 declare const tinymce: any;
 @Component({
       selector: 'app-create-post-content',
@@ -32,10 +35,12 @@ export class CreatePostContentComponent implements OnInit {
       options: any[] = [];
       imageCropper: any;
       editable = false;
+      previewImg: any;
       constructor(
             private formBuilder: FormBuilder,
             public CategoryService: CategoryService,
-            private NewService: NewsService
+            private NewService: NewsService,
+            private sanitizer: DomSanitizer
       ) {
             this.formGroup = this.formBuilder.group({
                   title: ['', Validators.required],
@@ -46,7 +51,6 @@ export class CreatePostContentComponent implements OnInit {
                   categoryId: ['', Validators.required],
             });
       }
-
       ngOnInit(): void {
             tinymce.PluginManager.add('example', (editor: any, url: any) => {
                   editor.ui.registry.addMenuButton('myCustomToolbarButton', {
@@ -71,60 +75,54 @@ export class CreatePostContentComponent implements OnInit {
                                                 );
                                           },
                                     },
-                                    {
-                                          type: 'menuitem',
-                                          text: '240px',
-                                          onAction: () => {
-                                                tinymce.activeEditor.formatter.toggle(
-                                                      'custom_format3'
-                                                );
-                                          },
-                                    },
                               ];
                               callback(items);
                         },
                   });
                   editor.ui.registry.addButton('mycustombutton', {
-                        text: 'My Custom Button',
+                        icon: 'crop',
                         onAction: function () {
                               // Mở dialog
+                              console.log(1);
+
                               var dialog = editor.windowManager.open({
                                     title: 'My Dialog',
                                     body: {
                                           type: 'panel',
                                           items: [
                                                 {
-                                                      type: 'button', // component type
-                                                      text: 'Alpha',
-                                                      buttonType: 'primary',
-                                                      name: 'alpha-button',
-                                                      borderless: false,
+                                                      type: 'dropzone', // component type
+                                                      name: 'dropzone', // identifier
+                                                      label: 'Dropzone', // text for the label
+                                                },
+                                                {
+                                                      type: 'htmlpanel', // component type
+                                                      html: '<img src="blob:http://localhost:4200/5aa109cf-c170-43a9-b9e7-2e19eec9aa82" alt="" />',
                                                 },
                                           ],
                                     },
                                     buttons: [
                                           {
-                                                type: 'cancel',
-                                                text: 'Cancel',
+                                                type: 'custom',
+                                                text: 'cancel',
+                                                name: 'cancel',
                                           },
                                           {
                                                 type: 'submit',
                                                 text: 'OK',
-                                                primary: true,
-                                                onclick: function (e: any) {
-                                                      var inputText =
-                                                            e.getData()
-                                                                  .inputText;
-                                                      // Xử lý dữ liệu từ dialog
-                                                      console.log(
-                                                            'Text:',
-                                                            inputText
-                                                      );
-                                                      // Đóng dialog
-                                                      dialog.close();
+                                                onSubmit: function () {
+                                                      console.log(123);
                                                 },
                                           },
                                     ],
+                                    onSubmit: function () {
+                                          console.log(1234);
+                                    },
+                                    onChange: (e: any) => {
+                                          this.previewImg = URL.createObjectURL(
+                                                e.getData().dropzone[0]
+                                          );
+                                    },
                               });
                         },
                   });
@@ -157,11 +155,7 @@ export class CreatePostContentComponent implements OnInit {
             },
             custom_format2: {
                   block: 'div',
-                  styles: { padding: '0 120px' },
-            },
-            custom_format3: {
-                  block: 'div',
-                  styles: { padding: '0 240px' },
+                  styles: { width: '700px', margin: '0 auto' },
             },
       };
       tinyMCEInit = {
@@ -193,8 +187,8 @@ export class CreatePostContentComponent implements OnInit {
                   // Kích hoạt sự kiện click trên input để chọn tệp tin
                   input.click();
             },
-            setup: this.setup,
             height: 800,
+            width: 1400,
             formats: this.formats,
             font_css: '/styles.css',
             content_css: '/styles.css',
@@ -203,32 +197,10 @@ export class CreatePostContentComponent implements OnInit {
             font_family_formats:
                   'Arial=arial,helvetica,sans-serif; Courier New=courier new,courier,monospace; AkrutiKndPadmini=Akpdmi-n;Noto Serif=Noto Serif;Raleway=Raleway;Berfilem=Berfilem;TikTok=TikTok;',
             content_style:
-                  "@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');body {font-family: 'TikTok';overflow-x: hidden;font-size:18px;}",
+                  "@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');body {font-family: 'TikTok';overflow-x: hidden;font-size:18px}",
       };
       uploadAvatar() {
             this.uploadFile.nativeElement.click();
-      }
-      setup(editor: any) {
-            editor.on('BeforeOpenUrlDialog', (e: any) => {
-                  const imageUrl = e.meta.url;
-                  if (imageUrl) {
-                        e.preventDefault();
-                        this.openImageCropper(
-                              imageUrl,
-                              (croppedImage: Blob) => {
-                                    // Xử lý ảnh sau khi crop
-                                    // Ví dụ: tải ảnh crop lên máy chủ
-                                    // và chèn đường dẫn vào trình soạn thảo
-                                    console.log(croppedImage);
-                                    const imageURL =
-                                          'https://example.com/uploaded-image.jpg';
-                                    editor.insertContent(
-                                          `<img src="${imageURL}" alt="Cropped Image" />`
-                                    );
-                              }
-                        );
-                  }
-            });
       }
 
       openImageCropper(imageUrl: string, callback: Function) {
@@ -272,5 +244,27 @@ export class CreatePostContentComponent implements OnInit {
                   }
             }
             this.NewService.createArticle(formData).subscribe();
+      }
+      imageChangedEvent: any = '';
+      croppedImage: any = '';
+      fileChangeEvent(event: any): void {
+            console.log(1);
+
+            this.imageChangedEvent = event;
+      }
+      imageCropped(event: any) {
+            this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
+                  event.objectUrl
+            );
+            // event.blob can be used to upload the cropped image
+      }
+      imageLoaded(image: LoadedImage) {
+            // show cropper
+      }
+      cropperReady() {
+            // cropper ready
+      }
+      loadImageFailed() {
+            // show message
       }
 }
