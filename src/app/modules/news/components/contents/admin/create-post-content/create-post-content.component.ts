@@ -20,6 +20,8 @@ import { CarouselComponent } from '../../../common/carousel/carousel.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { LoadedImage } from 'ngx-image-cropper';
+import { DialogCropComponent } from '../dialog-crop/dialog-crop.component';
+import { MatDialog } from '@angular/material/dialog';
 declare const tinymce: any;
 @Component({
       selector: 'app-create-post-content',
@@ -36,11 +38,12 @@ export class CreatePostContentComponent implements OnInit {
       imageCropper: any;
       editable = false;
       previewImg: any;
+      srcImg: any;
       constructor(
             private formBuilder: FormBuilder,
             public CategoryService: CategoryService,
             private NewService: NewsService,
-            private sanitizer: DomSanitizer
+            public dialog: MatDialog
       ) {
             this.formGroup = this.formBuilder.group({
                   title: ['', Validators.required],
@@ -49,6 +52,21 @@ export class CreatePostContentComponent implements OnInit {
                   sapo: ['', Validators.required],
                   content: ['', Validators.required],
                   categoryId: ['', Validators.required],
+            });
+      }
+      openDialog(): void {
+            const dialogRef = this.dialog.open(DialogCropComponent, {
+                  data: { srcImg: '' },
+            });
+            dialogRef.afterClosed().subscribe((result) => {
+                  // console.log('The dialog was closed');
+                  // this.srcImg = result;
+                  console.log(result);
+                  tinymce.execCommand(
+                        'mceInsertContent',
+                        false,
+                        `<img src="${result}"/>`
+                  );
             });
       }
       ngOnInit(): void {
@@ -68,7 +86,7 @@ export class CreatePostContentComponent implements OnInit {
                                     },
                                     {
                                           type: 'menuitem',
-                                          text: '120px',
+                                          text: 'Tiêu chuẩn',
                                           onAction: () => {
                                                 tinymce.activeEditor.formatter.toggle(
                                                       'custom_format2'
@@ -81,49 +99,9 @@ export class CreatePostContentComponent implements OnInit {
                   });
                   editor.ui.registry.addButton('mycustombutton', {
                         icon: 'crop',
-                        onAction: function () {
+                        onAction: () => {
                               // Mở dialog
-                              console.log(1);
-
-                              var dialog = editor.windowManager.open({
-                                    title: 'My Dialog',
-                                    body: {
-                                          type: 'panel',
-                                          items: [
-                                                {
-                                                      type: 'dropzone', // component type
-                                                      name: 'dropzone', // identifier
-                                                      label: 'Dropzone', // text for the label
-                                                },
-                                                {
-                                                      type: 'htmlpanel', // component type
-                                                      html: '<img src="blob:http://localhost:4200/5aa109cf-c170-43a9-b9e7-2e19eec9aa82" alt="" />',
-                                                },
-                                          ],
-                                    },
-                                    buttons: [
-                                          {
-                                                type: 'custom',
-                                                text: 'cancel',
-                                                name: 'cancel',
-                                          },
-                                          {
-                                                type: 'submit',
-                                                text: 'OK',
-                                                onSubmit: function () {
-                                                      console.log(123);
-                                                },
-                                          },
-                                    ],
-                                    onSubmit: function () {
-                                          console.log(1234);
-                                    },
-                                    onChange: (e: any) => {
-                                          this.previewImg = URL.createObjectURL(
-                                                e.getData().dropzone[0]
-                                          );
-                                    },
-                              });
+                              this.openDialog();
                         },
                   });
                   return {
@@ -171,24 +149,21 @@ export class CreatePostContentComponent implements OnInit {
                   // Xử lý sự kiện khi người dùng chọn tệp tin
                   input.onchange = function () {
                         var file = input.files[0];
-
                         var reader = new FileReader();
                         reader.onload = function (e) {
                               var result = e?.target?.result;
-
                               // Gọi callback với đường dẫn tệp tin đã chọn
                               callback(result);
                         };
-
                         // Đọc tệp tin dưới dạng dữ liệu URL
                         reader.readAsDataURL(file);
                   };
-
                   // Kích hoạt sự kiện click trên input để chọn tệp tin
                   input.click();
             },
+
             height: 800,
-            width: 1400,
+            width: 1250,
             formats: this.formats,
             font_css: '/styles.css',
             content_css: '/styles.css',
@@ -221,15 +196,11 @@ export class CreatePostContentComponent implements OnInit {
             };
       }
       onChangeFile(event: any): void {
-            console.log(event.target.files[0]);
-
             this.formGroup.get('avatar').patchValue(event.target.files[0]);
             this.imgPreview = URL.createObjectURL(event.target.files[0]);
       }
       onClick() {
-            // console.log(this.formGroup.value.content);
             console.log(tinymce.activeEditor.getContent());
-            // this.convertObjectToFormData(this.formGroup.value);
       }
       convertObjectToFormData(obj: any): any {
             let formData = new FormData();
@@ -239,32 +210,9 @@ export class CreatePostContentComponent implements OnInit {
                         if (key === 'avatar') {
                               console.log(obj[key]);
                         }
-
                         formData.append(key, value);
                   }
             }
             this.NewService.createArticle(formData).subscribe();
-      }
-      imageChangedEvent: any = '';
-      croppedImage: any = '';
-      fileChangeEvent(event: any): void {
-            console.log(1);
-
-            this.imageChangedEvent = event;
-      }
-      imageCropped(event: any) {
-            this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
-                  event.objectUrl
-            );
-            // event.blob can be used to upload the cropped image
-      }
-      imageLoaded(image: LoadedImage) {
-            // show cropper
-      }
-      cropperReady() {
-            // cropper ready
-      }
-      loadImageFailed() {
-            // show message
       }
 }

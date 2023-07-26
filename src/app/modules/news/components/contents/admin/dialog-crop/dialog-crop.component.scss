@@ -1,0 +1,13 @@
+.crop{
+      display: flex;
+      image-cropper {
+            width: 50%;
+            height: 80%;
+            object-fit: contain;
+          }
+          img {
+            width: 40%;
+            object-fit: contain;
+          }
+}
+

@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Chỉnh ảnh</h1>
+<div mat-dialog-content>
+      <input type="file" (change)="fileChangeEvent($event)" />
+      <div class="crop">
+            <image-cropper
+                  [imageChangedEvent]="imageChangedEvent"
+                  (imageCropped)="imageCropped($event)"
+                  [containWithinAspectRatio]="false"
+                  (cropperReady)="cropperReady($event)"
+                  (imageLoaded)="imageLoaded()"
+            >
+            </image-cropper>
+            <img [src]="croppedImage" *ngIf="croppedImage" />
+      </div>
+      <button
+            mat-raised-button
+            color="primary"
+            [mat-dialog-close]="data.srcImg"
+            cdkFocusInitial
+      >
+            Xác nhận
+      </button>
+</div>

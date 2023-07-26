@@ -21,6 +21,7 @@ import { DatePipe } from 'src/app/shared/pipe/date.pipe';
 import { ManageCategoriesComponent } from './components/contents/admin/manage-categories/manage-categories.component';
 import { CreateCategoryComponent } from './components/contents/admin/create-category/create-category.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { DialogCropComponent } from './components/contents/admin/dialog-crop/dialog-crop.component';
 @NgModule({
       declarations: [
             DatePipe,
@@ -36,6 +37,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
             ManageArticlesComponent,
             ManageCategoriesComponent,
             CreateCategoryComponent,
+            DialogCropComponent,
       ],
       imports: [
             ImageCropperModule,
