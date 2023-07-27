@@ -18,7 +18,7 @@ import { CategoryService } from 'src/app/modules/news/services/category.service'
 import { NewsService } from 'src/app/modules/news/services/news.service';
 import { CarouselComponent } from '../../../common/carousel/carousel.component';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { Dimensions, ImageCroppedEvent } from 'ngx-image-cropper';
 import { LoadedImage } from 'ngx-image-cropper';
 import { DialogCropComponent } from '../dialog-crop/dialog-crop.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -43,7 +43,8 @@ export class CreatePostContentComponent implements OnInit {
             private formBuilder: FormBuilder,
             public CategoryService: CategoryService,
             private NewService: NewsService,
-            public dialog: MatDialog
+            public dialog: MatDialog,
+            private sanitizer: DomSanitizer
       ) {
             this.formGroup = this.formBuilder.group({
                   title: ['', Validators.required],
@@ -214,5 +215,25 @@ export class CreatePostContentComponent implements OnInit {
                   }
             }
             this.NewService.createArticle(formData).subscribe();
+      }
+      imageChangedEvent: any = '';
+      croppedImage: any = '';
+      showCropper = false;
+      fileChangeEvent(event: any): void {
+            this.imageChangedEvent = event;
+      }
+      imageCropped(event: any) {
+            this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
+                  event.objectUrl
+            );
+            // this.data.srcImg = event.objectUrl;
+            // event.blob can be used to upload the cropped image
+      }
+      cropperReady(sourceImageDimensions: Dimensions) {
+            console.log('Cropper ready', sourceImageDimensions);
+      }
+      imageLoaded() {
+            this.showCropper = true;
+            console.log('Image loaded');
       }
 }

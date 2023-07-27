@@ -1,4 +1,8 @@
 <div class="content-create-article">
+      <!-- <input type="file" (change)="fileChangeEvent($event)" /> -->
+      <div class="crop">
+            <image-cropper> </image-cropper>
+      </div>
       <small>*Vui lòng điền các trường thông tin sau để tạo bài viết</small>
       <hr />
       <mat-stepper linear #stepper orientation="vertical">
@@ -197,90 +201,3 @@
             </mat-step>
       </mat-stepper>
 </div>
-
-<!-- <form
-      [formGroup]="formGroup"
-      (ngSubmit)="onClick()"
-      enctype="multipart/form-data"
->
-      <div class="formInput">
-            <mat-form-field appearance="fill" class="input">
-                  <mat-label>Tiêu đề</mat-label>
-                  <input
-                        matInput
-                        placeholder="Tiêu đề"
-                        formControlName="title"
-                  />
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="input">
-                  <mat-label>Sapo</mat-label>
-                  <input matInput placeholder="Sapo" formControlName="sapo" />
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="input">
-                  <mat-label>Đường dẫn</mat-label>
-                  <input
-                        matInput
-                        placeholder="Đường dẫn"
-                        formControlName="slug"
-                  />
-            </mat-form-field>
-            <mat-form-field class="example-full-width" class="input">
-                  <mat-label>Tên danh mục</mat-label>
-                  <input
-                        type="text"
-                        matInput
-                        formControlName="categoryId"
-                        [matAutocomplete]="auto"
-                  />
-                  <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option
-                              *ngFor="let option of options"
-                              [value]="option.id"
-                        >
-                              {{ option.name }}
-                        </mat-option>
-                  </mat-autocomplete>
-            </mat-form-field>
-      </div>
-      <button
-            type="button"
-            mat-fab
-            extended
-            color="primary"
-            class="btnUpload"
-            (click)="uploadAvatar()"
-      >
-            <fa-icon [icon]="faUpload" class="icon"></fa-icon>
-            UPLOAD ẢNH
-      </button>
-      <input
-            type="file"
-            name=""
-            id=""
-            hidden
-            #uploadFile
-            (change)="onChangeFile($event)"
-      />
-      <div class="">
-            <img
-                  [src]="
-                        !imgPreview
-                              ? 'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
-                              : imgPreview
-                  "
-                  alt=""
-                  class="imgPreview"
-            />
-      </div>
-      <editor
-            plugins=" image fullscreen table emoticons link image advlist"
-            menubar="file edit insert view format table tools help "
-            [init]="tinyMCEInit"
-            formControlName="content"
-            toolbar="myCustomToolbarButton bold italic underline  | fontfamily fontsize | styles forecolor backcolor | alignleft aligncenter alignright alignjustify |indent outdent rtl ltr | fullscreen image table link emoticons"
-      >
-      </editor>
-      <button type="submit" mat-fab extended color="primary" class="btnUpload">
-            TẠO BÀI VIẾT
-      </button>
-</form> -->

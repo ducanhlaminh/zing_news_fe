@@ -5,7 +5,7 @@
             <image-cropper
                   [imageChangedEvent]="imageChangedEvent"
                   (imageCropped)="imageCropped($event)"
-                  [containWithinAspectRatio]="false"
+                  [maintainAspectRatio]="false"
                   (cropperReady)="cropperReady($event)"
                   (imageLoaded)="imageLoaded()"
             >

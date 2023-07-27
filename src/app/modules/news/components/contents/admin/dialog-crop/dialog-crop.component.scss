@@ -2,7 +2,7 @@
       display: flex;
       image-cropper {
             width: 50%;
-            height: 80%;
+            height: 50vh;
             object-fit: contain;
           }
           img {
@@ -10,4 +10,6 @@
             object-fit: contain;
           }
 }
-
+// image-cropper {
+//       height: 50vh;
+//     }
