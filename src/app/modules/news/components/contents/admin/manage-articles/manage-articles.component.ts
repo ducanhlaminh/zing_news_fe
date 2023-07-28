@@ -80,7 +80,6 @@ export class ManageArticlesComponent implements OnInit {
                         this.CategoryService.categories.map((item: any) => {
                               item.opened = false;
                         });
-                        this.length = data.rows.length;
                         this.optionCategories = this.CategoryService.categories;
                         const tempArray = this.optionCategories.map(
                               (item: any) => [item, ...item.childCategories]

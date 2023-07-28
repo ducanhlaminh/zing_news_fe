@@ -39,6 +39,13 @@ export class CreatePostContentComponent implements OnInit {
       editable = false;
       previewImg: any;
       srcImg: any;
+
+      stepperTitle: any;
+      stepperSlug: any;
+      stepperAvatar: any;
+      stepperSapo: any;
+      stepperContent: any;
+      stepperCategoryId: any;
       constructor(
             private formBuilder: FormBuilder,
             public CategoryService: CategoryService,
@@ -46,28 +53,48 @@ export class CreatePostContentComponent implements OnInit {
             public dialog: MatDialog,
             private sanitizer: DomSanitizer
       ) {
-            this.formGroup = this.formBuilder.group({
+            this.stepperTitle = this.formBuilder.group({
                   title: ['', Validators.required],
+            });
+            this.stepperSlug = this.formBuilder.group({
                   slug: ['', Validators.required],
-                  avatar: [null, Validators.required],
+            });
+            this.stepperSapo = this.formBuilder.group({
                   sapo: ['', Validators.required],
+            });
+            this.stepperAvatar = this.formBuilder.group({
+                  avatar: ['', Validators.required],
+            });
+            this.stepperContent = this.formBuilder.group({
                   content: ['', Validators.required],
+            });
+            this.stepperCategoryId = this.formBuilder.group({
                   categoryId: ['', Validators.required],
             });
       }
       openDialog(): void {
             const dialogRef = this.dialog.open(DialogCropComponent, {
+                  width: '1000px',
                   data: { srcImg: '' },
             });
             dialogRef.afterClosed().subscribe((result) => {
-                  // console.log('The dialog was closed');
-                  // this.srcImg = result;
                   console.log(result);
                   tinymce.execCommand(
                         'mceInsertContent',
                         false,
                         `<img src="${result}"/>`
                   );
+            });
+      }
+      openDialogSetAvatar(): void {
+            const dialogRef = this.dialog.open(DialogCropComponent, {
+                  width: '1000px',
+                  data: { srcImg: '' },
+            });
+            dialogRef.afterClosed().subscribe((result) => {
+                  console.log(result);
+                  this.stepperAvatar.get('avatar').patchValue(result);
+                  this.imgPreview = result;
             });
       }
       ngOnInit(): void {
@@ -99,7 +126,7 @@ export class CreatePostContentComponent implements OnInit {
                         },
                   });
                   editor.ui.registry.addButton('mycustombutton', {
-                        icon: 'crop',
+                        icon: 'image',
                         onAction: () => {
                               // Mở dialog
                               this.openDialog();
@@ -112,7 +139,7 @@ export class CreatePostContentComponent implements OnInit {
                         }),
                   };
             });
-            this.formGroup
+            this.stepperCategoryId
                   .get('categoryId')
                   .valueChanges.pipe(
                         debounceTime(500),
@@ -163,8 +190,8 @@ export class CreatePostContentComponent implements OnInit {
                   input.click();
             },
 
-            height: 800,
-            width: 1250,
+            height: 700,
+            width: 1200,
             formats: this.formats,
             font_css: '/styles.css',
             content_css: '/styles.css',
@@ -176,9 +203,15 @@ export class CreatePostContentComponent implements OnInit {
                   "@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');body {font-family: 'TikTok';overflow-x: hidden;font-size:18px}",
       };
       uploadAvatar() {
-            this.uploadFile.nativeElement.click();
+            // this.uploadFile.nativeElement.click();
+            this.openDialogSetAvatar();
       }
+      blobToFile(blob: any, fileName: any) {
+            // Tạo đối tượng File từ Blob
+            const file = new File([blob], fileName, { type: blob.type });
 
+            return file;
+      }
       openImageCropper(imageUrl: string, callback: Function) {
             // Mở cửa sổ image cropper với ảnh đầu vào và callback
             const image = new Image();
@@ -197,11 +230,21 @@ export class CreatePostContentComponent implements OnInit {
             };
       }
       onChangeFile(event: any): void {
-            this.formGroup.get('avatar').patchValue(event.target.files[0]);
+            this.stepperAvatar.get('avatar').patchValue(event.target.files[0]);
             this.imgPreview = URL.createObjectURL(event.target.files[0]);
       }
       onClick() {
-            console.log(tinymce.activeEditor.getContent());
+            const combinedValues = {
+                  ...this.stepperTitle.value,
+                  ...this.stepperSapo.value,
+                  ...this.stepperSlug.value,
+                  ...this.stepperCategoryId.value,
+                  ...this.stepperAvatar.value,
+                  ...this.stepperContent.value,
+                  // Add more form groups if needed
+            };
+
+            console.log(combinedValues);
       }
       convertObjectToFormData(obj: any): any {
             let formData = new FormData();
@@ -215,25 +258,5 @@ export class CreatePostContentComponent implements OnInit {
                   }
             }
             this.NewService.createArticle(formData).subscribe();
-      }
-      imageChangedEvent: any = '';
-      croppedImage: any = '';
-      showCropper = false;
-      fileChangeEvent(event: any): void {
-            this.imageChangedEvent = event;
-      }
-      imageCropped(event: any) {
-            this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
-                  event.objectUrl
-            );
-            // this.data.srcImg = event.objectUrl;
-            // event.blob can be used to upload the cropped image
-      }
-      cropperReady(sourceImageDimensions: Dimensions) {
-            console.log('Cropper ready', sourceImageDimensions);
-      }
-      imageLoaded() {
-            this.showCropper = true;
-            console.log('Image loaded');
       }
 }

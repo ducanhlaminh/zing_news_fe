@@ -6,9 +6,9 @@
       <small>*Vui lòng điền các trường thông tin sau để tạo bài viết</small>
       <hr />
       <mat-stepper linear #stepper orientation="vertical">
-            <mat-step [editable]="editable">
+            <mat-step [stepControl]="stepperTitle">
                   <ng-template matStepLabel>Điền tiêu đề bài viết</ng-template>
-                  <form [formGroup]="formGroup">
+                  <form [formGroup]="stepperTitle">
                         <div class="formInput">
                               <div class="fieldText">
                                     <mat-form-field
@@ -28,9 +28,9 @@
                         </div>
                   </form>
             </mat-step>
-            <mat-step [editable]="editable">
+            <mat-step [stepControl]="stepperSapo">
                   <ng-template matStepLabel>Điền mô tả bài viết</ng-template>
-                  <form [formGroup]="formGroup">
+                  <form [formGroup]="stepperSapo">
                         <div class="formInput">
                               <div class="fieldText">
                                     <mat-form-field
@@ -57,11 +57,11 @@
                         </div>
                   </form>
             </mat-step>
-            <mat-step [editable]="editable">
+            <mat-step [stepControl]="stepperSlug">
                   <ng-template matStepLabel
                         >Điền đường dẫn bài viết</ng-template
                   >
-                  <form [formGroup]="formGroup">
+                  <form [formGroup]="stepperSlug">
                         <div class="formInput">
                               <div class="fieldText">
                                     <mat-form-field
@@ -88,9 +88,9 @@
                         </div>
                   </form>
             </mat-step>
-            <mat-step [editable]="editable">
+            <mat-step [stepControl]="stepperCategoryId">
                   <ng-template matStepLabel>Chọn danh mục bài viết</ng-template>
-                  <form [formGroup]="formGroup">
+                  <form [formGroup]="stepperCategoryId">
                         <div class="formInput">
                               <div class="fieldText">
                                     <mat-form-field
@@ -130,8 +130,8 @@
                         </div>
                   </form>
             </mat-step>
-            <mat-step [editable]="editable">
-                  <form [formGroup]="formGroup">
+            <mat-step [stepControl]="stepperAvatar">
+                  <form [formGroup]="stepperAvatar">
                         <ng-template matStepLabel
                               >Tải ảnh đại diện cho bài viết</ng-template
                         >
@@ -173,19 +173,19 @@
                         </div>
                   </form>
             </mat-step>
-            <mat-step [editable]="editable">
+            <mat-step [stepControl]="stepperContent">
                   <ng-template matStepLabel>Nội dung bài viết</ng-template>
                   <form
                         action=""
-                        [formGroup]="formGroup"
+                        [formGroup]="stepperContent"
                         (ngSubmit)="onClick()"
                   >
                         <editor
-                              plugins=" image fullscreen table emoticons link image example"
+                              plugins=" fullscreen table emoticons link example lists"
                               menubar="file edit insert view format table tools help "
                               [init]="tinyMCEInit"
                               formControlName="content"
-                              toolbar="myCustomToolbarButton mycustombutton cancel bold italic underline  | fontfamily fontsizeinput  | styles forecolor backcolor | alignleft aligncenter alignright alignjustify |indent outdent rtl ltr | fullscreen image table link emoticons"
+                              toolbar="myCustomToolbarButton mycustombutton cancel bold italic underline  | fontfamily fontsizeinput  | styles forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist |indent outdent rtl ltr | fullscreen table link "
                         >
                         </editor>
                         <button

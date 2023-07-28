@@ -1,17 +1,48 @@
-<h1 mat-dialog-title>Chỉnh ảnh</h1>
-<div mat-dialog-content>
-      <input type="file" (change)="fileChangeEvent($event)" />
+<h1 mat-dialog-title>Nhập file ảnh</h1>
+<hr />
+<div mat-dialog-content class="content">
+      <input
+            type="file"
+            (change)="fileChangeEvent($event)"
+            hidden
+            #uploadFile
+      />
+      <div class="import-image" *ngIf="!imageChangedEvent; else cropper">
+            <img src="../../../../../../../assets/pngegg (1).png" alt="" />
+            <button
+                  mat-stroked-button
+                  color="primary"
+                  class="btn-upload"
+                  (click)="uploadImage()"
+            >
+                  Tải ảnh lên
+            </button>
+      </div>
+</div>
+<ng-template #cropper>
       <div class="crop">
             <image-cropper
                   [imageChangedEvent]="imageChangedEvent"
                   (imageCropped)="imageCropped($event)"
                   [maintainAspectRatio]="false"
-                  (cropperReady)="cropperReady($event)"
-                  (imageLoaded)="imageLoaded()"
+                  [transform]="transform"
+                  [resizeToHeight]="300"
             >
             </image-cropper>
-            <img [src]="croppedImage" *ngIf="croppedImage" />
       </div>
+      <div class="slider">
+            <fa-icon [icon]="faImage" class="icon-left"></fa-icon>
+            <mat-slider max="5" min="1" step=".1">
+                  <input
+                        matSliderThumb
+                        [value]="scale"
+                        (valueChange)="changeValue($event)"
+                        #slider
+                  />
+            </mat-slider>
+            <fa-icon [icon]="faImage" class="icon-right"> </fa-icon>
+      </div>
+
       <button
             mat-raised-button
             color="primary"
@@ -20,4 +51,5 @@
       >
             Xác nhận
       </button>
-</div>
+      <button mat-raised-button cdkFocusInitial mat-dialog-close>Cancel</button>
+</ng-template>
