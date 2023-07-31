@@ -23,6 +23,7 @@ import { CreateCategoryComponent } from './components/contents/admin/create-cate
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { DialogCropComponent } from './components/contents/admin/dialog-crop/dialog-crop.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { DialogEditArticleComponent } from './components/contents/dialog-edit-article/dialog-edit-article.component';
 @NgModule({
       declarations: [
             DatePipe,
@@ -39,6 +40,7 @@ import { MatSliderModule } from '@angular/material/slider';
             ManageCategoriesComponent,
             CreateCategoryComponent,
             DialogCropComponent,
+            DialogEditArticleComponent,
       ],
       imports: [
             MatSliderModule,

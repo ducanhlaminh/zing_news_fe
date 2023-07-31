@@ -10,6 +10,10 @@ import { NewsService } from 'src/app/modules/news/services/news.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { combineLatest, debounceTime, switchMap } from 'rxjs';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEditArticleComponent } from '../../dialog-edit-article/dialog-edit-article.component';
+declare const tinymce: any;
+
 @Component({
       selector: 'app-manage-articles',
       templateUrl: './manage-articles.component.html',
@@ -56,7 +60,8 @@ export class ManageArticlesComponent implements OnInit {
       constructor(
             private NewService: NewsService,
             private CategoryService: CategoryService,
-            private formBuilder: FormBuilder
+            private formBuilder: FormBuilder,
+            public dialog: MatDialog
       ) {}
       ngOnInit(): void {
             this.initForm();
@@ -278,5 +283,12 @@ export class ManageArticlesComponent implements OnInit {
       cancel2() {
             this.updateHotCate = true;
             this.myForm2.patchValue({ article: '', position: '' });
+      }
+      openDialog(data: any): void {
+            const dialogRef = this.dialog.open(DialogEditArticleComponent, {
+                  width: '1400px',
+                  // height: '700px',
+                  data,
+            });
       }
 }

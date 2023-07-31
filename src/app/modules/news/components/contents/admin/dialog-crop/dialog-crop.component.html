@@ -24,9 +24,9 @@
             <image-cropper
                   [imageChangedEvent]="imageChangedEvent"
                   (imageCropped)="imageCropped($event)"
-                  [maintainAspectRatio]="false"
                   [transform]="transform"
                   [resizeToHeight]="300"
+                  [maintainAspectRatio]="true"
             >
             </image-cropper>
       </div>

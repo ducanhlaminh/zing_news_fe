@@ -51,17 +51,15 @@ export class NewsService {
             );
       }
       createArticle(data: any) {
-            return this.http.post(environment.API_CREATE_ARTICLE, data);
+            return this.http.post(environment.API__ADMIN_ARTICLE, data);
       }
       getAllByAd(data: any) {
-            if (data) {
-                  return this.http.get(environment.API_GET_ALL_ARTICLES, {
-                        params: { ...data },
-                  });
-            } else return this.http.get(environment.API_GET_ALL_ARTICLES);
+            return this.http.get(environment.API__ADMIN_ARTICLE, {
+                  params: { ...data },
+            });
       }
       deleteHotMain(data: any) {
-            return this.http.delete(environment.API_NEWS_HOT_MAIN, {
+            return this.http.delete(environment.API_ADMIN_HOT_MAIN, {
                   params: { ...data },
             });
       }
@@ -80,12 +78,12 @@ export class NewsService {
             );
       }
       createArtclesHotCate(data: any) {
-            return this.http.post(environment.API_ARTICLES_HOT_CATE, {
+            return this.http.post(environment.API_ADMIN_HOT_CATE, {
                   ...data,
             });
       }
       deleteHotCate(data: any) {
-            return this.http.delete(environment.API_ARTICLES_HOT_CATE, {
+            return this.http.delete(environment.API_ADMIN_HOT_CATE, {
                   params: { ...data },
             });
       }

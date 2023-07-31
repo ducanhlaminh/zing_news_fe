@@ -9,7 +9,11 @@ button {
 }
 
 .content-create-article {
-      padding: 30px;
+      padding: 15px;
+      height: 100%;
+      .crop{
+            display: none;
+      }
 }
 
 .formInput {
@@ -33,7 +37,27 @@ button {
 
 img {
       margin-top: 10px;
-      width: 200px;
-      height: 200px;
+      width: 300px;
+      height: 300px;
       object-fit: cover;
 }
+form {
+      padding: 20px;
+      .header-editor{
+            height: 70px;
+            background: #c4c3c387;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            padding: 0 30px;
+      }
+      .editor{
+            width: 100%;
+            .tox-tinymce{
+                  border-radius: 0;
+            }
+
+      }
+}
+
+

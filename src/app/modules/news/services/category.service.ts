@@ -28,7 +28,7 @@ export class CategoryService {
             return this.http.post(environment.API_CATEGORIES_BY_NAME, data);
       }
       deleteCategory(id: any) {
-            return this.http.delete(environment.API_CATEGORY_DELETE, {
+            return this.http.delete(environment.API_ADMIN_CATEGORY_DELETE, {
                   params: { id },
             });
       }

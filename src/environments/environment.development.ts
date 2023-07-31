@@ -11,15 +11,18 @@ export const environment = {
       API_NEW_ARTCLES_TITLE: 'http://localhost:4000/api/v1/articles/title',
       API_ARTICLES_VIEWS: 'http://localhost:4000/api/v1/articles/views',
       API_ARTICLES_HOT_CATE: 'http://localhost:4000/api/v1/articles/hot-cate',
-      API_CREATE_ARTICLE: 'http://localhost:4000/api/v1/articles',
 
       API_TOKEN_GG: 'http://localhost:4000/api/v1/auth/login-success/',
       API_GET_INFOR_USER: 'http://localhost:4000/api/v1/users/get-data',
       API_LOGIN_GG: 'http://localhost:4000/api/v1/auth/google',
       API_GET_DETAIL: 'http://localhost:4000/api/v1/articles/',
 
-      API_GET_ALL_ARTICLES: 'http://localhost:4000/api/v1/articles/get-all',
+      //API ADMIN
+      API_ADMIN_HOT_MAIN: 'http://localhost:4000/api/v1/admin/hot-main',
+      API_ADMIN_HOT_CATE: 'http://localhost:4000/api/v1/admin/hot-cate',
+      API__ADMIN_ARTICLE: 'http://localhost:4000/api/v1/admin/articles',
       API_CATEGORY_GET_ALL_ADMIN:
             'http://localhost:4000/api/v1/categories/admin/get-all',
-      API_CATEGORY_DELETE: 'http://localhost:4000/api/v1/categories/admin',
+      API_ADMIN_CATEGORY_DELETE:
+            'http://localhost:4000/api/v1/categories/admin',
 };

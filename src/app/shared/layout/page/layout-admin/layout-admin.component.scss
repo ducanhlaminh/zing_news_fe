@@ -13,7 +13,7 @@
       display: flex;
       justify-content: center;
       padding-top: 52px;
-      height: 100vh;
+      height:calc(100vh - 52px) ;
       .example-container {
             width: 100%;
 

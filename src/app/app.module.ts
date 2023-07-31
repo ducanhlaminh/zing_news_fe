@@ -11,6 +11,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { HttpInterceptorInterceptor } from './intercepter/http.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastrComponent } from './shared/components/toastr/toastr.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 @NgModule({
       declarations: [AppComponent, ToastrComponent],
       imports: [
@@ -23,11 +24,6 @@ import { ToastrComponent } from './shared/components/toastr/toastr.component';
             HttpClientModule,
             AuthModule,
             BrowserAnimationsModule, // required animations module
-            ToastrModule.forRoot({
-                  timeOut: 5000,
-                  positionClass: 'toast-bottom-right',
-                  preventDuplicates: true,
-            }),
       ],
       providers: [
             {

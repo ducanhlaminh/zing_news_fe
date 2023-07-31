@@ -1,10 +1,4 @@
-import {
-      Component,
-      ElementRef,
-      OnInit,
-      ViewChild,
-      AfterViewInit,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 import myCustomPlugin from './tinymce-plugin/test';
 import {
       FormGroup,
@@ -30,6 +24,7 @@ declare const tinymce: any;
 })
 export class CreatePostContentComponent implements OnInit {
       @ViewChild('uploadFile') uploadFile!: ElementRef;
+      @Input('data') data: any;
       dataModel: any;
       faUpload = faUpload;
       imgPreview: any;
@@ -39,6 +34,7 @@ export class CreatePostContentComponent implements OnInit {
       editable = false;
       previewImg: any;
       srcImg: any;
+      optionCategories: any;
 
       stepperTitle: any;
       stepperSlug: any;
@@ -92,9 +88,9 @@ export class CreatePostContentComponent implements OnInit {
                   data: { srcImg: '' },
             });
             dialogRef.afterClosed().subscribe((result) => {
-                  console.log(result);
-                  this.stepperAvatar.get('avatar').patchValue(result);
-                  this.imgPreview = result;
+                  if (result) {
+                        this.stepperAvatar.get('avatar').patchValue(result);
+                  }
             });
       }
       ngOnInit(): void {
@@ -139,19 +135,18 @@ export class CreatePostContentComponent implements OnInit {
                         }),
                   };
             });
-            this.stepperCategoryId
-                  .get('categoryId')
-                  .valueChanges.pipe(
-                        debounceTime(500),
-                        switchMap((value) =>
-                              this.CategoryService.getSubCategoryByName(
-                                    value || ''
-                              )
-                        )
-                  )
-                  .subscribe((data: any) => {
-                        this.options = data;
+            if (this.data) {
+                  this.stepperTitle.setValue({ title: this.data.title });
+                  this.stepperSlug.setValue({ slug: this.data.slug });
+                  this.stepperSapo.setValue({ sapo: this.data.sapo });
+                  this.stepperAvatar.setValue({ avatar: this.data.avatar });
+                  this.stepperCategoryId.setValue({
+                        categoryId:
+                              this.data.new_articles_categories[0].category.id,
                   });
+                  console.log(this.stepperCategoryId.value.categoryId);
+            }
+            this.getOptionCategories();
       }
 
       formats = {
@@ -189,9 +184,7 @@ export class CreatePostContentComponent implements OnInit {
                   // Kích hoạt sự kiện click trên input để chọn tệp tin
                   input.click();
             },
-
             height: 700,
-            width: 1200,
             formats: this.formats,
             font_css: '/styles.css',
             content_css: '/styles.css',
@@ -258,5 +251,25 @@ export class CreatePostContentComponent implements OnInit {
                   }
             }
             this.NewService.createArticle(formData).subscribe();
+      }
+      onChangeCate(e: any) {
+            this.stepperCategoryId.setValue({ categoryId: e.value });
+      }
+      getOptionCategories() {
+            this.CategoryService.getAllCategoriesByAd().subscribe(
+                  (data: any) => {
+                        this.CategoryService.categories = data.rows;
+                        this.CategoryService.categories.map((item: any) => {
+                              item.opened = false;
+                        });
+                        this.optionCategories = this.CategoryService.categories;
+                        const tempArray = this.optionCategories.map(
+                              (item: any) => [item, ...item.childCategories]
+                        );
+                        const arrayB = tempArray.flat();
+                        this.optionCategories = arrayB;
+                        console.log(arrayB);
+                  }
+            );
       }
 }

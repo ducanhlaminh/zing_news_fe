@@ -1,5 +1,4 @@
 <div class="content-create-article">
-      <!-- <input type="file" (change)="fileChangeEvent($event)" /> -->
       <div class="crop">
             <image-cropper> </image-cropper>
       </div>
@@ -10,6 +9,7 @@
                   <ng-template matStepLabel>Điền tiêu đề bài viết</ng-template>
                   <form [formGroup]="stepperTitle">
                         <div class="formInput">
+                              <h3>Tiêu đề của bài viết :</h3>
                               <div class="fieldText">
                                     <mat-form-field
                                           appearance="fill"
@@ -32,12 +32,13 @@
                   <ng-template matStepLabel>Điền mô tả bài viết</ng-template>
                   <form [formGroup]="stepperSapo">
                         <div class="formInput">
+                              <h3>Mô tả bài viết :</h3>
                               <div class="fieldText">
                                     <mat-form-field
                                           appearance="fill"
                                           class="input"
                                     >
-                                          <mat-label>Mô tả bài viết</mat-label>
+                                          <mat-label>Mô tả</mat-label>
                                           <textarea
                                                 matInput
                                                 placeholder="Sapo"
@@ -64,6 +65,7 @@
                   <form [formGroup]="stepperSlug">
                         <div class="formInput">
                               <div class="fieldText">
+                                    <h3>Đường dẫn bài viết :</h3>
                                     <mat-form-field
                                           appearance="fill"
                                           class="input"
@@ -92,41 +94,32 @@
                   <ng-template matStepLabel>Chọn danh mục bài viết</ng-template>
                   <form [formGroup]="stepperCategoryId">
                         <div class="formInput">
-                              <div class="fieldText">
-                                    <mat-form-field
-                                          class="example-full-width"
-                                          class="input"
+                              <h3>Danh mục của bài viết :</h3>
+
+                              <mat-form-field class="example-full-width input">
+                                    <mat-label>Tên danh mục</mat-label>
+                                    <mat-select
+                                          (selectionChange)="
+                                                onChangeCate($event)
+                                          "
+                                          formControlName="categoryId"
                                     >
-                                          <mat-label>Tên danh mục</mat-label>
-                                          <input
-                                                type="text"
-                                                matInput
-                                                formControlName="categoryId"
-                                                [matAutocomplete]="auto"
-                                                required
-                                          />
-                                          <mat-autocomplete
-                                                #auto="matAutocomplete"
+                                          <mat-option
+                                                [value]="item.id"
+                                                *ngFor="
+                                                      let item of optionCategories
+                                                "
                                           >
-                                                <mat-option
-                                                      *ngFor="
-                                                            let option of options
-                                                      "
-                                                      [value]="option.id"
-                                                >
-                                                      {{ option.name }}
-                                                </mat-option>
-                                          </mat-autocomplete>
-                                    </mat-form-field>
-                                    <div class="">
-                                          <button mat-button matStepperPrevious>
-                                                Back
-                                          </button>
-                                          <button mat-button matStepperNext>
-                                                Next
-                                          </button>
-                                    </div>
-                              </div>
+                                                {{ item.name }}
+                                          </mat-option>
+                                    </mat-select>
+                              </mat-form-field>
+                        </div>
+                        <div class="">
+                              <button mat-button matStepperPrevious>
+                                    Back
+                              </button>
+                              <button mat-button matStepperNext>Next</button>
                         </div>
                   </form>
             </mat-step>
@@ -135,6 +128,7 @@
                         <ng-template matStepLabel
                               >Tải ảnh đại diện cho bài viết</ng-template
                         >
+                        <h3>Ảnh đại diện bài viết :</h3>
                         <button
                               type="button"
                               mat-fab
@@ -157,9 +151,10 @@
                         <div class="">
                               <img
                                     [src]="
-                                          !imgPreview
+                                          !this.stepperAvatar.value.avatar
                                                 ? 'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
-                                                : imgPreview
+                                                : this.stepperAvatar.value
+                                                        .avatar
                                     "
                                     alt=""
                                     class="imgPreview"
@@ -180,23 +175,25 @@
                         [formGroup]="stepperContent"
                         (ngSubmit)="onClick()"
                   >
+                        <h3>Nội dung bài viết :</h3>
+                        <div class="header-editor">
+                              <button
+                                    type="submit"
+                                    mat-raised-button
+                                    color="primary"
+                              >
+                                    XUẤT BẢN
+                              </button>
+                        </div>
                         <editor
-                              plugins=" fullscreen table emoticons link example lists"
+                              class="editor"
+                              plugins=" fullscreen table emoticons link example lists code"
                               menubar="file edit insert view format table tools help "
                               [init]="tinyMCEInit"
                               formControlName="content"
-                              toolbar="myCustomToolbarButton mycustombutton cancel bold italic underline  | fontfamily fontsizeinput  | styles forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist |indent outdent rtl ltr | fullscreen table link "
+                              toolbar="myCustomToolbarButton mycustombutton cancel bold italic underline code  | fontfamily fontsizeinput  | styles forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist |indent outdent rtl ltr | fullscreen table link "
                         >
                         </editor>
-                        <button
-                              type="submit"
-                              mat-fab
-                              extended
-                              color="primary"
-                              class="btnUpload"
-                        >
-                              TẠO BÀI VIẾT
-                        </button>
                   </form>
             </mat-step>
       </mat-stepper>
