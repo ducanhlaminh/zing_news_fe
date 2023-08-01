@@ -22,8 +22,6 @@ export class DialogCropComponent {
             @Inject(MAT_DIALOG_DATA) public data: any
       ) {}
       fileChangeEvent(event: any): void {
-            console.log(event);
-
             this.imageChangedEvent = event;
       }
       imageCropped(event: any) {

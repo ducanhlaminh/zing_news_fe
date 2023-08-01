@@ -1,4 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
+import {
+      Component,
+      ElementRef,
+      OnInit,
+      ViewChild,
+      Input,
+      AfterViewInit,
+} from '@angular/core';
 import myCustomPlugin from './tinymce-plugin/test';
 import {
       FormGroup,
@@ -6,7 +13,7 @@ import {
       FormBuilder,
       Validators,
 } from '@angular/forms';
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faL, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { async, debounceTime, switchMap } from 'rxjs';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
 import { NewsService } from 'src/app/modules/news/services/news.service';
@@ -22,7 +29,7 @@ declare const tinymce: any;
       templateUrl: './create-post-content.component.html',
       styleUrls: ['./create-post-content.component.scss'],
 })
-export class CreatePostContentComponent implements OnInit {
+export class CreatePostContentComponent implements OnInit, AfterViewInit {
       @ViewChild('uploadFile') uploadFile!: ElementRef;
       @Input('data') data: any;
       dataModel: any;
@@ -74,7 +81,7 @@ export class CreatePostContentComponent implements OnInit {
                   data: { srcImg: '' },
             });
             dialogRef.afterClosed().subscribe((result) => {
-                  console.log(result);
+                  console.log(123);
                   tinymce.execCommand(
                         'mceInsertContent',
                         false,
@@ -144,11 +151,10 @@ export class CreatePostContentComponent implements OnInit {
                         categoryId:
                               this.data.new_articles_categories[0].category.id,
                   });
-                  console.log(this.stepperCategoryId.value.categoryId);
             }
             this.getOptionCategories();
       }
-
+      ngAfterViewInit(): void {}
       formats = {
             custom_format1: {
                   block: 'div',
@@ -158,6 +164,9 @@ export class CreatePostContentComponent implements OnInit {
                   block: 'div',
                   styles: { width: '700px', margin: '0 auto' },
             },
+      };
+      init_instance_callback = () => {
+            tinymce.execCommand('mceInsertContent', false, this.data.content);
       };
       tinyMCEInit = {
             file_picker_callback: function (
@@ -190,6 +199,7 @@ export class CreatePostContentComponent implements OnInit {
             content_css: '/styles.css',
             font_size_formats:
                   '8pt 10pt 12pt 14pt 16pt 18pt 20pt 24pt 36pt 48pt 50pt 52pt',
+            init_instance_callback: this.init_instance_callback,
             font_family_formats:
                   'Arial=arial,helvetica,sans-serif; Courier New=courier new,courier,monospace; AkrutiKndPadmini=Akpdmi-n;Noto Serif=Noto Serif;Raleway=Raleway;Berfilem=Berfilem;TikTok=TikTok;',
             content_style:
@@ -205,6 +215,7 @@ export class CreatePostContentComponent implements OnInit {
 
             return file;
       }
+
       openImageCropper(imageUrl: string, callback: Function) {
             // Mở cửa sổ image cropper với ảnh đầu vào và callback
             const image = new Image();

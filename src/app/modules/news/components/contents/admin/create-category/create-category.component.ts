@@ -12,21 +12,20 @@ export class CreateCategoryComponent {
       formGroup: any;
       constructor(
             private formBuilder: FormBuilder,
-            public CategoryService: CategoryService
-      ) //  private toastr: ToastrService
-      {
+            public CategoryService: CategoryService,
+            private toastr: ToastrService
+      ) {
             this.formGroup = this.formBuilder.group({
                   name: '',
                   slug: '',
             });
       }
       submitForm(e: any) {
-            this.CategoryService.createCategory(this.formGroup.value)
-                  .subscribe
-                  // () => this.showSuccess()
-                  ();
+            this.CategoryService.createCategory(this.formGroup.value).subscribe(
+                  () => this.showSuccess()
+            );
       }
-      // showSuccess() {
-      //       this.toastr.success('Hello world!', 'Toastr fun!');
-      // }
+      showSuccess() {
+            this.toastr.success('Hello world!', 'Toastr fun!');
+      }
 }

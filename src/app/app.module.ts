@@ -23,6 +23,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
             FontAwesomeModule,
             HttpClientModule,
             AuthModule,
+            ToastrModule.forRoot(),
             BrowserAnimationsModule, // required animations module
       ],
       providers: [
