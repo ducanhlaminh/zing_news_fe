@@ -24,6 +24,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { DialogCropComponent } from './components/contents/admin/dialog-crop/dialog-crop.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { DialogEditArticleComponent } from './components/contents/dialog-edit-article/dialog-edit-article.component';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
       declarations: [
             DatePipe,
@@ -53,6 +54,7 @@ import { DialogEditArticleComponent } from './components/contents/dialog-edit-ar
             MatFormFieldModule,
             MatInputModule,
             MatSelectModule,
+            MatIconModule,
       ],
       providers: [
             { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },

@@ -1,94 +1,106 @@
 <div
-  class="hot-articles-category-parent"
-  *ngIf="!isCateChid; else hotArticlesChild"
+      class="hot-articles-category-parent"
+      *ngIf="!isCateChid; else hotArticlesChild"
 >
-  <div class="hot-articles-category-left">
-    <app-article [articleData]="hotArticles[0]">
-      <div class="hot-articles-category-left-item">
-        <img
-          (error)="handleImageError($event)"
-          [src]="hotArticles[0]?.new_article.avatar"
-          alt=""
-        />
-        <p class="title">{{ hotArticles[0]?.new_article.title }}</p>
-        <p class="sapo">
-          {{ hotArticles[0]?.new_article.sapo }}
-        </p>
+      <div class="hot-articles-category-left">
+            <app-article [articleData]="hotArticles[0]">
+                  <div class="hot-articles-category-left-item">
+                        <img
+                              (error)="handleImageError($event)"
+                              [src]="hotArticles[0]?.new_article.avatar"
+                              alt=""
+                        />
+                        <p class="title">
+                              {{ hotArticles[0]?.new_article.title }}
+                        </p>
+                        <p class="sapo">
+                              {{ hotArticles[0]?.new_article.sapo }}
+                        </p>
+                  </div>
+            </app-article>
       </div>
-    </app-article>
-  </div>
-  <div class="hot-articles-category-right">
-    <ng-container *ngFor="let item of hotArticles; index as idx">
-      <app-article [articleData]="item">
-        <div
-          class="hot-articles-category-right-item"
-          *ngIf="idx >= 1 && idx <= 4"
-        >
-          <p class="title">{{ item.new_article.title }}</p>
-          <img
-            (error)="handleImageError($event)"
-            [src]="item.new_article.avatar"
-            alt=""
-          />
-        </div>
-      </app-article>
-    </ng-container>
-  </div>
+      <div class="hot-articles-category-right">
+            <ng-container *ngFor="let item of hotArticles; index as idx">
+                  <app-article [articleData]="item">
+                        <div
+                              class="hot-articles-category-right-item"
+                              *ngIf="idx >= 1 && idx <= 4"
+                        >
+                              <p class="title">{{ item.new_article.title }}</p>
+                              <img
+                                    (error)="handleImageError($event)"
+                                    [src]="item.new_article.avatar"
+                                    alt=""
+                              />
+                        </div>
+                  </app-article>
+            </ng-container>
+      </div>
 </div>
 
 <div class="hot-articels" *ngIf="!isCateChid">
-  <header class="header">
-    <span class="name-header">Nổi bật</span>
-  </header>
-  <div class="articels">
-    <ng-container *ngFor="let item of hotArticles; index as idx">
-      <div class="hot-articel" *ngIf="idx >= 5 && idx <= 9">
-        <div class="image">
-          <img
-            (error)="handleImageError($event)"
-            [src]="item.new_article.avatar"
-            alt=""
-          />
-        </div>
-        <p class="title">
-          {{ item.new_article.title }}
-        </p>
+      <header class="header">
+            <span class="name-header">Nổi bật</span>
+      </header>
+      <div class="articels">
+            <ng-container *ngFor="let item of hotArticles; index as idx">
+                  <div
+                        class="hot-articel"
+                        *ngIf="idx >= 5 && idx <= 9"
+                        [routerLink]="[
+                              '/bai-viet',
+                              item.new_article.slug,
+                              item.new_article.slug_crc
+                        ]"
+                  >
+                        <div class="image">
+                              <img
+                                    (error)="handleImageError($event)"
+                                    [src]="item.new_article.avatar"
+                                    alt=""
+                              />
+                        </div>
+                        <p class="title">
+                              {{ item.new_article.title }}
+                        </p>
+                  </div>
+            </ng-container>
       </div>
-    </ng-container>
-  </div>
 </div>
 
 <ng-template #hotArticlesChild>
-  <div class="hot-articles-category-child">
-    <div class="hot-articles-category-left">
-      <app-article [articleData]="hotArticles[0]">
-        <div class="hot-articles-category-left-item">
-          <img
-            (error)="handleImageError($event)"
-            [src]="hotArticles[0]?.new_article.avatar"
-            alt=""
-          />
-          <p class="title">{{ hotArticles[0]?.new_article.title }}</p>
-        </div>
-      </app-article>
-    </div>
-    <div class="hot-articles-category-right">
-      <ng-container *ngFor="let item of hotArticles; index as idx">
-        <div
-          class="hot-articles-category-right-item"
-          *ngIf="idx >= 1 && idx <= 2"
-        >
-          <div class="image">
-            <img
-              (error)="handleImageError($event)"
-              [src]="item.new_article.avatar"
-              alt=""
-            />
-          </div>
-          <p class="title">{{ item.new_article.title }}</p>
-          <p class="sapo">{{ item.new_article.sapo }}</p>
-        </div>
-      </ng-container>
-    </div>
-  </div>
+      <div class="hot-articles-category-child">
+            <div class="hot-articles-category-left">
+                  <app-article [articleData]="hotArticles[0]">
+                        <div class="hot-articles-category-left-item">
+                              <img
+                                    (error)="handleImageError($event)"
+                                    [src]="hotArticles[0]?.new_article.avatar"
+                                    alt=""
+                              />
+                              <p class="title">
+                                    {{ hotArticles[0]?.new_article.title }}
+                              </p>
+                        </div>
+                  </app-article>
+            </div>
+            <div class="hot-articles-category-right">
+                  <ng-container *ngFor="let item of hotArticles; index as idx">
+                        <div
+                              class="hot-articles-category-right-item"
+                              *ngIf="idx >= 1 && idx <= 2"
+                        >
+                              <div class="image">
+                                    <img
+                                          (error)="handleImageError($event)"
+                                          [src]="item.new_article.avatar"
+                                          alt=""
+                                    />
+                              </div>
+                              <p class="title">{{ item.new_article.title }}</p>
+                              <p class="sapo">{{ item.new_article.sapo }}</p>
+                        </div>
+                  </ng-container>
+            </div>
+      </div>
 </ng-template>

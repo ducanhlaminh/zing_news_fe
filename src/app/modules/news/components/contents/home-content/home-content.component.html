@@ -85,23 +85,24 @@
 <div class="center-page">
       <div class="new-artcles">
             <div class="" *ngFor="let item of newArtcles; last as last">
-                  <app-article [articleData]="item">
-                        <div class="new-artcle-item">
-                              <div class="img-article">
-                                    <img
-                                          [src]="item.avatar"
-                                          alt=""
-                                          (error)="handleImageError($event)"
-                                    />
-                              </div>
-                              <div class="new-artcle-infor">
-                                    <h2>{{ item.title }}</h2>
-                                    <p>
-                                          {{ item.sapo }}
-                                    </p>
-                              </div>
+                  <div
+                        class="new-artcle-item"
+                        [routerLink]="['/bai-viet', item.slug, item.slug_crc]"
+                  >
+                        <div class="img-article">
+                              <img
+                                    [src]="item.avatar"
+                                    alt=""
+                                    (error)="handleImageError($event)"
+                              />
                         </div>
-                  </app-article>
+                        <div class="new-artcle-infor">
+                              <h2>{{ item.title }}</h2>
+                              <p>
+                                    {{ item.sapo }}
+                              </p>
+                        </div>
+                  </div>
 
                   <hr *ngIf="!last" />
             </div>
@@ -112,6 +113,7 @@
                   <div
                         class="artcles-view-most-item"
                         *ngFor="let item of articlesViews"
+                        [routerLink]="['/bai-viet', item?.slug, item?.slug_crc]"
                   >
                         <div class="artcles-view-most-img">
                               <img [src]="item.avatar" alt="" />

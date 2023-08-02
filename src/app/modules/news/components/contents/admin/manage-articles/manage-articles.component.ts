@@ -169,31 +169,30 @@ export class ManageArticlesComponent implements OnInit {
       }
       filterFn(type: any) {
             ++this.filterCurr[type];
+            this.order = [];
+            for (let key in this.filterCurr) {
+                  if (
+                        this.filterCurr.hasOwnProperty(key) &&
+                        this.filterCurr[key]
+                  ) {
+                        this.order = [
+                              [key, this.typefilters[this.filterCurr[type]]],
+                        ];
+                  }
+            }
             if (this.filterCurr[type] > 2) {
                   this.filterCurr[type] = 0;
+                  this.order = [];
+                  console.log(this.order);
+
+                  // this.order.filter((item: any) => (item[0] = type));
             }
-            let filtered: any = {
-                  id: 0,
-                  title: 0,
-                  views: 0,
-                  category_id: 0,
-                  status: 0,
-                  publishAt: 0,
-                  slug: 0,
-            };
-            for (let key in this.filterCurr) {
-                  if (this.filterCurr.hasOwnProperty(key)) {
-                        filtered[key] = this.typefilters[this.filterCurr[key]];
-                  }
-            }
-            this.order = [];
-            for (let key in filtered) {
-                  if (filtered.hasOwnProperty(key) && filtered[key]) {
-                        this.order.push([key, filtered[key]]);
-                  }
-            }
-            if (this.order.length > 0)
+            if (this.order.length > 0) {
                   this.queries.order = JSON.stringify(this.order);
+            } else {
+                  delete this.queries.order;
+            }
+
             this.queries.page = this.pageIndex + 1;
 
             this.NewService.getAllByAd({ ...this.queries }).subscribe(
@@ -286,7 +285,7 @@ export class ManageArticlesComponent implements OnInit {
       }
       openDialog(data: any): void {
             const dialogRef = this.dialog.open(DialogEditArticleComponent, {
-                  width: '1400px',
+                  width: '1900px',
                   // height: '700px',
                   data,
             });

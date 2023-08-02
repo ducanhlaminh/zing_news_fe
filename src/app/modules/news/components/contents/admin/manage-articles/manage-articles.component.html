@@ -29,18 +29,8 @@
                   </div>
             </th>
             <th>
-                  <div class="header-cate" (click)="filterFn('category_id')">
+                  <div class="header-cate">
                         <span>Danh mục</span>
-                        <div [ngSwitch]="filterCurr.category_id">
-                              <fa-icon
-                                    [icon]="faCaretDown"
-                                    *ngSwitchCase="'1'"
-                              ></fa-icon>
-                              <fa-icon
-                                    [icon]="faCaretUp"
-                                    *ngSwitchCase="'2'"
-                              ></fa-icon>
-                        </div>
                   </div>
             </th>
             <th>
@@ -295,7 +285,7 @@
                         </tr>
                         <tr
                               *ngFor="
-                                    let item of listHotCateArticles.new_articles_hot_categories;
+                                    let item of listHotCateArticles?.new_articles_hot_categories;
                                     index as idx
                               "
                               class="item-hot-articles"

@@ -140,21 +140,12 @@
                               <fa-icon [icon]="faUpload" class="icon"></fa-icon>
                               UPLOAD ẢNH
                         </button>
-                        <input
-                              type="file"
-                              name=""
-                              id=""
-                              hidden
-                              #uploadFile
-                              (change)="onChangeFile($event)"
-                        />
                         <div class="">
                               <img
                                     [src]="
-                                          !this.stepperAvatar.value.avatar
+                                          !imgPreview
                                                 ? 'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
-                                                : this.stepperAvatar.value
-                                                        .avatar
+                                                : imgPreview
                                     "
                                     alt=""
                                     class="imgPreview"
@@ -173,7 +164,7 @@
                   <form
                         action=""
                         [formGroup]="stepperContent"
-                        (ngSubmit)="onClick()"
+                        (ngSubmit)="submitForm(data.id, data.slug_crc)"
                   >
                         <h3>Nội dung bài viết :</h3>
                         <div class="header-editor">
@@ -182,16 +173,16 @@
                                     mat-raised-button
                                     color="primary"
                               >
-                                    XUẤT BẢN
+                                    {{ this.data ? "CẬP NHẬT" : "XUẤT BẢN" }}
                               </button>
                         </div>
                         <editor
                               class="editor"
-                              plugins=" fullscreen table emoticons link example lists code"
+                              plugins=" fullscreen table emoticons link example lists code media"
                               menubar="file edit insert view format table tools help "
                               [init]="tinyMCEInit"
                               formControlName="content"
-                              toolbar="myCustomToolbarButton mycustombutton cancel bold italic underline code  | fontfamily fontsizeinput  | styles forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist |indent outdent rtl ltr | fullscreen table link "
+                              toolbar="myCustomToolbarButton mycustombutton cancel bold italic underline code media | fontfamily fontsizeinput  | styles forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist |indent outdent rtl ltr | fullscreen table link "
                         >
                         </editor>
                   </form>

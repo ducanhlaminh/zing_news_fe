@@ -1,30 +1,39 @@
 <div class="content">
-  <form action="">
-    <div class="input-form">
-      <input type="text" [formControl]="searchControl" />
-      <div class="searchBtn">
-        <fa-icon [icon]="faMagnifyingGlass" />
-      </div>
-    </div>
-  </form>
-  <p class="count">
-    <b>{{ articles.count }}</b> kết quả phù hợp
-  </p>
+      <form action="">
+            <div class="input-form">
+                  <input type="text" [formControl]="searchControl" />
+                  <div class="searchBtn">
+                        <fa-icon [icon]="faMagnifyingGlass" />
+                  </div>
+            </div>
+      </form>
+      <p class="count">
+            <b>{{ articles.count }}</b> kết quả phù hợp
+      </p>
 
-  <ng-container *ngFor="let item of articles.rows">
-    <div class="article">
-      <div class="article-img">
-        <img [src]="item.avatar" alt="" (error)="handleImageError($event)" />
-      </div>
-      <div class="article-infor">
-        <p class="title">{{ item.title }}</p>
-        <p class="date">{{ item.publishAt | date : "short" }}</p>
-        <p class="sapo">
-          {{ item.sapo }}
-        </p>
-      </div>
-    </div>
+      <ng-container *ngFor="let item of articles.rows">
+            <div
+                  class="article"
+                  [routerLink]="['/bai-viet', item.slug, item.slug_crc]"
+            >
+                  <div class="article-img">
+                        <img
+                              [src]="item.avatar"
+                              alt=""
+                              (error)="handleImageError($event)"
+                        />
+                  </div>
+                  <div class="article-infor">
+                        <p class="title">{{ item.title }}</p>
+                        <p class="date">
+                              {{ item.publishAt | date : "short" }}
+                        </p>
+                        <p class="sapo">
+                              {{ item.sapo }}
+                        </p>
+                  </div>
+            </div>
 
-    <hr />
-  </ng-container>
+            <hr />
+      </ng-container>
 </div>

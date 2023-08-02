@@ -155,6 +155,12 @@
           }
         }
       }
+      .new-article-cate:hover{
+            cursor: pointer;
+            p{
+                  color: #096ffa;
+            }
+      }
     }
   }
   .articles-most-views-layout{
@@ -187,14 +193,17 @@
           object-fit: cover;
         }
       }
+      .artcles-view-most-item:hover{
+            cursor: pointer;
+            .most-item-infor-title{
+            color:#096ffa
+            }
+      }
     }
   }
 }
 
-.title:hover {
-  color: #096ffa;
-  cursor: pointer;
-}
+
 header {
   font-size: 18px;
   border-top: 3px solid #3333332e;

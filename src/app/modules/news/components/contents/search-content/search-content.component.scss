@@ -59,4 +59,10 @@
       }
     }
   }
+  .article:hover{
+      cursor: pointer;
+      .title{
+            color: #096ffa;
+      }
+  }
 }

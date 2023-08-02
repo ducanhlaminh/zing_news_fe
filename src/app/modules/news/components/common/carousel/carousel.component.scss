@@ -7,19 +7,23 @@
   width: 100%;
   height: 200px;
   font-size: 14.4px;
+  &:hover{
+      color: #096ffa;
+      cursor: pointer;
+  }
   .image {
-    height: 70%;
+    height: 60%;
     img {
       object-fit: cover;
-      height: 80%;
+      height: 100%;
       width: 100%;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
   }
   }
   .card-infor{
-    padding: 5px 5px 0 5px;
-    height: 30%;
+    padding: 10px 10px 0 10px;
+    height: 40%;
     border: 1px solid rgb(218, 218, 218);
     border-top: 0;
     border-bottom-left-radius: 5px;

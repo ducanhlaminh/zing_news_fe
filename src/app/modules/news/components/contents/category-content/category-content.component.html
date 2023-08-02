@@ -27,7 +27,14 @@
             </header>
             <div class="new-articles-cate-left">
                   <ng-container *ngFor="let item of newArticles; last as last">
-                        <div class="new-article-cate">
+                        <div
+                              class="new-article-cate"
+                              [routerLink]="[
+                                    '/bai-viet',
+                                    item.new_article.slug,
+                                    item.new_article.slug_crc
+                              ]"
+                        >
                               <div class="new-article-cate-img">
                                     <img
                                           [src]="item.new_article.avatar"

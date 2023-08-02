@@ -97,6 +97,7 @@ export class CreatePostContentComponent implements OnInit, AfterViewInit {
             dialogRef.afterClosed().subscribe((result) => {
                   if (result) {
                         this.stepperAvatar.get('avatar').patchValue(result);
+                        this.imgPreview = URL.createObjectURL(result);
                   }
             });
       }
@@ -237,18 +238,39 @@ export class CreatePostContentComponent implements OnInit, AfterViewInit {
             this.stepperAvatar.get('avatar').patchValue(event.target.files[0]);
             this.imgPreview = URL.createObjectURL(event.target.files[0]);
       }
-      onClick() {
+      submitForm(id: any, slug_crc: any) {
+            const file = new File(
+                  [this.stepperAvatar.value.avatar],
+                  `${this.data.slug_crc}.png`,
+                  {
+                        type: 'image/png',
+                  }
+            );
             const combinedValues = {
                   ...this.stepperTitle.value,
                   ...this.stepperSapo.value,
                   ...this.stepperSlug.value,
                   ...this.stepperCategoryId.value,
-                  ...this.stepperAvatar.value,
+                  avatar: file,
                   ...this.stepperContent.value,
-                  // Add more form groups if needed
             };
 
-            console.log(combinedValues);
+            let formData = new FormData();
+            for (const key in combinedValues) {
+                  // if (combinedValues.hasOwnProperty(key)) {
+                  //       let value = combinedValues[key];
+                  //
+                  // }
+                  formData.append(key, combinedValues[key]);
+            }
+            formData.append('slug_crc', slug_crc);
+            if (this.data) {
+                  console.log(formData);
+
+                  this.NewService.updateArticle(formData, id).subscribe();
+            } else {
+                  this.NewService.createArticle(formData).subscribe();
+            }
       }
       convertObjectToFormData(obj: any): any {
             let formData = new FormData();
@@ -261,6 +283,7 @@ export class CreatePostContentComponent implements OnInit, AfterViewInit {
                         formData.append(key, value);
                   }
             }
+
             this.NewService.createArticle(formData).subscribe();
       }
       onChangeCate(e: any) {

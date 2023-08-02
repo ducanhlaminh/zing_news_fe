@@ -1,23 +1,27 @@
 <ngx-slick-carousel
-  class="carousel"
-  #slickModal="slick-carousel"
-  [config]="slideConfig"
+      class="carousel"
+      #slickModal="slick-carousel"
+      [config]="slideConfig"
 >
-  <div ngxSlickItem class="item-slide" *ngFor="let item of books">
-    <div
-      class="card"
-      [routerLink]="['/', item?.new_article?.slug, item?.new_article?.slug_crc]"
-    >
-      <div class="image">
-        <img
-          [src]="item.new_article.avatar"
-          alt=""
-          (error)="handleImageError($event)"
-        />
+      <div ngxSlickItem class="item-slide" *ngFor="let item of books">
+            <div
+                  class="card"
+                  [routerLink]="[
+                        '/bai-viet',
+                        item?.new_article?.slug,
+                        item?.new_article?.slug_crc
+                  ]"
+            >
+                  <div class="image">
+                        <img
+                              [src]="item.new_article.avatar"
+                              alt=""
+                              (error)="handleImageError($event)"
+                        />
+                  </div>
+                  <div class="card-infor">
+                        <b>{{ item.new_article.title }}</b>
+                  </div>
+            </div>
       </div>
-      <div class="card-infor">
-        <b>{{ item.new_article.title }}</b>
-      </div>
-    </div>
-  </div>
 </ngx-slick-carousel>

@@ -25,12 +25,9 @@ export class DialogCropComponent {
             this.imageChangedEvent = event;
       }
       imageCropped(event: any) {
-            this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
-                  event.objectUrl
-            );
+            console.log(event);
 
-            this.data.srcImg = event.objectUrl;
-            // event.blob can be used to upload the cropped image
+            this.data.srcImg = event.blob;
       }
 
       uploadImage() {
@@ -46,8 +43,6 @@ export class DialogCropComponent {
             };
       }
       changeValue(e: any) {
-            console.log(e, this.scale, e > this.scale);
-
             if (e > this.scale) {
                   this.zoomIn(e);
             } else {

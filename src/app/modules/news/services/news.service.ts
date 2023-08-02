@@ -53,6 +53,12 @@ export class NewsService {
       createArticle(data: any) {
             return this.http.post(environment.API__ADMIN_ARTICLE, data);
       }
+      updateArticle(data: any, id: any) {
+            return this.http.put(
+                  environment.API__ADMIN_ARTICLE + `/${id}`,
+                  data
+            );
+      }
       getAllByAd(data: any) {
             return this.http.get(environment.API__ADMIN_ARTICLE, {
                   params: { ...data },
@@ -64,12 +70,15 @@ export class NewsService {
             });
       }
       createHotMain(data: any) {
-            return this.http.post(environment.API_NEWS_HOT_MAIN, {
+            return this.http.post(environment.API_ADMIN_HOT_MAIN, {
                   data,
             });
       }
       updateHotMain(data: any) {
-            return this.http.put(environment.API_NEWS_HOT_MAIN + data.id, data);
+            return this.http.put(
+                  environment.API_ADMIN_HOT_MAIN + data.id,
+                  data
+            );
       }
       updateArtclesHotCate(data: any) {
             return this.http.put(
@@ -82,6 +91,7 @@ export class NewsService {
                   ...data,
             });
       }
+
       deleteHotCate(data: any) {
             return this.http.delete(environment.API_ADMIN_HOT_CATE, {
                   params: { ...data },
