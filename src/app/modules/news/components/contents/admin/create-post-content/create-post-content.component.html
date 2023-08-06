@@ -4,7 +4,83 @@
       </div>
       <small>*Vui lòng điền các trường thông tin sau để tạo bài viết</small>
       <hr />
-      <mat-stepper linear #stepper orientation="vertical">
+      <div class="card">
+            <div class="slug">
+                  <span class="label-slug">Đường dẫn :</span>
+                  <div class="input-slug">
+                        <mat-form-field appearance="fill" class="input">
+                              <mat-label>Đường dẫn</mat-label>
+                              <input
+                                    matInput
+                                    placeholder="Tiêu đề"
+                                    formControlName="title"
+                                    required
+                              />
+                        </mat-form-field>
+                  </div>
+            </div>
+            <div class="content">
+                  <div class="image">
+                        <img
+                              [src]="
+                                    !imgPreview
+                                          ? 'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
+                                          : imgPreview
+                              "
+                              alt=""
+                              class="imgPreview"
+                        />
+                  </div>
+                  <div class="infor">
+                        <div class="title">
+                              <mat-form-field appearance="fill" class="input">
+                                    <mat-label>Đường dẫn</mat-label>
+                                    <input
+                                          matInput
+                                          placeholder="Tiêu đề"
+                                          formControlName="title"
+                                          required
+                                    />
+                              </mat-form-field>
+                        </div>
+                        <div class="cate">
+                              <mat-form-field class="example-full-width input">
+                                    <mat-label>Tên danh mục</mat-label>
+                                    <mat-select
+                                          (selectionChange)="
+                                                onChangeCate($event)
+                                          "
+                                          formControlName="categoryId"
+                                    >
+                                          <mat-option
+                                                [value]="item.id"
+                                                *ngFor="
+                                                      let item of optionCategories
+                                                "
+                                          >
+                                                {{ item.name }}
+                                          </mat-option>
+                                    </mat-select>
+                              </mat-form-field>
+                        </div>
+                        <div class="sapo">
+                              <mat-form-field
+                                    appearance="fill"
+                                    class="sapo-input"
+                              >
+                                    <mat-label>Mô tả</mat-label>
+                                    <input
+                                          matInput
+                                          placeholder="Sapo"
+                                          formControlName="sapo"
+                                          required
+                                    />
+                              </mat-form-field>
+                        </div>
+                  </div>
+            </div>
+      </div>
+      <!-- <mat-stepper linear #stepper orientation="vertical">
             <mat-step [stepControl]="stepperTitle">
                   <ng-template matStepLabel>Điền tiêu đề bài viết</ng-template>
                   <form [formGroup]="stepperTitle">
@@ -187,5 +263,5 @@
                         </editor>
                   </form>
             </mat-step>
-      </mat-stepper>
+      </mat-stepper> -->
 </div>

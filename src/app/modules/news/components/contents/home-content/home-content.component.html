@@ -2,12 +2,12 @@
       <div class="hot-artcles-left">
             <ng-container
                   *ngFor="
-                        let item of artclesHotMain;
+                        let item of artclesHotMain?.left;
                         let i = index;
                         last as last
                   "
             >
-                  <div *ngIf="i >= 3 && i <= 7">
+                  <div *ngIf="item.new_article; else emptyLeft">
                         <div
                               class="artcle-left-item"
                               [routerLink]="[
@@ -26,7 +26,6 @@
                                     <b>{{ item.new_article?.title }}</b>
                               </div>
                         </div>
-                        <hr *ngIf="!last" />
                   </div>
             </ng-container>
       </div>
@@ -36,35 +35,27 @@
                   [routerLink]="[
                         '/',
                         'bai-viet',
-                        artclesHotMain && artclesHotMain[0]?.new_article?.slug,
-                        artclesHotMain &&
-                              artclesHotMain[0]?.new_article?.slug_crc
+                        artclesHotMain?.center[0]?.new_article?.slug,
+
+                        artclesHotMain.center[0]?.new_article?.slug_crc
                   ]"
             >
                   <img
-                        [src]="
-                              artclesHotMain &&
-                              artclesHotMain[0]?.new_article.avatar
-                        "
+                        [src]="artclesHotMain?.center[0]?.new_article.avatar"
                         alt=""
                         (error)="handleImageError($event)"
                   />
-                  <b>{{
-                        artclesHotMain && artclesHotMain[0]?.new_article.title
-                  }}</b>
+                  <b>{{ artclesHotMain?.center[0]?.new_article.title }}</b>
                   <p>
-                        {{
-                              artclesHotMain &&
-                                    artclesHotMain[0]?.new_article.sapo
-                        }}
+                        {{ artclesHotMain?.center[0]?.new_article.sapo }}
                   </p>
             </div>
       </div>
       <div class="hot-artcles-right">
-            <ng-container *ngFor="let item of artclesHotMain; let i = index">
+            <ng-container *ngFor="let item of artclesHotMain.right">
                   <div
                         class="artcle-right-item"
-                        *ngIf="i === 1 || i == 2"
+                        *ngIf="item.new_article; else emptyRight"
                         [routerLink]="[
                               '/',
                               'bai-viet',
@@ -189,3 +180,26 @@
             </div>
       </ng-container>
 </div>
+<ng-template #emptyLeft>
+      <div class="artcle-left-item">
+            <div class="image-empty-left"></div>
+            <div class="infor-empty-left">
+                  <div class="title-empty-left"></div>
+                  <div class="sapo-empty-left"></div>
+            </div>
+      </div>
+</ng-template>
+<ng-template #emptyCenter>
+      <div class="image-empty-center"></div>
+      <div class="infor-empty-center">
+            <div class="title-empty-center"></div>
+            <div class="sapo-empty-center"></div>
+      </div>
+</ng-template>
+
+<ng-template #emptyRight>
+      <div class="artcle-right-item">
+            <div class="image-empty-right"></div>
+            <div class="infor-empty-right"></div>
+      </div>
+</ng-template>

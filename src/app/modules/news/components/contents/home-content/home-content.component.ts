@@ -9,8 +9,8 @@ import { NewsService } from '../../../services/news.service';
 export class HomeContentComponent {
       newArtcles: any;
       articlesViews: any;
-      artclesHotMain: any[] = [];
-      artclesHotCate: any[] = [];
+      artclesHotMain: any;
+      artclesHotCate: any = [];
       constructor(
             public NewsService: NewsService,
             public renderer: Renderer2
@@ -33,12 +33,33 @@ export class HomeContentComponent {
             );
       }
       getHotNews() {
-            this.NewsService.getHotMain().subscribe(
-                  (data: any) => (
-                        (this.artclesHotMain = data.hot_news.hot_main),
-                        (this.artclesHotCate = data.hot_news.hot_categories)
-                  )
-            );
+            this.NewsService.getHotMain().subscribe((data: any) => {
+                  const result = Array(8)
+                        .fill(null)
+                        .map((_, index) => {
+                              const post = data.hot_news.hot_main.find(
+                                    (item: any) => item.position === index + 1
+                              );
+                              return post
+                                    ? post
+                                    : {
+                                            position: index + 1,
+                                            new_article: null,
+                                      };
+                        });
+                  this.artclesHotMain = {
+                        left: [
+                              result[3],
+                              result[4],
+                              result[5],
+                              result[6],
+                              result[7],
+                        ],
+                        right: [result[1], result[2]],
+                        center: [result[0]],
+                  };
+                  console.log(result);
+            });
       }
       handleImageError(event: any) {
             const fallbackImage =
