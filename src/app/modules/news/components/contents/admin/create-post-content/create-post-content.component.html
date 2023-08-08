@@ -4,21 +4,8 @@
       </div>
       <small>*Vui lòng điền các trường thông tin sau để tạo bài viết</small>
       <hr />
-      <div class="card">
-            <div class="slug">
-                  <span class="label-slug">Đường dẫn :</span>
-                  <div class="input-slug">
-                        <mat-form-field appearance="fill" class="input">
-                              <mat-label>Đường dẫn</mat-label>
-                              <input
-                                    matInput
-                                    placeholder="Tiêu đề"
-                                    formControlName="title"
-                                    required
-                              />
-                        </mat-form-field>
-                  </div>
-            </div>
+      <h3>Thông tin bài viết :</h3>
+      <form class="card" [formGroup]="formDetail">
             <div class="content">
                   <div class="image">
                         <img
@@ -34,7 +21,7 @@
                   <div class="infor">
                         <div class="title">
                               <mat-form-field appearance="fill" class="input">
-                                    <mat-label>Đường dẫn</mat-label>
+                                    <mat-label>Tiêu đề</mat-label>
                                     <input
                                           matInput
                                           placeholder="Tiêu đề"
@@ -77,9 +64,33 @@
                                     />
                               </mat-form-field>
                         </div>
+                        <div class="slug">
+                              <mat-form-field appearance="fill" class="input">
+                                    <mat-label>Đường dẫn</mat-label>
+                                    <input
+                                          matInput
+                                          placeholder="Tiêu đề"
+                                          formControlName="title"
+                                          required
+                                    />
+                              </mat-form-field>
+                        </div>
                   </div>
             </div>
-      </div>
+      </form>
+      <h3>Nội dung :</h3>
+      <form action="" [formGroup]="formDetail">
+            <editor
+                  class="editor"
+                  plugins=" fullscreen table emoticons link example lists code media quickbars "
+                  menubar="file edit insert view format table tools help "
+                  [init]="tinyMCEInit"
+                  formControlName="content"
+                  toolbar="myCustomToolbarButton mycustombutton bold italic underline | fontfamily fontsizeinput  | forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist |indent outdent rtl ltr | table link | preivew overview "
+            >
+            </editor>
+      </form>
+
       <!-- <mat-stepper linear #stepper orientation="vertical">
             <mat-step [stepControl]="stepperTitle">
                   <ng-template matStepLabel>Điền tiêu đề bài viết</ng-template>
@@ -258,7 +269,7 @@
                               menubar="file edit insert view format table tools help "
                               [init]="tinyMCEInit"
                               formControlName="content"
-                              toolbar="myCustomToolbarButton mycustombutton cancel bold italic underline code media | fontfamily fontsizeinput  | styles forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist |indent outdent rtl ltr | fullscreen table link "
+                              toolbar="myCustomToolbarButton mycustombutton  bold italic underline code media | fontfamily fontsizeinput  | styles forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist |indent outdent rtl ltr | fullscreen table link "
                         >
                         </editor>
                   </form>

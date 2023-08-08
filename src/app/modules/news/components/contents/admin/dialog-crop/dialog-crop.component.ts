@@ -1,7 +1,6 @@
 import { Component, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Dimensions, ImageTransform, base64ToFile } from 'ngx-image-cropper';
+import { ImageTransform } from 'ngx-image-cropper';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 @Component({
       selector: 'app-dialog-crop',
@@ -17,17 +16,15 @@ export class DialogCropComponent {
       scale: number = 1;
       transform: ImageTransform = {};
       constructor(
-            private sanitizer: DomSanitizer,
-            public dialogRef: MatDialogRef<DialogCropComponent>,
+            public dialogRef: MatDialogRef<any>,
             @Inject(MAT_DIALOG_DATA) public data: any
-      ) {}
-      fileChangeEvent(event: any): void {
-            this.imageChangedEvent = event;
+      ) {
+            this.imageChangedEvent = this.data.imageCrop;
       }
       imageCropped(event: any) {
             console.log(event);
 
-            this.data.srcImg = event.blob;
+            this.data.srcImg = event;
       }
 
       uploadImage() {
@@ -35,8 +32,6 @@ export class DialogCropComponent {
       }
       zoomOut(value: any) {
             this.scale = value;
-            console.log(typeof this.scale.toFixed(1));
-
             this.transform = {
                   ...this.transform,
                   scale: this.scale,

@@ -25,6 +25,8 @@ import { DialogCropComponent } from './components/contents/admin/dialog-crop/dia
 import { MatSliderModule } from '@angular/material/slider';
 import { DialogEditArticleComponent } from './components/contents/dialog-edit-article/dialog-edit-article.component';
 import { MatIconModule } from '@angular/material/icon';
+import { DialogOverviewComponent } from './components/contents/admin/dialog-overview/dialog-overview.component';
+import { PreviewContentComponent } from './components/contents/admin/preview-content/preview-content.component';
 @NgModule({
       declarations: [
             DatePipe,
@@ -42,6 +44,8 @@ import { MatIconModule } from '@angular/material/icon';
             CreateCategoryComponent,
             DialogCropComponent,
             DialogEditArticleComponent,
+            DialogOverviewComponent,
+            PreviewContentComponent,
       ],
       imports: [
             MatSliderModule,

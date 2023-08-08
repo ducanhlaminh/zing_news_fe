@@ -4,9 +4,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Bacasime+Antique&display=swap');
 .card{
       width: 100%;
-      padding: 10px;
+      padding: 20px;
       background-color: rgb(233, 230, 230);
       border-radius: 10px;
+      box-sizing: border-box;
+      height: fit-content;
       .slug{
             display: flex;
             height: 80px;
@@ -14,11 +16,12 @@
                   padding-bottom: 30px;
                   height: fit-content;
                   align-self: flex-end;
-                  width: 200px;
+                  width: 250px;
                   text-align: center;
+                  font-size: 18px;
             }
             .input-slug {
-                  width: 70%;
+                  width: calc(100% - 250px);
                   display: block;
                   .input{
                         width: 100%;
@@ -26,14 +29,14 @@
             }
       }
       .content{
-            height: 200px;
+            height: 300px;
             width: 100%;
             padding: 10px 0;
             display: flex;
-            gap: 10px;
+            gap: 30px;
             .image{
-                  box-sizing: border-box;
-                  width: 200px;
+                  box-sizing: content-box;
+                  width: 300px;
                   height: 100%;
                   img{
                         width: 100%;
@@ -43,7 +46,13 @@
                   }
             }
             .infor{
-                  width: calc(100% - 200px);
+                  width: calc(100% - 250px);
+                  .slug{
+                        width: 100%;
+                        .input{
+                              width: 100%;
+                        }
+                  }
                   .title{
                         width: 100%;
                         .input{
@@ -97,7 +106,6 @@ button {
 }
 
 form {
-      padding: 20px;
       .header-editor{
             height: 70px;
             background: #c4c3c387;
@@ -116,3 +124,6 @@ form {
 }
 
 
+mat-dialog-content{
+      height: 500px;
+}

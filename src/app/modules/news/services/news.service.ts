@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class NewsService {
       constructor(public http: HttpClient) {}
-
+      dataPreview: any;
       getHotMain() {
             return this.http.get(environment.API_NEWS_HOT_MAIN);
       }
@@ -96,5 +96,8 @@ export class NewsService {
             return this.http.delete(environment.API_ADMIN_HOT_CATE, {
                   params: { ...data },
             });
+      }
+      saveDataPreview(data: any) {
+            this.dataPreview = data;
       }
 }
