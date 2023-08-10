@@ -1,1 +1,71 @@
-<div #contentPreview></div>
+<div mat-dialog-title class="title-dialog">
+      <span>Preview</span>
+      <button mat-dialog-close mat-icon-button class="btnClose">
+            <fa-icon [icon]="faClose"></fa-icon>
+      </button>
+</div>
+<div class="layout_header">
+      <div class="header">
+            <div class="logo">
+                  <p class="top-header">TẠP CHÍ TRI THỨC TRỰC TUYẾN</p>
+                  <img
+                        src="https://static-znews.zingcdn.me/images/logo-zing-home.svg"
+                        alt=""
+                        class="header_logo"
+                  />
+            </div>
+            <div class="categories">
+                  <div class="cate-item">
+                        <b> Xuất bản </b>
+                  </div>
+                  <div class="cate-item">
+                        <b> Xuất bản </b>
+                  </div>
+                  <div class="cate-item">
+                        <b> Xuất bản </b>
+                  </div>
+                  <div class="cate-item">
+                        <b> Xuất bản </b>
+                  </div>
+                  <div class="cate-item">
+                        <b> Xuất bản </b>
+                  </div>
+                  <div class="cate-item">
+                        <b> Xuất bản </b>
+                  </div>
+            </div>
+            <div class="right_header">
+                  <div class="tool">
+                        <fa-icon
+                              [icon]="faMagnifyingGlass"
+                              class="searchBtn activeShowInput"
+                              #searchBtn
+                        >
+                        </fa-icon>
+                  </div>
+                  <div
+                        class="avatar"
+                        mat-button
+                        [matMenuTriggerFor]="aboveMenu"
+                  ></div>
+
+                  <mat-menu #aboveMenu="matMenu" yPosition="above">
+                        <button mat-menu-item>Đăng xuất</button>
+                        <button mat-menu-item>Admin</button>
+                  </mat-menu>
+            </div>
+
+            <!-- <fa-icon [icon]="faUser"></fa-icon> -->
+      </div>
+
+      <ng-template #profile>
+            <div class="btnSignIn">
+                  <button mat-raised-button>Đăng nhập</button>
+            </div>
+      </ng-template>
+</div>
+<div class="layout_content">
+      <div class="content">
+            <div #contentPreview></div>
+      </div>
+</div>

@@ -61,6 +61,7 @@ import { MatInputModule } from '@angular/material/input';
             MatStepperModule,
             DragDropModule,
             MatInputModule,
+            HeaderComponent,
       ],
 })
 export class LayoutModule {}

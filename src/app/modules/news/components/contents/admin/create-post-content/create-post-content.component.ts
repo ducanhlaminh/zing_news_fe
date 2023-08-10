@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { DialogCropComponent } from '../dialog-crop/dialog-crop.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogOverviewComponent } from '../dialog-overview/dialog-overview.component';
+import { PreviewContentComponent } from '../preview-content/preview-content.component';
 declare const tinymce: any;
 @Component({
       selector: 'app-create-post-content',
@@ -16,6 +17,7 @@ declare const tinymce: any;
 export class CreatePostContentComponent implements OnInit {
       @ViewChild('uploadFile') uploadFile!: ElementRef;
       @Input('data') data: any;
+
       dataModel: any;
       faUpload = faUpload;
       imgPreview: any;
@@ -121,7 +123,23 @@ export class CreatePostContentComponent implements OnInit {
             });
       };
       openDialogOverview = () => {
-            this.dialog.open(DialogOverviewComponent, {});
+            this.dialog.open(DialogOverviewComponent, {
+                  maxWidth: '80vw',
+                  maxHeight: '100vh',
+                  height: '100%',
+                  width: 'fit-content',
+            });
+      };
+      openDialogPreview = () => {
+            this.dialog.open(PreviewContentComponent, {
+                  maxWidth: '100vw',
+                  maxHeight: '100vh',
+                  height: '100%',
+                  width: '100%',
+                  data: {
+                        dataHTML: this.formDetail.value.content,
+                  },
+            });
       };
       ngOnInit(): void {
             tinymce.PluginManager.add('example', (editor: any, url: any) => {
@@ -177,13 +195,7 @@ export class CreatePostContentComponent implements OnInit {
                   editor.ui.registry.addButton('preivew', {
                         icon: 'browse',
                         onAction: (e: any) => {
-                              this.NewService.saveDataPreview(
-                                    this.formDetail.value.content
-                              );
-                              console.log(this.formDetail.value.content);
-
-                              window.open('/preview', '_blank');
-                              // Mở dialog
+                              this.openDialogPreview();
                         },
                   });
             });
