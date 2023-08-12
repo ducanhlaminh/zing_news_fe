@@ -84,6 +84,13 @@ export class ManageCategoriesComponent {
                   );
             }
       }
+      comfirmCates() {
+            this,
+                  this.done.map((item: any, idx: any) => {
+                        item.position = idx + 1;
+                  });
+            console.log(this.done);
+      }
       handlePageEvent(e: any) {
             this.CategoryService.length = e.length;
             this.pageSize = e.pageSize;

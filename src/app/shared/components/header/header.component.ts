@@ -4,6 +4,9 @@ import { CategoryService } from '../../../modules/news/services/category.service
 import { faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/modules/news/services/user.service';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogCategoriesComponent } from '../dialog-categories/dialog-categories.component';
 @Component({
       selector: 'app-header',
       templateUrl: './header.component.html',
@@ -12,6 +15,7 @@ import { UserService } from 'src/app/modules/news/services/user.service';
 export class HeaderComponent implements OnInit {
       categories: any;
       faMagnifyingGlass = faMagnifyingGlass;
+      faEllipsis = faEllipsis;
       faUser = faUser;
       showInput = false;
       searchControl: FormControl = new FormControl();
@@ -21,7 +25,8 @@ export class HeaderComponent implements OnInit {
       constructor(
             public CategoryService: CategoryService,
             private Router: Router,
-            public UserService: UserService
+            public UserService: UserService,
+            public dialog: MatDialog
       ) {}
       ngOnInit(): void {
             this.getCategories();
@@ -33,6 +38,19 @@ export class HeaderComponent implements OnInit {
             this.CategoryService.getAllCategories().subscribe(
                   (data: any) => (this.CategoryService.categories = data.rows)
             );
+      }
+      showFullCate() {
+            this.dialog.open(DialogCategoriesComponent, {
+                  maxWidth: '100vw',
+                  maxHeight: '100vh',
+                  width: '100%',
+                  backdropClass: 'backdrop123',
+                  hasBackdrop: true,
+                  position: { top: '54px' },
+                  data: {
+                        categories: this.CategoryService.categories,
+                  },
+            });
       }
       toogleInput() {
             this.input.nativeElement.style.display = 'block';

@@ -228,12 +228,13 @@
       </p>
       <div cdkDropListGroup>
             <div class="example-container">
-                  <h4>Danh sách danh mục</h4>
+                  <h4>Danh sách danh mục :</h4>
                   <div
                         cdkDropList
                         [cdkDropListData]="categorySort"
                         class="example-list-1"
                         (cdkDropListDropped)="drop($event)"
+                        cdkDropListOrientation="horizontal"
                   >
                         <div
                               class="example-box"
@@ -280,8 +281,12 @@
                               <div class="right_header">
                                     <div class="avatar" mat-button>
                                           <div class="btnSignIn">
-                                                <button mat-raised-button>
-                                                      Đăng nhập
+                                                <button
+                                                      mat-raised-button
+                                                      color="primary"
+                                                      (click)="comfirmCates()"
+                                                >
+                                                      Xác nhận
                                                 </button>
                                           </div>
                                     </div>

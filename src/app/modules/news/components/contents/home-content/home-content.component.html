@@ -7,7 +7,7 @@
                         last as last
                   "
             >
-                  <div *ngIf="item.new_article; else emptyLeft">
+                  <div *ngIf="item.new_article; else emptyLeft; last">
                         <div
                               class="artcle-left-item"
                               [routerLink]="[
@@ -26,6 +26,7 @@
                                     <b>{{ item.new_article?.title }}</b>
                               </div>
                         </div>
+                        <hr *ngIf="!last" />
                   </div>
             </ng-container>
       </div>
@@ -52,7 +53,9 @@
             </div>
       </div>
       <div class="hot-artcles-right">
-            <ng-container *ngFor="let item of artclesHotMain.right">
+            <ng-container
+                  *ngFor="let item of artclesHotMain.right; last as last"
+            >
                   <div
                         class="artcle-right-item"
                         *ngIf="item.new_article; else emptyRight"
@@ -66,6 +69,7 @@
                         <img [src]="item.new_article.avatar" alt="" />
                         <b>{{ item.new_article.title }}</b>
                   </div>
+                  <hr *ngIf="!last" />
             </ng-container>
       </div>
 </div>

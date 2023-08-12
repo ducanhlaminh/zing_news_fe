@@ -1,59 +1,77 @@
 <div class="header">
-  <div class="logo" (click)="clickLogo()">
-    <p class="top-header">TẠP CHÍ TRI THỨC TRỰC TUYẾN</p>
-    <img
-      src="https://static-znews.zingcdn.me/images/logo-zing-home.svg"
-      alt=""
-      class="header_logo"
-    />
-  </div>
-  <div class="categories">
-    <div class="cate-item" *ngFor="let item of this.CategoryService.categories">
-      <b
-        [routerLink]="['/', 'danh-muc', item.slug, item.slug_crc]"
-        routerLinkActive="active"
-      >
-        {{ item.name }}
-      </b>
-    </div>
-  </div>
-  <div class="right_header">
-    <div class="tool">
-      <input
-        type="text"
-        placeholder="Nhập nội dung cần tìm"
-        #input
-        [formControl]="searchControl"
-        (blur)="blurInput()"
-      />
-      <fa-icon
-        [icon]="faMagnifyingGlass"
-        class="searchBtn activeShowInput"
-        #searchBtn
-        (mouseup)="toogleInput()"
-      >
-      </fa-icon>
-    </div>
-    <div
-      class="avatar"
-      mat-button
-      [matMenuTriggerFor]="aboveMenu"
-      *ngIf="inforUser.user; else profile"
-    >
-      <img [src]="inforUser?.user?.avatar" alt="" />
-    </div>
+      <div class="logo" (click)="clickLogo()">
+            <p class="top-header">TẠP CHÍ TRI THỨC TRỰC TUYẾN</p>
+            <img
+                  src="https://static-znews.zingcdn.me/images/logo-zing-home.svg"
+                  alt=""
+                  class="header_logo"
+            />
+      </div>
+      <div class="categories">
+            <ng-container
+                  *ngFor="
+                        let item of this.CategoryService.categories;
+                        let count = index
+                  "
+            >
+                  <div class="cate-item" *ngIf="count < 5">
+                        <b
+                              [routerLink]="[
+                                    '/',
+                                    'danh-muc',
+                                    item.slug,
+                                    item.slug_crc
+                              ]"
+                              routerLinkActive="active"
+                        >
+                              {{ item.name }}
+                        </b>
+                  </div>
+            </ng-container>
 
-    <mat-menu #aboveMenu="matMenu" yPosition="above">
-      <button mat-menu-item (click)="signOut()">Đăng xuất</button>
-      <button mat-menu-item (click)="navigateToAdmin()">Admin</button>
-    </mat-menu>
-  </div>
+            <div class="cate-item" (click)="showFullCate()">
+                  <fa-icon [icon]="faEllipsis"></fa-icon>
+            </div>
+      </div>
+      <div class="right_header">
+            <div class="tool">
+                  <input
+                        type="text"
+                        placeholder="Nhập nội dung cần tìm"
+                        #input
+                        [formControl]="searchControl"
+                        (blur)="blurInput()"
+                  />
+                  <fa-icon
+                        [icon]="faMagnifyingGlass"
+                        class="searchBtn activeShowInput"
+                        #searchBtn
+                        (mouseup)="toogleInput()"
+                  >
+                  </fa-icon>
+            </div>
+            <div
+                  class="avatar"
+                  mat-button
+                  [matMenuTriggerFor]="aboveMenu"
+                  *ngIf="inforUser.user; else profile"
+            >
+                  <img [src]="inforUser?.user?.avatar" alt="" />
+            </div>
 
-  <!-- <fa-icon [icon]="faUser"></fa-icon> -->
+            <mat-menu #aboveMenu="matMenu" yPosition="above">
+                  <button mat-menu-item (click)="signOut()">Đăng xuất</button>
+                  <button mat-menu-item (click)="navigateToAdmin()">
+                        Admin
+                  </button>
+            </mat-menu>
+      </div>
+
+      <!-- <fa-icon [icon]="faUser"></fa-icon> -->
 </div>
 
 <ng-template #profile>
-  <div class="btnSignIn">
-    <button mat-raised-button (click)="signIn()">Đăng nhập</button>
-  </div>
+      <div class="btnSignIn">
+            <button mat-raised-button (click)="signIn()">Đăng nhập</button>
+      </div>
 </ng-template>

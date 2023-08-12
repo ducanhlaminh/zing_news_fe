@@ -6,9 +6,21 @@
       <hr />
       <h3>Thông tin bài viết :</h3>
       <form class="card" [formGroup]="formDetail">
+            <button
+                  mat-raised-button
+                  color="primary"
+                  type="submit"
+                  (click)="
+                        data
+                              ? submitFormUpdate(data.id, data.slug_crc)
+                              : submitFormCreate()
+                  "
+            >
+                  Tạo bài viết
+            </button>
             <div class="content">
-                  <div class="image">
-                        <img
+                  <div class="image" (click)="openDialogSetAvatar()">
+                        <!-- <img
                               [src]="
                                     !imgPreview
                                           ? 'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png'
@@ -16,7 +28,15 @@
                               "
                               alt=""
                               class="imgPreview"
-                        />
+                        /> -->
+                        <div class="imgPreview">
+                              <fa-icon
+                                    *ngIf="!imgPreview"
+                                    [icon]="faArrowUpFromBracket"
+                                    class="icon-upload"
+                              ></fa-icon>
+                              <p>Click here to upload image</p>
+                        </div>
                   </div>
                   <div class="infor">
                         <div class="title">
@@ -69,8 +89,8 @@
                                     <mat-label>Đường dẫn</mat-label>
                                     <input
                                           matInput
-                                          placeholder="Tiêu đề"
-                                          formControlName="title"
+                                          placeholder="duong-dan"
+                                          formControlName="slug"
                                           required
                                     />
                               </mat-form-field>

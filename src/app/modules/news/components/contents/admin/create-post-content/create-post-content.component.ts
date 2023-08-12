@@ -8,6 +8,7 @@ import { DialogCropComponent } from '../dialog-crop/dialog-crop.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogOverviewComponent } from '../dialog-overview/dialog-overview.component';
 import { PreviewContentComponent } from '../preview-content/preview-content.component';
+import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
 declare const tinymce: any;
 @Component({
       selector: 'app-create-post-content',
@@ -17,7 +18,7 @@ declare const tinymce: any;
 export class CreatePostContentComponent implements OnInit {
       @ViewChild('uploadFile') uploadFile!: ElementRef;
       @Input('data') data: any;
-
+      faArrowUpFromBracket = faArrowUpFromBracket;
       dataModel: any;
       faUpload = faUpload;
       imgPreview: any;
@@ -75,15 +76,29 @@ export class CreatePostContentComponent implements OnInit {
             });
       }
       openDialogSetAvatar(): void {
-            const dialogRef = this.dialog.open(DialogCropComponent, {
-                  width: '1000px',
-                  data: { srcImg: '' },
-            });
-            dialogRef.afterClosed().subscribe((result) => {
-                  if (result) {
-                        this.formDetail.get('avatar').patchValue(result);
-                        this.imgPreview = URL.createObjectURL(result);
-                  }
+            const inputElement = document.createElement('input');
+            // Thêm thuộc tính type và multiple vào đối tượng thuộc tính của input element
+            inputElement.setAttribute('type', 'file');
+            inputElement.click();
+            inputElement.addEventListener('change', (event: any) => {
+                  const dialogRef = this.dialog.open(DialogCropComponent, {
+                        maxWidth: '50vw',
+                        maxHeight: '60vh',
+                        height: '100%',
+                        width: '100%',
+                        data: {
+                              imageCrop: event.target.files[0],
+                              type: 'avatar',
+                        },
+                  });
+                  dialogRef.afterClosed().subscribe((result) => {
+                        if (result) {
+                              console.log(result);
+
+                              this.formDetail.get('avatar').patchValue(result);
+                              this.imgPreview = result.objectUrl;
+                        }
+                  });
             });
       }
       openDialogCrop = () => {
@@ -98,6 +113,7 @@ export class CreatePostContentComponent implements OnInit {
                   height: '500px',
                   data: {
                         imageCrop,
+                        type: 'image',
                   },
             });
             dialogRef.afterClosed().subscribe((result: any) => {
@@ -215,7 +231,12 @@ export class CreatePostContentComponent implements OnInit {
             },
       };
       init_instance_callback = () => {
-            tinymce.execCommand('mceInsertContent', false, this?.data?.content);
+            this.data?.content &&
+                  tinymce.execCommand(
+                        'mceInsertContent',
+                        false,
+                        this?.data?.content
+                  );
       };
       tinyMCEInit: any = {
             setup: this.setup,
@@ -243,7 +264,6 @@ export class CreatePostContentComponent implements OnInit {
             });
       }
       uploadAvatar() {
-            // this.uploadFile.nativeElement.click();
             this.openDialogSetAvatar();
       }
       blobToFile(blob: any, fileName: any) {
@@ -256,7 +276,9 @@ export class CreatePostContentComponent implements OnInit {
             this.formDetail.get('avatar').patchValue(event.target.files[0]);
             this.imgPreview = URL.createObjectURL(event.target.files[0]);
       }
-      submitForm(id: any, slug_crc: any) {
+      submitFormUpdate(id: any, slug_crc: any) {
+            console.log(this.formDetail.value);
+
             const file = new File(
                   [this.formDetail.value.avatar],
                   `${this.data.slug_crc}.png`,
@@ -280,6 +302,26 @@ export class CreatePostContentComponent implements OnInit {
             } else {
                   this.NewService.createArticle(formData).subscribe();
             }
+      }
+      submitFormCreate() {
+            const file = new File(
+                  [this.formDetail.value.avatar.blob],
+                  `123.png`,
+                  {
+                        type: 'image/png',
+                  }
+            );
+            const combinedValues = {
+                  ...this.formDetail.value,
+                  avatar: file,
+            };
+            console.log(combinedValues);
+
+            let formData = new FormData();
+            for (const key in combinedValues) {
+                  formData.append(key, combinedValues[key]);
+            }
+            this.NewService.createArticle(formData).subscribe();
       }
       convertObjectToFormData(obj: any): any {
             let formData = new FormData();
