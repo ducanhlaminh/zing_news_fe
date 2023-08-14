@@ -2,6 +2,23 @@
       <h3>Tạo danh mục bài viết</h3>
       <hr />
       <form [formGroup]="formGroup" (submit)="submitForm($event)">
+            <div class="cate">
+                  <mat-form-field class="example-full-width input">
+                        <mat-label>Danh mục cha ( nếu có ) :</mat-label>
+                        <mat-select
+                              (selectionChange)="onChangeCate($event)"
+                              formControlName="categoryId"
+                        >
+                              <mat-option>Không</mat-option>
+                              <mat-option
+                                    [value]="item.id"
+                                    *ngFor="let item of optionCategories"
+                              >
+                                    {{ item.name }}
+                              </mat-option>
+                        </mat-select>
+                  </mat-form-field>
+            </div>
             <div class="formInput">
                   <div class="fieldText">
                         <mat-form-field appearance="fill" class="input">

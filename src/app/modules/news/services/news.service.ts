@@ -41,9 +41,13 @@ export class NewsService {
             return this.http.get(environment.API_ARTICLES_VIEWS);
       }
       getartclesHotCate(slug_crc: string) {
-            return this.http.get(environment.API_ARTICLES_HOT_CATE, {
-                  params: { slug_crc },
-            });
+            if (slug_crc) {
+                  return this.http.get(environment.API_ARTICLES_HOT_CATE, {
+                        params: { slug_crc },
+                  });
+            } else {
+                  return this.http.get(environment.API_ARTICLES_HOT_CATE);
+            }
       }
       getDetail(slug: string, slug_crc: string) {
             return this.http.get(

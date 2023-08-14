@@ -58,7 +58,6 @@ export class HomeContentComponent {
                         right: [result[1], result[2]],
                         center: [result[0]],
                   };
-                  console.log(result);
             });
       }
       handleImageError(event: any) {
