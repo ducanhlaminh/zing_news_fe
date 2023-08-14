@@ -246,6 +246,10 @@
   position: relative;
   padding-left: 20px;
   margin-top: 0;
+  cursor: pointer;
+  &:hover{
+      color: #333333;
+  }
 }
 .hot-new-categories {
   display: flex;
@@ -256,7 +260,9 @@
   padding-top: 20px;
   .hot-new-category {
     width: 22%;
+
     .category-title {
+
       position: relative;
       padding-left: 15px;
     }
@@ -270,11 +276,23 @@
         font-family: Arial;
         margin-top: 5px;
       }
+      &:hover{
+            cursor: pointer;
+            b{
+                  color: #096ffa;
+            }
+      }
     }
     .hot-new-category {
       display: flex;
       gap: 5px;
       width: 100%;
+      &:hover{
+            cursor: pointer;
+            b{
+                  color: #096ffa;
+            }
+      }
       img {
         height: 70px;
         width: 40%;

@@ -10,7 +10,7 @@ export class HomeContentComponent {
       newArtcles: any;
       articlesViews: any;
       artclesHotMain: any;
-      artclesHotCate: any = [];
+      boxArticlesCate: any;
       constructor(
             public NewsService: NewsService,
             public renderer: Renderer2
@@ -19,6 +19,7 @@ export class HomeContentComponent {
             this.getNewArtcles();
             this.getHotNews();
             this.getArticlesViews();
+            this.getBoxArticlesCategory();
       }
       // tin moi
       getNewArtcles() {
@@ -59,6 +60,11 @@ export class HomeContentComponent {
                         center: [result[0]],
                   };
             });
+      }
+      getBoxArticlesCategory(slug_crc: any = null) {
+            return this.NewsService.getBoxArticlesCategory(slug_crc).subscribe(
+                  (data: any) => (this.boxArticlesCate = data.box)
+            );
       }
       handleImageError(event: any) {
             const fallbackImage =

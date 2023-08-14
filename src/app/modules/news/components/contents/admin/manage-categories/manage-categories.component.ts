@@ -18,6 +18,7 @@ import {
       moveItemInArray,
       transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { data } from 'jquery';
 
 @Component({
       selector: 'app-manage-categories',
@@ -61,7 +62,12 @@ export class ManageCategoriesComponent {
                               item.opened = false;
                         });
                         this.length = data.rows.length;
-                        this.categorySort = [...data.rows];
+                        this.categorySort = [...data.rows].filter(
+                              (item: any) => item.position === null
+                        );
+                        this.done = [...data.rows].filter(
+                              (item: any) => item.position !== null
+                        );
                   }
             );
 
@@ -85,10 +91,10 @@ export class ManageCategoriesComponent {
             }
       }
       comfirmCates() {
-            this,
-                  this.done.map((item: any, idx: any) => {
-                        item.position = idx + 1;
-                  });
+            this.done.map((item: any, idx: any) => {
+                  item.position = idx + 1;
+            });
+            this.CategoryService.updatePosition(this.done).subscribe();
             console.log(this.done);
       }
       handlePageEvent(e: any) {
@@ -151,5 +157,10 @@ export class ManageCategoriesComponent {
             this.dialog.open(DialogComponent, {
                   data,
             });
+      }
+      publishedCate(id: any) {
+            // console.log(id);
+
+            this.CategoryService.updateCategory({ status: 1 }, id).subscribe();
       }
 }

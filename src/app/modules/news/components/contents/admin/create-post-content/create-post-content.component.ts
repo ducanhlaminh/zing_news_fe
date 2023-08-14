@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogOverviewComponent } from '../dialog-overview/dialog-overview.component';
 import { PreviewContentComponent } from '../preview-content/preview-content.component';
 import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
+import { ShareService } from 'src/app/shared/service/share.service';
 declare const tinymce: any;
 @Component({
       selector: 'app-create-post-content',
@@ -38,7 +40,8 @@ export class CreatePostContentComponent implements OnInit {
             private formBuilder: FormBuilder,
             public CategoryService: CategoryService,
             private NewService: NewsService,
-            public dialog: MatDialog
+            public dialog: MatDialog,
+            private toastrService: ShareService
       ) {
             this.formDetail = this.formBuilder.group({
                   title: ['', Validators.required],
@@ -140,10 +143,13 @@ export class CreatePostContentComponent implements OnInit {
       };
       openDialogOverview = () => {
             this.dialog.open(DialogOverviewComponent, {
-                  maxWidth: '80vw',
+                  maxWidth: '1100px',
                   maxHeight: '100vh',
-                  height: '100%',
-                  width: 'fit-content',
+                  height: '95%',
+                  width: '1100px',
+                  data: {
+                        dataHTML: this.formDetail.value.content,
+                  },
             });
       };
       openDialogPreview = () => {
@@ -304,24 +310,46 @@ export class CreatePostContentComponent implements OnInit {
             }
       }
       submitFormCreate() {
-            const file = new File(
-                  [this.formDetail.value.avatar.blob],
-                  `123.png`,
-                  {
-                        type: 'image/png',
-                  }
-            );
-            const combinedValues = {
-                  ...this.formDetail.value,
-                  avatar: file,
-            };
-            console.log(combinedValues);
+            console.log(this.formDetail.valid);
+            try {
+                  if (this.formDetail.valid) {
+                        const file = new File(
+                              [this.formDetail.value.avatar.blob],
+                              `123.png`,
+                              {
+                                    type: 'image/png',
+                              }
+                        );
+                        const combinedValues = {
+                              ...this.formDetail.value,
+                              avatar: file,
+                        };
+                        console.log(combinedValues);
 
-            let formData = new FormData();
-            for (const key in combinedValues) {
-                  formData.append(key, combinedValues[key]);
+                        let formData = new FormData();
+                        for (const key in combinedValues) {
+                              formData.append(key, combinedValues[key]);
+                        }
+                        this.NewService.createArticle(formData).subscribe(
+                              (data) => {
+                                    this.toastrService.showToastr(
+                                          `Đã tạo bài viết thành công \n Vui lòng chờ được kiểm duyệt`,
+                                          true
+                                    );
+                              }
+                        );
+                  } else {
+                        this.toastrService.showToastr(
+                              `Vui lòng điền đủ các trường thông tin`,
+                              false
+                        );
+                  }
+            } catch (error) {
+                  this.toastrService.showToastr(
+                        `Tạo bài viết không thành công`,
+                        false
+                  );
             }
-            this.NewService.createArticle(formData).subscribe();
       }
       convertObjectToFormData(obj: any): any {
             let formData = new FormData();

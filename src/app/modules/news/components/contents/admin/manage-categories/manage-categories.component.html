@@ -134,7 +134,16 @@
                         <span>{{ item.slug }}</span>
                   </td>
                   <td class="item-status">
-                        <span class="pending">Đang chờ xét duyệt</span>
+                        <span
+                              [class]="
+                                    item.status === 1 ? 'success' : 'pending'
+                              "
+                              >{{
+                                    item.status === 1
+                                          ? "Đã xuất bản"
+                                          : "Chờ phê duyệt"
+                              }}</span
+                        >
                   </td>
                   <td class="item-date-published">
                         <span>{{ item.createdAt | datePipe }}</span>
@@ -154,8 +163,11 @@
                               <button mat-menu-item (click)="openDialog(item)">
                                     <span>Xóa</span>
                               </button>
-                              <button mat-menu-item>
-                                    <span>Sửa</span>
+                              <button
+                                    mat-menu-item
+                                    (click)="publishedCate(item.id)"
+                              >
+                                    <span>Duyệt</span>
                               </button>
                         </mat-menu>
                   </td>
@@ -176,7 +188,20 @@
                         <td>
                               <span>{{ sub_item.slug }}</span>
                         </td>
-                        <td><span class="success">Xuất bản</span></td>
+                        <td>
+                              <span
+                                    [class]="
+                                          item.status === 1
+                                                ? 'success'
+                                                : 'pending'
+                                    "
+                                    >{{
+                                          item.status === 1
+                                                ? "Đã xuất bản"
+                                                : "Chờ phê duyệt"
+                                    }}</span
+                              >
+                        </td>
                         <td>
                               <span>{{ sub_item.createdAt | datePipe }}</span>
                         </td>
@@ -236,59 +261,55 @@
                         (cdkDropListDropped)="drop($event)"
                         cdkDropListOrientation="horizontal"
                   >
-                        <div
-                              class="example-box"
-                              *ngFor="let item of categorySort"
-                              cdkDrag
-                        >
-                              {{ item.name }}
-                        </div>
+                        <ng-container *ngFor="let item of categorySort">
+                              <div
+                                    class="example-box-1"
+                                    cdkDrag
+                                    *ngIf="item.status !== 0"
+                              >
+                                    {{ item.name }}
+                              </div>
+                        </ng-container>
                   </div>
             </div>
 
             <div class="example-container">
-                  <div
-                        cdkDropList
-                        [cdkDropListData]="done"
-                        class="example-list"
-                        (cdkDropListDropped)="drop($event)"
-                        cdkDropListOrientation="horizontal"
-                  >
-                        <div class="header">
-                              <div class="logo">
-                                    <p class="top-header">
-                                          TẠP CHÍ TRI THỨC TRỰC TUYẾN
-                                    </p>
-                                    <img
-                                          src="https://static-znews.zingcdn.me/images/logo-zing-home.svg"
-                                          alt=""
-                                          class="header_logo"
-                                    />
+                  <div class="header">
+                        <div class="logo">
+                              <p class="top-header">
+                                    TẠP CHÍ TRI THỨC TRỰC TUYẾN
+                              </p>
+                              <img
+                                    src="https://static-znews.zingcdn.me/images/logo-zing-home.svg"
+                                    alt=""
+                                    class="header_logo"
+                              />
+                        </div>
+                        <div
+                              cdkDropList
+                              [cdkDropListData]="done"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)"
+                              cdkDropListOrientation="horizontal"
+                        >
+                              <div
+                                    class="example-box"
+                                    *ngFor="let item of done"
+                                    cdkDrag
+                              >
+                                    {{ item.name }}
                               </div>
-                              <div class="categories">
-                                    <ng-container
-                                          *ngIf="done.length !== 0; else empty"
-                                    >
-                                          <div
-                                                class="example-box"
-                                                *ngFor="let item of done"
-                                                cdkDrag
+                        </div>
+                        <div class="right_header">
+                              <div class="avatar" mat-button>
+                                    <div class="btnSignIn">
+                                          <button
+                                                mat-raised-button
+                                                color="primary"
+                                                (click)="comfirmCates()"
                                           >
-                                                {{ item.name }}
-                                          </div>
-                                    </ng-container>
-                              </div>
-                              <div class="right_header">
-                                    <div class="avatar" mat-button>
-                                          <div class="btnSignIn">
-                                                <button
-                                                      mat-raised-button
-                                                      color="primary"
-                                                      (click)="comfirmCates()"
-                                                >
-                                                      Xác nhận
-                                                </button>
-                                          </div>
+                                                Xác nhận
+                                          </button>
                                     </div>
                               </div>
                         </div>
@@ -296,9 +317,3 @@
             </div>
       </div>
 </div>
-
-<ng-template #empty>
-      <div class="empty">
-            <small>* Vui lòng kéo danh mục vào đây</small>
-      </div>
-</ng-template>

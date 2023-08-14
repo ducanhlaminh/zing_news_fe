@@ -31,26 +31,38 @@
             </ng-container>
       </div>
       <div class="hot-artcles-center">
-            <div
-                  class="artcle-center-item"
-                  [routerLink]="[
-                        '/',
-                        'bai-viet',
-                        artclesHotMain?.center[0]?.new_article?.slug,
-
-                        artclesHotMain.center[0]?.new_article?.slug_crc
-                  ]"
+            <ng-container
+                  *ngIf="
+                        artclesHotMain?.center[0]?.new_article?.slug;
+                        else emptyCenter
+                  "
             >
-                  <img
-                        [src]="artclesHotMain?.center[0]?.new_article.avatar"
-                        alt=""
-                        (error)="handleImageError($event)"
-                  />
-                  <b>{{ artclesHotMain?.center[0]?.new_article.title }}</b>
-                  <p>
-                        {{ artclesHotMain?.center[0]?.new_article.sapo }}
-                  </p>
-            </div>
+                  <div
+                        class="artcle-center-item"
+                        [routerLink]="[
+                              '/',
+                              'bai-viet',
+                              artclesHotMain?.center[0]?.new_article?.slug,
+
+                              artclesHotMain.center[0]?.new_article?.slug_crc
+                        ]"
+                  >
+                        <img
+                              [src]="
+                                    artclesHotMain?.center[0]?.new_article
+                                          ?.avatar
+                              "
+                              alt=""
+                              (error)="handleImageError($event)"
+                        />
+                        <b>{{
+                              artclesHotMain?.center[0]?.new_article?.title
+                        }}</b>
+                        <p>
+                              {{ artclesHotMain?.center[0]?.new_article?.sapo }}
+                        </p>
+                  </div>
+            </ng-container>
       </div>
       <div class="hot-artcles-right">
             <ng-container
@@ -66,7 +78,11 @@
                               item?.new_article?.slug_crc
                         ]"
                   >
-                        <img [src]="item.new_article.avatar" alt="" />
+                        <img
+                              [src]="item.new_article.avatar"
+                              alt=""
+                              (error)="handleImageError($event)"
+                        />
                         <b>{{ item.new_article.title }}</b>
                   </div>
                   <hr *ngIf="!last" />
@@ -111,7 +127,11 @@
                         [routerLink]="['/bai-viet', item?.slug, item?.slug_crc]"
                   >
                         <div class="artcles-view-most-img">
-                              <img [src]="item.avatar" alt="" />
+                              <img
+                                    [src]="item.avatar"
+                                    alt=""
+                                    (error)="handleImageError($event)"
+                              />
                         </div>
                         <div class="artcles-view-most-item-infor">
                               <p class="most-item-infor-cate">
@@ -129,15 +149,27 @@
       </div>
 </div>
 <div class="hot-new-categories">
-      <ng-container *ngFor="let item of artclesHotCate">
+      <ng-container *ngFor="let item of boxArticlesCate">
             <div
                   class="hot-new-category"
                   *ngIf="item?.new_articles_hot_categories.length >= 3"
             >
-                  <h3 class="category-title title">
+                  <h3
+                        class="category-title title"
+                        [routerLink]="['/danh-muc', item.slug, item.slug_crc]"
+                  >
                         {{ item?.name.toUpperCase() }}
                   </h3>
-                  <div class="hot-new-category-main">
+                  <div
+                        class="hot-new-category-main"
+                        [routerLink]="[
+                              '/bai-viet',
+                              item?.new_articles_hot_categories[0]?.new_article
+                                    ?.slug,
+                              item?.new_articles_hot_categories[0]?.new_article
+                                    ?.slug_crc
+                        ]"
+                  >
                         <img
                               [src]="
                                     item?.new_articles_hot_categories[0]
@@ -152,7 +184,16 @@
                         }}</b>
                   </div>
                   <hr />
-                  <div class="hot-new-category">
+                  <div
+                        class="hot-new-category"
+                        [routerLink]="[
+                              '/bai-viet',
+                              item?.new_articles_hot_categories[1]?.new_article
+                                    ?.slug,
+                              item?.new_articles_hot_categories[1]?.new_article
+                                    ?.slug_crc
+                        ]"
+                  >
                         <img
                               [src]="
                                     item?.new_articles_hot_categories[1]
@@ -167,7 +208,16 @@
                         }}</b>
                   </div>
                   <hr />
-                  <div class="hot-new-category">
+                  <div
+                        class="hot-new-category"
+                        [routerLink]="[
+                              '/bai-viet',
+                              item?.new_articles_hot_categories[2]?.new_article
+                                    ?.slug,
+                              item?.new_articles_hot_categories[2]?.new_article
+                                    ?.slug_crc
+                        ]"
+                  >
                         <img
                               [src]="
                                     item?.new_articles_hot_categories[2]
@@ -194,10 +244,12 @@
       </div>
 </ng-template>
 <ng-template #emptyCenter>
-      <div class="image-empty-center"></div>
-      <div class="infor-empty-center">
-            <div class="title-empty-center"></div>
-            <div class="sapo-empty-center"></div>
+      <div class="artcle-center-item">
+            <div class="image-empty-center"></div>
+            <div class="infor-empty-center">
+                  <div class="title-empty-center"></div>
+                  <div class="sapo-empty-center"></div>
+            </div>
       </div>
 </ng-template>
 

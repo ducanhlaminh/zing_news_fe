@@ -41,4 +41,18 @@ export class CategoryService {
                   this.length = data.rows.length;
             });
       }
+      updatePosition(data: any) {
+            return this.http.put(
+                  'http://localhost:4000/api/v1/categories/admin/position',
+                  data
+            );
+      }
+      updateCategory(data: any, id: any) {
+            return this.http.put(
+                  'http://localhost:4000/api/v1/categories/admin',
+
+                  data,
+                  { params: { id } }
+            );
+      }
 }

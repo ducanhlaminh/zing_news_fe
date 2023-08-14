@@ -104,4 +104,13 @@ export class NewsService {
       saveDataPreview(data: any) {
             this.dataPreview = data;
       }
+      getBoxArticlesCategory(data: any = null) {
+            if (data) {
+                  return this.http.get(environment.API_BOX_ARTICLES_CARTEGORY, {
+                        params: { slug_crc: data },
+                  });
+            } else {
+                  return this.http.get(environment.API_BOX_ARTICLES_CARTEGORY);
+            }
+      }
 }

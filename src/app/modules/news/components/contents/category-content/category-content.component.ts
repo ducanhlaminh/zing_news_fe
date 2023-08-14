@@ -42,12 +42,16 @@ export class CategoryContentComponent {
                   (data: any) => {
                         this.hotArticles =
                               data.hotArticlesCate.new_articles_hot_categories;
-                        this.hotArticlesSubCate = data.boxSubCate;
                         if (data.boxSubCate.length === 0) {
                               this.isCateChid = true;
                         } else {
                               this.isCateChid = false;
                         }
+                  }
+            );
+            this.NewsService.getBoxArticlesCategory(slug_crc).subscribe(
+                  (data: any) => {
+                        this.hotArticlesSubCate = data.box;
                   }
             );
             //get new articles
