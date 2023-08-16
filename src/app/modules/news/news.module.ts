@@ -27,6 +27,7 @@ import { DialogEditArticleComponent } from './components/contents/dialog-edit-ar
 import { MatIconModule } from '@angular/material/icon';
 import { DialogOverviewComponent } from './components/contents/admin/dialog-overview/dialog-overview.component';
 import { PreviewContentComponent } from './components/contents/admin/preview-content/preview-content.component';
+import { NgxLoadingModule } from 'ngx-loading';
 @NgModule({
       declarations: [
             DatePipe,
@@ -59,6 +60,7 @@ import { PreviewContentComponent } from './components/contents/admin/preview-con
             MatInputModule,
             MatSelectModule,
             MatIconModule,
+            NgxLoadingModule.forRoot({}),
       ],
       providers: [
             { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },

@@ -7,7 +7,7 @@
                         <mat-label>Danh mục cha ( nếu có ) :</mat-label>
                         <mat-select
                               (selectionChange)="onChangeCate($event)"
-                              formControlName="categoryId"
+                              formControlName="parent_id"
                         >
                               <mat-option>Không</mat-option>
                               <mat-option
@@ -48,3 +48,4 @@
             </button>
       </form>
 </div>
+<ngx-loading [show]="true" *ngIf="loading"></ngx-loading>

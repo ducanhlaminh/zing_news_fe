@@ -3,37 +3,36 @@
       *ngIf="!isCateChid; else hotArticlesChild"
 >
       <div class="hot-articles-category-left">
-            <app-article [articleData]="hotArticles[0]">
-                  <div class="hot-articles-category-left-item">
+            <div class="hot-articles-category-left-item">
+                  <div class="image">
                         <img
                               (error)="handleImageError($event)"
                               [src]="hotArticles[0]?.new_article.avatar"
                               alt=""
                         />
-                        <p class="title">
-                              {{ hotArticles[0]?.new_article.title }}
-                        </p>
-                        <p class="sapo">
-                              {{ hotArticles[0]?.new_article.sapo }}
-                        </p>
                   </div>
-            </app-article>
+
+                  <p class="title">
+                        {{ hotArticles[0]?.new_article.title }}
+                  </p>
+                  <p class="sapo">
+                        {{ hotArticles[0]?.new_article.sapo }}
+                  </p>
+            </div>
       </div>
       <div class="hot-articles-category-right">
             <ng-container *ngFor="let item of hotArticles; index as idx">
-                  <app-article [articleData]="item">
-                        <div
-                              class="hot-articles-category-right-item"
-                              *ngIf="idx >= 1 && idx <= 4"
-                        >
-                              <p class="title">{{ item.new_article.title }}</p>
-                              <img
-                                    (error)="handleImageError($event)"
-                                    [src]="item.new_article.avatar"
-                                    alt=""
-                              />
-                        </div>
-                  </app-article>
+                  <div
+                        class="hot-articles-category-right-item"
+                        *ngIf="idx >= 1 && idx <= 4"
+                  >
+                        <p class="title">{{ item.new_article.title }}</p>
+                        <img
+                              (error)="handleImageError($event)"
+                              [src]="item.new_article.avatar"
+                              alt=""
+                        />
+                  </div>
             </ng-container>
       </div>
 </div>

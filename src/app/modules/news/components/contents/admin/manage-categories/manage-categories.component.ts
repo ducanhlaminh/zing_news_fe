@@ -163,4 +163,9 @@ export class ManageCategoriesComponent {
 
             this.CategoryService.updateCategory({ status: 1 }, id).subscribe();
       }
+      unPublishedCate(id: any) {
+            // console.log(id);
+
+            this.CategoryService.updateCategory({ status: 0 }, id).subscribe();
+      }
 }

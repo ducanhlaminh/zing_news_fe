@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateCategoryComponent implements OnInit {
       formGroup: any;
       optionCategories: any;
+      loading = false;
       constructor(
             private formBuilder: FormBuilder,
             public CategoryService: CategoryService,
@@ -19,15 +20,19 @@ export class CreateCategoryComponent implements OnInit {
             this.formGroup = this.formBuilder.group({
                   name: '',
                   slug: '',
-                  categoryId: '',
+                  parent_id: '',
             });
       }
       ngOnInit(): void {
             this.getOptionCategories();
       }
       submitForm(e: any) {
+            this.loading = true;
             this.CategoryService.createCategory(this.formGroup.value).subscribe(
-                  () => this.showSuccess()
+                  () => {
+                        this.loading = false;
+                        this.showSuccess();
+                  }
             );
       }
       showSuccess() {

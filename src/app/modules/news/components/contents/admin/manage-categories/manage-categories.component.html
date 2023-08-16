@@ -165,9 +165,17 @@
                               </button>
                               <button
                                     mat-menu-item
-                                    (click)="publishedCate(item.id)"
+                                    (click)="
+                                          item.status === 1
+                                                ? publishedCate(item.id)
+                                                : unPublishedCate(item.id)
+                                    "
                               >
-                                    <span>Duyệt</span>
+                                    <span>{{
+                                          item.status === 1
+                                                ? "Thu hồi"
+                                                : "Duyệt"
+                                    }}</span>
                               </button>
                         </mat-menu>
                   </td>
@@ -191,12 +199,12 @@
                         <td>
                               <span
                                     [class]="
-                                          item.status === 1
+                                          sub_item.status === 1
                                                 ? 'success'
                                                 : 'pending'
                                     "
                                     >{{
-                                          item.status === 1
+                                          sub_item.status === 1
                                                 ? "Đã xuất bản"
                                                 : "Chờ phê duyệt"
                                     }}</span
@@ -219,17 +227,29 @@
                                     ></fa-icon>
                               </button>
                               <mat-menu #menu="matMenu">
-                                    <button mat-menu-item>
-                                          <span>Xuất bản</span>
-                                    </button>
                                     <button
                                           mat-menu-item
                                           (click)="openDialog(sub_item)"
                                     >
                                           <span>Xóa</span>
                                     </button>
-                                    <button mat-menu-item>
-                                          <span>Sửa</span>
+                                    <button
+                                          mat-menu-item
+                                          (click)="
+                                                sub_item.status === 1
+                                                      ? publishedCate(
+                                                              sub_item.id
+                                                        )
+                                                      : unPublishedCate(
+                                                              sub_item.id
+                                                        )
+                                          "
+                                    >
+                                          <span>{{
+                                                sub_item.status === 1
+                                                      ? "Thu hồi"
+                                                      : "Duyệt"
+                                          }}</span>
                                     </button>
                               </mat-menu>
                         </td>

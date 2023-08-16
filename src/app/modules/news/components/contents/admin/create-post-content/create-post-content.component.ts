@@ -34,7 +34,7 @@ export class CreatePostContentComponent implements OnInit {
       imageUpload: any = [];
       nameImgSelected: any;
       imgSelected: any;
-
+      loading: boolean = false;
       formDetail: any;
       constructor(
             private formBuilder: FormBuilder,
@@ -222,7 +222,24 @@ export class CreatePostContentComponent implements OnInit {
                   });
             });
             if (this.data) {
-                  this.formDetail.setValue({ ...this.data });
+                  this.formDetail = this.formBuilder.group({
+                        title: ['', Validators.required],
+                        slug: ['', Validators.required],
+                        sapo: ['', Validators.required],
+                        content: ['', Validators.required],
+                        categoryId: ['', Validators.required],
+                        avatar: [''],
+                  });
+
+                  this.formDetail.patchValue({
+                        title: this.data.title,
+                        slug: this.data.slug,
+                        sapo: this.data.sapo,
+                        content: this.data.content,
+                        categoryId:
+                              this.data.new_articles_categories[0].article_id,
+                  });
+                  this.imgPreview = this.data.avatar;
             }
             this.getOptionCategories();
       }
@@ -272,45 +289,61 @@ export class CreatePostContentComponent implements OnInit {
       uploadAvatar() {
             this.openDialogSetAvatar();
       }
-      blobToFile(blob: any, fileName: any) {
-            // Tạo đối tượng File từ Blob
-            const file = new File([blob], fileName, { type: blob.type });
-
-            return file;
-      }
       onChangeFile(event: any): void {
             this.formDetail.get('avatar').patchValue(event.target.files[0]);
             this.imgPreview = URL.createObjectURL(event.target.files[0]);
       }
       submitFormUpdate(id: any, slug_crc: any) {
-            console.log(this.formDetail.value);
+            try {
+                  this.loading = true;
+                  if (this.formDetail.valid) {
+                        const file = new File(
+                              [this.formDetail.value.avatar.blob],
+                              `123.png`,
+                              {
+                                    type: 'image/png',
+                              }
+                        );
+                        let combinedValues = {
+                              ...this.formDetail.value,
+                              slug_crc,
+                        };
+                        delete combinedValues.avatar;
+                        if (this.formDetail.value.avatar) {
+                              combinedValues = {
+                                    ...combinedValues,
+                                    avatar: file,
+                              };
+                        }
 
-            const file = new File(
-                  [this.formDetail.value.avatar],
-                  `${this.data.slug_crc}.png`,
-                  {
-                        type: 'image/png',
+                        let formData = new FormData();
+                        for (const key in combinedValues) {
+                              formData.append(key, combinedValues[key]);
+                        }
+                        this.NewService.updateArticle(formData, id).subscribe(
+                              (data) => {
+                                    this.loading = false;
+                                    this.toastrService.showToastr(
+                                          `Đã tạo bài viết thành công \n Vui lòng chờ được kiểm duyệt`,
+                                          true
+                                    );
+                              }
+                        );
+                  } else {
+                        this.toastrService.showToastr(
+                              `Vui lòng điền đủ các trường thông tin`,
+                              false
+                        );
                   }
-            );
-            const combinedValues = {
-                  ...this.formDetail.value,
-
-                  avatar: file,
-            };
-
-            let formData = new FormData();
-            for (const key in combinedValues) {
-                  formData.append(key, combinedValues[key]);
-            }
-            formData.append('slug_crc', slug_crc);
-            if (this.data) {
-                  this.NewService.updateArticle(formData, id).subscribe();
-            } else {
-                  this.NewService.createArticle(formData).subscribe();
+            } catch (error) {
+                  this.toastrService.showToastr(
+                        `Tạo bài viết không thành công`,
+                        false
+                  );
             }
       }
       submitFormCreate() {
-            console.log(this.formDetail.valid);
+            this.loading = true;
             try {
                   if (this.formDetail.valid) {
                         const file = new File(
@@ -332,6 +365,7 @@ export class CreatePostContentComponent implements OnInit {
                         }
                         this.NewService.createArticle(formData).subscribe(
                               (data) => {
+                                    this.loading = false;
                                     this.toastrService.showToastr(
                                           `Đã tạo bài viết thành công \n Vui lòng chờ được kiểm duyệt`,
                                           true
