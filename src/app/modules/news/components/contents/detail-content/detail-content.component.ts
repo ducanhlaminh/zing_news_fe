@@ -9,6 +9,9 @@ import { NewsService } from '../../../services/news.service';
 })
 export class DetailContentComponent implements OnInit {
       content: any;
+      relateArticles: any;
+      slug_crc: any;
+      page = 1;
       @ViewChild('content') contentTag: any;
       constructor(
             private ActivatedRoute: ActivatedRoute,
@@ -17,14 +20,24 @@ export class DetailContentComponent implements OnInit {
       ) {}
       ngOnInit(): void {
             this.ActivatedRoute.params.subscribe((params: any) => {
-                  const slug_crc = params['slug_crc'];
+                  this.slug_crc = params['slug_crc'];
                   const slug = params['slug'];
-                  this.NewsService.getDetail(slug, slug_crc).subscribe(
-                        (data: any) => {
-                              this.contentTag.nativeElement.innerHTML =
-                                    data.article.content;
-                        }
-                  );
+                  this.getContentArticle(slug, this.slug_crc);
+                  this.getRelateArticles(this.slug_crc);
             });
+      }
+      getContentArticle(slug: any, slug_crc: any) {
+            this.NewsService.getDetail(slug, slug_crc).subscribe(
+                  (data: any) => {
+                        this.contentTag.nativeElement.innerHTML =
+                              data.article.content;
+                  }
+            );
+      }
+      getRelateArticles(slug_crc: any) {
+            this.NewsService.getNewArtclesCate(
+                  this.slug_crc,
+                  this.page
+            ).subscribe();
       }
 }

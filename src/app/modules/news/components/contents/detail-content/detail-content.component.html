@@ -850,3 +850,25 @@
 </div> -->
 <div class="tool"></div>
 <div id="content" #content></div>
+<div class="center-page">
+      <div class="new-artcles">
+            <div class="" *ngFor="let item of relateArticles; last as last">
+                  <div
+                        class="new-artcle-item"
+                        [routerLink]="['/bai-viet', item.slug, item.slug_crc]"
+                  >
+                        <div class="img-article">
+                              <img [src]="item.avatar" alt="" />
+                        </div>
+                        <div class="new-artcle-infor">
+                              <h2>{{ item.title }}</h2>
+                              <p>
+                                    {{ item.sapo }}
+                              </p>
+                        </div>
+                  </div>
+
+                  <hr *ngIf="!last" />
+            </div>
+      </div>
+</div>

@@ -133,6 +133,7 @@
       p {
         color: rgb(78, 78, 78);
         font-size: 16px;
+        line-height: 23px;
       }
       img {
         border-radius: 5px;
@@ -206,7 +207,7 @@
       display: flex;
       width: 100%;
       gap: 16px;
-      height: 172px;
+      height: 170px;
       img {
         height: 100%;
         width: 200px;
@@ -214,6 +215,7 @@
         object-fit: cover;
       }
       .new-artcle-infor {
+            width: calc(100% - 200px);
         h2 {
           margin: 0;
         }

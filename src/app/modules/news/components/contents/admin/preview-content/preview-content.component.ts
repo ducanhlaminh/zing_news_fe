@@ -11,7 +11,7 @@ import {
       faCircleXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { NewsService } from 'src/app/modules/news/services/news.service';
-
+import { faPhone, faMailBulk } from '@fortawesome/free-solid-svg-icons';
 @Component({
       selector: 'app-preview-content',
       templateUrl: './preview-content.component.html',
@@ -25,6 +25,8 @@ export class PreviewContentComponent implements OnInit, AfterViewInit {
             public NewService: NewsService,
             @Inject(MAT_DIALOG_DATA) public data: any
       ) {}
+      faPhone = faPhone;
+      faMailBulk = faMailBulk;
       ngOnInit(): void {}
       ngAfterViewInit(): void {
             this.contentTag.nativeElement.innerHTML = this.data.dataHTML;

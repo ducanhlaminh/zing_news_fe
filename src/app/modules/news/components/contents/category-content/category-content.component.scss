@@ -131,18 +131,19 @@
     .new-articles-cate-left {
       .new-article-cate{
         display: flex;
-        gap:24px;
-        height: 140px;
+        gap:16px;
+        height: 170px;
         .new-article-cate-img {
-          width: 30%;
+          width: 200px;
           img {
             width: 100%;
+            border-radius: 7px;
             height: 100%;
             object-fit: cover;
           }
         }
         .new-article-cate-infor{
-          width: 70%;
+          width: calc(100% - 200px);
           .new-article-title{
             font-weight: 500;
             font-size: 20px;
