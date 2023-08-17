@@ -226,7 +226,7 @@ export class CreatePostContentComponent implements OnInit {
                         title: ['', Validators.required],
                         slug: ['', Validators.required],
                         sapo: ['', Validators.required],
-                        content: ['', Validators.required],
+                        content: [''],
                         categoryId: ['', Validators.required],
                         avatar: [''],
                   });
@@ -237,7 +237,7 @@ export class CreatePostContentComponent implements OnInit {
                         sapo: this.data.sapo,
                         content: this.data.content,
                         categoryId:
-                              this.data.new_articles_categories[0].article_id,
+                              this.data.new_articles_categories[0].category_id,
                   });
                   this.imgPreview = this.data.avatar;
             }

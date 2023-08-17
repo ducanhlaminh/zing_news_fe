@@ -13,4 +13,7 @@ export class AppComponent implements OnInit {
                   this.userService.getDataInforUser();
             }, 1000);
       }
+      onScroll() {
+            console.log('scrolled!!');
+      }
 }

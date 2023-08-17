@@ -4,14 +4,7 @@
       [config]="slideConfig"
 >
       <div ngxSlickItem class="item-slide" *ngFor="let item of books">
-            <div
-                  class="card"
-                  [routerLink]="[
-                        '/bai-viet',
-                        item?.new_article?.slug,
-                        item?.new_article?.slug_crc
-                  ]"
-            >
+            <div class="card" (click)="click()">
                   <div class="image">
                         <img
                               [src]="item.new_article.avatar"

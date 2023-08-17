@@ -1,5 +1,10 @@
 import { Component, Renderer2 } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import {
+      ActivatedRoute,
+      NavigationEnd,
+      NavigationStart,
+      Router,
+} from '@angular/router';
 import { NewsService } from '../../../services/news.service';
 import { CategoryService } from '../../../services/category.service';
 
@@ -17,6 +22,8 @@ export class CategoryContentComponent {
       hotArticlesSubCate: any[] = [];
       isCateChid: boolean = false;
       articlesViews: any[] = [];
+      page = 1;
+      slug_crc: any;
       constructor(
             public CategoryService: CategoryService,
             private ActivatedRoute: ActivatedRoute,
@@ -26,10 +33,18 @@ export class CategoryContentComponent {
       ) {}
       ngOnInit(): void {
             this.ActivatedRoute.params.subscribe((params: any) => {
-                  const slug_crc = params['slug_crc'];
-                  this.getArticles(slug_crc);
-                  this.getCateogory(slug_crc);
+                  this.slug_crc = params['slug_crc'];
+                  this.getArticles(this.slug_crc);
+                  this.getCateogory(this.slug_crc);
             });
+            this.navigationSubscription = this.Router.events.subscribe(
+                  (e: any) => {
+                        // If it is a NavigationEnd event re-initalise the component
+                        if (e instanceof NavigationStart) {
+                              this.page = 1;
+                        }
+                  }
+            );
       }
       ngOnDestroy() {
             if (this.navigationSubscription) {
@@ -55,7 +70,7 @@ export class CategoryContentComponent {
                   }
             );
             //get new articles
-            this.NewsService.getNewArtclesCate(slug_crc).subscribe(
+            this.NewsService.getNewArtclesCate(slug_crc, this.page).subscribe(
                   (data: any) => {
                         this.newArticles = data.newArticleCate;
                   }
@@ -77,5 +92,19 @@ export class CategoryContentComponent {
             const fallbackImage =
                   'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png';
             this.renderer.setAttribute(event.target, 'src', fallbackImage);
+      }
+      onScrollDown() {
+            console.log(this.newArticles);
+
+            ++this.page;
+            this.NewsService.getNewArtclesCate(
+                  this.slug_crc,
+                  this.page
+            ).subscribe((data: any) => {
+                  data.newArticleCate.map((item: any) =>
+                        this.newArticles.push(item)
+                  );
+                  console.log(this.newArticles);
+            });
       }
 }

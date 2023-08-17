@@ -25,7 +25,12 @@
             <header class="header">
                   <span class="name-header">Tin mới</span>
             </header>
-            <div class="new-articles-cate-left">
+            <div
+                  class="new-articles-cate-left"
+                  infinite-scroll
+                  (scrolled)="onScrollDown()"
+                  [infiniteScrollDistance]="0.1"
+            >
                   <ng-container *ngFor="let item of newArticles; last as last">
                         <div
                               class="new-article-cate"

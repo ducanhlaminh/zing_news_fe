@@ -23,9 +23,12 @@ export class HomeContentComponent {
       }
       // tin moi
       getNewArtcles() {
-            this.NewsService.getNewArtclesMain().subscribe(
-                  (data: any) => (this.newArtcles = data.newArticleCate.rows)
-            );
+            this.NewsService.getNewArtclesMain().subscribe((data: any) => {
+                  this.newArtcles = data.newArticleCate.rows;
+            });
+      }
+      onScroll() {
+            console.log(123);
       }
       // tin nhieu luot doc
       getArticlesViews() {

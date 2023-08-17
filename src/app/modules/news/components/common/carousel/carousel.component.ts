@@ -46,14 +46,13 @@ export class CarouselComponent implements AfterViewInit, OnInit {
             public renderer: Renderer2
       ) {}
       ngAfterViewInit() {
-            (<any>$('.carousel')).slick({
-                  infinite: true,
-                  slidesToShow: 4,
-                  slidesToScroll: 4,
-                  adaptiveHeight: true,
-
-                  // Cấu hình và tùy chọn khác cho Slick Carousel
-            });
+            // (<any>$('.carousel')).slick({
+            //       infinite: true,
+            //       slidesToShow: 4,
+            //       slidesToScroll: 4,
+            //       adaptiveHeight: true,
+            //       // Cấu hình và tùy chọn khác cho Slick Carousel
+            // });
       }
       ngOnInit(): void {
             this.getBooks();
@@ -69,5 +68,8 @@ export class CarouselComponent implements AfterViewInit, OnInit {
             const fallbackImage =
                   'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png';
             this.renderer.setAttribute(event.target, 'src', fallbackImage);
+      }
+      click() {
+            console.log(123);
       }
 }

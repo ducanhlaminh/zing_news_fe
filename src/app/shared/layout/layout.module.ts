@@ -23,6 +23,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatInputModule } from '@angular/material/input';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 @NgModule({
       declarations: [
             HeaderComponent,
@@ -41,6 +43,7 @@ import { MatInputModule } from '@angular/material/input';
             FormsModule,
             MatMenuModule,
             MatButtonModule,
+            InfiniteScrollModule,
       ],
       exports: [
             LayoutMainComponent,
@@ -62,6 +65,7 @@ import { MatInputModule } from '@angular/material/input';
             DragDropModule,
             MatInputModule,
             HeaderComponent,
+            InfiniteScrollModule,
       ],
 })
 export class LayoutModule {}

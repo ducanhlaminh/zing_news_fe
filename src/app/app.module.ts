@@ -11,8 +11,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { HttpInterceptorInterceptor } from './intercepter/http.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastrComponent } from './shared/components/toastr/toastr.component';
-import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DialogCategoriesComponent } from './shared/components/dialog-categories/dialog-categories.component';
+
 @NgModule({
       declarations: [AppComponent, ToastrComponent, DialogCategoriesComponent],
       imports: [

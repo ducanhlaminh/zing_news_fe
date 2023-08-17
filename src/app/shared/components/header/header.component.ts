@@ -7,6 +7,7 @@ import { UserService } from 'src/app/modules/news/services/user.service';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogCategoriesComponent } from '../dialog-categories/dialog-categories.component';
+import { filter } from 'rxjs';
 @Component({
       selector: 'app-header',
       templateUrl: './header.component.html',
@@ -31,6 +32,8 @@ export class HeaderComponent implements OnInit {
       ngOnInit(): void {
             this.getCategories();
             this.UserService.inforUser$.subscribe((data) => {
+                  console.log(data);
+
                   this.inforUser = data;
             });
       }

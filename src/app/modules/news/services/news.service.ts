@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
+import { param } from 'jquery';
 @Injectable({
       providedIn: 'root',
 })
@@ -16,9 +17,9 @@ export class NewsService {
       getNewArtclesMain() {
             return this.http.get(environment.API_NEW_ARTCLES_MAIN);
       }
-      getNewArtclesCate(slug: string) {
+      getNewArtclesCate(slug_crc: string, page: number = 1) {
             return this.http.get(environment.API_NEW_ARTCLES_CATE, {
-                  params: { slug },
+                  params: { slug_crc, page },
             });
       }
       getArticlesByTitle(category_id: any, title: string) {
@@ -46,7 +47,7 @@ export class NewsService {
                         params: { slug_crc },
                   });
             } else {
-                  return this.http.get(environment.API_ARTICLES_HOT_CATE);
+                  return this.http.get(environment.API_ARTICLES_HOT_CATE, {});
             }
       }
       getDetail(slug: string, slug_crc: string) {
