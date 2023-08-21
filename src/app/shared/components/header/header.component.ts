@@ -14,7 +14,6 @@ import { filter } from 'rxjs';
       styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-      categories: any;
       faMagnifyingGlass = faMagnifyingGlass;
       faEllipsis = faEllipsis;
       faUser = faUser;
@@ -23,6 +22,8 @@ export class HeaderComponent implements OnInit {
       inforUser: any;
       @ViewChild('searchBtn') searchBtn: any;
       @ViewChild('input') input: any;
+      categories: any;
+
       constructor(
             public CategoryService: CategoryService,
             private Router: Router,
@@ -30,17 +31,13 @@ export class HeaderComponent implements OnInit {
             public dialog: MatDialog
       ) {}
       ngOnInit(): void {
-            this.getCategories();
+            this.CategoryService.getAllCategories();
             this.UserService.inforUser$.subscribe((data) => {
-                  console.log(data);
-
                   this.inforUser = data;
             });
-      }
-      getCategories() {
-            this.CategoryService.getAllCategories().subscribe(
-                  (data: any) => (this.CategoryService.categories = data.rows)
-            );
+            this.CategoryService.categories$.subscribe((data) => {
+                  this.categories = data;
+            });
       }
       showFullCate() {
             this.dialog.open(DialogCategoriesComponent, {
@@ -51,16 +48,14 @@ export class HeaderComponent implements OnInit {
                   hasBackdrop: true,
                   position: { top: '54px' },
                   data: {
-                        categories: this.CategoryService.categories,
+                        categories: this.categories,
                   },
             });
       }
       toogleInput() {
             this.input.nativeElement.style.display = 'block';
-
             if (this.input.nativeElement.style.display === 'block') {
                   if (this.searchControl.value) {
-                        console.log(this.searchControl.value);
                         this.Router.navigate(['tim-kiem'], {
                               queryParams: { title: this.searchControl.value },
                         });

@@ -195,7 +195,7 @@
 >
 </mat-paginator>
 <div class="layout">
-      <div class="layout-header">
+      <div class="layout-header" [ngClass]="{ selected: show.hotCate }">
             <h2>Xét bài viết nổi bật <small>( Danh mục )</small></h2>
             <button
                   mat-mini-fab
@@ -277,6 +277,8 @@
                               </button>
                         </div>
                   </form>
+            </div>
+            <div class="img-example">
                   <table>
                         <tr>
                               <th>Vị trí</th>
@@ -324,24 +326,10 @@
                         </tr>
                   </table>
             </div>
-            <div class="img-example">
-                  <div class="example">
-                        <h2>Vị trí bố cục</h2>
-                        <br />
-                        <small
-                              >( Vui lòng chọn 1 số trong layout tin nổi bật sau
-                              )</small
-                        >
-                        <img
-                              src="../../../../../../../assets/Screenshot 2023-07-17 002523.png"
-                              alt=""
-                        />
-                  </div>
-            </div>
       </div>
 </div>
 <div class="layout">
-      <div class="layout-header">
+      <div class="layout-header" [ngClass]="{ selected: show.hotMain }">
             <h2>Xét bài viết nổi bật <small>( Trang chủ )</small></h2>
             <button
                   mat-mini-fab
@@ -349,7 +337,7 @@
                   aria-label="Example icon button with a home icon"
                   (click)="show.hotMain = !show.hotMain"
             >
-                  <fa-icon [icon]="show.hotCate ? faXmark : faEdit"></fa-icon>
+                  <fa-icon [icon]="show.hotMain ? faXmark : faEdit"></fa-icon>
             </button>
       </div>
       <div class="layout-content" *ngIf="show.hotMain">
@@ -409,6 +397,8 @@
                               </button>
                         </div>
                   </form>
+            </div>
+            <div class="img-example">
                   <table>
                         <tr>
                               <th>Vị trí</th>
@@ -461,20 +451,6 @@
                               </td>
                         </tr>
                   </table>
-            </div>
-            <div class="img-example">
-                  <div class="example">
-                        <h2>Vị trí bố cục</h2>
-                        <br />
-                        <small
-                              >( Vui lòng chọn 1 số trong layout tin nổi bật sau
-                              )</small
-                        >
-                        <img
-                              src="../../../../../../../assets/Screenshot 2023-07-17 002523.png"
-                              alt=""
-                        />
-                  </div>
             </div>
       </div>
 </div>

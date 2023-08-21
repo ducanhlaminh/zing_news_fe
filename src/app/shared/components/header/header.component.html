@@ -8,12 +8,7 @@
             />
       </div>
       <div class="categories">
-            <ng-container
-                  *ngFor="
-                        let item of this.CategoryService.categories;
-                        let count = index
-                  "
-            >
+            <ng-container *ngFor="let item of categories; let count = index">
                   <div
                         class="cate-item"
                         *ngIf="item.position !== null"

@@ -55,22 +55,13 @@ export class ManageCategoriesComponent {
             public dialog: MatDialog
       ) {}
       ngOnInit(): void {
-            this.CategoryService.getAllCategoriesByAd().subscribe(
-                  (data: any) => {
-                        this.categories = data.rows;
-                        this.categories.map((item: any) => {
-                              item.opened = false;
-                        });
-                        this.length = data.rows.length;
-                        this.categorySort = [...data.rows].filter(
-                              (item: any) => item.position === null
-                        );
-                        this.done = [...data.rows].filter(
-                              (item: any) => item.position !== null
-                        );
-                  }
-            );
-
+            this.CategoryService.getAllCategoriesByAd();
+            this.CategoryService.categoriesForAd$.subscribe((data) => {
+                  this.done = data.filter(
+                        (item: any) => item.position !== null
+                  );
+                  this.categories = data;
+            });
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
       }
@@ -95,22 +86,22 @@ export class ManageCategoriesComponent {
                   item.position = idx + 1;
             });
             this.CategoryService.updatePosition(this.done).subscribe();
-            console.log(this.done);
+            this.CategoryService.getAllCategories();
       }
-      handlePageEvent(e: any) {
-            this.CategoryService.length = e.length;
-            this.pageSize = e.pageSize;
-            this.pageIndex = e.pageIndex;
-            if (this.order.length > 0)
-                  this.queries.order = JSON.stringify(this.order);
-            this.queries.page = this.pageIndex + 1;
-            this.CategoryService.getAllCategoriesByAd().subscribe(
-                  (data: any) => {
-                        this.CategoryService.categories = data.rows;
-                        this.pageIndex = data.count;
-                  }
-            );
-      }
+      // handlePageEvent(e: any) {
+      //       this.CategoryService.length = e.length;
+      //       this.pageSize = e.pageSize;
+      //       this.pageIndex = e.pageIndex;
+      //       if (this.order.length > 0)
+      //             this.queries.order = JSON.stringify(this.order);
+      //       this.queries.page = this.pageIndex + 1;
+      //       this.CategoryService.getAllCategoriesByAd().subscribe(
+      //             (data: any) => {
+      //                   this.CategoryService.categories = data.rows;
+      //                   this.pageIndex = data.count;
+      //             }
+      //       );
+      // }
       filterFn(type: any) {
             ++this.filterCurr[type];
             if (this.filterCurr[type] > 2) {
@@ -159,13 +150,43 @@ export class ManageCategoriesComponent {
             });
       }
       publishedCate(id: any) {
-            // console.log(id);
-
-            this.CategoryService.updateCategory({ status: 1 }, id).subscribe();
+            this.CategoryService.updateCategory({ status: 1 }, id).subscribe(
+                  () => {
+                        this.updateCategory();
+                        this.updateCategoryAdmin();
+                  }
+            );
       }
       unPublishedCate(id: any) {
             // console.log(id);
-
-            this.CategoryService.updateCategory({ status: 0 }, id).subscribe();
+            // this.CategoryService.updateCategory({ status: 0 }, id).subscribe(
+            //       () => {
+            //             this.updateCategory();
+            //             this.updateCategoryAdmin();
+            //             this.done = this.CategoryService.categories.filter(
+            //                   (item: any) => item.position !== null
+            //             );
+            //       }
+            // );
+      }
+      updateCategoryAdmin() {
+            // this.CategoryService.getAllCategoriesByAd().subscribe(
+            //       (data: any) => {
+            //             this.categories = data.rows;
+            //             this.CategoryService.categories.map((item: any) => {
+            //                   item.opened = false;
+            //             });
+            //             this.length = data.rows.length;
+            //             this.categorySort = [...data.rows].filter(
+            //                   (item: any) => item.position === null
+            //             );
+            //       }
+            // );
+      }
+      updateCategory() {
+            // this.CategoryService.getAllCategories();
+            // this.done = this.CategoryService.categories.filter(
+            //       (item: any) => item.position !== null
+            // );
       }
 }

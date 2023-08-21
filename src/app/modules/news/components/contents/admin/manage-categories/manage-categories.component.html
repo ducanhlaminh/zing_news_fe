@@ -118,7 +118,14 @@
             <tr class="" [ngClass]="{ selected: item.opened }">
                   <td class="item-stt" (click)="log(i)">
                         <div class="icon">
-                              <fa-icon [icon]="faAngleUp"></fa-icon>
+                              <fa-icon
+                                    [icon]="
+                                          item.opened &&
+                                          item.childCategories.length > 0
+                                                ? faAngleUp
+                                                : faAngleDown
+                                    "
+                              ></fa-icon>
                         </div>
                   </td>
                   <td class="item-name">
@@ -166,7 +173,7 @@
                               <button
                                     mat-menu-item
                                     (click)="
-                                          item.status === 1
+                                          item.status === 0
                                                 ? publishedCate(item.id)
                                                 : unPublishedCate(item.id)
                                     "
@@ -236,7 +243,7 @@
                                     <button
                                           mat-menu-item
                                           (click)="
-                                                sub_item.status === 1
+                                                sub_item.status === 0
                                                       ? publishedCate(
                                                               sub_item.id
                                                         )
@@ -264,7 +271,6 @@
       [length]="CategoryService.length"
       [pageSize]="pageSize"
       [pageIndex]="pageIndex"
-      (page)="handlePageEvent($event)"
 >
 </mat-paginator>
 <div class="layout-edit-cateogries">

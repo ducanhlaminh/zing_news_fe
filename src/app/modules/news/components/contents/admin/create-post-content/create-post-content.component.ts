@@ -36,6 +36,7 @@ export class CreatePostContentComponent implements OnInit {
       imgSelected: any;
       loading: boolean = false;
       formDetail: any;
+      categories: any;
       constructor(
             private formBuilder: FormBuilder,
             public CategoryService: CategoryService,
@@ -402,19 +403,14 @@ export class CreatePostContentComponent implements OnInit {
             this.formDetail.patchValue({ categoryId: e.value });
       }
       getOptionCategories() {
-            this.CategoryService.getAllCategoriesByAd().subscribe(
-                  (data: any) => {
-                        this.CategoryService.categories = data.rows;
-                        this.CategoryService.categories.map((item: any) => {
-                              item.opened = false;
-                        });
-                        this.optionCategories = this.CategoryService.categories;
-                        const tempArray = this.optionCategories.map(
-                              (item: any) => [item, ...item.childCategories]
-                        );
-                        const arrayB = tempArray.flat();
-                        this.optionCategories = arrayB;
-                  }
-            );
+            this.CategoryService.categories$.subscribe((data) => {
+                  const tempArray = data.map((item: any) => [
+                        item,
+                        ...item.childCategories,
+                  ]);
+                  const arrayB = tempArray.flat();
+                  this.optionCategories = arrayB;
+                  console.log(this.optionCategories);
+            });
       }
 }

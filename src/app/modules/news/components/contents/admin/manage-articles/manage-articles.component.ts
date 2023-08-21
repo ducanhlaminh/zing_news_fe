@@ -79,20 +79,13 @@ export class ManageArticlesComponent implements OnInit {
             this.getOptionCategories();
       }
       getOptionCategories() {
-            this.CategoryService.getAllCategoriesByAd().subscribe(
-                  (data: any) => {
-                        this.CategoryService.categories = data.rows;
-                        this.CategoryService.categories.map((item: any) => {
-                              item.opened = false;
-                        });
-                        this.optionCategories = this.CategoryService.categories;
-                        const tempArray = this.optionCategories.map(
-                              (item: any) => [item, ...item.childCategories]
-                        );
-                        const arrayB = tempArray.flat();
-                        this.optionCategories = arrayB;
-                  }
-            );
+            // this.optionCategories = this.CategoryService.categories;
+            // const tempArray = this.optionCategories.map((item: any) => [
+            //       item,
+            //       ...item.childCategories,
+            // ]);
+            // const arrayB = tempArray.flat();
+            // this.optionCategories = arrayB;
       }
       initForm() {
             this.myForm = this.formBuilder.group({

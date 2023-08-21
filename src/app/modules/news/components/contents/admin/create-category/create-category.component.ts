@@ -12,6 +12,7 @@ export class CreateCategoryComponent implements OnInit {
       formGroup: any;
       optionCategories: any;
       loading = false;
+      categories: any;
       constructor(
             private formBuilder: FormBuilder,
             public CategoryService: CategoryService,
@@ -44,11 +45,8 @@ export class CreateCategoryComponent implements OnInit {
       getOptionCategories() {
             this.CategoryService.getAllCategoriesByAd().subscribe(
                   (data: any) => {
-                        this.CategoryService.categories = data.rows;
-                        this.CategoryService.categories.map((item: any) => {
-                              item.opened = false;
-                        });
-                        this.optionCategories = this.CategoryService.categories;
+                        const category = data.rows;
+                        this.optionCategories = category;
                   }
             );
       }

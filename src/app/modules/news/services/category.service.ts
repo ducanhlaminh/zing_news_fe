@@ -1,18 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
       providedIn: 'root',
 })
 export class CategoryService {
       constructor(public http: HttpClient) {}
-      categories: any;
+      categories$ = new BehaviorSubject<any>(null);
+      categoriesForAd$ = new BehaviorSubject<any>(null);
       length: any;
       getAllCategories() {
-            return this.http.get(environment.API_CATEGORY_GET_ALL);
+            this.http
+                  .get(environment.API_CATEGORY_GET_ALL)
+                  .subscribe((data: any) => {
+                        let categories;
+                        categories = data.rows;
+                        categories.map((item: any) => {
+                              item.opened = false;
+                        });
+
+                        categories.length = data.rows.length;
+
+                        this.categories$.next(categories);
+                  });
       }
       getAllCategoriesByAd() {
-            return this.http.get(environment.API_CATEGORY_GET_ALL_ADMIN);
+            this.http
+                  .get(environment.API_CATEGORY_GET_ALL_ADMIN)
+                  .subscribe((data: any) => {
+                        let categories;
+                        categories = data.rows;
+                        categories.map((item: any) => {
+                              item.opened = false;
+                        });
+
+                        categories.length = data.rows.length;
+
+                        this.categoriesForAd$.next(categories);
+                  });
       }
       getSubCategory(slug_crc: any) {
             return this.http.get(
@@ -32,15 +58,7 @@ export class CategoryService {
                   params: { id },
             });
       }
-      getData() {
-            this.getAllCategoriesByAd().subscribe((data: any) => {
-                  this.categories = data.rows;
-                  this.categories.map((item: any) => {
-                        item.opened = false;
-                  });
-                  this.length = data.rows.length;
-            });
-      }
+
       updatePosition(data: any) {
             return this.http.put(
                   'http://localhost:4000/api/v1/categories/admin/position',

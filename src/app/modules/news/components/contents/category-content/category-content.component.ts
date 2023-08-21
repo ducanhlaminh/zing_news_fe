@@ -24,6 +24,7 @@ export class CategoryContentComponent {
       articlesViews: any[] = [];
       page = 1;
       slug_crc: any;
+      categories: any;
       constructor(
             public CategoryService: CategoryService,
             private ActivatedRoute: ActivatedRoute,
@@ -45,6 +46,10 @@ export class CategoryContentComponent {
                         }
                   }
             );
+            this.CategoryService.categories$.subscribe((data) => {
+                  this.categories = data;
+                  this.getCateogory(this.slug_crc);
+            });
       }
       ngOnDestroy() {
             if (this.navigationSubscription) {
@@ -82,11 +87,23 @@ export class CategoryContentComponent {
             );
       }
       getCateogory(slug_crc: string) {
-            return this.CategoryService.getSubCategory(slug_crc).subscribe(
-                  (data: any) => {
-                        this.CategoryCurrent = data;
+            this.categories.map((category: any) => {
+                  if (category.slug_crc === parseInt(slug_crc)) {
+                        return (this.CategoryCurrent = category);
+                  } else {
+                        category.childCategories.map((child: any) => {
+                              if (child.slug_crc === parseInt(slug_crc)) {
+                                    return (this.CategoryCurrent = child);
+                              }
+                        });
                   }
-            );
+            });
+
+            // return this.CategoryService.getSubCategory(slug_crc).subscribe(
+            //       (data: any) => {
+            //             this.CategoryCurrent = data;
+            //       }
+            // );
       }
       handleImageError(event: any) {
             const fallbackImage =

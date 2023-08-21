@@ -14,8 +14,10 @@ export class NewsService {
       getBooks() {
             return this.http.get(environment.API_BOOKS);
       }
-      getNewArtclesMain() {
-            return this.http.get(environment.API_NEW_ARTCLES_MAIN);
+      getNewArtclesMain(page: number = 1) {
+            return this.http.get(environment.API_NEW_ARTCLES_MAIN, {
+                  params: { page },
+            });
       }
       getNewArtclesCate(slug_crc: string, page: number = 1) {
             return this.http.get(environment.API_NEW_ARTCLES_CATE, {

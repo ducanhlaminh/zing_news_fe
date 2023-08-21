@@ -79,7 +79,7 @@
                         ]"
                   >
                         <img
-                              [src]="item.new_article.avatar"
+                              [src]="item.new_article?.avatar"
                               alt=""
                               (error)="handleImageError($event)"
                         />
@@ -94,7 +94,12 @@
 <app-carousel></app-carousel>
 <hr />
 <div class="center-page">
-      <div class="new-artcles">
+      <div
+            class="new-artcles"
+            infinite-scroll
+            (scrolled)="onScrollDown()"
+            [infiniteScrollDistance]="0.1"
+      >
             <div class="" *ngFor="let item of newArtcles; last as last">
                   <div
                         class="new-artcle-item"
@@ -136,7 +141,7 @@
                         <div class="artcles-view-most-item-infor">
                               <p class="most-item-infor-cate">
                                     {{
-                                          item.new_articles_categories[0]
+                                          item?.new_articles_categories[0]
                                                 ?.category.name
                                     }}
                               </p>

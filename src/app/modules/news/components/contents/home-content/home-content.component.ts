@@ -7,10 +7,11 @@ import { NewsService } from '../../../services/news.service';
       styleUrls: ['./home-content.component.scss'],
 })
 export class HomeContentComponent {
-      newArtcles: any;
+      newArtcles: any = [];
       articlesViews: any;
       artclesHotMain: any;
       boxArticlesCate: any;
+      page = 1;
       constructor(
             public NewsService: NewsService,
             public renderer: Renderer2
@@ -23,12 +24,20 @@ export class HomeContentComponent {
       }
       // tin moi
       getNewArtcles() {
-            this.NewsService.getNewArtclesMain().subscribe((data: any) => {
-                  this.newArtcles = data.newArticleCate.rows;
-            });
+            this.NewsService.getNewArtclesMain(this.page).subscribe(
+                  (data: any) => {
+                        this.newArtcles = [
+                              ...this.newArtcles,
+                              ...data.newArticleCate.rows,
+                        ];
+                  }
+            );
       }
-      onScroll() {
-            console.log(123);
+      onScrollDown() {
+            if (this.page < 10) {
+                  ++this.page;
+                  this.getNewArtcles();
+            }
       }
       // tin nhieu luot doc
       getArticlesViews() {
