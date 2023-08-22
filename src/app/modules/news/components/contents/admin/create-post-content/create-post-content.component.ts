@@ -410,7 +410,6 @@ export class CreatePostContentComponent implements OnInit {
                   ]);
                   const arrayB = tempArray.flat();
                   this.optionCategories = arrayB;
-                  console.log(this.optionCategories);
             });
       }
 }

@@ -26,6 +26,9 @@ export class CreateCategoryComponent implements OnInit {
       }
       ngOnInit(): void {
             this.getOptionCategories();
+            this.CategoryService.categoriesForAd$.subscribe(
+                  (categories) => (this.categories = categories)
+            );
       }
       submitForm(e: any) {
             this.loading = true;
@@ -43,11 +46,6 @@ export class CreateCategoryComponent implements OnInit {
             this.formGroup.patchValue({ categoryId: e.value });
       }
       getOptionCategories() {
-            this.CategoryService.getAllCategoriesByAd().subscribe(
-                  (data: any) => {
-                        const category = data.rows;
-                        this.optionCategories = category;
-                  }
-            );
+            this.CategoryService.getAllCategoriesByAd();
       }
 }
