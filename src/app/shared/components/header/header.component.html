@@ -31,7 +31,10 @@
             </ng-container>
 
             <div class="cate-item" (click)="showFullCate()">
-                  <fa-icon [icon]="faEllipsis"></fa-icon>
+                  <fa-icon
+                        [icon]="faEllipsis"
+                        [ngClass]="{ active: stateShowFullCates }"
+                  ></fa-icon>
             </div>
       </div>
       <div class="right_header">

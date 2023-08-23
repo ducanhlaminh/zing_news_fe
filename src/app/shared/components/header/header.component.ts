@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
       faUser = faUser;
       showInput = false;
       searchControl: FormControl = new FormControl();
+      stateShowFullCates: boolean = false;
       inforUser: any;
       @ViewChild('searchBtn') searchBtn: any;
       @ViewChild('input') input: any;
@@ -43,7 +44,8 @@ export class HeaderComponent implements OnInit {
             });
       }
       showFullCate() {
-            this.dialog.open(DialogCategoriesComponent, {
+            this.stateShowFullCates = true;
+            const dialogRef = this.dialog.open(DialogCategoriesComponent, {
                   maxWidth: '100vw',
                   maxHeight: '100vh',
                   width: '100%',
@@ -53,6 +55,9 @@ export class HeaderComponent implements OnInit {
                   data: {
                         categories: this.categories,
                   },
+            });
+            dialogRef.afterClosed().subscribe(() => {
+                  this.stateShowFullCates = false;
             });
       }
       toogleInput() {

@@ -163,15 +163,12 @@ export class ManageCategoriesComponent {
       }
       unPublishedCate(id: any) {
             // console.log(id);
-            // this.CategoryService.updateCategory({ status: 0 }, id).subscribe(
-            //       () => {
-            //             this.updateCategory();
-            //             this.updateCategoryAdmin();
-            //             this.done = this.CategoryService.categories.filter(
-            //                   (item: any) => item.position !== null
-            //             );
-            //       }
-            // );
+            this.CategoryService.updateCategory({ status: 0 }, id).subscribe(
+                  () => {
+                        this.updateCategory();
+                        this.updateCategoryAdmin();
+                  }
+            );
       }
       updateCategoryAdmin() {
             // this.CategoryService.getAllCategoriesByAd().subscribe(
@@ -185,12 +182,14 @@ export class ManageCategoriesComponent {
             //                   (item: any) => item.position === null
             //             );
             //       }
-            // );
+            // );]
+            this.CategoryService.getAllCategoriesByAd();
       }
       updateCategory() {
             // this.CategoryService.getAllCategories();
             // this.done = this.CategoryService.categories.filter(
             //       (item: any) => item.position !== null
             // );
+            this.CategoryService.getAllCategories();
       }
 }

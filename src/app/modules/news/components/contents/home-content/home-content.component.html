@@ -18,7 +18,11 @@
                               ]"
                         >
                               <img
-                                    [src]="item?.new_article?.avatar"
+                                    [src]="
+                                          'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                          item?.new_article?.avatar +
+                                          '&height=120&width=80'
+                                    "
                                     alt=""
                                     (error)="handleImageError($event)"
                               />
@@ -49,8 +53,10 @@
                   >
                         <img
                               [src]="
+                                    'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
                                     artclesHotMain?.center[0]?.new_article
-                                          ?.avatar
+                                          ?.avatar +
+                                    '&height=330&width=500'
                               "
                               alt=""
                               (error)="handleImageError($event)"
@@ -79,7 +85,11 @@
                         ]"
                   >
                         <img
-                              [src]="item.new_article?.avatar"
+                              [src]="
+                                    'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                    item?.new_article?.avatar +
+                                    '&height=200&width=300'
+                              "
                               alt=""
                               (error)="handleImageError($event)"
                         />
@@ -107,7 +117,11 @@
                   >
                         <div class="img-article">
                               <img
-                                    [src]="item.avatar"
+                                    [src]="
+                                          'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                          item.avatar +
+                                          '&height=200&width=300'
+                                    "
                                     alt=""
                                     (error)="handleImageError($event)"
                               />
