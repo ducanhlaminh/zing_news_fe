@@ -60,6 +60,9 @@ export class ManageCategoriesComponent {
                   this.done = data.filter(
                         (item: any) => item.position !== null
                   );
+                  this.categorySort = data.filter(
+                        (item: any) => item.position === null
+                  );
                   this.categories = data;
             });
             if (this.order.length > 0) this.queries.order = this.order;
@@ -85,8 +88,9 @@ export class ManageCategoriesComponent {
             this.done.map((item: any, idx: any) => {
                   item.position = idx + 1;
             });
-            this.CategoryService.updatePosition(this.done).subscribe();
-            this.CategoryService.getAllCategories();
+            this.CategoryService.updatePosition(this.done).subscribe(() =>
+                  this.CategoryService.getAllCategories()
+            );
       }
       // handlePageEvent(e: any) {
       //       this.CategoryService.length = e.length;

@@ -36,7 +36,10 @@ export class HeaderComponent implements OnInit {
                   this.inforUser = data;
             });
             this.CategoryService.categories$.subscribe((data) => {
+                  console.log(data);
+
                   this.categories = data;
+                  console.log(this.categories);
             });
       }
       showFullCate() {
