@@ -176,6 +176,20 @@
                               <button mat-menu-item (click)="openDialog(item)">
                                     <span>Cập nhật</span>
                               </button>
+                              <button
+                                    mat-menu-item
+                                    (click)="
+                                          item.status === 0
+                                                ? publishedArticle(item.id)
+                                                : unPublishedArticle(item.id)
+                                    "
+                              >
+                                    <span>{{
+                                          item.status === 1
+                                                ? "Thu hồi"
+                                                : "Duyệt"
+                                    }}</span>
+                              </button>
                               <button mat-menu-item>
                                     <span>Đi tới trang chi tiết</span>
                               </button>

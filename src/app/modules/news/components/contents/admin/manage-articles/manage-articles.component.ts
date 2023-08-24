@@ -126,7 +126,12 @@ export class ManageArticlesComponent implements OnInit {
                         this.option2 = data;
                   });
       }
-
+      unPublishedArticle(id: any) {
+            this.NewService.updateArticle({ status: 0 }, id).subscribe();
+      }
+      publishedArticle(id: any) {
+            this.NewService.updateArticle({ status: 1 }, id).subscribe();
+      }
       createHotArticle() {
             this.NewService.createHotMain({
                   id: this.myForm.value.nameArticle.id,
