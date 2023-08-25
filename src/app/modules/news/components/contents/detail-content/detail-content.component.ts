@@ -23,6 +23,7 @@ export class DetailContentComponent implements OnInit {
             public renderer: Renderer2
       ) {}
       ngOnInit(): void {
+            this.scrollToTop();
             this.ActivatedRoute.params.subscribe((params: any) => {
                   this.slug_crc = params['slug_crc'];
                   const slug = params['slug'];

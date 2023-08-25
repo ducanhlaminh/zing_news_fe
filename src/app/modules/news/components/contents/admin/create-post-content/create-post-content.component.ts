@@ -275,7 +275,7 @@ export class CreatePostContentComponent implements OnInit {
             font_family_formats:
                   'Arial=arial,helvetica,sans-serif; Courier New=courier new,courier,monospace; AkrutiKndPadmini=Akpdmi-n;Noto Serif=Noto Serif;Raleway=Raleway;Berfilem=Berfilem;TikTok=TikTok;',
             content_style:
-                  "@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');body {font-family: 'TikTok';overflow-x: hidden;font-size:18px}",
+                  "@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');body {font-family: 'TikTok';overflow-x: hidden;font-size:18px border-box: box-sizing: border-box;}",
       };
       setup(editor: any) {
             editor.on('click', (e: any) => {
@@ -296,8 +296,8 @@ export class CreatePostContentComponent implements OnInit {
       }
       submitFormUpdate(id: any, slug_crc: any) {
             try {
-                  this.loading = true;
                   if (this.formDetail.valid) {
+                        this.loading = true;
                         const file = new File(
                               [this.formDetail.value.avatar.blob],
                               `123.png`,
@@ -321,6 +321,7 @@ export class CreatePostContentComponent implements OnInit {
                         for (const key in combinedValues) {
                               formData.append(key, combinedValues[key]);
                         }
+
                         this.NewService.updateArticle(formData, id).subscribe(
                               (data) => {
                                     this.loading = false;
@@ -344,9 +345,10 @@ export class CreatePostContentComponent implements OnInit {
             }
       }
       submitFormCreate() {
-            this.loading = true;
             try {
                   if (this.formDetail.valid) {
+                        this.loading = true;
+
                         const file = new File(
                               [this.formDetail.value.avatar.blob],
                               `123.png`,

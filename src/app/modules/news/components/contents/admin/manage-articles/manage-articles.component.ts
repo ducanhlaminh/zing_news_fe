@@ -68,6 +68,11 @@ export class ManageArticlesComponent implements OnInit {
             this.initForm2();
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
+            this.getArticles();
+            this.getHotMain();
+            this.getOptionCategories();
+      }
+      getArticles() {
             this.NewService.getAllByAd({ ...this.queries }).subscribe(
                   (data: any) => {
                         this.articles = data.rows;
@@ -75,8 +80,6 @@ export class ManageArticlesComponent implements OnInit {
                         this.listArticles = [...data.rows];
                   }
             );
-            this.getHotMain();
-            this.getOptionCategories();
       }
       getOptionCategories() {
             this.CategoryService.categories$.subscribe((categories) => {
@@ -128,10 +131,14 @@ export class ManageArticlesComponent implements OnInit {
                   });
       }
       unPublishedArticle(id: any) {
-            this.NewService.updateArticle({ status: 0 }, id).subscribe();
+            this.NewService.updateArticle({ status: 0 }, id).subscribe(() =>
+                  this.getArticles()
+            );
       }
       publishedArticle(id: any) {
-            this.NewService.updateArticle({ status: 1 }, id).subscribe();
+            this.NewService.updateArticle({ status: 1 }, id).subscribe(() =>
+                  this.getArticles()
+            );
       }
       createHotArticle() {
             this.NewService.createHotMain({
@@ -288,5 +295,6 @@ export class ManageArticlesComponent implements OnInit {
                   // height: '700px',
                   data,
             });
+            dialogRef.afterClosed().subscribe(() => this.getArticles());
       }
 }

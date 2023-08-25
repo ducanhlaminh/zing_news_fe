@@ -48,6 +48,7 @@ export class ManageCategoriesComponent {
             publishAt: 0,
             slug: 0,
       };
+      changePosition = true;
       order: any = [];
       queries: any = {};
       constructor(
@@ -69,6 +70,7 @@ export class ManageCategoriesComponent {
             this.queries.page = this.pageIndex + 1;
       }
       drop(event: CdkDragDrop<string[]>) {
+            this.changePosition = false;
             if (event.previousContainer === event.container) {
                   moveItemInArray(
                         event.container.data,
@@ -149,8 +151,12 @@ export class ManageCategoriesComponent {
             return (this.categories[idx].opened = false);
       }
       openDialog(data: any) {
-            this.dialog.open(DialogComponent, {
+            const dialog = this.dialog.open(DialogComponent, {
                   data,
+            });
+            dialog.afterClosed().subscribe(() => {
+                  this.updateCategory();
+                  this.updateCategoryAdmin();
             });
       }
       publishedCate(id: any) {

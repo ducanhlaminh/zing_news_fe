@@ -17,6 +17,7 @@
                   <div class="category" *ngFor="let item of data.categories">
                         <h4
                               class="name-category"
+                              mat-dialog-close
                               [routerLink]="[
                                     '/',
                                     'danh-muc',
@@ -39,6 +40,7 @@
                                           subItem.slug,
                                           subItem.slug_crc
                                     ]"
+                                    mat-dialog-close
                                     *ngIf="
                                           !item.showFullCategories
                                                 ? count < 5

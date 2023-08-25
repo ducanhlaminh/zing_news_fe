@@ -33,6 +33,9 @@ export class CategoryContentComponent {
             public renderer: Renderer2
       ) {}
       ngOnInit(): void {
+            this.page = 1;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
             this.ActivatedRoute.params.subscribe((params: any) => {
                   this.slug_crc = params['slug_crc'];
                   this.getArticles(this.slug_crc);
@@ -48,6 +51,7 @@ export class CategoryContentComponent {
                                     right: [],
                                     bottom: [],
                               };
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
                         }
                   }
             );

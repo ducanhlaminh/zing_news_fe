@@ -21,7 +21,7 @@ export class CreateCategoryComponent implements OnInit {
             this.formGroup = this.formBuilder.group({
                   name: ['', Validators.required],
                   slug: ['', Validators.required],
-                  parent_id: ['', Validators.required],
+                  parent_id: [''],
             });
       }
       ngOnInit(): void {
