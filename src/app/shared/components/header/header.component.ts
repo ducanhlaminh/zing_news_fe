@@ -37,10 +37,7 @@ export class HeaderComponent implements OnInit {
                   this.inforUser = data;
             });
             this.CategoryService.categories$.subscribe((data) => {
-                  console.log(data);
-
                   this.categories = data;
-                  console.log(this.categories);
             });
       }
       showFullCate() {
@@ -63,13 +60,12 @@ export class HeaderComponent implements OnInit {
       toogleInput() {
             this.input.nativeElement.style.display = 'block';
             if (this.input.nativeElement.style.display === 'block') {
+                  this.input.nativeElement.focus();
                   if (this.searchControl.value) {
                         this.Router.navigate(['tim-kiem'], {
                               queryParams: { title: this.searchControl.value },
                         });
                   }
-            } else {
-                  this.input.nativeElement.focus();
             }
       }
       blurInput() {

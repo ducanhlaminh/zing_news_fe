@@ -24,7 +24,10 @@ import { DialogCategoriesComponent } from './shared/components/dialog-categories
             FontAwesomeModule,
             HttpClientModule,
             AuthModule,
-            ToastrModule.forRoot(),
+            ToastrModule.forRoot({
+                  positionClass: 'toast-bottom-right',
+                  timeOut: 5000,
+            }),
             BrowserAnimationsModule, // required animations module
       ],
       providers: [

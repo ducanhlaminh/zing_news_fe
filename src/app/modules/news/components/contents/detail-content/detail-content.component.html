@@ -848,27 +848,66 @@
             </p>
       </article>
 </div> -->
-<div class="tool"></div>
-<div id="content" #content></div>
-<div class="center-page">
-      <div class="new-artcles">
-            <div class="" *ngFor="let item of relateArticles; last as last">
-                  <div
-                        class="new-artcle-item"
-                        [routerLink]="['/bai-viet', item.slug, item.slug_crc]"
+<div class="tool">
+      <div class="breadcump">
+            <span *ngFor="let item of categories">
+                  <a
+                        [routerLink]="[
+                              '/',
+                              'danh-muc',
+                              item?.category?.slug,
+                              item?.category?.slug_crc
+                        ]"
+                        >{{ item?.category?.name }}</a
                   >
-                        <div class="img-article">
-                              <img [src]="item.avatar" alt="" />
-                        </div>
-                        <div class="new-artcle-infor">
-                              <h2>{{ item.title }}</h2>
-                              <p>
-                                    {{ item.sapo }}
-                              </p>
+                  <fa-icon [icon]="faChevronRight" class="icon"></fa-icon>
+            </span>
+      </div>
+      <div id="content" #content></div>
+</div>
+<div class="layout">
+      <div class="content">
+            <div class="title">
+                  Bài viết liên quan :
+                  <span>{{
+                        categories[this?.categories?.length - 1]?.category.name
+                              | json
+                  }}</span>
+            </div>
+            <div
+                  class="center-page"
+                  infinite-scroll
+                  (scrolled)="onScrollDown()"
+                  [infiniteScrollDistance]="00.1"
+            >
+                  <div
+                        [routerLink]="[
+                              '/bai-viet',
+                              item.new_article.slug,
+                              item.new_article.slug_crc
+                        ]"
+                        *ngFor="let item of relateArticles; last as last"
+                  >
+                        <div class="new-artcle-item">
+                              <div class="img-article">
+                                    <img
+                                          [src]="
+                                                'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                                item.new_article.avatar +
+                                                '&height=200&width=300'
+                                          "
+                                          alt=""
+                                          (error)="handleImageError($event)"
+                                    />
+                              </div>
+                              <div class="new-artcle-infor">
+                                    <b>{{ item.new_article.title }}</b>
+                                    <p>
+                                          {{ item.new_article.sapo }}
+                                    </p>
+                              </div>
                         </div>
                   </div>
-
-                  <hr *ngIf="!last" />
             </div>
       </div>
 </div>

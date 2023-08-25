@@ -6,6 +6,70 @@ li {
   line-height: 180%;
 
 }
-#content{
+.breadcump{
+      padding-top: 20px;
+      width: 700px;
+      margin:auto;
+}
+.icon{
+      color: rgba(128, 128, 128, 0.537);
+      margin-right: 20px;
+
+}
+.tool{
+      background: #FCFAF6;
+      border-bottom: 2px solid rgba(215, 215, 215, 0.718);
+}
+.layout{
+      background: #f5f5f5;
+      .content{
+      width: 700px;
+      margin:auto;
+      background: white;
+      padding: 10px;
+      width: 1100px;
+      }
+}
+.center-page{
+      width: 70% ;
+      padding-right: 15px;
+      border-right: 3px solid rgba(171, 171, 171, 0.41);
+      .new-artcle-item{
+            display: flex;
+            gap: 20px;
+            border-bottom: 3px solid rgba(171, 171, 171, 0.41);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            .img-article{
+                  width: 200px;
+                  height: 170px;
+                  img{
+                        object-fit: cover;
+                        height: 100%;
+                        width: 100%;
+                        border-radius: 5px;
+                  }
+            }.new-artcle-infor{
+                  width: calc(100% - 200px);
+                  b{
+                        font-size: 20px;
+                  }
+            }
+            &:hover{
+                  cursor: pointer;
+                  b{
+                        color:#096ffa
+                  }
+            }
+      }
+
+}
+.title{
+      color: gray;
+      font-weight: normal;
+      font-size: 20px;
+      border-bottom: 3px solid rgba(171, 171, 171, 0.41);
+      padding: 15px 0;
+      margin-bottom: 15px;
 
 }

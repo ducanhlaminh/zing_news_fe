@@ -25,3 +25,11 @@ body { margin: 0; font-family: 'TikTok' }
 .mat-mdc-dialog-surface.mdc-dialog__surface {
       overflow-x: hidden;
   }
+a {
+      text-decoration: none;
+      color: rgb(41, 40, 40);
+      margin-right: 20px;
+      &:hover{
+            color:#096ffa
+      }
+}

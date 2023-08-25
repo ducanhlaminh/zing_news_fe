@@ -24,14 +24,14 @@ export class NewsService {
                   params: { slug_crc, page },
             });
       }
-      getArticlesByTitle(category_id: any, title: string) {
+      getArticlesByTitle(category_id: any, title: string, page: number = 1) {
             if (category_id === '') {
                   return this.http.get(environment.API_NEW_ARTCLES_TITLE, {
-                        params: { title },
+                        params: { title, page },
                   });
             } else {
                   return this.http.get(environment.API_NEW_ARTCLES_TITLE, {
-                        params: { title, category_id },
+                        params: { title, category_id, page },
                   });
             }
       }

@@ -3,35 +3,48 @@
       *ngIf="!isCateChid; else hotArticlesChild"
 >
       <div class="hot-articles-category-left">
-            <div class="hot-articles-category-left-item">
+            <div
+                  class="hot-articles-category-left-item"
+                  [routerLink]="[
+                        '/bai-viet',
+                        hotArticles?.left?.new_article.slug,
+                        hotArticles?.left?.new_article.slug_crc
+                  ]"
+            >
                   <div class="image">
                         <img
                               (error)="handleImageError($event)"
-                              [src]="hotArticles[0]?.new_article.avatar"
+                              [src]="hotArticles?.left?.new_article?.avatar"
                               alt=""
                         />
                   </div>
 
                   <p class="title">
-                        {{ hotArticles[0]?.new_article.title }}
+                        {{ hotArticles?.left?.new_article?.title }}
                   </p>
                   <p class="sapo">
-                        {{ hotArticles[0]?.new_article.sapo }}
+                        {{ hotArticles?.left?.new_article?.sapo }}
                   </p>
             </div>
       </div>
       <div class="hot-articles-category-right">
-            <ng-container *ngFor="let item of hotArticles; index as idx">
+            <ng-container *ngFor="let item of hotArticles?.right; index as idx">
                   <div
                         class="hot-articles-category-right-item"
-                        *ngIf="idx >= 1 && idx <= 4"
+                        [routerLink]="[
+                              '/bai-viet',
+                              item.new_article.slug,
+                              item.new_article.slug_crc
+                        ]"
                   >
                         <p class="title">{{ item.new_article.title }}</p>
-                        <img
-                              (error)="handleImageError($event)"
-                              [src]="item.new_article.avatar"
-                              alt=""
-                        />
+                        <div class="image">
+                              <img
+                                    (error)="handleImageError($event)"
+                                    [src]="item.new_article.avatar"
+                                    alt=""
+                              />
+                        </div>
                   </div>
             </ng-container>
       </div>

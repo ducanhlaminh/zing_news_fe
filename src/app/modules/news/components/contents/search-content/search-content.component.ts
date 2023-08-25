@@ -10,8 +10,9 @@ import { FormControl } from '@angular/forms';
 })
 export class SearchContentComponent implements OnInit {
       faMagnifyingGlass = faMagnifyingGlass;
-      articles: any;
+      articles: any = { list: [], count: 0 };
       searchControl: FormControl = new FormControl();
+      page = 1;
       constructor(
             private ActivatedRoute: ActivatedRoute,
             private NewService: NewsService,
@@ -20,16 +21,31 @@ export class SearchContentComponent implements OnInit {
       ngOnInit(): void {
             this.ActivatedRoute.queryParams.subscribe((query: any) => {
                   const title = query['title'];
-                  this.getArticlesByTitle(title);
                   this.searchControl.setValue(title);
+                  this.getArticlesByTitle();
             });
       }
-      getArticlesByTitle(title: string) {
-            this.NewService.getArticlesByTitle('', title).subscribe(
-                  (data: any) => {
-                        this.articles = data.data;
-                  }
-            );
+      sreach() {
+            this.articles = [];
+            this.getArticlesByTitle();
+      }
+      onScrollDown() {
+            if (this.page < 10) {
+                  ++this.page;
+                  this.getArticlesByTitle();
+            }
+      }
+      getArticlesByTitle() {
+            this.NewService.getArticlesByTitle(
+                  '',
+                  this.searchControl.value,
+                  this.page
+            ).subscribe((data: any) => {
+                  const article = data.data.rows;
+                  this.articles.list = [...this.articles.list, ...article];
+                  this.articles.count = data.data.count;
+                  console.log(this.articles);
+            });
       }
       handleImageError(event: any) {
             const fallbackImage =

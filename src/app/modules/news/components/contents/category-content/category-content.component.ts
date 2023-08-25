@@ -17,7 +17,7 @@ export class CategoryContentComponent {
       CategoryCurrent: any;
       subCategory: any[] = [];
       navigationSubscription: any;
-      hotArticles: any[] = [];
+      hotArticles: any = { left: null, right: [], bottom: [] };
       newArticles: any[] = [];
       hotArticlesSubCate: any[] = [];
       isCateChid: boolean = false;
@@ -43,6 +43,11 @@ export class CategoryContentComponent {
                         // If it is a NavigationEnd event re-initalise the component
                         if (e instanceof NavigationStart) {
                               this.page = 1;
+                              this.hotArticles = {
+                                    left: null,
+                                    right: [],
+                                    bottom: [],
+                              };
                         }
                   }
             );
@@ -60,8 +65,22 @@ export class CategoryContentComponent {
             // Get hot articles
             this.NewsService.getartclesHotCate(slug_crc).subscribe(
                   (data: any) => {
-                        this.hotArticles =
-                              data.hotArticlesCate.new_articles_hot_categories;
+                        data.hotArticlesCate.new_articles_hot_categories?.map(
+                              (article: any) => {
+                                    if (article.position === 1) {
+                                          this.hotArticles.left = article;
+                                    } else if (
+                                          article.position > 1 &&
+                                          article.position < 6
+                                    ) {
+                                          this.hotArticles.right.push(article);
+                                    } else {
+                                          this.hotArticles.bottom.push(article);
+                                    }
+                              }
+                        );
+                        console.log(this.hotArticles);
+
                         if (data.boxSubCate.length === 0) {
                               this.isCateChid = true;
                         } else {

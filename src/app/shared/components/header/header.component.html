@@ -41,16 +41,15 @@
             <div class="tool">
                   <input
                         type="text"
-                        placeholder="Nhập nội dung cần tìm"
                         #input
+                        placeholder="Nhập nội dung cần tìm"
                         [formControl]="searchControl"
                         (blur)="blurInput()"
                   />
                   <fa-icon
                         [icon]="faMagnifyingGlass"
                         class="searchBtn activeShowInput"
-                        #searchBtn
-                        (mouseup)="toogleInput()"
+                        (click)="toogleInput()"
                   >
                   </fa-icon>
             </div>

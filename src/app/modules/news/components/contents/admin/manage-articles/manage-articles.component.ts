@@ -79,13 +79,14 @@ export class ManageArticlesComponent implements OnInit {
             this.getOptionCategories();
       }
       getOptionCategories() {
-            // this.optionCategories = this.CategoryService.categories;
-            // const tempArray = this.optionCategories.map((item: any) => [
-            //       item,
-            //       ...item.childCategories,
-            // ]);
-            // const arrayB = tempArray.flat();
-            // this.optionCategories = arrayB;
+            this.CategoryService.categories$.subscribe((categories) => {
+                  const tempArray = categories.map((item: any) => [
+                        item,
+                        ...item.childCategories,
+                  ]);
+                  const arrayB = tempArray.flat();
+                  this.optionCategories = arrayB;
+            });
       }
       initForm() {
             this.myForm = this.formBuilder.group({

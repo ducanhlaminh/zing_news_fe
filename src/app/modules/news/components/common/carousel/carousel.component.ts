@@ -16,7 +16,7 @@ export class CarouselComponent implements AfterViewInit, OnInit {
             autoplay: true,
             autoplaySpeed: 2000,
       };
-      slug = '2765770276';
+      slug_crc = '2765770276';
       books: any = [
             {
                   id: 15,
@@ -58,7 +58,7 @@ export class CarouselComponent implements AfterViewInit, OnInit {
             this.getBooks();
       }
       getBooks() {
-            this.NewsService.getNewArtclesCate(this.slug).subscribe(
+            this.NewsService.getNewArtclesCate(this.slug_crc).subscribe(
                   (data: any) => {
                         this.books = data.newArticleCate;
                   }

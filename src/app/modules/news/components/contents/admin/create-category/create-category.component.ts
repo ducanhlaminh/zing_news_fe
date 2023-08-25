@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -19,9 +19,9 @@ export class CreateCategoryComponent implements OnInit {
             private toastr: ToastrService
       ) {
             this.formGroup = this.formBuilder.group({
-                  name: '',
-                  slug: '',
-                  parent_id: '',
+                  name: ['', Validators.required],
+                  slug: ['', Validators.required],
+                  parent_id: ['', Validators.required],
             });
       }
       ngOnInit(): void {
@@ -31,16 +31,24 @@ export class CreateCategoryComponent implements OnInit {
             );
       }
       submitForm(e: any) {
-            this.loading = true;
-            this.CategoryService.createCategory(this.formGroup.value).subscribe(
-                  () => {
+            if (this.formGroup.valid) {
+                  this.loading = true;
+                  this.CategoryService.createCategory(
+                        this.formGroup.value
+                  ).subscribe(() => {
                         this.loading = false;
-                        this.showSuccess();
-                  }
-            );
+                        this.showToart(true);
+                  });
+            } else {
+                  this.showToart(false);
+            }
       }
-      showSuccess() {
-            this.toastr.success('Hello world!', 'Toastr fun!');
+      showToart(status: boolean) {
+            if (status) {
+                  this.toastr.success('Tạo chuyên mục thành công');
+            } else {
+                  this.toastr.error('Vùi long điền đủ các trường cần thiết');
+            }
       }
       onChangeCate(e: any) {
             this.formGroup.patchValue({ categoryId: e.value });
