@@ -17,7 +17,7 @@ export class CategoryContentComponent {
       CategoryCurrent: any;
       subCategory: any[] = [];
       navigationSubscription: any;
-      hotArticles: any = { left: null, right: [], bottom: [] };
+      hotArticles: any;
       newArticles: any[] = [];
       hotArticlesSubCate: any[] = [];
       isCateChid: boolean = false;
@@ -38,19 +38,20 @@ export class CategoryContentComponent {
 
             this.ActivatedRoute.params.subscribe((params: any) => {
                   this.slug_crc = params['slug_crc'];
-                  this.getArticles(this.slug_crc);
+
                   this.getCateogory(this.slug_crc);
             });
             this.navigationSubscription = this.Router.events.subscribe(
                   (e: any) => {
                         // If it is a NavigationEnd event re-initalise the component
-                        if (e instanceof NavigationStart) {
+                        if (e instanceof NavigationEnd) {
                               this.page = 1;
                               this.hotArticles = {
                                     left: null,
                                     right: [],
                                     bottom: [],
                               };
+                              this.getArticles(this.slug_crc);
                               window.scrollTo({ top: 0, behavior: 'smooth' });
                         }
                   }
@@ -59,6 +60,7 @@ export class CategoryContentComponent {
                   this.categories = data;
                   this.getCateogory(this.slug_crc);
             });
+            this.getArticles(this.slug_crc);
       }
       ngOnDestroy() {
             if (this.navigationSubscription) {
@@ -67,29 +69,85 @@ export class CategoryContentComponent {
       }
       getArticles(slug_crc: string) {
             // Get hot articles
+
             this.NewsService.getartclesHotCate(slug_crc).subscribe(
                   (data: any) => {
-                        data.hotArticlesCate.new_articles_hot_categories?.map(
-                              (article: any) => {
-                                    if (article.position === 1) {
-                                          this.hotArticles.left = article;
-                                    } else if (
-                                          article.position > 1 &&
-                                          article.position < 6
-                                    ) {
-                                          this.hotArticles.right.push(article);
-                                    } else {
-                                          this.hotArticles.bottom.push(article);
-                                    }
-                              }
-                        );
-                        console.log(this.hotArticles);
-
                         if (data.boxSubCate.length === 0) {
                               this.isCateChid = true;
+                              const result1 = Array(3)
+                                    .fill(null)
+                                    .map((_, index) => {
+                                          const post =
+                                                data.hotArticlesCate.new_articles_hot_categories.find(
+                                                      (item: any) =>
+                                                            item.position ===
+                                                            index + 1
+                                                );
+                                          return post
+                                                ? post
+                                                : {
+                                                        position: index + 1,
+                                                        new_article: null,
+                                                  };
+                                    });
+
+                              this.hotArticles = {
+                                    left: result1[0],
+                                    right: [result1[1], result1[2]],
+                              };
                         } else {
                               this.isCateChid = false;
+                              const result = Array(9)
+                                    .fill(null)
+                                    .map((_, index) => {
+                                          const post =
+                                                data.hotArticlesCate.new_articles_hot_categories.find(
+                                                      (item: any) =>
+                                                            item.position ===
+                                                            index + 1
+                                                );
+                                          return post
+                                                ? post
+                                                : {
+                                                        position: index + 1,
+                                                        new_article: null,
+                                                  };
+                                    });
+
+                              this.hotArticles = {
+                                    left: result[0],
+                                    right: [
+                                          result[1],
+                                          result[2],
+                                          result[3],
+                                          result[4],
+                                    ],
+                                    bottom: [
+                                          result[5],
+                                          result[6],
+                                          result[7],
+                                          result[8],
+                                    ],
+                              };
                         }
+
+                        console.log(this.hotArticles);
+
+                        // data.hotArticlesCate.new_articles_hot_categories?.map(
+                        //       (article: any) => {
+                        //             if (article.position === 1) {
+                        //                   this.hotArticles.left = article;
+                        //             } else if (
+                        //                   article.position > 1 &&
+                        //                   article.position < 6
+                        //             ) {
+                        //                   this.hotArticles.right.push(article);
+                        //             } else {
+                        //                   this.hotArticles.bottom.push(article);
+                        //             }
+                        //       }
+                        // );
+                        // console.log(this.hotArticles);
                   }
             );
             this.NewsService.getBoxArticlesCategory(slug_crc).subscribe(
@@ -110,7 +168,7 @@ export class CategoryContentComponent {
             );
       }
       getCateogory(slug_crc: string) {
-            this.categories.map((category: any) => {
+            this.categories?.map((category: any) => {
                   if (category.slug_crc === parseInt(slug_crc)) {
                         return (this.CategoryCurrent = category);
                   } else {

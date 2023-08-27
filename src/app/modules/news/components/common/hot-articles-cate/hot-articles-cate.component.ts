@@ -6,11 +6,13 @@ import { Component, Input, Renderer2, OnInit } from '@angular/core';
       styleUrls: ['./hot-articles-cate.component.scss'],
 })
 export class HotArticlesCateComponent implements OnInit {
-      @Input() isCateChid: any = false;
+      @Input() isCateChid: boolean = false;
       @Input() hotArticles: any;
       articles: any = { left: null, right: [], bottom: [] };
       constructor(public renderer: Renderer2) {}
-      ngOnInit(): void {}
+      ngOnInit(): void {
+            console.log(this.hotArticles);
+      }
       handleImageError(event: any) {
             const fallbackImage =
                   'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png';

@@ -12,6 +12,7 @@ import { combineLatest, debounceTime, switchMap } from 'rxjs';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditArticleComponent } from '../../dialog-edit-article/dialog-edit-article.component';
+import { ToastrService } from 'ngx-toastr';
 declare const tinymce: any;
 
 @Component({
@@ -61,7 +62,8 @@ export class ManageArticlesComponent implements OnInit {
             private NewService: NewsService,
             private CategoryService: CategoryService,
             private formBuilder: FormBuilder,
-            public dialog: MatDialog
+            public dialog: MatDialog,
+            private toastr: ToastrService
       ) {}
       ngOnInit(): void {
             this.initForm();
@@ -72,7 +74,21 @@ export class ManageArticlesComponent implements OnInit {
             this.getHotMain();
             this.getOptionCategories();
       }
+      deleteArticle(id: any) {
+            this.NewService.deleteArticle(id).subscribe(() => {
+                  this.getArticles(), this.showToart(true);
+            });
+      }
+      showToart(status: boolean) {
+            if (status) {
+                  this.toastr.success('thành công');
+            } else {
+                  this.toastr.error('Vùi long điền đủ các trường cần thiết');
+            }
+      }
       getArticles() {
+            this.queries.page = 1;
+            this.pageIndex = 0;
             this.NewService.getAllByAd({ ...this.queries }).subscribe(
                   (data: any) => {
                         this.articles = data.rows;
@@ -131,14 +147,16 @@ export class ManageArticlesComponent implements OnInit {
                   });
       }
       unPublishedArticle(id: any) {
-            this.NewService.updateArticle({ status: 0 }, id).subscribe(() =>
-                  this.getArticles()
-            );
+            this.NewService.updateArticle({ status: 0 }, id).subscribe(() => {
+                  this.getArticles();
+                  this.showToart(true);
+            });
       }
       publishedArticle(id: any) {
-            this.NewService.updateArticle({ status: 1 }, id).subscribe(() =>
-                  this.getArticles()
-            );
+            this.NewService.updateArticle({ status: 1 }, id).subscribe(() => {
+                  this.getArticles();
+                  this.showToart(true);
+            });
       }
       createHotArticle() {
             this.NewService.createHotMain({

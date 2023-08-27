@@ -170,7 +170,10 @@
                               <fa-icon [icon]="faEllipsisVertical"></fa-icon>
                         </button>
                         <mat-menu #menu="matMenu">
-                              <button mat-menu-item>
+                              <button
+                                    mat-menu-item
+                                    (click)="deleteArticle(item.id)"
+                              >
                                     <span>Xóa</span>
                               </button>
                               <button mat-menu-item (click)="openDialog(item)">
@@ -189,9 +192,6 @@
                                                 ? "Thu hồi"
                                                 : "Duyệt"
                                     }}</span>
-                              </button>
-                              <button mat-menu-item>
-                                    <span>Đi tới trang chi tiết</span>
                               </button>
                         </mat-menu>
                   </td>

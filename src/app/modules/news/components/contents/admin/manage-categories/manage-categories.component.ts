@@ -19,6 +19,7 @@ import {
       transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { data } from 'jquery';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
       selector: 'app-manage-categories',
@@ -53,7 +54,8 @@ export class ManageCategoriesComponent {
       queries: any = {};
       constructor(
             public CategoryService: CategoryService,
-            public dialog: MatDialog
+            public dialog: MatDialog,
+            private toastr: ToastrService
       ) {}
       ngOnInit(): void {
             this.CategoryService.getAllCategoriesByAd();
@@ -90,9 +92,10 @@ export class ManageCategoriesComponent {
             this.done.map((item: any, idx: any) => {
                   item.position = idx + 1;
             });
-            this.CategoryService.updatePosition(this.done).subscribe(() =>
-                  this.CategoryService.getAllCategories()
-            );
+            this.CategoryService.updatePosition(this.done).subscribe(() => {
+                  this.CategoryService.getAllCategories();
+                  this.showToart(true);
+            });
       }
       // handlePageEvent(e: any) {
       //       this.CategoryService.length = e.length;
@@ -162,10 +165,18 @@ export class ManageCategoriesComponent {
       publishedCate(id: any) {
             this.CategoryService.updateCategory({ status: 1 }, id).subscribe(
                   () => {
+                        this.showToart(true);
                         this.updateCategory();
                         this.updateCategoryAdmin();
                   }
             );
+      }
+      showToart(status: boolean) {
+            if (status) {
+                  this.toastr.success('Cập nhật thành công');
+            } else {
+                  this.toastr.error('Vùi long điền đủ các trường cần thiết');
+            }
       }
       unPublishedCate(id: any) {
             // console.log(id);
@@ -173,6 +184,7 @@ export class ManageCategoriesComponent {
                   () => {
                         this.updateCategory();
                         this.updateCategoryAdmin();
+                        this.showToart(true);
                   }
             );
       }

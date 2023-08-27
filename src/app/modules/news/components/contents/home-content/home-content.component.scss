@@ -14,6 +14,7 @@
       flex:1;
       display: flex;
       gap: 10px;
+      height: 80px;
       .image-empty-left {
         border-radius: 5px;
         height: 100%;
@@ -23,11 +24,12 @@
       .infor-empty-left {
         width: 60%;
         display: flex;
+        gap:10px;
+        box-sizing: border-box;
         flex-direction: column;
-        justify-content: space-between;
         .title-empty-left {
           border-radius: 5px;
-          height: 30px;
+          height: 100%;
           width: 100%;
           background: #dcdbdb;
         }
