@@ -44,7 +44,7 @@ export class ManageArticlesComponent implements OnInit {
       length = 100;
       pageSize = 10;
       pageIndex = 0;
-
+      loading = false;
       typefilters = ['', 'DESC', 'ASC'];
       filterCurr: any = {
             id: 0,
@@ -75,8 +75,10 @@ export class ManageArticlesComponent implements OnInit {
             this.getOptionCategories();
       }
       deleteArticle(id: any) {
+            this.loading = true;
             this.NewService.deleteArticle(id).subscribe(() => {
                   this.getArticles(), this.showToart(true);
+                  this.loading = false;
             });
       }
       showToart(status: boolean) {
@@ -147,23 +149,28 @@ export class ManageArticlesComponent implements OnInit {
                   });
       }
       unPublishedArticle(id: any) {
+            this.loading = true;
             this.NewService.updateArticle({ status: 0 }, id).subscribe(() => {
                   this.getArticles();
                   this.showToart(true);
+                  this.loading = false;
             });
       }
       publishedArticle(id: any) {
             this.NewService.updateArticle({ status: 1 }, id).subscribe(() => {
                   this.getArticles();
                   this.showToart(true);
+                  this.loading = false;
             });
       }
       createHotArticle() {
+            this.loading = true;
             this.NewService.createHotMain({
                   id: this.myForm.value.nameArticle.id,
                   position: this.myForm.value.position,
             }).subscribe(() => {
                   this.getHotMain();
+                  this.loading = false;
                   this.myForm.patchValue({ nameArticle: '', position: '' });
             });
       }
@@ -227,16 +234,22 @@ export class ManageArticlesComponent implements OnInit {
             );
       }
       deleteHotMain(id: number, position: number): void {
-            this.NewService.deleteHotMain({ id, position }).subscribe(() =>
-                  this.getHotMain()
-            );
+            this.loading = true;
+            this.NewService.deleteHotMain({ id, position }).subscribe(() => {
+                  this.getHotMain();
+                  this.loading = false;
+            });
       }
       deleteHotCate(item: any): void {
+            this.loading = true;
             this.NewService.deleteHotCate({
                   article_id: item.article_id,
                   position: item.position,
                   category_id: item.category_id,
-            }).subscribe(() => this.getArtclesHotCate(this.selectedCate));
+            }).subscribe(() => {
+                  this.getArtclesHotCate(this.selectedCate);
+                  this.loading = false;
+            });
       }
       getArtclesHotCate(e: any) {
             this.NewService.getartclesHotCate(e.slug_crc).subscribe(
@@ -245,6 +258,7 @@ export class ManageArticlesComponent implements OnInit {
             );
       }
       createHotCateArticles() {
+            this.loading = true;
             this.NewService.createArtclesHotCate({
                   article_id: this.myForm2.value.article.article_id,
                   position: this.myForm2.value.position,
@@ -255,6 +269,7 @@ export class ManageArticlesComponent implements OnInit {
                         article: '',
                         position: '',
                   });
+                  this.loading = false;
             });
       }
       getHotMain() {
