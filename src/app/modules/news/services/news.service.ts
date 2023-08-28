@@ -86,13 +86,17 @@ export class NewsService {
       }
       updateHotMain(data: any) {
             return this.http.put(
-                  environment.API_ADMIN_HOT_MAIN + data.id,
+                  environment.API_ADMIN_HOT_MAIN + '/' + data.id,
                   data
             );
       }
       updateArtclesHotCate(data: any) {
+            // console.log(
+            //       `environment.API_ADMIN_HOT_CATE + '/' + ${data.article_id}`
+            // );
+
             return this.http.put(
-                  environment.API_ARTICLES_HOT_CATE + data.id,
+                  environment.API_ADMIN_HOT_CATE + '/' + data.article_id,
                   data
             );
       }

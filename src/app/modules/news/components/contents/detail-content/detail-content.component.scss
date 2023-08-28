@@ -6,11 +6,15 @@ li {
   line-height: 180%;
 
 }
-.breadcump{
+.header{
       padding-top: 20px;
       width: 700px;
       margin:auto;
+      display: flex;
+      justify-content: space-between;
+      color: gray;
 }
+
 .icon{
       color: rgba(128, 128, 128, 0.537);
       margin-right: 20px;

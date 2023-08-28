@@ -26,7 +26,6 @@ export class SearchContentComponent implements OnInit {
             });
       }
       sreach() {
-            this.articles = [];
             this.getArticlesByTitle();
       }
       onScrollDown() {

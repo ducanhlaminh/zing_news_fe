@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ManageArticlesComponent } from './components/contents/admin/manage-articles/manage-articles.component';
 import { DatePipe } from 'src/app/shared/pipe/date.pipe';
+import { DateVNPipe } from 'src/app/shared/pipe/date-vn.pipe';
 import { ManageCategoriesComponent } from './components/contents/admin/manage-categories/manage-categories.component';
 import { CreateCategoryComponent } from './components/contents/admin/create-category/create-category.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -31,6 +32,7 @@ import { NgxLoadingModule } from 'ngx-loading';
 @NgModule({
       declarations: [
             DatePipe,
+            DateVNPipe,
             CarouselComponent,
             HotArticlesCateComponent,
             BoxesHotArticelsSubCateComponent,

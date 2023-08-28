@@ -210,7 +210,15 @@
 </mat-paginator>
 <div class="layout">
       <div class="layout-header" [ngClass]="{ selected: show.hotCate }">
-            <h2>Xét bài viết nổi bật <small>( Danh mục )</small></h2>
+            <h2>
+                  Xét bài viết nổi bật <small>( Danh mục )</small>
+                  <button mat-icon-button color="primary">
+                        <fa-icon
+                              [icon]="faCircleInfo"
+                              class="icon-close"
+                        ></fa-icon>
+                  </button>
+            </h2>
             <button
                   mat-mini-fab
                   color="primary"
@@ -223,10 +231,7 @@
 
       <div class="layout-content" *ngIf="show.hotCate">
             <div class="form">
-                  <form
-                        [formGroup]="myForm2"
-                        (submit)="createHotCateArticles()"
-                  >
+                  <form [formGroup]="myForm2">
                         <mat-form-field class="example-full-width input">
                               <mat-label>Tên danh mục</mat-label>
                               <mat-select
@@ -267,7 +272,7 @@
 
                         <mat-form-field class="example-full-width input">
                               <mat-label
-                                    >Vị trí muốn đặt trong bộ cục</mat-label
+                                    >Vị trí muốn đặt trong bố cục</mat-label
                               >
                               <input
                                     type="number"
@@ -285,7 +290,7 @@
                               <button
                                     mat-raised-button
                                     color="primary"
-                                    type="submit"
+                                    (click)="createHotCateArticles()"
                               >
                                     Xác nhận
                               </button>
@@ -344,7 +349,15 @@
 </div>
 <div class="layout">
       <div class="layout-header" [ngClass]="{ selected: show.hotMain }">
-            <h2>Xét bài viết nổi bật <small>( Trang chủ )</small></h2>
+            <h2>
+                  Xét bài viết nổi bật <small>( Trang chủ )</small>
+                  <button mat-icon-button color="primary">
+                        <fa-icon
+                              [icon]="faCircleInfo"
+                              class="icon-close"
+                        ></fa-icon>
+                  </button>
+            </h2>
             <button
                   mat-mini-fab
                   color="primary"

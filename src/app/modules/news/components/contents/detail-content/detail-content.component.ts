@@ -12,6 +12,7 @@ export class DetailContentComponent implements OnInit {
       relateArticles: any = [];
       slug_crc: any;
       page = 1;
+      date: any;
       categories: any = [];
       faChevronRight = faChevronRight;
 
@@ -43,11 +44,13 @@ export class DetailContentComponent implements OnInit {
       getContentArticle(slug: any, slug_crc: any) {
             this.NewsService.getDetail(slug, slug_crc).subscribe(
                   (data: any) => {
+                        if (data.message) {
+                              this.Router.navigateByUrl('/trang-chu');
+                        }
                         this.contentTag.nativeElement.innerHTML =
                               data.article.content;
                         this.categories = data.category;
-                        console.log(this.categories);
-
+                        this.date = data.article.createdAt;
                         this.getRelateArticles(
                               this.categories[this.categories.length - 1]
                                     .category.slug_crc
@@ -57,6 +60,8 @@ export class DetailContentComponent implements OnInit {
       }
       onScrollDown() {
             if (this.page < 10) {
+                  console.log(2);
+
                   ++this.page;
                   this.getRelateArticles(
                         this.categories[this.categories.length - 1].category

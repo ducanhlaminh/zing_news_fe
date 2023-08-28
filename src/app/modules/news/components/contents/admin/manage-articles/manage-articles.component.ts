@@ -5,6 +5,7 @@ import {
       faCaretUp,
       faXmark,
       faEdit,
+      faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons';
 import { NewsService } from 'src/app/modules/news/services/news.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,6 +14,7 @@ import { CategoryService } from 'src/app/modules/news/services/category.service'
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditArticleComponent } from '../../dialog-edit-article/dialog-edit-article.component';
 import { ToastrService } from 'ngx-toastr';
+
 declare const tinymce: any;
 
 @Component({
@@ -26,6 +28,7 @@ export class ManageArticlesComponent implements OnInit {
       faCaretUp = faCaretUp;
       faXmark = faXmark;
       faEdit = faEdit;
+      faCircleInfo = faCircleInfo;
 
       articles: any = [];
       listArticles: any = [];
@@ -76,16 +79,16 @@ export class ManageArticlesComponent implements OnInit {
       }
       deleteArticle(id: any) {
             this.loading = true;
-            this.NewService.deleteArticle(id).subscribe(() => {
-                  this.getArticles(), this.showToart(true);
+            this.NewService.deleteArticle(id).subscribe((data: any) => {
+                  this.getArticles(), this.showToart(true, data.message);
                   this.loading = false;
             });
       }
-      showToart(status: boolean) {
+      showToart(status: boolean, title: string = '', detail = '') {
             if (status) {
-                  this.toastr.success('thành công');
+                  this.toastr.success(title, detail);
             } else {
-                  this.toastr.error('Vùi long điền đủ các trường cần thiết');
+                  this.toastr.error(title, detail);
             }
       }
       getArticles() {
@@ -258,17 +261,24 @@ export class ManageArticlesComponent implements OnInit {
             );
       }
       createHotCateArticles() {
+            console.log(1);
+
             this.loading = true;
             this.NewService.createArtclesHotCate({
                   article_id: this.myForm2.value.article.article_id,
                   position: this.myForm2.value.position,
                   category_id: this.myForm2.value.category.id,
-            }).subscribe(() => {
+            }).subscribe((data: any) => {
                   this.getArtclesHotCate(this.selectedCate);
                   this.myForm2.patchValue({
                         article: '',
                         position: '',
                   });
+                  this.showToart(
+                        data.status === 1 ? true : false,
+                        data.detail,
+                        data.message
+                  );
                   this.loading = false;
             });
       }
@@ -296,10 +306,15 @@ export class ManageArticlesComponent implements OnInit {
             });
       }
       updateHot() {
+            this.loading = true;
             this.NewService.updateHotMain({
                   id: this.myForm.value.nameArticle.id,
                   position: this.myForm.value.position,
-            }).subscribe(() => {
+            }).subscribe((data: any) => {
+                  console.log(data);
+
+                  this.loading = false;
+                  this.showToart(data.status, data.message);
                   this.getHotMain();
                   this.myForm.patchValue({ nameArticle: '', position: '' });
                   this.update = true;
@@ -307,6 +322,8 @@ export class ManageArticlesComponent implements OnInit {
       }
       updateHotCateArticle() {
             this.NewService.updateArtclesHotCate({
+                  article_id: this.myForm2.value.article.article_id,
+                  category_id: this.myForm2.value.article.category_id,
                   position: this.myForm2.value.position,
             }).subscribe(() => {
                   this.getArtclesHotCate(this.selectedCate);

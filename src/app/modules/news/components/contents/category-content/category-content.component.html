@@ -73,6 +73,11 @@
                   <div
                         class="artcles-view-most-item"
                         *ngFor="let item of articlesViews"
+                        [routerLink]="[
+                              '/bai-viet',
+                              item.new_article.slug,
+                              item.new_article.slug_crc
+                        ]"
                   >
                         <div class="artcles-view-most-item-img">
                               <img

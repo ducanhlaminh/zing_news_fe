@@ -849,19 +849,22 @@
       </article>
 </div> -->
 <div class="tool">
-      <div class="breadcump">
-            <span *ngFor="let item of categories">
-                  <a
-                        [routerLink]="[
-                              '/',
-                              'danh-muc',
-                              item?.category?.slug,
-                              item?.category?.slug_crc
-                        ]"
-                        >{{ item?.category?.name }}</a
-                  >
-                  <fa-icon [icon]="faChevronRight" class="icon"></fa-icon>
-            </span>
+      <div class="header">
+            <div class="breadcump">
+                  <span *ngFor="let item of categories">
+                        <a
+                              [routerLink]="[
+                                    '/',
+                                    'danh-muc',
+                                    item?.category?.slug,
+                                    item?.category?.slug_crc
+                              ]"
+                              >{{ item?.category?.name }}</a
+                        >
+                        <fa-icon [icon]="faChevronRight" class="icon"></fa-icon>
+                  </span>
+            </div>
+            <div class="">{{ date | dateVN }}</div>
       </div>
       <div id="content" #content></div>
 </div>
