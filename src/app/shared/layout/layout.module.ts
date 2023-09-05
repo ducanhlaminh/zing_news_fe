@@ -24,7 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatInputModule } from '@angular/material/input';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
       declarations: [
             HeaderComponent,
@@ -44,6 +44,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
             MatMenuModule,
             MatButtonModule,
             InfiniteScrollModule,
+            MatIconModule,
       ],
       exports: [
             LayoutMainComponent,
