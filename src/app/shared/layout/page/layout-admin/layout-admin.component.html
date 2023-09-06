@@ -72,41 +72,47 @@
                   <mat-icon class="icon">menu</mat-icon>
             </div>
             <div class="container-item">
-                  <div class="item">
-                        <mat-icon class="icon-module">description</mat-icon>
-                        <span class="lable">Bài viết</span>
-                        <mat-icon class="icon-arrow"
-                              >keyboard_arrow_left</mat-icon
-                        >
-                        <div class="container-subItem" *ngIf="true">
-                              <div class="subItem">
-                                    <span class="lable-sub"
-                                          >Tất cả bài viết</span
+                  <ng-container *ngFor="let item of navItem">
+                        <div class="item" (mouseenter)="hover(item)">
+                              <mat-icon class="icon-module">{{
+                                    item.icon
+                              }}</mat-icon>
+                              <span class="lable">{{ item.title }}</span>
+                              <mat-icon class="icon-arrow">{{
+                                    item.opened
+                                          ? "keyboard_arrow_down"
+                                          : "keyboard_arrow_left"
+                              }}</mat-icon>
+                              <div
+                                    class="container-subItem"
+                                    (mouseleave)="item.opened = false"
+                                    *ngIf="item.opened"
+                              >
+                                    <div
+                                          class="subItem"
+                                          *ngFor="let itemSub of item.sub"
+                                          [routerLink]="itemSub.url"
                                     >
-                              </div>
-                              <div class="subItem">
-                                    <span class="lable-sub"
-                                          >Viết bài viết mới</span
-                                    >
-                              </div>
-                              <div class="subItem">
-                                    <span class="lable-sub">Chuyên mục</span>
+                                          <div class="lable-sub">
+                                                {{ itemSub.title }}
+                                          </div>
+                                    </div>
                               </div>
                         </div>
-                  </div>
-                  <div class="itemSub">
-                        <span class="lable">Tất cả bài viết</span>
-                  </div>
-                  <div class="itemSub">
-                        <span class="lable">Viết bài viết mới</span>
-                  </div>
-                  <div class="itemSub">
-                        <span class="lable">Chuyên mục</span>
-                  </div>
+                        <ng-container *ngIf="false">
+                              <div
+                                    class="active itemSub"
+                                    *ngFor="let itemSub of item.sub"
+                                    [routerLink]="itemSub.url"
+                              >
+                                    <div class="lable">{{ itemSub.title }}</div>
+                              </div>
+                        </ng-container>
+                  </ng-container>
             </div>
-            <div class="container-item">
+            <!-- <div class="container-item">
                   <div class="item">
-                        <mat-icon class="icon-module">grid_on</mat-icon>
+                        <fa-icon class="icon-module" [icon]="faTags"></fa-icon>
                         <span class="lable">Trang</span>
                         <mat-icon class="icon-arrow"
                               >keyboard_arrow_left</mat-icon
@@ -126,7 +132,7 @@
             <div class="container-item">
                   <div class="item">
                         <mat-icon class="icon-module">account_circle</mat-icon>
-                        <span class="lable">Trang</span>
+                        <span class="lable">Người dùng</span>
                         <mat-icon class="icon-arrow"
                               >keyboard_arrow_left</mat-icon
                         >
@@ -146,7 +152,7 @@
                               </div>
                         </div>
                   </div>
-            </div>
+            </div> -->
       </div>
       <div class="content">
             <div class="content-header">
@@ -172,7 +178,12 @@
                   </div>
                   <div class="profile">
                         <div class="role">Quản lý</div>
-                        <div class="avatar"></div>
+                        <div class="avatar">
+                              <img
+                                    src="http://0.gravatar.com/avatar/f1c7aca78ca121947888982e3704e7e0?s=45&d=mm&r=g"
+                                    alt=""
+                              />
+                        </div>
                   </div>
             </div>
             <div class="outlet">

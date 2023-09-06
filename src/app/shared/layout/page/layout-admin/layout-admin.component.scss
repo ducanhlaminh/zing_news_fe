@@ -44,18 +44,29 @@
       .navSide{
             width: 220px;
             padding: 0 10px 10px 10px;
-            background: #FEFEFE;
+            background: #f9f9f9;
             position: fixed;
             z-index: 2;
             box-sizing: border-box;
             height: 100%;
             .container-item{
+                  padding-top: 15px;
                   .itemSub{
-                        padding-left: 44px;
                         font-size: 14px;
-                        color: gray;
-                        padding: 10px 0 10px 44px;
+                        margin-left: 44px;
                         font-weight: 600;
+                        height: 30px;
+                        display: flex;
+                        align-items: center;
+                        padding-left: 10px;
+                        margin-bottom: 2px;
+                        cursor: pointer;
+                        &:hover{
+                              background: #0347FF;
+                              color: #fff;
+                                    border-top-left-radius: 5px;
+                                    border-bottom-left-radius: 5px;
+                        }
                   }
                   .item{
                         padding: 10px 0;
@@ -65,7 +76,7 @@
                         gap: 20px;
                         color: gray;
                         position: relative;
-
+                        padding-left: 10px;
                         .lable{
                               font-weight: 600;
                               width: 58%;
@@ -84,11 +95,12 @@
                         }
                         .container-subItem{
                               position: absolute;
-                              left: 220px;
+                              left: 210px;
                               background: #fff;
                               width: 200px;
                               padding: 10px;
                               top:-5px;
+                              border-radius: 5px;
                               .subItem{
                                     padding: 10px 0;
                                     .lable-sub{
@@ -128,14 +140,17 @@
             left: 220px;
             position: relative;
             .content-header{
+                  padding: 0 20px;
                   background: #FEFEFE;
-                  height: 52px;
-                  width: 100%;
-                  position: absolute;
+                  height: 72px;
+                  width: calc(100% - 220px);
+                  position: fixed;
                   top: 0;
                   font-size: 14px;
                   display: flex; align-items: center;
                   justify-content: space-between;
+                  z-index: 10;
+                  box-sizing: border-box;
                   .btn{
                         .btn-quick{
                               background: #0347FF;
@@ -154,19 +169,38 @@
                         }
                   }
                   .profile{
+                        display: flex;
+                        gap: 20px;
+                        align-items: center;
                         .role{
                               border: 1px solid #333;
                               border-radius: 10px;
-                              padding: 10px 30px ;
+                              display: flex;
+                              align-items: center;
+                              font-weight: 600;
+                              width: 100px;
+                              justify-content: center;
+                              height: 30px;
+                        }
+                        .avatar{
+                              img{
+                                    border-radius: 100%;
+                              }
                         }
                   }
             }
             .outlet{
                   position: absolute;
-                  top: 52px;
+                  top: 72px;
                   width: 100%;
                   background: #EFEFEE;
             }
       }
 }
 
+.active{
+      background: #0347FF;
+color: #fff;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+}
