@@ -71,25 +71,110 @@
                   />
                   <mat-icon class="icon">menu</mat-icon>
             </div>
-            <div class="item">
-                  <mat-icon class="icon-module">description</mat-icon>
-                  <span class="lable">Bài viết</span>
-                  <mat-icon class="icon-arrow">keyboard_arrow_left</mat-icon>
-                  <div class="container-subItem">
-                        <div class="subItem">
-                              <span class="lable-sub">Tất cả bài viết</span>
+            <div class="container-item">
+                  <div class="item">
+                        <mat-icon class="icon-module">description</mat-icon>
+                        <span class="lable">Bài viết</span>
+                        <mat-icon class="icon-arrow"
+                              >keyboard_arrow_left</mat-icon
+                        >
+                        <div class="container-subItem" *ngIf="true">
+                              <div class="subItem">
+                                    <span class="lable-sub"
+                                          >Tất cả bài viết</span
+                                    >
+                              </div>
+                              <div class="subItem">
+                                    <span class="lable-sub"
+                                          >Viết bài viết mới</span
+                                    >
+                              </div>
+                              <div class="subItem">
+                                    <span class="lable-sub">Chuyên mục</span>
+                              </div>
                         </div>
-                        <div class="subItem">
-                              <span class="lable-sub">Viết bài viết mới</span>
+                  </div>
+                  <div class="itemSub">
+                        <span class="lable">Tất cả bài viết</span>
+                  </div>
+                  <div class="itemSub">
+                        <span class="lable">Viết bài viết mới</span>
+                  </div>
+                  <div class="itemSub">
+                        <span class="lable">Chuyên mục</span>
+                  </div>
+            </div>
+            <div class="container-item">
+                  <div class="item">
+                        <mat-icon class="icon-module">grid_on</mat-icon>
+                        <span class="lable">Trang</span>
+                        <mat-icon class="icon-arrow"
+                              >keyboard_arrow_left</mat-icon
+                        >
+                        <div class="container-subItem" *ngIf="false">
+                              <div class="subItem">
+                                    <span class="lable-sub">Trang chủ</span>
+                              </div>
+                              <div class="subItem">
+                                    <span class="lable-sub"
+                                          >Trang chuyên mục</span
+                                    >
+                              </div>
                         </div>
-                        <div class="subItem">
-                              <span class="lable-sub">Chuyên mục</span>
+                  </div>
+            </div>
+            <div class="container-item">
+                  <div class="item">
+                        <mat-icon class="icon-module">account_circle</mat-icon>
+                        <span class="lable">Trang</span>
+                        <mat-icon class="icon-arrow"
+                              >keyboard_arrow_left</mat-icon
+                        >
+                        <div class="container-subItem" *ngIf="true">
+                              <div class="subItem">
+                                    <span class="lable-sub"
+                                          >Tất cả người dùng</span
+                                    >
+                              </div>
+                              <div class="subItem">
+                                    <span class="lable-sub"
+                                          >Tạo mới người dùng</span
+                                    >
+                              </div>
+                              <div class="subItem">
+                                    <span class="lable-sub">Hồ sơ</span>
+                              </div>
                         </div>
                   </div>
             </div>
       </div>
       <div class="content">
-            <div class="content-header"></div>
+            <div class="content-header">
+                  <div class="btn">
+                        <button class="btn-quick" [matMenuTriggerFor]="menu">
+                              <mat-icon class="icon">add_to_photos</mat-icon>
+                              <span>Mới</span>
+                        </button>
+                        <mat-menu #menu="matMenu" class="menu">
+                              <button mat-menu-item>
+                                    <mat-icon>dialpad</mat-icon>
+                                    <span>Redial</span>
+                              </button>
+                              <button mat-menu-item disabled>
+                                    <mat-icon>voicemail</mat-icon>
+                                    <span>Check voice mail</span>
+                              </button>
+                              <button mat-menu-item>
+                                    <mat-icon>notifications_off</mat-icon>
+                                    <span>Disable alerts</span>
+                              </button>
+                        </mat-menu>
+                  </div>
+                  <div class="profile">
+                        <div class="role">Quản lý</div>
+                        <div class="avatar"></div>
+                  </div>
+            </div>
             <div class="outlet">
                   <router-outlet></router-outlet>
             </div>

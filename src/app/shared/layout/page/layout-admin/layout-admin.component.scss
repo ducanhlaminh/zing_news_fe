@@ -49,50 +49,60 @@
             z-index: 2;
             box-sizing: border-box;
             height: 100%;
-            .item{
-                  padding: 10px 0;
-                  display: flex;
-                  align-items: center;
-                  font-size: 14px;
-                  gap: 20px;
-                  color: gray;
-                  position: relative;
-                  .lable{
+            .container-item{
+                  .itemSub{
+                        padding-left: 44px;
+                        font-size: 14px;
+                        color: gray;
+                        padding: 10px 0 10px 44px;
                         font-weight: 600;
-                        width: 58%;
                   }
-                  .icon-module{
-                        color: black;
-                        font-size: 20px;
+                  .item{
+                        padding: 10px 0;
                         display: flex;
                         align-items: center;
-                  }
-                  &:hover{
-                        .lable,.icon-module,.icon-arrow{
-                              color: #0347FF;
-                              cursor: pointer;
-                        }
+                        font-size: 14px;
+                        gap: 20px;
+                        color: gray;
+                        position: relative;
 
-                  }
-                  .container-subItem{
-                        position: absolute;
-                        left: 220px;
-                        background: #fff;
-                        width: 200px;
-                        padding: 10px;
-                        top:-5px;
-                        .subItem{
-                              padding: 10px 0;
-                              .lable-sub{
-                                    font-weight: 600;
-                                    &:hover{
-                                          color: #0347FF;
-                                          cursor: pointer;
+                        .lable{
+                              font-weight: 600;
+                              width: 58%;
+                        }
+                        .icon-module{
+                              color: black;
+                              font-size: 20px;
+                              display: flex;
+                              align-items: center;
+                        }
+                        &:hover{
+                              .lable,.icon-module,.icon-arrow{
+                                    color: #0347FF;
+                                    cursor: pointer;
+                              }
+                        }
+                        .container-subItem{
+                              position: absolute;
+                              left: 220px;
+                              background: #fff;
+                              width: 200px;
+                              padding: 10px;
+                              top:-5px;
+                              .subItem{
+                                    padding: 10px 0;
+                                    .lable-sub{
+                                          font-weight: 600;
+                                          &:hover{
+                                                color: #0347FF;
+                                                cursor: pointer;
+                                          }
                                     }
                               }
                         }
                   }
             }
+
             .logo{
                   display: flex;
                   justify-content: space-between;
@@ -116,21 +126,47 @@
       .content{
             width: calc(100% - 220px);
             left: 220px;
-
             position: relative;
             .content-header{
                   background: #FEFEFE;
                   height: 52px;
                   width: 100%;
-                  padding: 10px 0;
                   position: absolute;
                   top: 0;
+                  font-size: 14px;
+                  display: flex; align-items: center;
+                  justify-content: space-between;
+                  .btn{
+                        .btn-quick{
+                              background: #0347FF;
+                              padding: 5px 15px;
+                              border-radius: 5px;
+                              border: 0;
+                              color: #fff;
+                              gap: 5px;
+                              display: flex;
+                              align-items: center;
+                              .icon{
+                                    font-size: 18px;
+                                    display: flex;
+                              align-items: center;
+                              }
+                        }
+                  }
+                  .profile{
+                        .role{
+                              border: 1px solid #333;
+                              border-radius: 10px;
+                              padding: 10px 30px ;
+                        }
+                  }
             }
             .outlet{
                   position: absolute;
-                  top: 60px;
+                  top: 52px;
                   width: 100%;
                   background: #EFEFEE;
             }
       }
 }
+
