@@ -30,6 +30,7 @@ export class ManageArticlesComponent implements OnInit {
       faEdit = faEdit;
       faCircleInfo = faCircleInfo;
 
+      formFilter!: FormGroup;
       articles: any = [];
       listArticles: any = [];
       listHotArticles: any = [];
@@ -43,12 +44,13 @@ export class ManageArticlesComponent implements OnInit {
       selectedCate: any;
       updateHotCate: any = true;
       show = { hotMain: false, hotCate: false };
+      filters: any;
+      selectedStatus = 1;
 
       length = 100;
       pageSize = 10;
       pageIndex = 0;
       loading = false;
-      typefilters = ['', 'DESC', 'ASC'];
       filterCurr: any = {
             id: 0,
             title: 0,
@@ -69,21 +71,18 @@ export class ManageArticlesComponent implements OnInit {
             private toastr: ToastrService
       ) {}
       ngOnInit(): void {
-            this.initForm();
-            this.initForm2();
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
-            this.getArticles();
-            this.getHotMain();
+
             this.getOptionCategories();
-      }
-      deleteArticle(id: any) {
-            this.loading = true;
-            this.NewService.deleteArticle(id).subscribe((data: any) => {
-                  this.getArticles(), this.showToart(true, data.message);
-                  this.loading = false;
+            this.formFilter = this.formBuilder.group({
+                  title: null,
+                  category_id: null,
+                  status: null,
             });
+            this.getArticles();
       }
+
       showToart(status: boolean, title: string = '', detail = '') {
             if (status) {
                   this.toastr.success(title, detail);
@@ -92,18 +91,56 @@ export class ManageArticlesComponent implements OnInit {
             }
       }
       getArticles() {
-            this.queries.page = 1;
-            this.pageIndex = 0;
-            this.NewService.getAllByAd({ ...this.queries }).subscribe(
+            for (var key in this.formFilter.value) {
+                  if (this.formFilter.value[key] === null) {
+                        delete this.formFilter.value[key];
+                  }
+            }
+
+            this.NewService.getAllByAd({
+                  ...this.queries,
+                  ...this.formFilter.value,
+            }).subscribe((data: any) => {
+                  this.articles = data.rows;
+                  this.articles.map((article: any) => {
+                        article.selected = false;
+                        article.edit = false;
+                  });
+                  this.length = data.count;
+            });
+      }
+      deleteAction() {
+            this.loading = true;
+            let listArticles: any[] = [];
+            this.articles.map((article: any) => {
+                  if (article.selected === true) {
+                        listArticles.push(article.id);
+                  }
+            });
+            this.NewService.deleteArticle(listArticles).subscribe(
                   (data: any) => {
-                        this.articles = data.rows;
-                        this.length = data.count;
-                        this.listArticles = [...data.rows];
+                        this.getArticles();
+                        this.getArticles(), this.showToart(true, data.message);
+                        this.loading = false;
+                  }
+            );
+      }
+      deleteItem(item: any) {
+            this.loading = true;
+            let listArticles: any[] = [];
+            listArticles.push(item.id);
+            this.NewService.deleteArticle(listArticles).subscribe(
+                  (data: any) => {
+                        this.getArticles();
+                        this.getArticles(), this.showToart(true, data.message);
+                        this.loading = false;
                   }
             );
       }
       getOptionCategories() {
-            this.CategoryService.categories$.subscribe((categories) => {
+            this.CategoryService.categoriesForAd$.subscribe((categories) => {
+                  console.log(categories);
+
                   const tempArray = categories.map((item: any) => [
                         item,
                         ...item.childCategories,
@@ -112,81 +149,7 @@ export class ManageArticlesComponent implements OnInit {
                   this.optionCategories = arrayB;
             });
       }
-      initForm() {
-            this.myForm = this.formBuilder.group({
-                  nameArticle: ['', Validators.required],
-                  position: ['', Validators.required],
-            });
-            this.myForm
-                  .get('nameArticle')
-                  ?.valueChanges.pipe(
-                        debounceTime(500),
-                        switchMap((value) =>
-                              this.NewService.getArticlesByTitle(
-                                    '',
-                                    value || ''
-                              )
-                        )
-                  )
-                  .subscribe((data: any) => (this.option = data.data.rows));
-      }
-      initForm2() {
-            this.myForm2 = this.formBuilder.group({
-                  article: [''],
-                  category: [''],
-                  position: [''],
-            });
-            this.myForm2
-                  .get('article')
-                  ?.valueChanges.pipe(
-                        debounceTime(500),
-                        switchMap((value) =>
-                              this.NewService.getArticlesByTitle(
-                                    this.selectedCate.id,
-                                    value || ''
-                              )
-                        )
-                  )
-                  .subscribe((data: any) => {
-                        this.option2 = data;
-                  });
-      }
-      unPublishedArticle(id: any) {
-            this.loading = true;
-            this.NewService.updateArticle({ status: 0 }, id).subscribe(() => {
-                  this.getArticles();
-                  this.showToart(true);
-                  this.loading = false;
-            });
-      }
-      publishedArticle(id: any) {
-            this.NewService.updateArticle({ status: 1 }, id).subscribe(() => {
-                  this.getArticles();
-                  this.showToart(true);
-                  this.loading = false;
-            });
-      }
-      createHotArticle() {
-            this.loading = true;
-            this.NewService.createHotMain({
-                  id: this.myForm.value.nameArticle.id,
-                  position: this.myForm.value.position,
-            }).subscribe(() => {
-                  this.getHotMain();
-                  this.loading = false;
-                  this.myForm.patchValue({ nameArticle: '', position: '' });
-            });
-      }
-      onChangeCate(e: any) {
-            this.selectedCate = e.value;
-            e.value && this.getArtclesHotCate(this.selectedCate);
-      }
-      getOptionText(option: any) {
-            return option.title;
-      }
-      getOption2Text(option: any) {
-            return option.new_article?.title;
-      }
+
       handlePageEvent(e: any) {
             this.length = e.length;
             this.pageSize = e.pageSize;
@@ -201,87 +164,7 @@ export class ManageArticlesComponent implements OnInit {
                   }
             );
       }
-      filterFn(type: any) {
-            ++this.filterCurr[type];
-            this.order = [];
-            for (let key in this.filterCurr) {
-                  if (
-                        this.filterCurr.hasOwnProperty(key) &&
-                        this.filterCurr[key]
-                  ) {
-                        this.order = [
-                              [key, this.typefilters[this.filterCurr[type]]],
-                        ];
-                  }
-            }
-            if (this.filterCurr[type] > 2) {
-                  this.filterCurr[type] = 0;
-                  this.order = [];
-                  console.log(this.order);
 
-                  // this.order.filter((item: any) => (item[0] = type));
-            }
-            if (this.order.length > 0) {
-                  this.queries.order = JSON.stringify(this.order);
-            } else {
-                  delete this.queries.order;
-            }
-
-            this.queries.page = this.pageIndex + 1;
-
-            this.NewService.getAllByAd({ ...this.queries }).subscribe(
-                  (data: any) => {
-                        this.articles = data.rows;
-                        this.length = data.count;
-                  }
-            );
-      }
-      deleteHotMain(id: number, position: number): void {
-            this.loading = true;
-            this.NewService.deleteHotMain({ id, position }).subscribe(() => {
-                  this.getHotMain();
-                  this.loading = false;
-            });
-      }
-      deleteHotCate(item: any): void {
-            this.loading = true;
-            this.NewService.deleteHotCate({
-                  article_id: item.article_id,
-                  position: item.position,
-                  category_id: item.category_id,
-            }).subscribe(() => {
-                  this.getArtclesHotCate(this.selectedCate);
-                  this.loading = false;
-            });
-      }
-      getArtclesHotCate(e: any) {
-            this.NewService.getartclesHotCate(e.slug_crc).subscribe(
-                  (data: any) =>
-                        (this.listHotCateArticles = data.hotArticlesCate)
-            );
-      }
-      createHotCateArticles() {
-            console.log(1);
-
-            this.loading = true;
-            this.NewService.createArtclesHotCate({
-                  article_id: this.myForm2.value.article.article_id,
-                  position: this.myForm2.value.position,
-                  category_id: this.myForm2.value.category.id,
-            }).subscribe((data: any) => {
-                  this.getArtclesHotCate(this.selectedCate);
-                  this.myForm2.patchValue({
-                        article: '',
-                        position: '',
-                  });
-                  this.showToart(
-                        data.status === 1 ? true : false,
-                        data.detail,
-                        data.message
-                  );
-                  this.loading = false;
-            });
-      }
       getHotMain() {
             this.NewService.getHotMain().subscribe((data: any) => {
                   (this.listHotArticles = data),
@@ -289,56 +172,7 @@ export class ManageArticlesComponent implements OnInit {
                               data.hot_news.hot_categories);
             });
       }
-      updateItem(item: any) {
-            this.update = false;
 
-            this.myForm?.setValue({
-                  nameArticle: item.new_article,
-                  position: item.position,
-            });
-      }
-      updateItem2(item: any) {
-            this.updateHotCate = false;
-
-            this.myForm2?.patchValue({
-                  article: item,
-                  position: item.position,
-            });
-      }
-      updateHot() {
-            this.loading = true;
-            this.NewService.updateHotMain({
-                  id: this.myForm.value.nameArticle.id,
-                  position: this.myForm.value.position,
-            }).subscribe((data: any) => {
-                  console.log(data);
-
-                  this.loading = false;
-                  this.showToart(data.status, data.message);
-                  this.getHotMain();
-                  this.myForm.patchValue({ nameArticle: '', position: '' });
-                  this.update = true;
-            });
-      }
-      updateHotCateArticle() {
-            this.NewService.updateArtclesHotCate({
-                  article_id: this.myForm2.value.article.article_id,
-                  category_id: this.myForm2.value.article.category_id,
-                  position: this.myForm2.value.position,
-            }).subscribe(() => {
-                  this.getArtclesHotCate(this.selectedCate);
-                  this.myForm2.patchValue({ article: '', position: '' });
-                  this.updateHotCate = true;
-            });
-      }
-      cancel() {
-            this.update = true;
-            this.myForm.patchValue({ nameArticle: '', position: '' });
-      }
-      cancel2() {
-            this.updateHotCate = true;
-            this.myForm2.patchValue({ article: '', position: '' });
-      }
       openDialog(data: any): void {
             const dialogRef = this.dialog.open(DialogEditArticleComponent, {
                   width: '1900px',

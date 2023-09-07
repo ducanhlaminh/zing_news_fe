@@ -67,7 +67,11 @@ export class NewsService {
             );
       }
       deleteArticle(id: any) {
-            return this.http.delete(environment.API__ADMIN_ARTICLE + `/${id}`);
+            const params = JSON.stringify(id);
+
+            return this.http.delete(environment.API__ADMIN_ARTICLE, {
+                  params: { id: params },
+            });
       }
       getAllByAd(data: any) {
             return this.http.get(environment.API__ADMIN_ARTICLE, {

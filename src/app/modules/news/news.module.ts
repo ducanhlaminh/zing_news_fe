@@ -29,6 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DialogOverviewComponent } from './components/contents/admin/dialog-overview/dialog-overview.component';
 import { PreviewContentComponent } from './components/contents/admin/preview-content/preview-content.component';
 import { NgxLoadingModule } from 'ngx-loading';
+import { MatBadgeModule } from '@angular/material/badge';
 @NgModule({
       declarations: [
             DatePipe,
@@ -54,6 +55,7 @@ import { NgxLoadingModule } from 'ngx-loading';
             MatSliderModule,
             ImageCropperModule,
             CommonModule,
+            MatBadgeModule,
             NewsRoutingModule,
             LayoutModule,
             SlickCarouselModule,

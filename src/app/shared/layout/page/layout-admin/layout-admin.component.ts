@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
       faPenToSquare,
       faListCheck,
@@ -6,13 +6,18 @@ import {
       faTags,
 } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { CategoryService } from 'src/app/modules/news/services/category.service';
 
 @Component({
       selector: 'app-layout-admin',
       templateUrl: './layout-admin.component.html',
       styleUrls: ['./layout-admin.component.scss'],
 })
-export class LayoutAdminComponent {
+export class LayoutAdminComponent implements OnInit {
+      constructor(private CategoryService: CategoryService) {}
+      ngOnInit(): void {
+            this.CategoryService.getAllCategoriesByAd();
+      }
       showFiller = true;
       faPenSquare = faPenToSquare;
       faListCheck = faListCheck;
