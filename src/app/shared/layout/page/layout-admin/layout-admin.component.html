@@ -162,10 +162,24 @@
                               <span>Mới</span>
                         </button>
                         <mat-menu #menu="matMenu" class="menu">
-                              <button mat-menu-item>
+                              <button
+                                    mat-menu-item
+                                    [routerLink]="[
+                                          '/',
+                                          'admin',
+                                          'tao-bai-viet'
+                                    ]"
+                              >
                                     <span>Bài viết</span>
                               </button>
-                              <button mat-menu-item>
+                              <button
+                                    mat-menu-item
+                                    [routerLink]="[
+                                          '/',
+                                          'admin',
+                                          'quan-ly-danh-muc'
+                                    ]"
+                              >
                                     <span>Chuyên mục</span>
                               </button>
                               <button mat-menu-item>
@@ -175,11 +189,19 @@
                   </div>
                   <div class="profile">
                         <div class="role">Quản lý</div>
-                        <div class="avatar">
+                        <div class="avatar" [matMenuTriggerFor]="profile">
                               <img
                                     src="http://0.gravatar.com/avatar/f1c7aca78ca121947888982e3704e7e0?s=45&d=mm&r=g"
                                     alt=""
                               />
+                              <mat-menu #profile="matMenu" class="profile">
+                                    <button mat-menu-item>
+                                          <span>Đăng xuất</span>
+                                    </button>
+                                    <button mat-menu-item>
+                                          <span>Về trang chủ</span>
+                                    </button>
+                              </mat-menu>
                         </div>
                   </div>
             </div>

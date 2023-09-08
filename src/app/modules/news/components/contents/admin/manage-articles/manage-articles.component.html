@@ -508,12 +508,12 @@
 </ng-template> -->
 <div class="title">
       <h2>Bài viết</h2>
-      <button class="btn-create">
+      <button class="btn-create" [routerLink]="['/', 'admin', 'tao-bai-viet']">
             <mat-icon class="icon">add_to_photos</mat-icon>
             <span>Viết bài viết mới</span>
       </button>
 </div>
-<form [formGroup]="formFilter" class="">
+<form [formGroup]="formFilter">
       <div class="filter">
             <button
                   class="btn-toggle"
@@ -562,8 +562,14 @@
                         </button>
                   </div>
                   <div class="action">
-                        <select name="" id="" formControlName="category_id">
-                              <option value="">Chuyên mục</option>
+                        <select>
+                              <option
+                                    selected="selected"
+                                    value=""
+                                    formControlName="category_id"
+                              >
+                                    Chuyên mục
+                              </option>
                               <option
                                     [value]="item.id"
                                     *ngFor="let item of optionCategories"
@@ -571,6 +577,7 @@
                                     {{ item.name }}
                               </option>
                         </select>
+
                         <button
                               class="btn-action btn-filter"
                               (click)="getArticles()"
@@ -675,6 +682,14 @@
                               <span>{{ item.views }}</span>
                         </td>
                         <td class="item-date-published">
+                              <div>
+                                    {{
+                                          item.status === 1
+                                                ? "Đã xuất bản"
+                                                : "Lần sửa gần nhất"
+                                    }}
+                              </div>
+
                               <span>{{ item | datePipe }}</span>
                         </td>
                   </tr>
