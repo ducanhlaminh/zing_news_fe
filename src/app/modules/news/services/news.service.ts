@@ -60,10 +60,23 @@ export class NewsService {
       createArticle(data: any) {
             return this.http.post(environment.API__ADMIN_ARTICLE, data);
       }
-      updateArticle(data: any, id: any) {
+      updateArticle(data: any = '', id: any) {
+            if (Array.isArray(id)) {
+                  const params = JSON.stringify(id);
+                  return this.http.put(
+                        environment.API__ADMIN_ARTICLE,
+                        {
+                              data,
+                        },
+                        { params: { id } }
+                  );
+            }
             return this.http.put(
-                  environment.API__ADMIN_ARTICLE + `/${id}`,
-                  data
+                  environment.API__ADMIN_ARTICLE,
+                  {
+                        data,
+                  },
+                  { params: { id } }
             );
       }
       deleteArticle(id: any) {

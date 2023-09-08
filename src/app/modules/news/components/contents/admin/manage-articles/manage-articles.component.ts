@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {
       faEllipsisVertical,
       faCaretDown,
@@ -15,14 +15,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogEditArticleComponent } from '../../dialog-edit-article/dialog-edit-article.component';
 import { ToastrService } from 'ngx-toastr';
 
-declare const tinymce: any;
-
 @Component({
       selector: 'app-manage-articles',
       templateUrl: './manage-articles.component.html',
       styleUrls: ['./manage-articles.component.scss'],
 })
 export class ManageArticlesComponent implements OnInit {
+      @ViewChild('checkAll') checkAll!: ElementRef;
+
       faEllipsisVertical = faEllipsisVertical;
       faCaretDown = faCaretDown;
       faCaretUp = faCaretUp;
@@ -31,38 +31,30 @@ export class ManageArticlesComponent implements OnInit {
       faCircleInfo = faCircleInfo;
 
       formFilter!: FormGroup;
+      formEdit!: FormGroup;
       articles: any = [];
-      listArticles: any = [];
-      listHotArticles: any = [];
-      listHotCateArticles: any = [];
-      myForm!: FormGroup;
-      myForm2!: FormGroup;
-      option: any;
-      option2: any;
-      update: boolean = true;
+      selectQuickEdit: any;
       optionCategories: any = [];
-      selectedCate: any;
       updateHotCate: any = true;
-      show = { hotMain: false, hotCate: false };
       filters: any;
       selectedStatus = 1;
+      selectedAction: string = '1';
+      listArticles: any[] = [];
 
       length = 100;
       pageSize = 10;
       pageIndex = 0;
       loading = false;
-      filterCurr: any = {
-            id: 0,
-            title: 0,
-            views: 0,
-            category_id: 0,
-            status: 0,
-            publishAt: 0,
-            slug: 0,
-      };
 
       order: any = [];
       queries: any = {};
+      statusOptions = [
+            {
+                  name: 'Xuất bản',
+                  status: 1,
+            },
+            { name: 'Bản nháp', status: 0 },
+      ];
       constructor(
             private NewService: NewsService,
             private CategoryService: CategoryService,
@@ -77,12 +69,19 @@ export class ManageArticlesComponent implements OnInit {
             this.getOptionCategories();
             this.formFilter = this.formBuilder.group({
                   title: null,
-                  category_id: null,
+                  category_id: '',
                   status: null,
             });
             this.getArticles();
       }
-
+      changeSelected() {
+            this.listArticles = [];
+            this.articles.map((article: any) => {
+                  if (article.selected === true) {
+                        this.listArticles.push(article.id);
+                  }
+            });
+      }
       showToart(status: boolean, title: string = '', detail = '') {
             if (status) {
                   this.toastr.success(title, detail);
@@ -91,6 +90,8 @@ export class ManageArticlesComponent implements OnInit {
             }
       }
       getArticles() {
+            this.pageIndex = 0;
+            this.queries.page = this.pageIndex + 1;
             for (var key in this.formFilter.value) {
                   if (this.formFilter.value[key] === null) {
                         delete this.formFilter.value[key];
@@ -109,21 +110,43 @@ export class ManageArticlesComponent implements OnInit {
                   this.length = data.count;
             });
       }
-      deleteAction() {
-            this.loading = true;
-            let listArticles: any[] = [];
+      checkAllFn(event: any): void {
+            this.listArticles = [];
             this.articles.map((article: any) => {
-                  if (article.selected === true) {
-                        listArticles.push(article.id);
-                  }
+                  article.selected = event.target.checked;
+                  this.listArticles.push(article.id);
             });
-            this.NewService.deleteArticle(listArticles).subscribe(
-                  (data: any) => {
+      }
+      actionFn(value: any) {
+            this.loading = true;
+
+            if (value === '2') {
+                  this.NewService.deleteArticle(this.listArticles).subscribe(
+                        (data: any) => {
+                              this.getArticles();
+                              this.getArticles(),
+                                    this.showToart(true, data.message);
+                              this.loading = false;
+                              this.listArticles = [];
+                        }
+                  );
+            } else if (value === '3' || value === '4') {
+                  this.loading = true;
+                  let status = 1;
+                  if (value === '4') {
+                        status = 0;
+                  }
+                  this.NewService.updateArticle(
+                        { status },
+                        this.listArticles
+                  ).subscribe((data: any) => {
                         this.getArticles();
                         this.getArticles(), this.showToart(true, data.message);
                         this.loading = false;
-                  }
-            );
+                        this.listArticles = [];
+                        this.checkAll.nativeElement.checked = false;
+                  });
+            }
       }
       deleteItem(item: any) {
             this.loading = true;
@@ -139,17 +162,27 @@ export class ManageArticlesComponent implements OnInit {
       }
       getOptionCategories() {
             this.CategoryService.categoriesForAd$.subscribe((categories) => {
-                  console.log(categories);
-
-                  const tempArray = categories.map((item: any) => [
-                        item,
-                        ...item.childCategories,
-                  ]);
+                  const tempArray = categories.map((item: any) => {
+                        const child = item.childCategories;
+                        delete item.childCategories;
+                        return [item, ...child];
+                  });
                   const arrayB = tempArray.flat();
                   this.optionCategories = arrayB;
             });
       }
-
+      updateArticles(item: any) {
+            this.loading = true;
+            let listArticles: any[] = [];
+            listArticles.push(item.id);
+            this.NewService.updateArticle(null, listArticles).subscribe(
+                  (data: any) => {
+                        this.getArticles();
+                        this.getArticles(), this.showToart(true, data.message);
+                        this.loading = false;
+                  }
+            );
+      }
       handlePageEvent(e: any) {
             this.length = e.length;
             this.pageSize = e.pageSize;
@@ -165,14 +198,6 @@ export class ManageArticlesComponent implements OnInit {
             );
       }
 
-      getHotMain() {
-            this.NewService.getHotMain().subscribe((data: any) => {
-                  (this.listHotArticles = data),
-                        (this.listHotCateArticles =
-                              data.hot_news.hot_categories);
-            });
-      }
-
       openDialog(data: any): void {
             const dialogRef = this.dialog.open(DialogEditArticleComponent, {
                   width: '1900px',
@@ -180,5 +205,52 @@ export class ManageArticlesComponent implements OnInit {
                   data,
             });
             dialogRef.afterClosed().subscribe(() => this.getArticles());
+      }
+      close() {
+            this.articles.map((article: any) => {
+                  if ((this.selectQuickEdit = article.id)) {
+                        article.edit = false;
+                  }
+            });
+      }
+      open(item: any) {
+            this.articles.map((article: any) => {
+                  article.edit = false;
+            });
+            item.edit = true;
+            this.selectQuickEdit = item.id;
+            let category;
+
+            if (item.new_articles_categories.length === 1) {
+                  category = item.new_articles_categories[0].category.id;
+            }
+            item.new_articles_categories.map((item: any) => {
+                  if (item.category.parent_id !== null) {
+                        category = item.category.id;
+                  }
+            });
+            this.formEdit = this.formBuilder.group({
+                  title: item.title,
+                  category_id: category,
+                  status: item.status,
+                  slug: item.slug,
+            });
+      }
+      submitUpdate() {
+            this.loading = true;
+            this.NewService.updateArticle(
+                  this.formEdit.value,
+                  this.selectQuickEdit
+            ).subscribe((data: any) => {
+                  this.getArticles();
+                  this.getArticles(), this.showToart(true, data.message);
+                  this.loading = false;
+            });
+      }
+      viewDetail(item: any) {
+            window.open(
+                  `http://localhost:4200/bai-viet/${item.slug}/${item.slug_crc}`,
+                  '_blank'
+            );
       }
 }

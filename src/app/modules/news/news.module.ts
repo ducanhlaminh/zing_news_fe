@@ -30,6 +30,7 @@ import { DialogOverviewComponent } from './components/contents/admin/dialog-over
 import { PreviewContentComponent } from './components/contents/admin/preview-content/preview-content.component';
 import { NgxLoadingModule } from 'ngx-loading';
 import { MatBadgeModule } from '@angular/material/badge';
+import { FormsModule } from '@angular/forms';
 @NgModule({
       declarations: [
             DatePipe,
@@ -52,6 +53,7 @@ import { MatBadgeModule } from '@angular/material/badge';
             PreviewContentComponent,
       ],
       imports: [
+            FormsModule,
             MatSliderModule,
             ImageCropperModule,
             CommonModule,

@@ -31,9 +31,9 @@ export class CategoryService {
                   .subscribe((data: any) => {
                         let categories;
                         categories = data.rows;
-                        categories.map((item: any) => {
-                              item.opened = false;
-                        });
+                        // categories.map((item: any) => {
+                        //       item.opened = false;
+                        // });
 
                         categories.length = data.rows.length;
 
