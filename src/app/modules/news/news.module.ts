@@ -31,6 +31,7 @@ import { PreviewContentComponent } from './components/contents/admin/preview-con
 import { NgxLoadingModule } from 'ngx-loading';
 import { MatBadgeModule } from '@angular/material/badge';
 import { FormsModule } from '@angular/forms';
+import { MatExpansionModule } from '@angular/material/expansion';
 @NgModule({
       declarations: [
             DatePipe,
@@ -53,6 +54,7 @@ import { FormsModule } from '@angular/forms';
             PreviewContentComponent,
       ],
       imports: [
+            MatExpansionModule,
             FormsModule,
             MatSliderModule,
             ImageCropperModule,

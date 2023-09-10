@@ -1,21 +1,35 @@
- td, th {
-      border: 1px solid;
-      text-align: center;
-      min-width: 30px;
-      padding: 5px 0;
-      max-width: 100px;
-    }
-th {
-      background: #9a9a9a69;
-      font-weight: 600;
-      color: rgba(93, 93, 93, 0.759);
-      padding: 15px 0;
 
+tr{
+      background: #efeeee69;
+      border-bottom: 1px solid rgb(208, 207, 207);
 }
-    table {
+td,
+th {
+      text-align: left;
+      min-width: 40px;
+      max-width: 150px;
+      padding: 5px 0;
+}
+
+th {
+      font-weight: 600;
+      background: #fff;
+      padding: 15px 0;
+      justify-content: center;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      color: #232323be;
+}
+td{
+
+      height: 100%;
+}
+
+table {
       width: 100%;
       border-collapse: collapse;
-    }
+
+}
 
     .selected {
       color: black;
@@ -40,7 +54,8 @@ th {
       font-weight: 600;
 }
 .item-stt{
-      cursor: pointer;
+      text-align: center;
+
 }
 .demo-paginator{
       background: rgb(221, 219, 219);
@@ -163,9 +178,7 @@ th {
     a{
       color: black;
     }
-small {
-      color: #f25656;
-}
+
 .empty{
       display: flex;
       align-items: center;
@@ -183,3 +196,152 @@ small {
       }
 }
 
+.container{
+      display: flex;
+      gap: 20px;
+      .create{
+            width: 30%;
+      }
+      .manage-container{
+            width: 70%;
+      }
+}
+.text {
+      color: #9a9a9a;
+      font-size: 12px;
+      line-height: 20px;
+      letter-spacing: 1px;
+}
+input[type="text"]{
+      border-radius: 4px;
+      height: 36px;
+      border: 1px solid #e2e2e2;
+      font-weight: 300;
+      color:#585757;
+      outline: none;
+      width: 70%;
+      padding-left: 10px ;
+}
+select{
+      width: 200px;
+      border-radius: 4px;
+      height: 36px;
+      border: 1px solid #e2e2e2;
+      font-weight: 300;
+      color:#807f7f;
+      outline: none;
+}
+.btn-create {
+      cursor: pointer;
+      background: #48c7fd;
+      padding: 5px 15px;
+      border-radius: 5px;
+      border: 0;
+      color: #fff;
+      gap: 5px;
+      display: flex;
+      align-items: center;
+
+
+}
+.delete-item{
+      color: rgb(189, 29, 1);
+      cursor: pointer;
+}
+.update-item{
+      color: rgb(0, 149, 67); cursor: pointer;
+}
+.edit-quick{
+      background: #fafafa;
+      width: 100%;
+      padding: 20px;
+      .container-edit{
+            display: flex;
+            margin-bottom: 10px;
+            gap:100px;
+            .title-slug,.category-status{
+                  width: 50%;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 10px;
+            }
+
+      }            .btn-update{
+            margin-right: 10px;
+      }
+}
+label{
+      width: 120px;
+      display: inline-block;
+}
+.item-name {
+      width: 50%;
+      padding-right: 10px;
+      .title-status{
+            display: flex;
+            gap: 30px;
+            p{
+                  color: #0347FF !important;
+                  font-weight: 600;
+                  margin: 7px 0;
+                  word-wrap: break-word;
+            }
+
+      }
+
+      small{
+            border-right: 1px solid #333    ;
+            padding:0 5px ;
+      }
+}
+.filter-bottom{
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      .container-action{
+            display: flex;
+            gap: 10px;
+            width: 50%;
+            .action{
+                  display: flex;
+                  gap: 10px;
+                  width: 50%;
+                  .btn-action{
+                        cursor: pointer;
+                        background: transparent;
+                        border-radius: 5px;
+                        font-weight: 600;
+                        color: #0347FF;
+                        gap: 5px;
+                        display: flex;
+                        align-items: center;
+                        border: 1px solid #0347FF;
+                        padding: 0 20px;
+                        width: fit-content;
+                  }
+                  .btn-filter:hover{
+                        background: #48c7fd;
+                        border: 1px solid #48c7fd;
+                        color: #fff;
+            }
+            }
+      }
+
+      .search{
+            display: flex;
+            gap: 10px;
+            width: 50%;
+            justify-content: end;
+            input{
+                  padding-left: 15px;
+                  outline: none;
+                  background: rgba(232, 230, 230, 0.737);
+                  border: 0;
+                  border-radius: 5px;
+                  height: 100%;
+            }
+
+      }
+
+}

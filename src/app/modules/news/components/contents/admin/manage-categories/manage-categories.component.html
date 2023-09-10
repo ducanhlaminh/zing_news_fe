@@ -1,4 +1,4 @@
-<table>
+<!-- <table>
       <tr>
             <th><div class="header-stt"></div></th>
             <th>
@@ -343,4 +343,217 @@
                   </div>
             </div>
       </div>
+</div> -->
+<div class="container">
+      <div class="create">
+            <h3>Thêm chuyên mục</h3>
+            <div class="input-name">
+                  <label for="name " class="text">Tên :</label><br />
+                  <input type="text" name="" value="" id="name" />
+            </div>
+            <p class="text">The name is how it appears on your site.</p>
+            <div class="input-slug">
+                  <label for="slug " class="text">Đường dẫn :</label><br />
+                  <input type="text" name="" value="" id="slug" />
+            </div>
+            <p class="text">
+                  “slug” là đường dẫn thân thiện của tên. Nó thường chỉ bao gồm
+                  kí tự viết thường, số và dấu gạch ngang, không dùng tiếng
+                  Việt.
+            </p>
+            <label for="slug " class="text">Chuyên mục cha :</label><br />
+            <select formControlName="category_id">
+                  <option selected="selected" value="">Chuyên mục</option>
+                  <option [value]="item.id" *ngFor="let item of categorySort">
+                        {{ item.name }}
+                  </option>
+            </select>
+            <p class="text">
+                  Chuyên mục khác với thẻ, bạn có thể sử dụng nhiều cấp chuyên
+                  mục. Ví dụ: Trong chuyên mục nhạc, bạn có chuyên mục con là
+                  nhạc Pop, nhạc Jazz. Việc này hoàn toàn là tùy theo ý bạn.
+            </p>
+            <div class="">
+                  <button class="btn-create">
+                        <span>Tìm bài viết</span>
+                  </button>
+            </div>
+      </div>
+      <div class="manage-container">
+            <div class="filter-bottom">
+                  <div class="container-action">
+                        <div class="action">
+                              <select [(ngModel)]="selectedAction">
+                                    <option value="1">Hành động</option>
+                                    <option value="2">Xóa</option>
+                                    <option value="3">Xuất bản</option>
+                                    <option value="4">Thu hồi</option>
+                              </select>
+                              <button
+                                    class="btn-action btn-filter"
+                                    (click)="actionFn(selectedAction)"
+                                    [disabled]="selectedAction === '1'"
+                              >
+                                    <span>Áp dụng</span>
+                              </button>
+                        </div>
+                  </div>
+
+                  <form [formGroup]="formFilter" class="search">
+                        <input
+                              type="text"
+                              formControlName="title"
+                              placeholder="Tiêu đề bài viết"
+                        />
+                        <button class="btn-create">
+                              <span>Tìm bài viết</span>
+                        </button>
+                  </form>
+            </div>
+            <table>
+                  <tr>
+                        <th class="select-all item-stt">
+                              <input type="checkbox" name="" id="" #checkAll />
+                        </th>
+                        <th>
+                              <div class="header-name">
+                                    <span>Tên chuyên mục</span>
+                              </div>
+                        </th>
+                        <th>
+                              <div class="header-cate">
+                                    <span>Đường dẫn</span>
+                              </div>
+                        </th>
+                        <th>
+                              <div class="header-view select-all">
+                                    <span>Lượt đọc</span>
+                              </div>
+                        </th>
+                  </tr>
+                  <ng-container *ngFor="let item of categories; let i = index">
+                        <ng-container *ngIf="!item.edit; else editQuick">
+                              <tr
+                                    class=""
+                                    [ngClass]="{ selected: item.opened }"
+                              >
+                                    <td class="item-stt item-stt">
+                                          <div class="">
+                                                <input
+                                                      type="checkbox"
+                                                      name=""
+                                                      id=""
+                                                      [(ngModel)]="
+                                                            item.selected
+                                                      "
+                                                />
+                                          </div>
+                                    </td>
+                                    <td class="item-name">
+                                          <div class="title-status">
+                                                <p>{{ item?.name }}</p>
+                                                <div
+                                                      class="pending"
+                                                      *ngIf="item.status === 0"
+                                                >
+                                                      Bản nháp
+                                                </div>
+                                          </div>
+
+                                          <div class="">
+                                                <small
+                                                      class="update-item"
+                                                      (click)="open(item)"
+                                                      >Chỉnh sửa</small
+                                                >
+                                                <small class="delete-item"
+                                                      >Thùng rác</small
+                                                >
+                                                <small>Xem</small>
+                                          </div>
+                                    </td>
+                                    <td class="item-cate">
+                                          <span>{{ item?.slug }}</span>
+                                    </td>
+
+                                    <td class="item-date-published">
+                                          <b>
+                                                {{
+                                                      item.status === 1
+                                                            ? "Đã xuất bản"
+                                                            : "Lần sửa gần nhất"
+                                                }} </b
+                                          ><br />
+
+                                          <span>{{ item | datePipe }}</span>
+                                    </td>
+                              </tr>
+                        </ng-container>
+                  </ng-container>
+            </table>
+            <mat-paginator
+                  #paginator
+                  class="demo-paginator"
+                  aria-label="Select page"
+                  [length]="CategoryService.length"
+                  [pageSize]="pageSize"
+                  [pageIndex]="pageIndex"
+            >
+            </mat-paginator>
+      </div>
 </div>
+<ng-template #editQuick>
+      <tr>
+            <td colspan="7" class="edit-quick">
+                  <form [formGroup]="formEdit">
+                        <h4>SỬA NHANH</h4>
+                        <div class="container-edit">
+                              <div class="title-slug">
+                                    <div class="edit-title">
+                                          <label for="title">Tiêu đề</label>
+                                          <input
+                                                type="text"
+                                                id="title"
+                                                value=""
+                                                formControlName="name"
+                                          />
+                                    </div>
+                                    <div class="edit-slug">
+                                          <label for="slug">Đường dẫn</label>
+                                          <input
+                                                type="text"
+                                                id="slug"
+                                                name=""
+                                                value=""
+                                                formControlName="slug"
+                                          />
+                                    </div>
+                              </div>
+                              <div class="category-status">
+                                    <div class="edit-title">
+                                          <label for="">Chuyên mục</label>
+                                          <select formControlName="category_id">
+                                                <option
+                                                      [value]="item.id"
+                                                      *ngFor="
+                                                            let item of categories
+                                                      "
+                                                >
+                                                      {{ item.name }}
+                                                </option>
+                                          </select>
+                                    </div>
+                              </div>
+                        </div>
+                        <button
+                              mat-raised-button
+                              color="primary"
+                              class="btn-update"
+                        >
+                              Cập nhật
+                        </button>
+                        <button mat-raised-button (click)="close()">Hủy</button>
+                  </form>
+            </td>
+      </tr>
+</ng-template>

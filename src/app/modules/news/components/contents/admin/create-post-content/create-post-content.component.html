@@ -1,4 +1,4 @@
-<div class="content-create-article">
+<!-- <div class="content-create-article">
       <div class="crop">
             <image-cropper> </image-cropper>
       </div>
@@ -99,7 +99,150 @@
             >
             </editor>
       </form>
+</div> -->
+<div class="container">
+      <h3>Thêm bài viết</h3>
+      <div class="title">
+            <input type="text" name="" value="" placeholder="Thêm tiêu đề" />
+      </div>
+      <div class="container-edit">
+            <div class="tool-edit">
+                  <form action="" [formGroup]="formDetail">
+                        <editor
+                              class="editor"
+                              plugins=" fullscreen table emoticons link example lists code media quickbars "
+                              menubar="file edit insert view format table tools help "
+                              [init]="tinyMCEInit"
+                              formControlName="content"
+                              toolbar="myCustomToolbarButton mycustombutton bold italic underline | fontfamily fontsizeinput  | forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist |indent outdent rtl ltr | table link | preivew overview "
+                        >
+                        </editor>
+                  </form>
+            </div>
+            <div class="infor">
+                  <mat-accordion>
+                        <mat-expansion-panel
+                              (opened)="panelOpenState = true"
+                              (closed)="panelOpenState = false"
+                        >
+                              <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                          Chuyên mục
+                                    </mat-panel-title>
+                              </mat-expansion-panel-header>
+                              <div class="container-categories">
+                                    <select>
+                                          <option selected="selected" value="">
+                                                Chưa phân loại
+                                          </option>
+                                          <option
+                                                [value]="item.id"
+                                                *ngFor="
+                                                      let item of optionCategories
+                                                "
+                                          >
+                                                {{ item.name }}
+                                          </option>
+                                    </select>
+                              </div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel
+                              (opened)="panelOpenState = true"
+                              (closed)="panelOpenState = false"
+                        >
+                              <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                          Ảnh đại diện
+                                    </mat-panel-title>
+                              </mat-expansion-panel-header>
+                              <div
+                                    class="import-image"
+                                    (click)="openDialogSetAvatar()"
+                              >
+                                    <p>
+                                          {{
+                                                imgPreview
+                                                      ? "Thay ảnh đại diện"
+                                                      : "Đặt ảnh đại diện"
+                                          }}
+                                    </p>
+                                    <div class="" *ngIf="imgPreview">
+                                          <img
+                                                [src]="imgPreview"
+                                                alt=""
+                                                class="imgPreview"
+                                          />
+                                    </div>
+                              </div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel
+                              (opened)="panelOpenState = true"
+                              (closed)="panelOpenState = false"
+                        >
+                              <mat-expansion-panel-header>
+                                    <mat-panel-title> Đăng </mat-panel-title>
+                              </mat-expansion-panel-header>
+                              <div class="container-post">
+                                    <div class="item-status">
+                                          <div class="status">
+                                                <mat-icon>stars</mat-icon>
+                                                <span>Trạng thái: </span>
+                                                <b>Bản nháp</b
+                                                ><small class="update-item">
+                                                      Chỉnh sửa</small
+                                                >
+                                          </div>
+                                          <div class="container-categories">
+                                                <select>
+                                                      <option
+                                                            selected="selected"
+                                                            value=""
+                                                      >
+                                                            Chưa phân loại
+                                                      </option>
+                                                      <option
+                                                            [value]="item.id"
+                                                            *ngFor="
+                                                                  let item of optionCategories
+                                                            "
+                                                      >
+                                                            {{ item.name }}
+                                                      </option>
+                                                </select>
+                                          </div>
+                                    </div>
+                                    <div class="status">
+                                          <mat-icon>date_range</mat-icon>
+                                          <span>Đăng</span>
+                                          <b> ngay lập tức</b>
+                                    </div>
+                              </div>
+                              <hr />
+                              <button class="btn-create">
+                                    <b>Đăng bài</b>
+                              </button>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel
+                              (opened)="panelOpenState = true"
+                              (closed)="panelOpenState = false"
+                        >
+                              <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                          Đường dẫn
+                                    </mat-panel-title>
+                              </mat-expansion-panel-header>
+                              <input
+                                    type="text"
+                                    name=""
+                                    value=""
+                                    placeholder="vd : duong-dan"
+                              />
+                        </mat-expansion-panel>
+                  </mat-accordion>
+            </div>
+      </div>
 </div>
+
 <ng-template #image>
       <img [src]="imgPreview" alt="" class="imgPreview" />
 </ng-template>

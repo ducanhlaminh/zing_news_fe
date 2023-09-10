@@ -37,6 +37,7 @@ export class CreatePostContentComponent implements OnInit {
       loading: boolean = false;
       formDetail: any;
       categories: any;
+      panelOpenState = false;
       constructor(
             private formBuilder: FormBuilder,
             public CategoryService: CategoryService,
@@ -405,13 +406,8 @@ export class CreatePostContentComponent implements OnInit {
             this.formDetail.patchValue({ categoryId: e.value });
       }
       getOptionCategories() {
-            this.CategoryService.categories$.subscribe((data) => {
-                  const tempArray = data.map((item: any) => [
-                        item,
-                        ...item.childCategories,
-                  ]);
-                  const arrayB = tempArray.flat();
-                  this.optionCategories = arrayB;
+            this.CategoryService.categoriesForAd$.subscribe((categories) => {
+                  this.optionCategories = categories;
             });
       }
 }

@@ -162,13 +162,7 @@ export class ManageArticlesComponent implements OnInit {
       }
       getOptionCategories() {
             this.CategoryService.categoriesForAd$.subscribe((categories) => {
-                  const tempArray = categories.map((item: any) => {
-                        const child = item.childCategories;
-                        delete item.childCategories;
-                        return [item, ...child];
-                  });
-                  const arrayB = tempArray.flat();
-                  this.optionCategories = arrayB;
+                  this.optionCategories = categories;
             });
       }
       updateArticles(item: any) {

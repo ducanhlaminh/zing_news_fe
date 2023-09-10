@@ -29,15 +29,14 @@ export class CategoryService {
             this.http
                   .get(environment.API_CATEGORY_GET_ALL_ADMIN)
                   .subscribe((data: any) => {
-                        let categories;
-                        categories = data.rows;
-                        // categories.map((item: any) => {
-                        //       item.opened = false;
-                        // });
-
-                        categories.length = data.rows.length;
-
-                        this.categoriesForAd$.next(categories);
+                        const tempArray = data.rows.map((item: any) => {
+                              const child = item.childCategories;
+                              delete item.childCategories;
+                              return [item, ...child];
+                        });
+                        const arrayB = tempArray.flat();
+                        arrayB.length = arrayB.length;
+                        this.categoriesForAd$.next(arrayB);
                   });
       }
       getSubCategory(slug_crc: any) {

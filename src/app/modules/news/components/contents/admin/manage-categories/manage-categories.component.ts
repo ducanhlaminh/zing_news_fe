@@ -20,6 +20,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { data } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
       selector: 'app-manage-categories',
@@ -49,27 +50,40 @@ export class ManageCategoriesComponent {
             publishAt: 0,
             slug: 0,
       };
+      formFilter!: FormGroup;
+      selectedAction: string = '1';
       changePosition = true;
       order: any = [];
       queries: any = {};
+      formEdit!: FormGroup;
+      selectedItem: any;
       constructor(
             public CategoryService: CategoryService,
             public dialog: MatDialog,
-            private toastr: ToastrService
+            private toastr: ToastrService,
+            private formBuilder: FormBuilder
       ) {}
       ngOnInit(): void {
             this.CategoryService.getAllCategoriesByAd();
             this.CategoryService.categoriesForAd$.subscribe((data) => {
-                  this.done = data.filter(
-                        (item: any) => item.position !== null
-                  );
+                  console.log(data);
+
+                  // this.done = data.filter(
+                  //       (item: any) => item.position !== null
+                  // );
                   this.categorySort = data.filter(
                         (item: any) => item.position === null
                   );
+                  data.map((item: any) => (item.edit = false));
                   this.categories = data;
             });
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
+      }
+      actionFn(value: any) {
+            if (value === '2') {
+            } else if (value === '3' || value === '4') {
+            }
       }
       drop(event: CdkDragDrop<string[]>) {
             this.changePosition = false;
@@ -209,5 +223,22 @@ export class ManageCategoriesComponent {
             //       (item: any) => item.position !== null
             // );
             this.CategoryService.getAllCategories();
+      }
+      close() {
+            this.categories.map((item: any) => {
+                  if (item.id === this.selectedItem) {
+                        item.edit = false;
+                  }
+            });
+      }
+      open(item: any) {
+            item.edit = true;
+            this.selectedItem = item.id;
+            this.formEdit = this.formBuilder.group({
+                  name: item.name,
+                  status: item.status,
+                  slug: item.slug,
+                  category_id: item.id,
+            });
       }
 }
