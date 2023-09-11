@@ -345,16 +345,28 @@
       </div>
 </div> -->
 <div class="container">
-      <div class="create">
+      <form [formGroup]="formCreate" class="create">
             <h3>Thêm chuyên mục</h3>
             <div class="input-name">
                   <label for="name " class="text">Tên :</label><br />
-                  <input type="text" name="" value="" id="name" />
+                  <input
+                        type="text"
+                        name=""
+                        value=""
+                        id="name"
+                        formControlName="name"
+                  />
             </div>
             <p class="text">The name is how it appears on your site.</p>
             <div class="input-slug">
                   <label for="slug " class="text">Đường dẫn :</label><br />
-                  <input type="text" name="" value="" id="slug" />
+                  <input
+                        type="text"
+                        name=""
+                        value=""
+                        id="slug"
+                        formControlName="slug"
+                  />
             </div>
             <p class="text">
                   “slug” là đường dẫn thân thiện của tên. Nó thường chỉ bao gồm
@@ -362,7 +374,7 @@
                   Việt.
             </p>
             <label for="slug " class="text">Chuyên mục cha :</label><br />
-            <select formControlName="category_id">
+            <select formControlName="category_id" formControlName="parent_id">
                   <option selected="selected" value="">Chuyên mục</option>
                   <option [value]="item.id" *ngFor="let item of categorySort">
                         {{ item.name }}
@@ -374,11 +386,11 @@
                   nhạc Pop, nhạc Jazz. Việc này hoàn toàn là tùy theo ý bạn.
             </p>
             <div class="">
-                  <button class="btn-create">
-                        <span>Tìm bài viết</span>
+                  <button class="btn-create" (click)="submitCreate()">
+                        <span>Tạo chuyên mục</span>
                   </button>
             </div>
-      </div>
+      </form>
       <div class="manage-container">
             <div class="filter-bottom">
                   <div class="container-action">
@@ -402,32 +414,40 @@
                   <form [formGroup]="formFilter" class="search">
                         <input
                               type="text"
-                              formControlName="title"
-                              placeholder="Tiêu đề bài viết"
+                              formControlName="name"
+                              placeholder="Tên chuyên mục"
                         />
-                        <button class="btn-create">
-                              <span>Tìm bài viết</span>
+                        <button class="btn-create" (click)="getCategories()">
+                              <span>Tìm</span>
                         </button>
                   </form>
             </div>
             <table>
                   <tr>
                         <th class="select-all item-stt">
-                              <input type="checkbox" name="" id="" #checkAll />
+                              <input
+                                    type="checkbox"
+                                    name=""
+                                    id=""
+                                    #checkAll
+                                    (change)="checkAllFn($event)"
+                              />
                         </th>
                         <th>
                               <div class="header-name">
                                     <span>Tên chuyên mục</span>
+                                    <fa-icon [icon]="faSort"></fa-icon>
                               </div>
                         </th>
                         <th>
                               <div class="header-cate">
                                     <span>Đường dẫn</span>
+                                    <fa-icon [icon]="faSort"></fa-icon>
                               </div>
                         </th>
                         <th>
                               <div class="header-view select-all">
-                                    <span>Lượt đọc</span>
+                                    <span>Thời gian</span>
                               </div>
                         </th>
                   </tr>
@@ -445,6 +465,9 @@
                                                       id=""
                                                       [(ngModel)]="
                                                             item.selected
+                                                      "
+                                                      (ngModelChange)="
+                                                            changeSelected()
                                                       "
                                                 />
                                           </div>
@@ -466,8 +489,10 @@
                                                       (click)="open(item)"
                                                       >Chỉnh sửa</small
                                                 >
-                                                <small class="delete-item"
-                                                      >Thùng rác</small
+                                                <small
+                                                      class="delete-item"
+                                                      (click)="deleteCate(item)"
+                                                      >Xóa</small
                                                 >
                                                 <small>Xem</small>
                                           </div>
@@ -495,9 +520,10 @@
                   #paginator
                   class="demo-paginator"
                   aria-label="Select page"
-                  [length]="CategoryService.length"
+                  [length]="length"
                   [pageSize]="pageSize"
                   [pageIndex]="pageIndex"
+                  (page)="handlePageEvent($event)"
             >
             </mat-paginator>
       </div>
@@ -530,13 +556,42 @@
                                     </div>
                               </div>
                               <div class="category-status">
-                                    <div class="edit-title">
-                                          <label for="">Chuyên mục</label>
+                                    <div
+                                          class="edit-title"
+                                          *ngIf="
+                                                selectedItem?.parent_id !== null
+                                          "
+                                    >
+                                          <label for="">Chuyên mục cha</label>
                                           <select formControlName="category_id">
                                                 <option
                                                       [value]="item.id"
                                                       *ngFor="
                                                             let item of categories
+                                                      "
+                                                >
+                                                      {{ item.name }}
+                                                </option>
+                                          </select>
+                                    </div>
+                                    <div class="edit-slug">
+                                          <label for="">Trạng thái</label>
+
+                                          <select
+                                                name=""
+                                                id=""
+                                                formControlName="status"
+                                          >
+                                                <option
+                                                      selected="selected"
+                                                      value=""
+                                                >
+                                                      Chuyên mục
+                                                </option>
+                                                <option
+                                                      [value]="item.status"
+                                                      *ngFor="
+                                                            let item of statusOptions
                                                       "
                                                 >
                                                       {{ item.name }}

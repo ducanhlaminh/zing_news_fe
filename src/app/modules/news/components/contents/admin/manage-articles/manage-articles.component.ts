@@ -6,6 +6,7 @@ import {
       faXmark,
       faEdit,
       faCircleInfo,
+      faSort,
 } from '@fortawesome/free-solid-svg-icons';
 import { NewsService } from 'src/app/modules/news/services/news.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -29,6 +30,7 @@ export class ManageArticlesComponent implements OnInit {
       faXmark = faXmark;
       faEdit = faEdit;
       faCircleInfo = faCircleInfo;
+      faSort = faSort;
 
       formFilter!: FormGroup;
       formEdit!: FormGroup;
@@ -65,7 +67,7 @@ export class ManageArticlesComponent implements OnInit {
       ngOnInit(): void {
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
-
+            this.CategoryService.getAllCategoriesByAd({});
             this.getOptionCategories();
             this.formFilter = this.formBuilder.group({
                   title: null,
@@ -161,8 +163,8 @@ export class ManageArticlesComponent implements OnInit {
             );
       }
       getOptionCategories() {
-            this.CategoryService.categoriesForAd$.subscribe((categories) => {
-                  this.optionCategories = categories;
+            this.CategoryService.categoriesForAd$.subscribe((data) => {
+                  this.optionCategories = data.categories;
             });
       }
       updateArticles(item: any) {

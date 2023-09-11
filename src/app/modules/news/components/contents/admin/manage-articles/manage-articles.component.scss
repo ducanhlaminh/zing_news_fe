@@ -332,3 +332,7 @@ label{
       width: 120px;
       display: inline-block;
 }
+.header-name,.header-cate,.header-view{
+      display: flex; align-items: center;
+      gap: 10px;
+}

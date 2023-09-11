@@ -627,6 +627,7 @@
             <th>
                   <div class="header-name">
                         <span>Tên bài viết</span>
+                        <fa-icon [icon]="faSort"></fa-icon>
                   </div>
             </th>
             <th>
@@ -640,8 +641,9 @@
                   </div>
             </th>
             <th>
-                  <div class="header-view select-all">
+                  <div class="header-view">
                         <span>Lượt đọc</span>
+                        <fa-icon [icon]="faSort"></fa-icon>
                   </div>
             </th>
 
@@ -701,7 +703,7 @@
                                           ?.name
                               }}</span>
                         </td>
-                        <td class="item-view select-all">
+                        <td class="item-view">
                               <span>{{ item.views }}</span>
                         </td>
                         <td class="item-date-published">

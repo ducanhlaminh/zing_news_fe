@@ -9,6 +9,7 @@ export class CategoryService {
       constructor(public http: HttpClient) {}
       categories$ = new BehaviorSubject<any>(null);
       categoriesForAd$ = new BehaviorSubject<any>(null);
+      categoriesParent$ = new BehaviorSubject<any>(null);
       length: any;
       getAllCategories() {
             this.http
@@ -25,18 +26,58 @@ export class CategoryService {
                         this.categories$.next(categories);
                   });
       }
-      getAllCategoriesByAd() {
-            this.http
-                  .get(environment.API_CATEGORY_GET_ALL_ADMIN)
-                  .subscribe((data: any) => {
-                        const tempArray = data.rows.map((item: any) => {
-                              const child = item.childCategories;
-                              delete item.childCategories;
-                              return [item, ...child];
+      getAllCategoriesByAd(data: any) {
+            if (data.page) {
+                  this.http
+                        .get(environment.API_CATEGORY_GET_ALL_ADMIN, {
+                              params: { ...data },
+                        })
+                        .subscribe((data: any) => {
+                              // const tempArray = data.rows.map((item: any) => {
+                              //       const child = item.childCategories;
+                              //       delete item.childCategories;
+                              //       return [item, ...child];
+                              // });
+                              // const arrayB = tempArray.flat();
+                              // arrayB.length = arrayB.length;
+                              this.categoriesForAd$.next({
+                                    categories: data.rows,
+                                    length: data.count,
+                              });
                         });
-                        const arrayB = tempArray.flat();
-                        arrayB.length = arrayB.length;
-                        this.categoriesForAd$.next(arrayB);
+            } else {
+                  this.http
+                        .get(environment.API_CATEGORY_GET_ALL_ADMIN, {})
+                        .subscribe((data: any) => {
+                              // const tempArray = data.rows.map((item: any) => {
+                              //       const child = item.childCategories;
+                              //       delete item.childCategories;
+                              //       return [item, ...child];
+                              // });
+                              // const arrayB = tempArray.flat();
+                              // arrayB.length = arrayB.length;
+                              this.categoriesForAd$.next({
+                                    categories: data.rows,
+                                    length: data.count,
+                              });
+                        });
+            }
+      }
+      getAllCategoriesParent() {
+            this.http
+                  .get(environment.API_CATEGORY_GET_ALL_ADMIN, {})
+                  .subscribe((data: any) => {
+                        // const tempArray = data.rows.map((item: any) => {
+                        //       const child = item.childCategories;
+                        //       delete item.childCategories;
+                        //       return [item, ...child];
+                        // });
+                        // const arrayB = tempArray.flat();
+                        // arrayB.length = arrayB.length;
+                        this.categoriesParent$.next({
+                              categories: data.rows,
+                              length: data.count,
+                        });
                   });
       }
       getSubCategory(slug_crc: any) {
@@ -53,6 +94,9 @@ export class CategoryService {
             return this.http.post(environment.API_CATEGORIES_BY_NAME, data);
       }
       deleteCategory(id: any) {
+            if (!Array.isArray(id)) {
+                  id = [id];
+            }
             return this.http.delete(environment.API_ADMIN_CATEGORY_DELETE, {
                   params: { id },
             });

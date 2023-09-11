@@ -24,7 +24,11 @@ td{
 
       height: 100%;
 }
-
+.header-name,.header-cate,.header-view{
+      display: flex; align-items: center;
+      gap: 10px;
+      cursor: pointer;
+}
 table {
       width: 100%;
       border-collapse: collapse;
@@ -241,8 +245,6 @@ select{
       gap: 5px;
       display: flex;
       align-items: center;
-
-
 }
 .delete-item{
       color: rgb(189, 29, 1);
@@ -306,7 +308,6 @@ label{
             .action{
                   display: flex;
                   gap: 10px;
-                  width: 50%;
                   .btn-action{
                         cursor: pointer;
                         background: transparent;
@@ -318,7 +319,6 @@ label{
                         align-items: center;
                         border: 1px solid #0347FF;
                         padding: 0 20px;
-                        width: fit-content;
                   }
                   .btn-filter:hover{
                         background: #48c7fd;

@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import {
       faEllipsisVertical,
@@ -7,6 +7,7 @@ import {
       faCaretUp,
       faAngleDown,
       faAngleUp,
+      faSort,
 } from '@fortawesome/free-solid-svg-icons';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -20,7 +21,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { data } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
       selector: 'app-manage-categories',
@@ -33,30 +34,37 @@ export class ManageCategoriesComponent {
       faCaretUp = faCaretUp;
       faAngleDown = faAngleDown;
       faAngleUp = faAngleUp;
+      faSort = faSort;
+      @ViewChild('checkAll') checkAll!: ElementRef;
+
       articles: any = [];
       categories: any = [];
       categorySort: any = [];
+      listCategories: any = [];
       done: any = [];
       length = 100;
       pageSize = 10;
       pageIndex = 0;
-      typefilters = ['', 'DESC', 'ASC'];
+      typefilters = [null, 'DESC', 'ASC'];
       filterCurr: any = {
-            id: 0,
-            title: 0,
-            views: 0,
-            category_id: 0,
-            status: 0,
-            publishAt: 0,
+            name: 0,
             slug: 0,
       };
       formFilter!: FormGroup;
+      formCreate!: FormGroup;
       selectedAction: string = '1';
-      changePosition = true;
       order: any = [];
-      queries: any = {};
+      queries: any = { page: 1 };
       formEdit!: FormGroup;
       selectedItem: any;
+      loading = false;
+      statusOptions = [
+            {
+                  name: 'Xuất bản',
+                  status: 1,
+            },
+            { name: 'Bản nháp', status: 0 },
+      ];
       constructor(
             public CategoryService: CategoryService,
             public dialog: MatDialog,
@@ -64,44 +72,103 @@ export class ManageCategoriesComponent {
             private formBuilder: FormBuilder
       ) {}
       ngOnInit(): void {
-            this.CategoryService.getAllCategoriesByAd();
-            this.CategoryService.categoriesForAd$.subscribe((data) => {
-                  console.log(data);
+            this.getCategories();
+            this.CategoryService.getAllCategoriesParent();
 
-                  // this.done = data.filter(
-                  //       (item: any) => item.position !== null
-                  // );
-                  this.categorySort = data.filter(
-                        (item: any) => item.position === null
+            this.CategoryService.categoriesParent$.subscribe((data) => {
+                  this.length = data.length;
+                  this.categorySort = data.categories.filter(
+                        (item: any) => item.parent_id === null
                   );
-                  data.map((item: any) => (item.edit = false));
-                  this.categories = data;
+            });
+            this.CategoryService.categoriesForAd$.subscribe((data) => {
+                  this.length = data.length;
+                  data.categories.map((item: any) => {
+                        item.edit = false;
+                        item.selected = false;
+                  });
+                  this.categories = data.categories;
             });
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
+            this.formCreate = this.formBuilder.group({
+                  name: ['', Validators.required],
+                  slug: ['', Validators.required],
+                  parent_id: [''],
+            });
+            this.formFilter = this.formBuilder.group({
+                  name: [''],
+            });
+      }
+      getCategories() {
+            if (this.formFilter?.value?.name) {
+                  this.pageIndex = 0;
+                  this.queries.page = this.pageIndex + 1;
+                  this.CategoryService.getAllCategoriesByAd({
+                        ...this.queries,
+                        ...this.formFilter?.value,
+                  });
+            } else {
+                  this.CategoryService.getAllCategoriesByAd({
+                        ...this.queries,
+                  });
+            }
+      }
+      checkAllFn(event: any): void {
+            this.listCategories = [];
+            this.categories.map((cate: any) => {
+                  cate.selected = event.target.checked;
+                  this.listCategories.push(cate.id);
+            });
+      }
+      changeSelected() {
+            this.listCategories = [];
+            this.categories.map((cate: any) => {
+                  if (cate.selected === true) {
+                        this.listCategories.push(cate.id);
+                  }
+            });
       }
       actionFn(value: any) {
             if (value === '2') {
-            } else if (value === '3' || value === '4') {
+                  this.CategoryService.deleteCategory(
+                        this.listCategories
+                  ).subscribe(() => {
+                        this.getCategories();
+                  });
+            } else if (value === '3') {
+                  this.CategoryService.updateCategory(
+                        { status: 1 },
+                        this.listCategories
+                  ).subscribe(() => {
+                        this.getCategories();
+                  });
+            } else if (value === '4') {
+                  this.CategoryService.updateCategory(
+                        { status: 0 },
+                        this.listCategories
+                  ).subscribe(() => {
+                        this.getCategories();
+                  });
             }
       }
-      drop(event: CdkDragDrop<string[]>) {
-            this.changePosition = false;
-            if (event.previousContainer === event.container) {
-                  moveItemInArray(
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex
-                  );
-            } else {
-                  transferArrayItem(
-                        event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex
-                  );
-            }
-      }
+      // drop(event: CdkDragDrop<string[]>) {
+      //       this.changePosition = false;
+      //       if (event.previousContainer === event.container) {
+      //             moveItemInArray(
+      //                   event.container.data,
+      //                   event.previousIndex,
+      //                   event.currentIndex
+      //             );
+      //       } else {
+      //             transferArrayItem(
+      //                   event.previousContainer.data,
+      //                   event.container.data,
+      //                   event.previousIndex,
+      //                   event.currentIndex
+      //             );
+      //       }
+      // }
       comfirmCates() {
             this.done.map((item: any, idx: any) => {
                   item.position = idx + 1;
@@ -111,20 +178,13 @@ export class ManageCategoriesComponent {
                   this.showToart(true);
             });
       }
-      // handlePageEvent(e: any) {
-      //       this.CategoryService.length = e.length;
-      //       this.pageSize = e.pageSize;
-      //       this.pageIndex = e.pageIndex;
-      //       if (this.order.length > 0)
-      //             this.queries.order = JSON.stringify(this.order);
-      //       this.queries.page = this.pageIndex + 1;
-      //       this.CategoryService.getAllCategoriesByAd().subscribe(
-      //             (data: any) => {
-      //                   this.CategoryService.categories = data.rows;
-      //                   this.pageIndex = data.count;
-      //             }
-      //       );
-      // }
+      handlePageEvent(e: any) {
+            this.length = e.length;
+            this.pageSize = e.pageSize;
+            this.pageIndex = e.pageIndex;
+            this.queries.page = this.pageIndex + 1;
+            this.getCategories();
+      }
       filterFn(type: any) {
             ++this.filterCurr[type];
             if (this.filterCurr[type] > 2) {
@@ -172,7 +232,6 @@ export class ManageCategoriesComponent {
                   data,
             });
             dialog.afterClosed().subscribe(() => {
-                  this.updateCategory();
                   this.updateCategoryAdmin();
             });
       }
@@ -180,7 +239,6 @@ export class ManageCategoriesComponent {
             this.CategoryService.updateCategory({ status: 1 }, id).subscribe(
                   () => {
                         this.showToart(true);
-                        this.updateCategory();
                         this.updateCategoryAdmin();
                   }
             );
@@ -192,15 +250,10 @@ export class ManageCategoriesComponent {
                   this.toastr.error('Vùi long điền đủ các trường cần thiết');
             }
       }
-      unPublishedCate(id: any) {
-            // console.log(id);
-            this.CategoryService.updateCategory({ status: 0 }, id).subscribe(
-                  () => {
-                        this.updateCategory();
-                        this.updateCategoryAdmin();
-                        this.showToart(true);
-                  }
-            );
+      deleteCate(item: any) {
+            this.CategoryService.deleteCategory(item.id).subscribe(() => {
+                  this.getCategories();
+            });
       }
       updateCategoryAdmin() {
             // this.CategoryService.getAllCategoriesByAd().subscribe(
@@ -215,30 +268,41 @@ export class ManageCategoriesComponent {
             //             );
             //       }
             // );]
-            this.CategoryService.getAllCategoriesByAd();
-      }
-      updateCategory() {
-            // this.CategoryService.getAllCategories();
-            // this.done = this.CategoryService.categories.filter(
-            //       (item: any) => item.position !== null
-            // );
-            this.CategoryService.getAllCategories();
+            this.CategoryService.getAllCategoriesByAd({ ...this.queries });
       }
       close() {
             this.categories.map((item: any) => {
-                  if (item.id === this.selectedItem) {
+                  if (item.id === this.selectedItem.id) {
                         item.edit = false;
                   }
             });
       }
       open(item: any) {
             item.edit = true;
-            this.selectedItem = item.id;
+            this.selectedItem = item;
+            console.log(this.selectedItem);
             this.formEdit = this.formBuilder.group({
                   name: item.name,
                   status: item.status,
                   slug: item.slug,
-                  category_id: item.id,
+                  category_id: item?.parentCategory?.id,
             });
+      }
+      submitCreate() {
+            if (this.formCreate.valid) {
+                  this.loading = true;
+                  let data = this.formCreate.value;
+                  if (this.formCreate.value.parent_id === '') {
+                        delete data.parent_id;
+                  }
+
+                  this.CategoryService.createCategory(data).subscribe(() => {
+                        this.loading = false;
+                        this.showToart(true);
+                        this.getCategories();
+                  });
+            } else {
+                  this.showToart(false);
+            }
       }
 }

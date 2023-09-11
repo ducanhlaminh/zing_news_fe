@@ -37,7 +37,14 @@ export class CreatePostContentComponent implements OnInit {
       loading: boolean = false;
       formDetail: any;
       categories: any;
-      panelOpenState = false;
+      panelOpenState = true;
+      statusOptions = [
+            {
+                  name: 'Xuất bản',
+                  status: 1,
+            },
+            { name: 'Bản nháp', status: 0 },
+      ];
       constructor(
             private formBuilder: FormBuilder,
             public CategoryService: CategoryService,
@@ -406,8 +413,8 @@ export class CreatePostContentComponent implements OnInit {
             this.formDetail.patchValue({ categoryId: e.value });
       }
       getOptionCategories() {
-            this.CategoryService.categoriesForAd$.subscribe((categories) => {
-                  this.optionCategories = categories;
+            this.CategoryService.categoriesForAd$.subscribe((data) => {
+                  this.optionCategories = data.categories;
             });
       }
 }

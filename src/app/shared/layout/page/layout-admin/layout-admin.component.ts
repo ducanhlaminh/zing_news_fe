@@ -16,7 +16,7 @@ import { CategoryService } from 'src/app/modules/news/services/category.service'
 export class LayoutAdminComponent implements OnInit {
       constructor(private CategoryService: CategoryService) {}
       ngOnInit(): void {
-            this.CategoryService.getAllCategoriesByAd();
+            this.CategoryService.getAllCategoriesByAd({});
       }
       showFiller = true;
       faPenSquare = faPenToSquare;
@@ -48,7 +48,7 @@ export class LayoutAdminComponent implements OnInit {
                   ],
             },
             {
-                  title: 'Trang',
+                  title: 'Bố cục',
                   opened: false,
                   icon: 'bookmark',
                   sub: [
@@ -71,11 +71,6 @@ export class LayoutAdminComponent implements OnInit {
                   sub: [
                         {
                               title: 'Tất cả người dùng',
-                              selected: false,
-                              url: 'admin/quan-ly-danh-muc',
-                        },
-                        {
-                              title: 'Hồ sơ người dùng',
                               selected: false,
                               url: 'admin/quan-ly-danh-muc',
                         },

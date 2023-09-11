@@ -25,7 +25,7 @@ export class CreateCategoryComponent implements OnInit {
             });
       }
       ngOnInit(): void {
-            this.getOptionCategories();
+            // this.getOptionCategories();
             this.CategoryService.categoriesForAd$.subscribe(
                   (categories) => (this.categories = categories)
             );
@@ -53,7 +53,7 @@ export class CreateCategoryComponent implements OnInit {
       onChangeCate(e: any) {
             this.formGroup.patchValue({ categoryId: e.value });
       }
-      getOptionCategories() {
-            this.CategoryService.getAllCategoriesByAd();
-      }
+      // getOptionCategories() {
+      //       this.CategoryService.getAllCategoriesByAd();
+      // }
 }

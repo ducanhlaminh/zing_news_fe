@@ -32,6 +32,8 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { MatBadgeModule } from '@angular/material/badge';
 import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
       declarations: [
             DatePipe,
@@ -54,6 +56,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
             PreviewContentComponent,
       ],
       imports: [
+            MatNativeDateModule,
+            MatDatepickerModule,
             MatExpansionModule,
             FormsModule,
             MatSliderModule,
