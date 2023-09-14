@@ -11,6 +11,7 @@ import { PreviewContentComponent } from '../preview-content/preview-content.comp
 import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { ShareService } from 'src/app/shared/service/share.service';
+import { formatDate } from '@angular/common';
 declare const tinymce: any;
 @Component({
       selector: 'app-create-post-content',
@@ -59,6 +60,8 @@ export class CreatePostContentComponent implements OnInit {
                   content: ['', Validators.required],
                   categoryId: ['', Validators.required],
                   avatar: ['', Validators.required],
+                  publishAt: ['', Validators.required],
+                  status: ['', Validators.required],
             });
       }
       openDialog(): void {
@@ -353,48 +356,55 @@ export class CreatePostContentComponent implements OnInit {
             }
       }
       submitFormCreate() {
-            try {
-                  if (this.formDetail.valid) {
-                        this.loading = true;
+            // try {
+            //       if (this.formDetail.valid) {
+            //             this.loading = true;
 
-                        const file = new File(
-                              [this.formDetail.value.avatar.blob],
-                              `123.png`,
-                              {
-                                    type: 'image/png',
-                              }
-                        );
-                        const combinedValues = {
-                              ...this.formDetail.value,
-                              avatar: file,
-                        };
-                        console.log(combinedValues);
+            //             const file = new File(
+            //                   [this.formDetail.value.avatar.blob],
+            //                   `123.png`,
+            //                   {
+            //                         type: 'image/png',
+            //                   }
+            //             );
+            //             const combinedValues = {
+            //                   ...this.formDetail.value,
+            //                   avatar: file,
+            //             };
+            //             console.log(combinedValues);
 
-                        let formData = new FormData();
-                        for (const key in combinedValues) {
-                              formData.append(key, combinedValues[key]);
-                        }
-                        this.NewService.createArticle(formData).subscribe(
-                              (data) => {
-                                    this.loading = false;
-                                    this.toastrService.showToastr(
-                                          `Đã tạo bài viết thành công \n Vui lòng chờ được kiểm duyệt`,
-                                          true
-                                    );
-                              }
-                        );
-                  } else {
-                        this.toastrService.showToastr(
-                              `Vui lòng điền đủ các trường thông tin`,
-                              false
-                        );
-                  }
-            } catch (error) {
-                  this.toastrService.showToastr(
-                        `Tạo bài viết không thành công`,
-                        false
-                  );
-            }
+            //             let formData = new FormData();
+            //             for (const key in combinedValues) {
+            //                   formData.append(key, combinedValues[key]);
+            //             }
+            //             this.NewService.createArticle(formData).subscribe(
+            //                   (data) => {
+            //                         this.loading = false;
+            //                         this.toastrService.showToastr(
+            //                               `Đã tạo bài viết thành công \n Vui lòng chờ được kiểm duyệt`,
+            //                               true
+            //                         );
+            //                   }
+            //             );
+            //       } else {
+            //             this.toastrService.showToastr(
+            //                   `Vui lòng điền đủ các trường thông tin`,
+            //                   false
+            //             );
+            //       }
+            // } catch (error) {
+            //       this.toastrService.showToastr(
+            //             `Tạo bài viết không thành công`,
+            //             false
+            //       );
+            // }
+            const formattedDate = formatDate(
+                  this.formDetail.value.publishAt,
+                  'yyyy-MM-dd',
+                  'en-US'
+            );
+            this.formDetail.patchValue({ publishAt: formattedDate });
+            console.log(this.formDetail.value);
       }
       convertObjectToFormData(obj: any): any {
             let formData = new FormData();

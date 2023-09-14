@@ -169,7 +169,16 @@ input[type="text"]{
       width: 75%;
       padding-left: 10px ;
 }
-
+textarea{
+      border-radius: 4px;
+      height: 36px;
+      border: 1px solid #e2e2e2;
+      font-weight: 300;
+      color:#585757;
+      outline: none;
+      width: 75%;
+      padding-left: 10px ;
+}
 select{
       width: 200px;
       border-radius: 4px;
@@ -237,3 +246,10 @@ mat-form-field{
 .mat-expansion-panel-header-title {
       font-size: 15px;
     }
+.text{
+      width: 75%;
+      color: #9a9a9a;
+      font-size: 12px;
+      line-height: 20px;
+      letter-spacing: 1px;
+}

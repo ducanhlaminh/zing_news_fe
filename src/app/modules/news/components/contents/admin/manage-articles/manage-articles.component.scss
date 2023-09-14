@@ -336,3 +336,31 @@ label{
       display: flex; align-items: center;
       gap: 10px;
 }
+.btn-action{
+      cursor: pointer;
+      background: transparent;
+      border-radius: 5px;
+      font-weight: 600;
+      color: #0347FF;
+      gap: 5px;
+      display: flex;
+      align-items: center;
+      border: 1px solid #0347FF;
+      padding: 0 20px;
+}
+.btn-cancel{
+      cursor: pointer;
+      background: white;
+      border-radius: 5px;
+      font-weight: 600;
+      color: black;
+      gap: 5px;
+      display: flex;
+      align-items: center;
+      border: 1px solid #b8b8b894;
+      padding: 0 20px;
+}
+.container-btn{
+      display: flex;
+      gap:10px
+}

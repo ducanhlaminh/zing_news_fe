@@ -100,10 +100,30 @@
             </editor>
       </form>
 </div> -->
-<div class="container">
+<form class="container" [formGroup]="formDetail">
       <h3>Thêm bài viết</h3>
       <div class="title">
-            <input type="text" name="" value="" placeholder="Thêm tiêu đề" />
+            <input
+                  type="text"
+                  name=""
+                  value=""
+                  placeholder="Thêm tiêu đề"
+                  formControlName="title"
+            />
+      </div>
+      <div class="title">
+            <input
+                  type="text"
+                  name=""
+                  value=""
+                  placeholder="Sapo bài viết"
+                  formControlName="sapo"
+            />
+            <p class="text">
+                  Chuyên mục khác với thẻ, bạn có thể sử dụng nhiều cấp chuyên
+                  mục. Ví dụ: Trong chuyên mục nhạc, bạn có chuyên mục con là
+                  nhạc Pop, nhạc Jazz. Việc này hoàn toàn là tùy theo ý bạn.
+            </p>
       </div>
       <div class="container-edit">
             <div class="tool-edit">
@@ -133,11 +153,7 @@
                                     <div class="item-status">
                                           <div class="status">
                                                 <mat-icon>stars</mat-icon>
-                                                <span>Trạng thái: </span>
-                                                <b>Bản nháp</b
-                                                ><small class="update-item">
-                                                      Chỉnh sửa</small
-                                                >
+                                                <b>Trạng thái bài viết </b>
                                           </div>
                                           <div class="container-categories">
                                                 <mat-form-field>
@@ -145,7 +161,9 @@
                                                             >Select an
                                                             option</mat-label
                                                       >
-                                                      <mat-select>
+                                                      <mat-select
+                                                            formControlName="status"
+                                                      >
                                                             <mat-option
                                                                   *ngFor="
                                                                         let item of statusOptions
@@ -165,8 +183,7 @@
                                     <div class="item-status">
                                           <div class="status">
                                                 <mat-icon>date_range</mat-icon>
-                                                <span>Đăng</span>
-                                                <b> ngay lập tức</b>
+                                                <b>Chọn ngày phát hành</b>
                                           </div>
                                           <div class="container-categories">
                                                 <mat-form-field>
@@ -175,6 +192,7 @@
                                                             ngày</mat-label
                                                       >
                                                       <input
+                                                            formControlName="publishAt"
                                                             matInput
                                                             [matDatepicker]="
                                                                   picker
@@ -191,7 +209,10 @@
                                           </div>
                                     </div>
                               </div>
-                              <button class="btn-create">
+                              <button
+                                    class="btn-create"
+                                    (click)="submitFormCreate()"
+                              >
                                     <b>Đăng bài</b>
                               </button>
                         </mat-expansion-panel>
@@ -205,7 +226,7 @@
                                     </mat-panel-title>
                               </mat-expansion-panel-header>
                               <div class="container-categories">
-                                    <select>
+                                    <select formControlName="categoryId">
                                           <option selected="selected" value="">
                                                 Chưa phân loại
                                           </option>
@@ -264,12 +285,13 @@
                                     name=""
                                     value=""
                                     placeholder="vd : duong-dan"
+                                    formControlName="slug"
                               />
                         </mat-expansion-panel>
                   </mat-accordion>
             </div>
       </div>
-</div>
+</form>
 
 <ng-template #image>
       <img [src]="imgPreview" alt="" class="imgPreview" />

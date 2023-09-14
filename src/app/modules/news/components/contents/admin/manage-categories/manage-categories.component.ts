@@ -227,22 +227,6 @@ export class ManageCategoriesComponent {
             }
             return (this.categories[idx].opened = false);
       }
-      openDialog(data: any) {
-            const dialog = this.dialog.open(DialogComponent, {
-                  data,
-            });
-            dialog.afterClosed().subscribe(() => {
-                  this.updateCategoryAdmin();
-            });
-      }
-      publishedCate(id: any) {
-            this.CategoryService.updateCategory({ status: 1 }, id).subscribe(
-                  () => {
-                        this.showToart(true);
-                        this.updateCategoryAdmin();
-                  }
-            );
-      }
       showToart(status: boolean) {
             if (status) {
                   this.toastr.success('Cập nhật thành công');
@@ -255,21 +239,7 @@ export class ManageCategoriesComponent {
                   this.getCategories();
             });
       }
-      updateCategoryAdmin() {
-            // this.CategoryService.getAllCategoriesByAd().subscribe(
-            //       (data: any) => {
-            //             this.categories = data.rows;
-            //             this.CategoryService.categories.map((item: any) => {
-            //                   item.opened = false;
-            //             });
-            //             this.length = data.rows.length;
-            //             this.categorySort = [...data.rows].filter(
-            //                   (item: any) => item.position === null
-            //             );
-            //       }
-            // );]
-            this.CategoryService.getAllCategoriesByAd({ ...this.queries });
-      }
+
       close() {
             this.categories.map((item: any) => {
                   if (item.id === this.selectedItem.id) {
@@ -285,7 +255,6 @@ export class ManageCategoriesComponent {
                   name: item.name,
                   status: item.status,
                   slug: item.slug,
-                  category_id: item?.parentCategory?.id,
             });
       }
       submitCreate() {
@@ -304,5 +273,13 @@ export class ManageCategoriesComponent {
             } else {
                   this.showToart(false);
             }
+      }
+      updateItem() {
+            this.CategoryService.updateCategory(
+                  this.formEdit.value,
+                  this.selectedItem.id
+            ).subscribe(() => {
+                  this.getCategories();
+            });
       }
 }

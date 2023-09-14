@@ -600,14 +600,14 @@
                                     </div>
                               </div>
                         </div>
-                        <button
-                              mat-raised-button
-                              color="primary"
-                              class="btn-update"
-                        >
-                              Cập nhật
-                        </button>
-                        <button mat-raised-button (click)="close()">Hủy</button>
+                        <div class="container-btn">
+                              <button class="btn-create" (click)="updateItem()">
+                                    Cập nhật
+                              </button>
+                              <button class="btn-cancel" (click)="close()">
+                                    Hủy
+                              </button>
+                        </div>
                   </form>
             </td>
       </tr>
