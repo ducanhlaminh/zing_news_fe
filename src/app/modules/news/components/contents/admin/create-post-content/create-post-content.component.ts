@@ -22,11 +22,10 @@ export class CreatePostContentComponent implements OnInit {
       @ViewChild('uploadFile') uploadFile!: ElementRef;
       @Input('data') data: any;
       faArrowUpFromBracket = faArrowUpFromBracket;
-      dataModel: any;
       faUpload = faUpload;
+
       imgPreview: any;
       formGroup: any;
-      options: any[] = [];
       imageCropper: any;
       editable = false;
       previewImg: any;
@@ -121,36 +120,38 @@ export class CreatePostContentComponent implements OnInit {
                   (image: any) =>
                         image.name === this.tinyMCEInit.nameImgSelected
             );
-            console.log(imageCrop);
-
             const dialogRef = this.dialog.open(DialogCropComponent, {
                   width: '1000px',
-                  height: '500px',
+                  height: '600px',
                   data: {
                         imageCrop,
                         type: 'image',
                   },
             });
-            dialogRef.afterClosed().subscribe((result: any) => {
+            dialogRef.afterClosed().subscribe((data: any) => {
+                  console.log(data);
+
                   const reader = new FileReader();
 
                   reader.onloadend = () => {
                         const base64String = reader.result;
+                        console.log(base64String);
+
                         this.tinyMCEInit.imgSelected.setAttribute(
                               'src',
                               base64String
                         );
                         this.tinyMCEInit.imgSelected.setAttribute(
                               'width',
-                              result.width
+                              data.width
                         );
                         this.tinyMCEInit.imgSelected.setAttribute(
                               'height',
-                              result.height
+                              data.height
                         );
                   };
 
-                  reader.readAsDataURL(result.blob);
+                  reader.readAsDataURL(data);
             });
       };
       openDialogOverview = () => {
@@ -213,8 +214,6 @@ export class CreatePostContentComponent implements OnInit {
                   editor.ui.registry.addButton('cropimage', {
                         icon: 'crop',
                         onAction: (e: any) => {
-                              console.log(e);
-
                               // Mở dialog
                               this.openDialogCrop();
                         },

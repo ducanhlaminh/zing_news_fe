@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from 'src/app/modules/news/services/category.service';
+import { UserService } from 'src/app/modules/news/services/user.service';
 
 @Component({
       selector: 'app-layout-admin',
@@ -14,9 +15,16 @@ import { CategoryService } from 'src/app/modules/news/services/category.service'
       styleUrls: ['./layout-admin.component.scss'],
 })
 export class LayoutAdminComponent implements OnInit {
-      constructor(private CategoryService: CategoryService) {}
+      inforUser: any;
+      constructor(
+            private CategoryService: CategoryService,
+            private UserService: UserService
+      ) {}
       ngOnInit(): void {
             this.CategoryService.getAllCategoriesByAd({});
+            this.UserService.inforUser$.subscribe((data) => {
+                  this.inforUser = data;
+            });
       }
       showFiller = true;
       faPenSquare = faPenToSquare;

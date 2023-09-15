@@ -1,4 +1,10 @@
-import { Component, Inject, ViewChild, ElementRef } from '@angular/core';
+import {
+      Component,
+      Inject,
+      ViewChild,
+      ElementRef,
+      OnInit,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ImageTransform } from 'ngx-image-cropper';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +13,7 @@ import { faImage } from '@fortawesome/free-solid-svg-icons';
       templateUrl: './dialog-crop.component.html',
       styleUrls: ['./dialog-crop.component.scss'],
 })
-export class DialogCropComponent {
+export class DialogCropComponent implements OnInit {
       @ViewChild('uploadFile') uploadFile!: ElementRef;
       imageChangedEvent: any = '';
       croppedImage: any = '';
@@ -15,16 +21,17 @@ export class DialogCropComponent {
       faImage = faImage;
       scale: number = 1;
       transform: ImageTransform = {};
+      imageChanged: any;
       constructor(
-            public dialogRef: MatDialogRef<any>,
+            public dialogRef: MatDialogRef<DialogCropComponent>,
             @Inject(MAT_DIALOG_DATA) public data: any
-      ) {
+      ) {}
+      ngOnInit(): void {
             this.imageChangedEvent = this.data.imageCrop;
       }
       imageCropped(event: any) {
-            console.log(event);
-
-            this.data.srcImg = event;
+            this.imageChanged = event;
+            console.log(this.imageChanged);
       }
 
       uploadImage() {
