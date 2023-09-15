@@ -1,8 +1,10 @@
 <h1 mat-dialog-title>Nhập file ảnh</h1>
 <hr />
 <div class="content">
+      <image-cropper></image-cropper>
       <div class="import-image">
             <div class="crop">
+                  <pre>{{ transform | json }}</pre>
                   <image-cropper
                         [imageFile]="this.data.imageCrop"
                         (imageCropped)="imageCropped($event)"
@@ -31,7 +33,7 @@
             <button
                   mat-raised-button
                   color="primary"
-                  [mat-dialog-close]="imageChanged"
+                  [mat-dialog-close]="data?.srcImg?.objectUrl"
                   cdkFocusInitial
             >
                   Xác nhận

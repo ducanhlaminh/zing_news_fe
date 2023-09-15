@@ -122,36 +122,32 @@ export class CreatePostContentComponent implements OnInit {
             );
             const dialogRef = this.dialog.open(DialogCropComponent, {
                   width: '1000px',
-                  height: '600px',
+                  height: '500px',
                   data: {
                         imageCrop,
                         type: 'image',
                   },
             });
-            dialogRef.afterClosed().subscribe((data: any) => {
-                  console.log(data);
-
+            dialogRef.afterClosed().subscribe((result: any) => {
                   const reader = new FileReader();
 
                   reader.onloadend = () => {
                         const base64String = reader.result;
-                        console.log(base64String);
-
                         this.tinyMCEInit.imgSelected.setAttribute(
                               'src',
                               base64String
                         );
                         this.tinyMCEInit.imgSelected.setAttribute(
                               'width',
-                              data.width
+                              result.width
                         );
                         this.tinyMCEInit.imgSelected.setAttribute(
                               'height',
-                              data.height
+                              result.height
                         );
                   };
 
-                  reader.readAsDataURL(data);
+                  reader.readAsDataURL(result.blob);
             });
       };
       openDialogOverview = () => {
