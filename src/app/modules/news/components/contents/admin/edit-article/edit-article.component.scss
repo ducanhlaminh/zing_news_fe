@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bacasime+Antique&display=swap');
+.card{
+      width: 100%;
+      padding: 20px;
+      background-color: rgb(233, 230, 230);
+      border-radius: 10px;
+      box-sizing: border-box;
+      height: fit-content;
+      .slug{
+            display: flex;
+            height: 80px;
+            .label-slug{
+                  padding-bottom: 30px;
+                  height: fit-content;
+                  align-self: flex-end;
+                  width: 250px;
+                  text-align: center;
+                  font-size: 18px;
+            }
+            .input-slug {
+                  width: calc(100% - 250px);
+                  display: block;
+                  .input{
+                        width: 100%;
+                  }
+            }
+      }
+      .content{
+            height: 300px;
+            width: 100%;
+            padding: 10px 0;
+            display: flex;
+            gap: 30px;
+            .image{
+                  &:hover{
+                        opacity: 0.8;
+                  }
+                  box-sizing: content-box;
+                  width: 300px;
+                  height: 100%;
+                  position: relative;
+                  cursor: pointer;
+
+                  img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 7px;
+
+                  }
+                  .icon-upload{
+                        position: absolute;
+                        top: 50%;
+                        left: 50% ;
+                        font-size: 50px;
+                        transform: translate(-50%,-50%);
+                  }
+                  p{
+                        position: absolute;
+                        top: 65%;
+                        left: 20% ;
+                        width: 100%;
+                        color: rgb(126, 125, 125);
+                  }
+            }
+            .infor{
+                  width: calc(100% - 250px);
+                  font-size: 16px;
+                  .slug{
+                        width: 100%;
+                        .input{
+                              width: 100%;
+                        }
+                  }
+                  .title{
+                        width: 100%;
+                        .input{
+                              width: 100%;
+                        }
+                  }
+                  .sapo{
+                        width: 100%;
+                        .sapo-input{
+                              width: 100%;
+                        }
+                  }
+            }
+
+      }
+
+}
+
+
+
+button {
+      height: 35px;
+      width: 200px;
+}
+
+.content-create-article {
+      padding: 15px;
+      height: 100%;
+      .crop{
+            display: none;
+      }
+}
+
+.formInput {
+      gap: 30px;
+      // margin-bottom: 20px;
+
+      .input {
+            margin-top: 10px;
+            height: 20px;
+            margin-bottom: 90px;
+            width: 400px;
+            display: block;
+      }
+
+      .btnUpload {
+            font-size: 5px;
+      }
+
+
+}
+
+form {
+      .header-editor{
+            height: 70px;
+            background: #c4c3c387;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            padding: 0 30px;
+      }
+      .editor{
+            width: 100%;
+            .tox-tinymce{
+                  border-radius: 0;
+            }
+
+      }
+}
+
+.title{
+      margin: 20px 0;
+}
+.container-edit{
+      display: flex;
+      gap: 30px;
+
+      .tool-edit{
+            flex: auto;
+      }
+      .infor{
+            width: 270px;
+      }
+}
+input[type="text"]{
+      border-radius: 4px;
+      height: 36px;
+      border: 1px solid #e2e2e2;
+      font-weight: 300;
+      color:#585757;
+      outline: none;
+      width: 75%;
+      padding-left: 10px ;
+}
+textarea{
+      border-radius: 4px;
+      height: 36px;
+      border: 1px solid #e2e2e2;
+      font-weight: 300;
+      color:#585757;
+      outline: none;
+      width: 75%;
+      padding-left: 10px ;
+}
+select{
+      width: 200px;
+      border-radius: 4px;
+      height: 50px;
+      border: 1px solid #e2e2e2;
+      color:#807f7f;
+      outline: none;
+      font-size: 16px;
+}
+.btn-create {
+      cursor: pointer;
+      background: #48c7fd;
+      padding: 5px 15px;
+      border-radius: 5px;
+      border: 0;
+      color: #fff;
+      gap: 5px;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      .icon {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+      }
+      &:hover{
+            background: #fff;
+            border: 1px solid #0347FF;
+            color: #0347FF;
+      }
+}
+.update-item{
+      color: #0347FF;
+       cursor: pointer;
+}
+.container-post{
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 15px;
+
+}
+.status{
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 10px;
+}
+.import-image{
+      cursor: pointer;
+      color: #0347FF;
+}
+.imgPreview{
+      width: 100%;
+      border: 1px dotted #333;
+      border-radius: 10px;
+      object-fit: contain;
+}
+.edit-slug{
+      width: 200px;
+}
+mat-form-field{
+      width: 100%;
+}
+.mat-expansion-panel-header-title {
+      font-size: 15px;
+    }
+.text{
+      width: 75%;
+      color: #9a9a9a;
+      font-size: 12px;
+      line-height: 20px;
+      letter-spacing: 1px;
+}

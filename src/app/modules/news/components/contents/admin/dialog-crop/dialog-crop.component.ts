@@ -22,8 +22,6 @@ export class DialogCropComponent {
             this.imageChangedEvent = this.data.imageCrop;
       }
       imageCropped(event: any) {
-            console.log(event);
-
             this.data.srcImg = event;
       }
 

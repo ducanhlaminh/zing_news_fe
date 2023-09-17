@@ -680,7 +680,15 @@
                               </div>
 
                               <div class="">
-                                    <small>Chỉnh sửa</small>
+                                    <small
+                                          [routerLink]="[
+                                                '/admin/',
+                                                'chinh-sua-bai-viet',
+                                                item.slug,
+                                                item.slug_crc
+                                          ]"
+                                          >Chỉnh sửa</small
+                                    >
                                     <small
                                           class="update-item"
                                           (click)="open(item)"

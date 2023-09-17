@@ -13,6 +13,7 @@ import { ManageArticlesComponent } from './components/contents/admin/manage-arti
 import { ManageCategoriesComponent } from './components/contents/admin/manage-categories/manage-categories.component';
 import { CreateCategoryComponent } from './components/contents/admin/create-category/create-category.component';
 import { PreviewContentComponent } from './components/contents/admin/preview-content/preview-content.component';
+import { EditArticleComponent } from './components/contents/admin/edit-article/edit-article.component';
 const routes: Routes = [
       {
             path: '',
@@ -21,6 +22,11 @@ const routes: Routes = [
                   {
                         path: 'admin/tao-bai-viet',
                         component: CreatePostContentComponent,
+                        canActivate: [CheckRoleGuard],
+                  },
+                  {
+                        path: 'admin/chinh-sua-bai-viet/:slug/:slug_crc',
+                        component: EditArticleComponent,
                         canActivate: [CheckRoleGuard],
                   },
                   {

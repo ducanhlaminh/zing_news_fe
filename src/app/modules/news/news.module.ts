@@ -34,6 +34,11 @@ import { FormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {
+      NgxMatDatetimePickerModule,
+      NgxMatTimepickerModule,
+} from '@angular-material-components/datetime-picker';
+import { EditArticleComponent } from './components/contents/admin/edit-article/edit-article.component';
 @NgModule({
       declarations: [
             DatePipe,
@@ -54,8 +59,11 @@ import { MatNativeDateModule } from '@angular/material/core';
             DialogEditArticleComponent,
             DialogOverviewComponent,
             PreviewContentComponent,
+            EditArticleComponent,
       ],
       imports: [
+            NgxMatDatetimePickerModule,
+            NgxMatTimepickerModule,
             MatNativeDateModule,
             MatDatepickerModule,
             MatExpansionModule,

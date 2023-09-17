@@ -12,13 +12,14 @@ import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { ShareService } from 'src/app/shared/service/share.service';
 import { formatDate } from '@angular/common';
+import { ActivatedRoute, Route } from '@angular/router';
 declare const tinymce: any;
+
 @Component({
-      selector: 'app-create-post-content',
-      templateUrl: './create-post-content.component.html',
-      styleUrls: ['./create-post-content.component.scss'],
+      templateUrl: './edit-article.component.html',
+      styleUrls: ['./edit-article.component.scss'],
 })
-export class CreatePostContentComponent implements OnInit {
+export class EditArticleComponent {
       @ViewChild('uploadFile') uploadFile!: ElementRef;
       @Input('data') data: any;
       faArrowUpFromBracket = faArrowUpFromBracket;
@@ -50,7 +51,8 @@ export class CreatePostContentComponent implements OnInit {
             public CategoryService: CategoryService,
             private NewService: NewsService,
             public dialog: MatDialog,
-            private toastrService: ShareService
+            private toastrService: ShareService,
+            private activatedRoute: ActivatedRoute
       ) {
             this.formDetail = this.formBuilder.group({
                   title: ['', Validators.required],
@@ -251,6 +253,24 @@ export class CreatePostContentComponent implements OnInit {
                   this.imgPreview = this.data.avatar;
             }
             this.getOptionCategories();
+            this.activatedRoute.params.subscribe((params: any) => {
+                  const slug = params['slug'];
+                  const slug_crc = params['slug_crc'];
+                  this.NewService.getDetail(slug, slug_crc).subscribe(
+                        (data: any) => {
+                              this.formDetail.patchValue({
+                                    title: data.article.title,
+                                    slug: data.article.slug,
+                                    sapo: data.article.sapo,
+                                    content: data.article.content,
+                                    categoryId: data.category[0]?.category_id,
+                                    avatar: data.article.avatar,
+                                    publishAt: data.article.publishAt,
+                                    status: data.article.status,
+                              });
+                        }
+                  );
+            });
       }
       formats = {
             custom_format1: {
@@ -334,7 +354,7 @@ export class CreatePostContentComponent implements OnInit {
                               formData.append(key, combinedValues[key]);
                         }
                         this.NewService.createArticle(formData).subscribe(
-                              (data) => {
+                              (data: any) => {
                                     this.loading = false;
                                     this.toastrService.showToastr(
                                           `Đã tạo bài viết thành công \n Vui lòng chờ được kiểm duyệt`,
@@ -357,38 +377,9 @@ export class CreatePostContentComponent implements OnInit {
 
             console.log(this.formDetail.value);
       }
-      convertObjectToFormData(obj: any): any {
-            let formData = new FormData();
-            for (const key in obj) {
-                  if (obj.hasOwnProperty(key)) {
-                        let value = obj[key];
-                        if (key === 'avatar') {
-                              console.log(obj[key]);
-                        }
-                        formData.append(key, value);
-                  }
-            }
-            this.NewService.createArticle(formData).subscribe();
-      }
-      onChangeCate(e: any) {
-            this.formDetail.patchValue({ categoryId: e.value });
-      }
       getOptionCategories() {
-            this.CategoryService.categoriesForAd$.subscribe((data) => {
+            this.CategoryService.categoriesForAd$.subscribe((data: any) => {
                   this.optionCategories = data?.categories;
             });
       }
-      public date: any;
-      public disabled = false;
-      public showSpinners = true;
-      public showSeconds = false;
-      public touchUi = false;
-      public enableMeridian = false;
-      public minDate: any;
-      public maxDate: any;
-      public stepHour = 1;
-      public stepMinute = 1;
-      public stepSecond = 1;
-      public color = 'primary';
-      @ViewChild('picker') picker: any;
 }

@@ -4,14 +4,14 @@
       <image-cropper></image-cropper>
       <div class="import-image">
             <div class="crop">
-                  <pre>{{ transform | json }}</pre>
                   <image-cropper
                         [imageFile]="this.data.imageCrop"
-                        (imageCropped)="imageCropped($event)"
                         [transform]="transform"
+                        (imageCropped)="imageCropped($event)"
                         [maintainAspectRatio]="
                               data?.type === 'avatar' ? true : false
                         "
+                        [resizeToWidth]="1100"
                         format="png"
                         [aspectRatio]="1 / 1"
                   >
@@ -33,7 +33,7 @@
             <button
                   mat-raised-button
                   color="primary"
-                  [mat-dialog-close]="data?.srcImg?.objectUrl"
+                  [mat-dialog-close]="data?.srcImg"
                   cdkFocusInitial
             >
                   Xác nhận
