@@ -25,6 +25,9 @@ export class LayoutAdminComponent implements OnInit {
             this.UserService.inforUser$.subscribe((data) => {
                   this.inforUser = data;
             });
+            this.UserService.inforUser$.subscribe((data) => {
+                  this.inforUser = data;
+            });
       }
       showFiller = true;
       faPenSquare = faPenToSquare;
@@ -80,7 +83,12 @@ export class LayoutAdminComponent implements OnInit {
                         {
                               title: 'Tất cả người dùng',
                               selected: false,
-                              url: 'admin/quan-ly-danh-muc',
+                              url: 'admin/quan-ly-nguoi-dung',
+                        },
+                        {
+                              title: 'Thêm mới',
+                              selected: false,
+                              url: 'admin/tao-nguoi-dung',
                         },
                         {
                               title: 'Hồ sơ',

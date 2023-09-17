@@ -26,4 +26,5 @@ export const environment = {
             'http://localhost:4000/api/v1/categories/admin/get-all',
       API_ADMIN_CATEGORY_DELETE:
             'http://localhost:4000/api/v1/categories/admin',
+      API_ADMIN_USER_GET: 'http://localhost:4000/api/v1/admin/user/get-all',
 };

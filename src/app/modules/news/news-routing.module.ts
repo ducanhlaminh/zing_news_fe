@@ -14,35 +14,45 @@ import { ManageCategoriesComponent } from './components/contents/admin/manage-ca
 import { CreateCategoryComponent } from './components/contents/admin/create-category/create-category.component';
 import { PreviewContentComponent } from './components/contents/admin/preview-content/preview-content.component';
 import { EditArticleComponent } from './components/contents/admin/edit-article/edit-article.component';
+import { ManageUserComponent } from './components/contents/admin/manage-user/manage-user.component';
+import { CreateUserComponent } from './components/contents/admin/create-user/create-user.component';
 const routes: Routes = [
       {
             path: '',
             component: LayoutAdminComponent,
+            canActivate: [CheckRoleGuard],
             children: [
                   {
                         path: 'admin/tao-bai-viet',
                         component: CreatePostContentComponent,
-                        canActivate: [CheckRoleGuard],
+                  },
+                  {
+                        path: 'admin/quan-ly-nguoi-dung',
+                        component: ManageUserComponent,
+                  },
+                  {
+                        path: 'admin/tao-nguoi-dung',
+                        component: CreateUserComponent,
+                  },
+                  {
+                        path: 'admin/tao-bai-viet',
+                        component: CreatePostContentComponent,
                   },
                   {
                         path: 'admin/chinh-sua-bai-viet/:slug/:slug_crc',
                         component: EditArticleComponent,
-                        canActivate: [CheckRoleGuard],
                   },
                   {
                         path: 'admin/quan-ly-bai-viet',
                         component: ManageArticlesComponent,
-                        canActivate: [CheckRoleGuard],
                   },
                   {
                         path: 'admin/quan-ly-danh-muc',
                         component: ManageCategoriesComponent,
-                        canActivate: [CheckRoleGuard],
                   },
                   {
                         path: 'admin/tao-danh-muc',
                         component: CreateCategoryComponent,
-                        canActivate: [CheckRoleGuard],
                   },
             ],
       },

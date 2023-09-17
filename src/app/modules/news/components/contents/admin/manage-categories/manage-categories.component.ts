@@ -35,6 +35,7 @@ export class ManageCategoriesComponent {
       faAngleDown = faAngleDown;
       faAngleUp = faAngleUp;
       faSort = faSort;
+      selectedStatus = 1;
       @ViewChild('checkAll') checkAll!: ElementRef;
 
       articles: any = [];
@@ -72,7 +73,6 @@ export class ManageCategoriesComponent {
             private formBuilder: FormBuilder
       ) {}
       ngOnInit(): void {
-            this.getCategories();
             this.CategoryService.getAllCategoriesParent();
 
             this.CategoryService.categoriesParent$.subscribe((data) => {
@@ -98,10 +98,21 @@ export class ManageCategoriesComponent {
             });
             this.formFilter = this.formBuilder.group({
                   name: [''],
+                  status: null,
             });
+            this.getCategories();
       }
       getCategories() {
-            if (this.formFilter?.value?.name) {
+            for (var key in this.formFilter?.value) {
+                  if (this.formFilter.value[key] === null) {
+                        delete this.formFilter.value[key];
+                  }
+            }
+            console.log(this.formFilter.value);
+
+            if (this.formFilter?.value) {
+                  console.log(this.formFilter?.value);
+
                   this.pageIndex = 0;
                   this.queries.page = this.pageIndex + 1;
                   this.CategoryService.getAllCategoriesByAd({
