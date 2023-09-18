@@ -164,7 +164,7 @@ export class ManageArticlesComponent implements OnInit {
       }
       getOptionCategories() {
             this.CategoryService.categoriesForAd$.subscribe((data) => {
-                  this.optionCategories = data.categories;
+                  this.optionCategories = data?.categories;
             });
       }
       updateArticles(item: any) {

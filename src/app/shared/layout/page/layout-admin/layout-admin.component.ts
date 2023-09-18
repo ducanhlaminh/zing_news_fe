@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
       faPenToSquare,
       faListCheck,
@@ -18,7 +19,8 @@ export class LayoutAdminComponent implements OnInit {
       inforUser: any;
       constructor(
             private CategoryService: CategoryService,
-            private UserService: UserService
+            private UserService: UserService,
+            private router: Router
       ) {}
       ngOnInit(): void {
             this.CategoryService.getAllCategoriesByAd({});
@@ -30,6 +32,7 @@ export class LayoutAdminComponent implements OnInit {
             });
       }
       showFiller = true;
+      showSidebar: boolean = true;
       faPenSquare = faPenToSquare;
       faListCheck = faListCheck;
       faNewspaper = faNewspaper;
@@ -39,28 +42,31 @@ export class LayoutAdminComponent implements OnInit {
             {
                   title: 'Bài viết',
                   opened: false,
+                  selected: false,
                   icon: 'description',
+                  url: 'admin/bai-viet/quan-ly-bai-viet',
                   sub: [
                         {
                               title: 'Tất cả bài viết',
                               selected: false,
-                              url: 'admin/quan-ly-bai-viet',
+                              url: 'admin/bai-viet/quan-ly-bai-viet',
                         },
                         {
                               title: 'Viết bài viết mới',
                               selected: false,
-                              url: 'admin/tao-bai-viet',
+                              url: 'admin/bai-viet/tao-bai-viet',
                         },
                         {
                               title: 'Chuyên mục',
                               selected: false,
-                              url: 'admin/quan-ly-danh-muc',
+                              url: 'admin/bai-viet/quan-ly-danh-muc',
                         },
                   ],
             },
             {
                   title: 'Bố cục',
                   opened: false,
+                  selected: false,
                   icon: 'bookmark',
                   sub: [
                         {
@@ -78,7 +84,9 @@ export class LayoutAdminComponent implements OnInit {
             {
                   title: 'Người dùng',
                   opened: false,
+                  selected: false,
                   icon: 'account_circle',
+                  url: 'admin/quan-ly-nguoi-dung',
                   sub: [
                         {
                               title: 'Tất cả người dùng',
@@ -106,5 +114,14 @@ export class LayoutAdminComponent implements OnInit {
                         item.opened = false;
                   }
             });
+      }
+      navigateUrl(item: any, event: any) {
+            this.navItem.map((item: any) => {
+                  item.selected = false;
+            });
+            console.log(this.navItem);
+
+            item.selected = true;
+            event.stopPropagation();
       }
 }

@@ -17,8 +17,11 @@ export class UserService {
                   });
       }
       getAll(data: any) {
-            return this.http.get(environment.API_ADMIN_USER_GET, {
+            return this.http.get(environment.API_ADMIN_USER, {
                   params: { ...data },
             });
+      }
+      createUser(data: any) {
+            return this.http.post(environment.API_ADMIN_USER, data);
       }
 }

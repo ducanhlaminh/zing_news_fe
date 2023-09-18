@@ -82,6 +82,6 @@ export class HeaderComponent implements OnInit {
             window.location.reload();
       }
       navigateToAdmin() {
-            this.Router.navigateByUrl('/admin/tao-bai-viet');
+            this.Router.navigateByUrl('/admin/bai-viet/tao-bai-viet');
       }
 }

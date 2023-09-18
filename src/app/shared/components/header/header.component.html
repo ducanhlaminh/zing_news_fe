@@ -57,7 +57,7 @@
                   class="avatar"
                   mat-button
                   [matMenuTriggerFor]="aboveMenu"
-                  *ngIf="inforUser.user; else profile"
+                  *ngIf="inforUser?.user; else profile"
             >
                   <img [src]="inforUser?.user?.avatar" alt="" />
             </div>

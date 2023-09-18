@@ -76,26 +76,24 @@ export class ManageCategoriesComponent {
             this.CategoryService.getAllCategoriesParent();
 
             this.CategoryService.categoriesParent$.subscribe((data) => {
-                  this.length = data.length;
-                  this.categorySort = data.categories.filter(
+                  this.length = data?.length;
+                  console.log(data);
+
+                  this.categorySort = data?.categories.filter(
                         (item: any) => item.parent_id === null
                   );
             });
             this.CategoryService.categoriesForAd$.subscribe((data) => {
-                  this.length = data.length;
-                  data.categories.map((item: any) => {
+                  this.length = data?.length;
+                  data?.categories.map((item: any) => {
                         item.edit = false;
                         item.selected = false;
                   });
-                  this.categories = data.categories;
+                  console.log(data?.categories);
+                  this.categories = data?.categories;
             });
             if (this.order.length > 0) this.queries.order = this.order;
             this.queries.page = this.pageIndex + 1;
-            this.formCreate = this.formBuilder.group({
-                  name: ['', Validators.required],
-                  slug: ['', Validators.required],
-                  parent_id: [''],
-            });
             this.formFilter = this.formBuilder.group({
                   name: [''],
                   status: null,
@@ -108,22 +106,13 @@ export class ManageCategoriesComponent {
                         delete this.formFilter.value[key];
                   }
             }
-            console.log(this.formFilter.value);
 
-            if (this.formFilter?.value) {
-                  console.log(this.formFilter?.value);
-
-                  this.pageIndex = 0;
-                  this.queries.page = this.pageIndex + 1;
-                  this.CategoryService.getAllCategoriesByAd({
-                        ...this.queries,
-                        ...this.formFilter?.value,
-                  });
-            } else {
-                  this.CategoryService.getAllCategoriesByAd({
-                        ...this.queries,
-                  });
-            }
+            this.pageIndex = 0;
+            this.queries.page = this.pageIndex + 1;
+            this.CategoryService.getAllCategoriesByAd({
+                  ...this.queries,
+                  ...this.formFilter?.value,
+            });
       }
       checkAllFn(event: any): void {
             this.listCategories = [];
@@ -266,6 +255,7 @@ export class ManageCategoriesComponent {
                   name: item.name,
                   status: item.status,
                   slug: item.slug,
+                  category_id: item.parentCategory.id,
             });
       }
       submitCreate() {

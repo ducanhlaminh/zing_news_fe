@@ -67,13 +67,6 @@ export class CategoryService {
             this.http
                   .get(environment.API_CATEGORY_GET_ALL_ADMIN, {})
                   .subscribe((data: any) => {
-                        // const tempArray = data.rows.map((item: any) => {
-                        //       const child = item.childCategories;
-                        //       delete item.childCategories;
-                        //       return [item, ...child];
-                        // });
-                        // const arrayB = tempArray.flat();
-                        // arrayB.length = arrayB.length;
                         this.categoriesParent$.next({
                               categories: data.rows,
                               length: data.count,

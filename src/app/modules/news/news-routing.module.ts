@@ -23,7 +23,7 @@ const routes: Routes = [
             canActivate: [CheckRoleGuard],
             children: [
                   {
-                        path: 'admin/tao-bai-viet',
+                        path: 'admin/bai-viet/tao-bai-viet',
                         component: CreatePostContentComponent,
                   },
                   {
@@ -35,19 +35,19 @@ const routes: Routes = [
                         component: CreateUserComponent,
                   },
                   {
-                        path: 'admin/tao-bai-viet',
+                        path: 'admin/bai-viet/tao-bai-viet',
                         component: CreatePostContentComponent,
                   },
                   {
-                        path: 'admin/chinh-sua-bai-viet/:slug/:slug_crc',
+                        path: 'admin/bai-viet/chinh-sua-bai-viet/:slug/:slug_crc',
                         component: EditArticleComponent,
                   },
                   {
-                        path: 'admin/quan-ly-bai-viet',
+                        path: 'admin/bai-viet/quan-ly-bai-viet',
                         component: ManageArticlesComponent,
                   },
                   {
-                        path: 'admin/quan-ly-danh-muc',
+                        path: 'admin/bai-viet/quan-ly-danh-muc',
                         component: ManageCategoriesComponent,
                   },
                   {

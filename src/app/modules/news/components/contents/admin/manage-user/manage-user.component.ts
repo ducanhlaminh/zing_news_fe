@@ -69,9 +69,8 @@ export class ManageUserComponent {
             this.CategoryService.getAllCategoriesByAd({});
             this.getOptionCategories();
             this.formFilter = this.formBuilder.group({
-                  title: null,
-                  category_id: '',
-                  status: null,
+                  name: null,
+                  role_id: null,
             });
             this.getUser();
       }
@@ -94,15 +93,21 @@ export class ManageUserComponent {
             this.pageIndex = 0;
             this.queries.page = this.pageIndex + 1;
             for (var key in this.formFilter.value) {
-                  if (this.formFilter.value[key] === null) {
+                  if (
+                        this.formFilter.value[key] === null ||
+                        this.formFilter.value[key] === ''
+                  ) {
                         delete this.formFilter.value[key];
                   }
             }
+            console.log(this.formFilter.value);
 
-            this.UserService.getAll({}).subscribe((data: any) => {
+            this.UserService.getAll({
+                  ...this.queries,
+                  ...this.formFilter.value,
+            }).subscribe((data: any) => {
                   this.users = data.rows;
                   this.length = data.count;
-                  console.log(this.length, this.users);
             });
       }
       checkAllFn(event: any): void {

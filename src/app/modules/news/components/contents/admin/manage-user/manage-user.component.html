@@ -1,6 +1,9 @@
 <div class="title">
       <h2>Người dùng</h2>
-      <button class="btn-create" [routerLink]="['/', 'admin', 'tao-bai-viet']">
+      <button
+            class="btn-create"
+            [routerLink]="['/', 'admin', 'tao-nguoi-dung']"
+      >
             <mat-icon class="icon">add_to_photos</mat-icon>
             <span>Thêm người dùng mới</span>
       </button>
@@ -30,7 +33,7 @@
                   "
                   [ngClass]="{ 'selected-filter': selectedStatus === 2 }"
                   (click)="this.formFilter.patchValue({
-                  status: 1,
+                  role_id: 1,
                 });this.selectedStatus = 2; this.getUser()"
             >
                   <span>Quản trị viên</span>
@@ -45,7 +48,7 @@
                   [ngClass]="{ 'selected-filter': selectedStatus === 3 }"
                   (click)="
                         this.formFilter.patchValue({
-                              status: 0
+                              role_id: 2
                         });
                         this.selectedStatus = 3;
                         this.getUser()
@@ -70,7 +73,7 @@
                         </button>
                   </div>
                   <form [formGroup]="formFilter" class="action">
-                        <select formControlName="category_id">
+                        <select formControlName="role_id">
                               <option selected="selected" value="">
                                     Đổi thành...
                               </option>
@@ -90,7 +93,7 @@
             <form [formGroup]="formFilter" class="search">
                   <input
                         type="text"
-                        formControlName="title"
+                        formControlName="name"
                         placeholder="Tên người dùng"
                   />
                   <button class="btn-create" (click)="getUser()">

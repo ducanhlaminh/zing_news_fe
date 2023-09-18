@@ -25,9 +25,11 @@ export class CheckRoleGuard implements CanActivate {
             | UrlTree {
             const token = localStorage.getItem('token');
             const role_id = localStorage.getItem('role_id');
-            if (!token || role_id !== '1') {
+            if (!token || (role_id !== '1' && role_id !== '2')) {
                   this.router.navigateByUrl('/trang-chu');
             }
-            return token && role_id === '1' ? true : false;
+            return (token && role_id === '1') || (token && role_id === '2')
+                  ? true
+                  : false;
       }
 }
