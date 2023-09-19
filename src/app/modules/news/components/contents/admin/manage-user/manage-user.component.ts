@@ -39,7 +39,7 @@ export class ManageUserComponent {
       filters: any;
       selectedStatus = 1;
       selectedAction: string = '1';
-      listArticles: any[] = [];
+      listUsers: any[] = [];
 
       length = 100;
       pageSize = 10;
@@ -75,10 +75,10 @@ export class ManageUserComponent {
             this.getUser();
       }
       // changeSelected() {
-      //       this.listArticles = [];
+      //       this.listUsers = [];
       //       this.articles.map((article: any) => {
       //             if (article.selected === true) {
-      //                   this.listArticles.push(article.id);
+      //                   this.listUsers.push(article.id);
       //             }
       //       });
       // }
@@ -111,54 +111,35 @@ export class ManageUserComponent {
             });
       }
       checkAllFn(event: any): void {
-            this.listArticles = [];
+            this.listUsers = [];
             this.users.map((article: any) => {
                   article.selected = event.target.checked;
-                  this.listArticles.push(article.id);
+                  this.listUsers.push(article.id);
             });
       }
       actionFn(value: any) {
             this.loading = true;
 
             if (value === '2') {
-                  this.NewService.deleteArticle(this.listArticles).subscribe(
+                  this.NewService.deleteArticle(this.listUsers).subscribe(
                         (data: any) => {
                               this.getUser();
-                              this.getUser(),
-                                    this.showToart(true, data.message);
+                              this.showToart(true, data.message);
                               this.loading = false;
-                              this.listArticles = [];
+                              this.listUsers = [];
                         }
                   );
-            } else if (value === '3' || value === '4') {
-                  this.loading = true;
-                  let status = 1;
-                  if (value === '4') {
-                        status = 0;
-                  }
-                  this.NewService.updateArticle(
-                        { status },
-                        this.listArticles
-                  ).subscribe((data: any) => {
-                        this.getUser();
-                        this.getUser(), this.showToart(true, data.message);
-                        this.loading = false;
-                        this.listArticles = [];
-                        this.checkAll.nativeElement.checked = false;
-                  });
             }
       }
       deleteItem(item: any) {
             this.loading = true;
-            let listArticles: any[] = [];
-            listArticles.push(item.id);
-            this.NewService.deleteArticle(listArticles).subscribe(
-                  (data: any) => {
-                        this.getUser();
-                        this.getUser(), this.showToart(true, data.message);
-                        this.loading = false;
-                  }
-            );
+            let listUsers: any[] = [];
+            listUsers.push(item.id);
+            this.NewService.deleteArticle(listUsers).subscribe((data: any) => {
+                  this.getUser();
+                  this.showToart(true, data.message);
+                  this.loading = false;
+            });
       }
       getOptionCategories() {
             this.CategoryService.categoriesForAd$.subscribe((data) => {
@@ -167,9 +148,9 @@ export class ManageUserComponent {
       }
       updateArticles(item: any) {
             this.loading = true;
-            let listArticles: any[] = [];
-            listArticles.push(item.id);
-            this.NewService.updateArticle(null, listArticles).subscribe(
+            let listUsers: any[] = [];
+            listUsers.push(item.id);
+            this.NewService.updateArticle(null, listUsers).subscribe(
                   (data: any) => {
                         this.getUser();
                         this.getUser(), this.showToart(true, data.message);
