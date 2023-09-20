@@ -72,12 +72,17 @@ export class LayoutAdminComponent implements OnInit {
                         {
                               title: 'Trang chủ',
                               selected: false,
-                              url: 'admin/quan-ly-danh-muc',
+                              url: 'admin/quan-ly-vi-tri-trang-chu',
                         },
                         {
                               title: 'Trang chuyên mục',
                               selected: false,
-                              url: 'admin/quan-ly-danh-muc',
+                              url: 'admin/quan-ly-vi-tri-trang-chuyen-muc',
+                        },
+                        {
+                              title: 'Vị trí chuyên mục trên header',
+                              selected: false,
+                              url: 'admin/quan-ly-vi-tri-chuyen-muc',
                         },
                   ],
             },

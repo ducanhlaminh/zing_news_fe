@@ -37,6 +37,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { EditArticleComponent } from './components/contents/admin/edit-article/edit-article.component';
 import { ManageUserComponent } from './components/contents/admin/manage-user/manage-user.component';
 import { CreateUserComponent } from './components/contents/admin/create-user/create-user.component';
+import { ManagePositionCategoriesComponent } from './components/contents/admin/manage-position-categories/manage-position-categories.component';
+import { ManagePositionHomeComponent } from './components/contents/admin/manage-position-home/manage-position-home.component';
+import { ManagePositionCategoryComponent } from './components/contents/admin/manage-position-category/manage-position-category.component';
 @NgModule({
       declarations: [
             DatePipe,
@@ -60,6 +63,9 @@ import { CreateUserComponent } from './components/contents/admin/create-user/cre
             EditArticleComponent,
             ManageUserComponent,
             CreateUserComponent,
+            ManagePositionCategoriesComponent,
+            ManagePositionHomeComponent,
+            ManagePositionCategoryComponent,
       ],
       imports: [
             MatNativeDateModule,

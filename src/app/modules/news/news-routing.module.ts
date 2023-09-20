@@ -16,6 +16,9 @@ import { PreviewContentComponent } from './components/contents/admin/preview-con
 import { EditArticleComponent } from './components/contents/admin/edit-article/edit-article.component';
 import { ManageUserComponent } from './components/contents/admin/manage-user/manage-user.component';
 import { CreateUserComponent } from './components/contents/admin/create-user/create-user.component';
+import { ManagePositionCategoriesComponent } from './components/contents/admin/manage-position-categories/manage-position-categories.component';
+import { ManagePositionHomeComponent } from './components/contents/admin/manage-position-home/manage-position-home.component';
+import { ManagePositionCategoryComponent } from './components/contents/admin/manage-position-category/manage-position-category.component';
 const routes: Routes = [
       {
             path: '',
@@ -33,6 +36,18 @@ const routes: Routes = [
                   {
                         path: 'admin/tao-nguoi-dung',
                         component: CreateUserComponent,
+                  },
+                  {
+                        path: 'admin/quan-ly-vi-tri-trang-chu',
+                        component: ManagePositionHomeComponent,
+                  },
+                  {
+                        path: 'admin/quan-ly-vi-tri-trang-chuyen-muc',
+                        component: ManagePositionCategoryComponent,
+                  },
+                  {
+                        path: 'admin/quan-ly-vi-tri-chuyen-muc',
+                        component: ManagePositionCategoriesComponent,
                   },
                   {
                         path: 'admin/bai-viet/tao-bai-viet',
