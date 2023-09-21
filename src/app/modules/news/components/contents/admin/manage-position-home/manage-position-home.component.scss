@@ -158,7 +158,6 @@
           }
         }
         .artcle-left-item:hover {
-          cursor: pointer;
           b {
             color: #096ffa;
           }
@@ -195,7 +194,6 @@
         }
       }
       .artcle-right-item:hover {
-        cursor: pointer;
         b {
           color: #096ffa;
         }
@@ -252,7 +250,6 @@
           }
         }
         .artcle-center-item:hover {
-          cursor: pointer;
           b {
             color: #096ffa;
           }
@@ -301,3 +298,6 @@ select{
 }
 
 
+.cdk-drag-placeholder {
+      display:none;
+      }

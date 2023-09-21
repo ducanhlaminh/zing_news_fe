@@ -55,15 +55,7 @@
                                           drop2($event, this.list[i])
                                     "
                               >
-                                    <div
-                                          class="artcle-left-item"
-                                          [routerLink]="[
-                                                '/',
-                                                'bai-viet',
-                                                item?.new_article?.slug,
-                                                item?.new_article?.slug_crc
-                                          ]"
-                                    >
+                                    <div class="artcle-left-item">
                                           <img
                                                 [src]="
                                                       'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
@@ -94,18 +86,7 @@
                                     else emptyCenter
                               "
                         >
-                              <div
-                                    class="artcle-center-item"
-                                    [routerLink]="[
-                                          '/',
-                                          'bai-viet',
-                                          artclesHotMain?.center[0]?.new_article
-                                                ?.slug,
-
-                                          artclesHotMain.center[0]?.new_article
-                                                ?.slug_crc
-                                    ]"
-                              >
+                              <div class="artcle-center-item">
                                     <img
                                           [src]="
                                                 'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
@@ -139,12 +120,6 @@
                               <div
                                     class="artcle-right-item"
                                     *ngIf="item.new_article; else emptyRight"
-                                    [routerLink]="[
-                                          '/',
-                                          'bai-viet',
-                                          item?.new_article?.slug,
-                                          item?.new_article?.slug_crc
-                                    ]"
                               >
                                     <img
                                           [src]="

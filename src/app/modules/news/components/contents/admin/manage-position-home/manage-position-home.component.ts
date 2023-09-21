@@ -40,17 +40,17 @@ export class ManagePositionHomeComponent implements OnInit {
             center: [],
       };
       listArticles: any;
-      list: any = {
-            1: [],
-            2: [],
-            3: [],
-            4: [],
-            5: [],
-            6: [],
-            7: [],
-            8: [],
-            9: [],
-      };
+      list: any = [
+            { array: [] },
+            { array: [] },
+            { array: [] },
+            { array: [] },
+            { array: [] },
+            { array: [] },
+            { array: [] },
+            { array: [] },
+            { array: [] },
+      ];
       sourceItems: any = ['Item 1', 'Item 2', 'Item 3'];
       destinationItems: any = [];
       onItemMoved(event: any) {
@@ -71,12 +71,10 @@ export class ManagePositionHomeComponent implements OnInit {
       drop2(event: CdkDragDrop<string[]>, array: any) {
             console.log(123);
 
-            transferArrayItem(
-                  this.listArticles,
-                  array,
-                  event.previousIndex,
-                  event.currentIndex
-            );
+            transferArrayItem(this.listArticles, array, event.previousIndex, 0);
+            console.log(this.listArticles);
+            console.log(array);
+            console.log(this.list);
       }
       handleImageError(event: any) {
             const fallbackImage =
