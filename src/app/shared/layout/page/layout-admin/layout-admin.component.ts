@@ -70,17 +70,13 @@ export class LayoutAdminComponent implements OnInit {
                   icon: 'bookmark',
                   sub: [
                         {
-                              title: 'Trang chủ',
+                              title: 'Set bài viết nổi bật',
                               selected: false,
                               url: 'admin/quan-ly-vi-tri-trang-chu',
                         },
+
                         {
-                              title: 'Trang chuyên mục',
-                              selected: false,
-                              url: 'admin/quan-ly-vi-tri-trang-chuyen-muc',
-                        },
-                        {
-                              title: 'Vị trí chuyên mục trên header',
+                              title: 'Vị trí chuyên mục',
                               selected: false,
                               url: 'admin/quan-ly-vi-tri-chuyen-muc',
                         },
