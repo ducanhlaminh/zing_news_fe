@@ -40,8 +40,7 @@ export class ManagePositionHomeComponent implements OnInit {
             center: [],
       };
       listArticles: any;
-      list: any = [
-            { array: [] },
+      list: any[] = [
             { array: [] },
             { array: [] },
             { array: [] },
@@ -68,13 +67,19 @@ export class ManagePositionHomeComponent implements OnInit {
                   event.currentIndex
             );
       }
-      drop2(event: CdkDragDrop<string[]>, array: any) {
-            console.log(123);
+      drop2(event: CdkDragDrop<string[]>, index: any) {
+            if (event.previousContainer === event.container) {
+                  moveItemInArray(
+                        this.listArticles,
+                        event.previousIndex,
+                        event.currentIndex
+                  );
+            } else {
+                  console.log(event);
+            }
 
-            transferArrayItem(this.listArticles, array, event.previousIndex, 0);
             console.log(this.listArticles);
-            console.log(array);
-            console.log(this.list);
+            console.log(this.list[index].array);
       }
       handleImageError(event: any) {
             const fallbackImage =
@@ -97,17 +102,10 @@ export class ManagePositionHomeComponent implements OnInit {
                                             new_article: null,
                                       };
                         });
-                  this.artclesHotMain = {
-                        left: [
-                              result[3],
-                              result[4],
-                              result[5],
-                              result[6],
-                              result[7],
-                        ],
-                        right: [result[1], result[2]],
-                        center: [result[0]],
-                  };
+                  data.hot_news.hot_main.map((item: any) => {
+                        this.list[item.position - 1].array = [item];
+                  });
+                  console.log(this.list);
             });
       }
 }
