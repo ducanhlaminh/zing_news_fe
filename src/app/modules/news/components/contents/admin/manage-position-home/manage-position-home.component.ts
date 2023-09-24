@@ -1,5 +1,6 @@
 import {
       CdkDragDrop,
+      copyArrayItem,
       moveItemInArray,
       transferArrayItem,
 } from '@angular/cdk/drag-drop';
@@ -38,21 +39,9 @@ export class ManagePositionHomeComponent implements OnInit {
       selectedStatus = 1;
       @ViewChild('checkAll') checkAll!: ElementRef;
 
-      articles: any = [];
       categories: any = [];
       categorySort: any = [];
-      listCategories: any = [];
-      done: any = [];
-      length = 100;
-      pageSize = 10;
-      pageIndex = 0;
-      typefilters = [null, 'DESC', 'ASC'];
-      filterCurr: any = {
-            name: 0,
-            slug: 0,
-      };
-      formFilter!: FormGroup;
-      formCreate!: FormGroup;
+      formSearch!: FormGroup;
       selectedAction: string = '1';
       order: any = [];
       queries: any = { page: 1 };
@@ -66,82 +55,128 @@ export class ManagePositionHomeComponent implements OnInit {
             },
             { name: 'Bản nháp', status: 0 },
       ];
+      listArticles: any;
+      list: any[] = [
+            {
+                  array: [
+                        {
+                              avatar: '1384170848',
+                              title: 'Truyện tranh Việt dành cho tuổi trưởng thành',
+                              sapo: '"Gửi em" có niềm vui của những ngày thanh xuân gian khó, nhiều vất vả bộn bề nhưng được sống trọn với đam mê.',
+                              slug: 'truyen-tranh-viet-danh-cho-tuoi-truong-thanh',
+                              slug_crc: 1384170848,
+                              id: 950,
+                        },
+                  ],
+            },
+            { array: [] },
+            {
+                  array: [
+                        {
+                              avatar: '3140228865',
+                              title: 'Đưa văn học nhà trường lên sân khấu: Sức sống mới cho nghệ thuật',
+                              sapo: 'Các đơn vị nghệ thuật sẽ phục dựng và dàn dựng 51 vở diễn trong 70 tác phẩm văn học đặc sắc thuộc chương trình giáo dục phổ thông, tổ chức 1.800 đến 2.000 buổi diễn cho các trường.',
+                              slug: 'dua-van-hoc-nha-truong-len-san-khau-suc-song-moi-cho-nghe-thuat',
+                              slug_crc: 3140228865,
+                              id: 952,
+                        },
+                  ],
+            },
+            {
+                  array: [
+                        {
+                              avatar: '1775021381',
+                              title: 'Phát động cuộc thi sáng tác Văn chương phương Nam',
+                              sapo: 'Hội Nhà văn TP.HCM, tạp chí Văn nghệ TP.HCM và Đại học Cửu Long phối hợp tổ chức cuộc thi sáng tác Văn chương phương Nam dành cho học sinh, sinh viên.',
+                              slug: 'phat-dong-cuoc-thi-sang-tac-van-chuong-phuong-nam',
+                              slug_crc: 1775021381,
+                              id: 953,
+                        },
+                  ],
+            },
+            {
+                  array: [
+                        {
+                              avatar: '1196741123',
+                              title: 'Góc đọc sách hè dành cho bé 3-11 tuổi',
+                              sapo: 'Các bạn nhỏ sẽ được trải nghiệm đọc những cuốn sách thuộc nhiều thể loại: thơ, truyện, sách khoa học, kiến thức, kỹ năng…',
+                              slug: 'goc-doc-sach-he-danh-cho-be-3-11-tuoi',
+                              slug_crc: 1196741123,
+                              id: 954,
+                        },
+                  ],
+            },
+            {
+                  array: [
+                        {
+                              avatar: '3877058958',
+                              title: "'Muội tro' - những nốt nhạc ngân vang công lý",
+                              sapo: 'Tò mò và bất ngờ, đó là cảm nhận đầu tiên khi đọc tập truyện ngắn “Muội tro” của nhà văn Võ Chí Nhất, do NXB Tổng hợp TP Hồ Chí Minh phát hành gần đây.',
+                              slug: 'muoi-tro-nhung-not-nhac-ngan-vang-cong-ly',
+                              slug_crc: 3877058958,
+                              id: 955,
+                        },
+                  ],
+            },
+            { array: [] },
+            { array: [] },
+      ];
+      items = ['Carrots', 'Tomatoes', 'Onions', 'Apples', 'Avocados'];
+
+      basket = ['Oranges', 'Bananas', 'Cucumbers'];
       constructor(
             public CategoryService: CategoryService,
             public dialog: MatDialog,
             private toastr: ToastrService,
             private formBuilder: FormBuilder,
-            private NewsService: NewsService
+            private NewsService: NewsService,
+            public renderer: Renderer2
       ) {}
       ngOnInit(): void {
             this.getHotNews();
+            this.formSearch = this.formBuilder.group({
+                  title: '',
+            });
+            this.getOptionCategories();
       }
-      getCategories() {
-            for (var key in this.formFilter?.value) {
-                  if (this.formFilter.value[key] === null) {
-                        delete this.formFilter.value[key];
-                  }
-            }
 
-            this.pageIndex = 0;
-            this.queries.page = this.pageIndex + 1;
-            this.CategoryService.getAllCategoriesByAd({
-                  ...this.queries,
-                  ...this.formFilter?.value,
-            });
+      handleImageError(event: any) {
+            const fallbackImage =
+                  'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png';
+            this.renderer.setAttribute(event.target, 'src', fallbackImage);
       }
-      checkAllFn(event: any): void {
-            this.listCategories = [];
-            this.categories.map((cate: any) => {
-                  cate.selected = event.target.checked;
-                  this.listCategories.push(cate.id);
-            });
-      }
-      changeSelected() {
-            this.listCategories = [];
-            this.categories.map((cate: any) => {
-                  if (cate.selected === true) {
-                        this.listCategories.push(cate.id);
-                  }
-            });
-      }
-      actionFn(value: any) {
-            if (value === '2') {
-                  this.CategoryService.deleteCategory(
-                        this.listCategories
-                  ).subscribe(() => {
-                        this.getCategories();
-                  });
-            } else if (value === '3') {
-                  this.CategoryService.updateCategory(
-                        { status: 1 },
-                        this.listCategories
-                  ).subscribe(() => {
-                        this.getCategories();
-                  });
-            } else if (value === '4') {
-                  this.CategoryService.updateCategory(
-                        { status: 0 },
-                        this.listCategories
-                  ).subscribe(() => {
-                        this.getCategories();
-                  });
+
+      drop(event: CdkDragDrop<string[]>) {
+            try {
+                  transferArrayItem(
+                        event?.previousContainer.data,
+                        event?.container.data,
+                        event.previousIndex,
+                        event.previousIndex
+                  );
+                  console.log(
+                        event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.previousIndex
+                  );
+                  console.log(event);
+            } catch (error) {
+                  console.log(error);
             }
       }
-      drop(event: CdkDragDrop<string[]>) {
-            moveItemInArray(
-                  this.listArticles,
-                  event.previousIndex,
-                  event.currentIndex
-            );
-            let dataUpdate: any = [];
-            this.listArticles.map((article: any, index: any) => {
-                  dataUpdate.push({
-                        article_id: article.article_id,
-                        position: index + 1,
-                  });
-            });
-            console.log(dataUpdate);
+      drop2(event: CdkDragDrop<string[]>, data: any) {
+            try {
+                  this.list[data].array.length = 0;
+                  transferArrayItem(
+                        event?.previousContainer.data,
+                        event?.container.data,
+                        event.previousIndex,
+                        event.currentIndex
+                  );
+            } catch (error) {
+                  console.log(error);
+            }
       }
 
       showToart(status: boolean) {
@@ -151,62 +186,6 @@ export class ManagePositionHomeComponent implements OnInit {
                   this.toastr.error('Vùi long điền đủ các trường cần thiết');
             }
       }
-
-      close() {
-            this.categories.map((item: any) => {
-                  if (item.id === this.selectedItem.id) {
-                        item.edit = false;
-                  }
-            });
-      }
-      open(item: any) {
-            item.edit = true;
-            this.selectedItem = item;
-            console.log(this.selectedItem);
-            this.formEdit = this.formBuilder.group({
-                  name: item.name,
-                  status: item.status,
-                  slug: item.slug,
-                  category_id: item.parentCategory.id,
-            });
-      }
-      submitCreate() {
-            if (this.formCreate.valid) {
-                  this.loading = true;
-                  let data = this.formCreate.value;
-                  if (this.formCreate.value.parent_id === '') {
-                        delete data.parent_id;
-                  }
-
-                  this.CategoryService.createCategory(data).subscribe(() => {
-                        this.loading = false;
-                        this.showToart(true);
-                        this.getCategories();
-                  });
-            } else {
-                  this.showToart(false);
-            }
-      }
-      updateItem() {
-            this.CategoryService.updateCategory(
-                  this.formEdit.value,
-                  this.selectedItem.id
-            ).subscribe(() => {
-                  this.getCategories();
-            });
-      }
-
-      listArticles: any;
-      list: any[] = [
-            { array: [] },
-            { array: [] },
-            { array: [] },
-            { array: [] },
-            { array: [] },
-            { array: [] },
-            { array: [] },
-            { array: [] },
-      ];
       getHotNews() {
             this.NewsService.getHotMain().subscribe((data: any) => {
                   let array = Array(8);
@@ -229,5 +208,15 @@ export class ManagePositionHomeComponent implements OnInit {
                   // });
                   // // console.log(array);
             });
+      }
+      getArticles() {
+            this.NewsService.getAllByAd(this.formSearch.value).subscribe(
+                  (data: any) => (this.listArticles = data.rows)
+            );
+      }
+      getOptionCategories() {
+            this.CategoryService.categoriesForAd$.subscribe(
+                  (data: any) => (this.categories = data.categories)
+            );
       }
 }
