@@ -65,7 +65,7 @@
 <div class="header">
       <div [ngClass]="!showSidebar ? 'logo-hidden' : 'logo'">
             <img
-                  src="http://localhost/wordpress/wp-content/plugins/adminify/assets/images/logos/logo-text-light.svg"
+                  src="http://localhost/admin/wp-content/plugins/adminify/assets/images/logos/logo-text-light.svg"
                   alt=""
             />
             <mat-icon
@@ -128,11 +128,10 @@
             <div class="container-item">
                   <ng-container *ngFor="let item of navItem">
                         <div class="item" (mouseenter)="hover(item)">
-                              <mat-icon
-                                    class="icon-module"
+                              <img
+                                    [src]="item.icon"
                                     [ngClass]="{ selected: item.selected }"
-                                    >{{ item.icon }}</mat-icon
-                              >
+                              />
                               <span class="lable">{{ item.title }}</span>
                               <mat-icon class="icon-arrow">{{
                                     item.selected
@@ -225,11 +224,11 @@
             <div class="container-item">
                   <ng-container *ngFor="let item of navItem">
                         <div class="item" (mouseenter)="hover(item)">
-                              <mat-icon
-                                    class="icon-module"
+                              <img
+                                    [src]="item.icon"
+                                    alt=""
                                     [ngClass]="{ selected: item.selected }"
-                                    >{{ item.icon }}</mat-icon
-                              >
+                              />
                               <div
                                     class="container-subItem"
                                     (mouseleave)="item.opened = false"

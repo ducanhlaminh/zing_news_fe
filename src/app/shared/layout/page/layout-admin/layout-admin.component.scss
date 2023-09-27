@@ -41,7 +41,7 @@
       display: flex;
       position: fixed;
       top: 0;
-      z-index: 999990;
+      z-index: 800;
       width: 100%;
       box-shadow: 0 0 54px 0 rgba(20, 20, 42, .07);
       align-items: center;
@@ -163,7 +163,7 @@
 
                   .itemSub {
                         font-size: 14px;
-                        margin-left: 44px;
+                        margin-left: 25px;
                         font-weight: 600;
                         height: 30px;
                         display: flex;
@@ -196,7 +196,9 @@
                               display: flex;
                               align-items: center;
                         }
-
+                        img{
+                              height: 20px;
+                        }
                         &:hover {
 
                               .lable,
@@ -262,7 +264,7 @@
 }
 
 .selected {
-      color: #0347FF !important
+      filter: invert(30%) sepia(100%) saturate(7500%) hue-rotate(228deg) brightness(100%) contrast(106%);
 }
 .sidebar_small{
       width: 60px;
@@ -279,6 +281,9 @@
                   align-items: center;
                   position: relative;
                   color: gray;
+                  img{
+                        height: 20px;
+                  }
                   .icon-module{
                         font-size: 20px;
                   }

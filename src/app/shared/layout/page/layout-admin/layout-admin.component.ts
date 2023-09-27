@@ -43,7 +43,7 @@ export class LayoutAdminComponent implements OnInit {
                   title: 'Bài viết',
                   opened: false,
                   selected: false,
-                  icon: 'description',
+                  icon: 'assets/icon/article-svgrepo-com.svg',
                   url: 'admin/bai-viet/quan-ly-bai-viet',
                   sub: [
                         {
@@ -67,7 +67,7 @@ export class LayoutAdminComponent implements OnInit {
                   title: 'Bố cục',
                   opened: false,
                   selected: false,
-                  icon: 'bookmark',
+                  icon: 'assets/icon/layout-grid-1-svgrepo-com.svg',
                   sub: [
                         {
                               title: 'Set bài viết nổi bật',
@@ -86,7 +86,7 @@ export class LayoutAdminComponent implements OnInit {
                   title: 'Người dùng',
                   opened: false,
                   selected: false,
-                  icon: 'account_circle',
+                  icon: 'assets/icon/users-svgrepo-com.svg',
                   url: 'admin/quan-ly-nguoi-dung',
                   sub: [
                         {

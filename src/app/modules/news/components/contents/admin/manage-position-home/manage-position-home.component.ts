@@ -1,222 +1,244 @@
 import {
-      CdkDragDrop,
-      copyArrayItem,
-      moveItemInArray,
-      transferArrayItem,
-} from '@angular/cdk/drag-drop';
+    CdkDragDrop,
+    copyArrayItem,
+    moveItemInArray,
+    transferArrayItem,
+} from "@angular/cdk/drag-drop";
 import {
-      Component,
-      Renderer2,
-      OnInit,
-      ElementRef,
-      ViewChild,
-} from '@angular/core';
-import { NewsService } from 'src/app/modules/news/services/news.service';
+    Component,
+    Renderer2,
+    OnInit,
+    ElementRef,
+    ViewChild,
+} from "@angular/core";
+import { NewsService } from "src/app/modules/news/services/news.service";
 import {
-      faEllipsisVertical,
-      faCaretDown,
-      faCaretUp,
-      faAngleDown,
-      faAngleUp,
-      faSort,
-} from '@fortawesome/free-solid-svg-icons';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CategoryService } from 'src/app/modules/news/services/category.service';
-import { MatDialog } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
+    faEllipsisVertical,
+    faCaretDown,
+    faCaretUp,
+    faAngleDown,
+    faAngleUp,
+    faSort,
+} from "@fortawesome/free-solid-svg-icons";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { CategoryService } from "src/app/modules/news/services/category.service";
+import { MatDialog } from "@angular/material/dialog";
+import { ToastrService } from "ngx-toastr";
 @Component({
-      selector: 'app-manage-position-home',
-      templateUrl: './manage-position-home.component.html',
-      styleUrls: ['./manage-position-home.component.scss'],
+    selector: "app-manage-position-home",
+    templateUrl: "./manage-position-home.component.html",
+    styleUrls: ["./manage-position-home.component.scss"],
 })
 export class ManagePositionHomeComponent implements OnInit {
-      faEllipsisVertical = faEllipsisVertical;
-      faCaretDown = faCaretDown;
-      faCaretUp = faCaretUp;
-      faAngleDown = faAngleDown;
-      faAngleUp = faAngleUp;
-      faSort = faSort;
-      selectedStatus = 1;
-      @ViewChild('checkAll') checkAll!: ElementRef;
+    selectedStatus = 1;
+    @ViewChild("checkAll") checkAll!: ElementRef;
+    typeLayout = "1";
+    categories: any[] = [];
+    formSearch!: FormGroup;
+    formOption!: FormGroup;
+    queries: any = { page: 1 };
+    statusOptions = [
+        {
+            name: "Xuất bản",
+            status: 1,
+        },
+        { name: "Bản nháp", status: 0 },
+    ];
+    listArticles: any;
+    list: any[] = [
+        {
+            array: [],
+        },
+        { array: [] },
+        {
+            array: [],
+        },
+        {
+            array: [],
+        },
+        {
+            array: [],
+        },
+        {
+            array: [],
+        },
+        { array: [] },
+        { array: [] },
+        { array: [] },
+    ];
+    constructor(
+        public CategoryService: CategoryService,
+        public dialog: MatDialog,
+        private toastr: ToastrService,
+        private formBuilder: FormBuilder,
+        private NewsService: NewsService,
+        public renderer: Renderer2
+    ) {}
+    ngOnInit(): void {
+        this.formSearch = this.formBuilder.group({
+            title: "",
+        });
+        this.formOption = this.formBuilder.group({
+            categories_id: "1",
+        });
+        this.getOptionCategories();
+        this.getHotNews();
+    }
 
-      categories: any = [];
-      categorySort: any = [];
-      formSearch!: FormGroup;
-      selectedAction: string = '1';
-      order: any = [];
-      queries: any = { page: 1 };
-      formEdit!: FormGroup;
-      selectedItem: any;
-      loading = false;
-      statusOptions = [
-            {
-                  name: 'Xuất bản',
-                  status: 1,
-            },
-            { name: 'Bản nháp', status: 0 },
-      ];
-      listArticles: any;
-      list: any[] = [
-            {
-                  array: [
-                        {
-                              avatar: '1384170848',
-                              title: 'Truyện tranh Việt dành cho tuổi trưởng thành',
-                              sapo: '"Gửi em" có niềm vui của những ngày thanh xuân gian khó, nhiều vất vả bộn bề nhưng được sống trọn với đam mê.',
-                              slug: 'truyen-tranh-viet-danh-cho-tuoi-truong-thanh',
-                              slug_crc: 1384170848,
-                              id: 950,
-                        },
-                  ],
-            },
-            { array: [] },
-            {
-                  array: [
-                        {
-                              avatar: '3140228865',
-                              title: 'Đưa văn học nhà trường lên sân khấu: Sức sống mới cho nghệ thuật',
-                              sapo: 'Các đơn vị nghệ thuật sẽ phục dựng và dàn dựng 51 vở diễn trong 70 tác phẩm văn học đặc sắc thuộc chương trình giáo dục phổ thông, tổ chức 1.800 đến 2.000 buổi diễn cho các trường.',
-                              slug: 'dua-van-hoc-nha-truong-len-san-khau-suc-song-moi-cho-nghe-thuat',
-                              slug_crc: 3140228865,
-                              id: 952,
-                        },
-                  ],
-            },
-            {
-                  array: [
-                        {
-                              avatar: '1775021381',
-                              title: 'Phát động cuộc thi sáng tác Văn chương phương Nam',
-                              sapo: 'Hội Nhà văn TP.HCM, tạp chí Văn nghệ TP.HCM và Đại học Cửu Long phối hợp tổ chức cuộc thi sáng tác Văn chương phương Nam dành cho học sinh, sinh viên.',
-                              slug: 'phat-dong-cuoc-thi-sang-tac-van-chuong-phuong-nam',
-                              slug_crc: 1775021381,
-                              id: 953,
-                        },
-                  ],
-            },
-            {
-                  array: [
-                        {
-                              avatar: '1196741123',
-                              title: 'Góc đọc sách hè dành cho bé 3-11 tuổi',
-                              sapo: 'Các bạn nhỏ sẽ được trải nghiệm đọc những cuốn sách thuộc nhiều thể loại: thơ, truyện, sách khoa học, kiến thức, kỹ năng…',
-                              slug: 'goc-doc-sach-he-danh-cho-be-3-11-tuoi',
-                              slug_crc: 1196741123,
-                              id: 954,
-                        },
-                  ],
-            },
-            {
-                  array: [
-                        {
-                              avatar: '3877058958',
-                              title: "'Muội tro' - những nốt nhạc ngân vang công lý",
-                              sapo: 'Tò mò và bất ngờ, đó là cảm nhận đầu tiên khi đọc tập truyện ngắn “Muội tro” của nhà văn Võ Chí Nhất, do NXB Tổng hợp TP Hồ Chí Minh phát hành gần đây.',
-                              slug: 'muoi-tro-nhung-not-nhac-ngan-vang-cong-ly',
-                              slug_crc: 3877058958,
-                              id: 955,
-                        },
-                  ],
-            },
-            { array: [] },
-            { array: [] },
-      ];
-      items = ['Carrots', 'Tomatoes', 'Onions', 'Apples', 'Avocados'];
+    handleImageError(event: any) {
+        const fallbackImage =
+            "https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png";
+        this.renderer.setAttribute(event.target, "src", fallbackImage);
+    }
 
-      basket = ['Oranges', 'Bananas', 'Cucumbers'];
-      constructor(
-            public CategoryService: CategoryService,
-            public dialog: MatDialog,
-            private toastr: ToastrService,
-            private formBuilder: FormBuilder,
-            private NewsService: NewsService,
-            public renderer: Renderer2
-      ) {}
-      ngOnInit(): void {
-            this.getHotNews();
-            this.formSearch = this.formBuilder.group({
-                  title: '',
+    drop(event: CdkDragDrop<string[]>) {
+        try {
+            transferArrayItem(
+                event?.previousContainer.data,
+                event?.container.data,
+                event.previousIndex,
+                event.previousIndex
+            );
+            console.log(
+                event.previousContainer.data,
+                event.container.data,
+                event.previousIndex,
+                event.previousIndex
+            );
+            console.log(event);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    drop2(event: CdkDragDrop<string[]>, data: any) {
+        try {
+            this.list[data].array.length = 0;
+
+            transferArrayItem(
+                event?.previousContainer.data,
+                event?.container.data,
+                event.previousIndex,
+                event.currentIndex
+            );
+            this.list[data].array[0].position = data + 1;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    showToart(status: boolean) {
+        if (status) {
+            this.toastr.success("Cập nhật thành công");
+        } else {
+            this.toastr.error("Vùi long điền đủ các trường cần thiết");
+        }
+    }
+    getHotNews() {
+        if (this.formOption?.value?.categories_id !== "1") {
+            this.typeLayout = "2";
+            this.NewsService.getartclesHotCate(
+                this.formOption.value?.categories_id
+            ).subscribe((data: any) => {
+                let array = data.hotArticlesCate.new_articles_hot_categories;
+
+                this.list?.map((item: any, index: any) => {
+                    const result = array.find(
+                        (article: any) => article?.position === index + 1
+                    );
+                    if (!result) {
+                        this.list[index].array[0] = {
+                            article_id: null,
+                            position: index + 1,
+                            new_article: null,
+                        };
+                    } else {
+                        this.list[index].array[0] = result;
+                    }
+                });
             });
-            this.getOptionCategories();
-      }
-
-      handleImageError(event: any) {
-            const fallbackImage =
-                  'https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png';
-            this.renderer.setAttribute(event.target, 'src', fallbackImage);
-      }
-
-      drop(event: CdkDragDrop<string[]>) {
-            try {
-                  transferArrayItem(
-                        event?.previousContainer.data,
-                        event?.container.data,
-                        event.previousIndex,
-                        event.previousIndex
-                  );
-                  console.log(
-                        event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.previousIndex
-                  );
-                  console.log(event);
-            } catch (error) {
-                  console.log(error);
-            }
-      }
-      drop2(event: CdkDragDrop<string[]>, data: any) {
-            try {
-                  this.list[data].array.length = 0;
-                  transferArrayItem(
-                        event?.previousContainer.data,
-                        event?.container.data,
-                        event.previousIndex,
-                        event.currentIndex
-                  );
-            } catch (error) {
-                  console.log(error);
-            }
-      }
-
-      showToart(status: boolean) {
-            if (status) {
-                  this.toastr.success('Cập nhật thành công');
-            } else {
-                  this.toastr.error('Vùi long điền đủ các trường cần thiết');
-            }
-      }
-      getHotNews() {
+            console.log(this.list);
+        } else {
+            this.typeLayout = "1";
             this.NewsService.getHotMain().subscribe((data: any) => {
-                  let array = Array(8);
+                let array = data?.hot_news?.hot_main;
 
-                  // array.map((item: any, index: any) => {
-                  //       const result = data.hot_news.hot_main.find(
-                  //             (itemResult: any) =>
-                  //                   itemResult?.position === index + 1
-                  //       );
-                  //       // if (!result) {
-                  //       //       array[index] = {
-                  //       //             article_id: null,
-                  //       //             position: index + 1,
-                  //       //             new_article: null,
-                  //       //       };
-                  //       // } else {
-                  //       //       array[index] = result;
-                  //       // }
-                  //       console.log(result);
-                  // });
-                  // // console.log(array);
+                this.list?.map((item: any, index: any) => {
+                    const result = array.find(
+                        (article: any) => article.position === index + 1
+                    );
+                    if (!result) {
+                        this.list[index].array[0] = {
+                            article_id: null,
+                            position: index + 1,
+                            new_article: null,
+                        };
+                    } else {
+                        this.list[index].array[0] = result;
+                    }
+                });
+                console.log(this.list);
             });
-      }
-      getArticles() {
-            this.NewsService.getAllByAd(this.formSearch.value).subscribe(
-                  (data: any) => (this.listArticles = data.rows)
+        }
+    }
+    getArticles() {
+        this.NewsService.getAllByAd(this.formSearch.value).subscribe(
+            (data: any) => {
+                let array: any = [];
+                data.rows.map((item: any) => {
+                    array.push({
+                        article_id: item.id,
+                        position: null,
+                        new_article: item,
+                    });
+                });
+
+                this.listArticles = array;
+            }
+        );
+    }
+    getOptionCategories() {
+        this.CategoryService.categoriesForAd$.subscribe(
+            (data: any) => (this.categories = data?.categories)
+        );
+    }
+    updatePosition() {
+        console.log(this.list);
+        if (this.formOption.value.categories_id === "1") {
+            let data: any = [];
+            this.list.map((item: any) => {
+                if (item.array[0].article_id) {
+                    data.push({
+                        article_id: item.array[0].article_id,
+                        position: item.array[0].position,
+                    });
+                }
+            });
+            this.NewsService.updateHotMain(data).subscribe();
+        } else {
+            let data: any = [];
+            this.list.map((item: any) => {
+                if (item.array[0].article_id) {
+                    data.push({
+                        article_id: item.array[0].article_id,
+                        position: item.array[0].position,
+                    });
+                }
+            });
+            const cate = this.categories.find(
+                (category: any) =>
+                    category.slug_crc ===
+                    parseInt(this.formOption.value.categories_id)
             );
-      }
-      getOptionCategories() {
-            this.CategoryService.categoriesForAd$.subscribe(
-                  (data: any) => (this.categories = data.categories)
-            );
-      }
+            this.NewsService.updateArtclesHotCate(data, cate.id).subscribe();
+        }
+    }
+    close(number: any) {
+        this.list[number].array.length = 0;
+        this.list[number].array[0] = {
+            article_id: null,
+            position: number + 1,
+            new_article: null,
+        };
+        console.log(this.list);
+    }
 }
