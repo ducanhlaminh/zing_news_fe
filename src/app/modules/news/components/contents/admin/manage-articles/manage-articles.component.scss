@@ -142,7 +142,7 @@ table {
 .filter {
       display: flex;
       gap: 15px;
-      margin-bottom: 5px;
+      margin-bottom: 15px;
       .btn-toggle {
             cursor: pointer;
             background: #fff;
@@ -187,17 +187,20 @@ input[type="text"]{
 }
 .filter-bottom{
       display: flex;
-      gap: 20px;
+      gap: 15px;
       justify-content: space-between;
       margin-bottom: 20px;
+      flex-wrap: wrap;
       .container-action{
             display: flex;
             gap: 10px;
-            width: 50%;
+            width: 500px;
             .action{
                   display: flex;
                   gap: 10px;
-                  width: 50%;
+                  select{
+                        width: fit-content;
+                  }
                   .btn-action{
                         cursor: pointer;
                         background: transparent;
@@ -222,8 +225,7 @@ input[type="text"]{
       .search{
             display: flex;
             gap: 10px;
-            width: 50%;
-            justify-content: end;
+            flex-wrap: wrap;
             input{
                   padding-left: 15px;
                   outline: none;
@@ -231,6 +233,7 @@ input[type="text"]{
                   border: 0;
                   border-radius: 5px;
                   height: 100%;
+                  width: 300px;
             }
 
       }
@@ -265,12 +268,14 @@ input[type="text"]{
       padding-right: 10px;
       .title-status{
             display: flex;
-            gap: 30px;
+            align-items: flex-start;
+            flex-wrap: wrap;
             p{
                   color: #0347FF !important;
                   font-weight: 600;
                   margin: 7px 0;
                   word-wrap: break-word;
+                  margin-right: 20px;
             }
 
       }
@@ -291,6 +296,9 @@ input[type="text"]{
 .item-cate{
       width: 10%;
       padding-right: 10px;
+      b{
+            cursor: pointer;
+      }
 }
 .item-view{
       width: 15%;
