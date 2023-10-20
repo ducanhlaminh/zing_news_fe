@@ -45,27 +45,7 @@ export class ManagePositionHomeComponent implements OnInit {
         { name: "Bản nháp", status: 0 },
     ];
     listArticles: any;
-    list: any[] = [
-        {
-            array: [],
-        },
-        { array: [] },
-        {
-            array: [],
-        },
-        {
-            array: [],
-        },
-        {
-            array: [],
-        },
-        {
-            array: [],
-        },
-        { array: [] },
-        { array: [] },
-        { array: [] },
-    ];
+    list: any;
     constructor(
         public CategoryService: CategoryService,
         public dialog: MatDialog,
@@ -134,51 +114,9 @@ export class ManagePositionHomeComponent implements OnInit {
         }
     }
     getHotNews() {
-        if (this.formOption?.value?.categories_id !== "1") {
-            this.typeLayout = "2";
-            this.NewsService.getartclesHotCate(
-                this.formOption.value?.categories_id
-            ).subscribe((data: any) => {
-                let array = data.hotArticlesCate.new_articles_hot_categories;
-
-                this.list?.map((item: any, index: any) => {
-                    const result = array.find(
-                        (article: any) => article?.position === index + 1
-                    );
-                    if (!result) {
-                        this.list[index].array[0] = {
-                            article_id: null,
-                            position: index + 1,
-                            new_article: null,
-                        };
-                    } else {
-                        this.list[index].array[0] = result;
-                    }
-                });
-            });
-            console.log(this.list);
-        } else {
-            this.typeLayout = "1";
-            this.NewsService.getHotMain().subscribe((data: any) => {
-                let array = data?.hot_news?.hot_main;
-
-                this.list?.map((item: any, index: any) => {
-                    const result = array.find(
-                        (article: any) => article.position === index + 1
-                    );
-                    if (!result) {
-                        this.list[index].array[0] = {
-                            article_id: null,
-                            position: index + 1,
-                            new_article: null,
-                        };
-                    } else {
-                        this.list[index].array[0] = result;
-                    }
-                });
-                console.log(this.list);
-            });
-        }
+        this.NewsService.getHotMain().subscribe((data: any) => {
+            this.list = data.hot_news.hot_main;
+        });
     }
     getArticles() {
         this.NewsService.getAllByAd(this.formSearch.value).subscribe(
