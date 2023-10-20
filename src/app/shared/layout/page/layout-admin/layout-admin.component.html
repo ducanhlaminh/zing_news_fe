@@ -141,7 +141,7 @@
                     <div
                         class="container-subItem"
                         (mouseleave)="item.opened = false"
-                        *ngIf="item.opened"
+                        *ngIf="item.opened && !item.selected"
                     >
                         <div
                             class="subItem"

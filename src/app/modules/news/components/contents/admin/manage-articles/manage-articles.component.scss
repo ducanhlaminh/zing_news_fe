@@ -373,3 +373,16 @@ label{
       display: flex;
       gap:10px
 }
+.btn-user{
+      position: relative;
+    .close-btn{
+      position: absolute;
+      font-size: 18px;
+      right: 0;
+      top: 0;
+      color: rgba(255, 0, 0, 0.827);
+      transform: translate(50%,-50%);
+      background:#fff;
+}
+}
+

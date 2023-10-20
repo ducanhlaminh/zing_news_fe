@@ -7,7 +7,9 @@ import {
     faEdit,
     faCircleInfo,
     faSort,
+    faCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
+
 import { NewsService } from "src/app/modules/news/services/news.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { combineLatest, debounceTime, switchMap } from "rxjs";
@@ -31,6 +33,7 @@ export class ManageArticlesComponent implements OnInit {
     faEdit = faEdit;
     faCircleInfo = faCircleInfo;
     faSort = faSort;
+    faXmarkCircle = faCircleMinus;
 
     formFilter!: FormGroup;
     formEdit!: FormGroup;

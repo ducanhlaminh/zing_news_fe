@@ -124,7 +124,7 @@
                 <span>Lưu thay đổi</span>
             </button>
         </div>
-        <ng-container *ngIf="typeLayout === '1'">
+        <!-- <ng-container *ngIf="typeLayout === '1'">
             <div class="layout-hot-main">
                 <div class="hot-main-left-container">
                     <div
@@ -389,6 +389,127 @@
                             </ng-container>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="layout-hot-main">
+            <div class="hot-main-left-container">
+                <div
+                    class="left-item"
+                    cdkDropList
+                    [cdkDropListData]="this.list[number].array"
+                    (cdkDropListDropped)="drop2($event, number)"
+                    *ngFor="let number of [3, 4, 5, 6, 7]; last as last"
+                >
+                    <div
+                        class="example-custom-placeholder"
+                        *cdkDragPlaceholder
+                    ></div>
+                    <ng-container *ngFor="let item of this.list[number].array">
+                        <div class="new-artcle-item" *ngIf="item?.new_article">
+                            <button
+                                class="btn-close"
+                                (click)="close(number)"
+                                mat-mini-fab
+                                color="warn"
+                                aria-label="Example icon button with a filter list icon"
+                            >
+                                <mat-icon class="close">close</mat-icon>
+                            </button>
+                            <div class="img-article">
+                                <img
+                                    [src]="
+                                        'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                        item?.new_article.avatar +
+                                        '&height=120&width=80'
+                                    "
+                                    alt=""
+                                    (error)="handleImageError($event)"
+                                />
+                            </div>
+                            <div class="new-artcle-infor">
+                                <b>
+                                    {{ item?.new_article.title }}
+                                </b>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="hot-main-center-container">
+                <div
+                    class="center-item"
+                    cdkDropList
+                    [cdkDropListData]="this.list[0].array"
+                    (cdkDropListDropped)="drop2($event, 0)"
+                >
+                    <div
+                        class="artcle-center-item"
+                        *ngIf="this.list[0].array[0]?.new_article"
+                    >
+                        <button
+                            class="btn-close"
+                            mat-mini-fab
+                            color="warn"
+                            (click)="close(0)"
+                            aria-label="Example icon button with a filter list icon"
+                        >
+                            <mat-icon class="close">close</mat-icon>
+                        </button>
+                        <img
+                            [src]="
+                                'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                this.list[0].array[0]?.new_article.avatar +
+                                '&height=330&width=500'
+                            "
+                            alt=""
+                            (error)="handleImageError($event)"
+                        />
+                        <b>{{ this.list[0].array[0]?.new_article.title }}</b>
+                        <p>
+                            {{ this.list[0].array[0]?.new_article.sapo }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="hot-main-right-container">
+                <div
+                    class="right-item"
+                    cdkDropList
+                    [cdkDropListData]="this.list[number].array"
+                    (cdkDropListDropped)="drop2($event, number)"
+                    *ngFor="let number of [1, 2]"
+                >
+                    <div
+                        class="example-custom-placeholder"
+                        *cdkDragPlaceholder
+                    ></div>
+                    <ng-container *ngFor="let item of this.list[number].array">
+                        <div
+                            class="artcle-right-item"
+                            *ngIf="item?.new_article"
+                        >
+                            <button
+                                class="btn-close"
+                                mat-mini-fab
+                                color="warn"
+                                (click)="close(number)"
+                                aria-label="Example icon button with a filter list icon"
+                            >
+                                <mat-icon class="close">close</mat-icon>
+                            </button>
+                            <img
+                                [src]="
+                                    'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                    item?.new_article?.avatar +
+                                    '&height=200&width=300'
+                                "
+                                alt=""
+                                (error)="handleImageError($event)"
+                            />
+                            <b>{{ item?.new_article.title }}</b>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
         </div>

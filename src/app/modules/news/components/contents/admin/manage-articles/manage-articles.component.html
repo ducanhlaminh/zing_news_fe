@@ -19,7 +19,7 @@
             [ngClass]="{ 'selected-filter': selectedStatus === 1 }"
             (click)="this.formFilter.patchValue({
                         status: null,
-                      });this.selectedStatus = 1;this.selectName = null;this.getArticles();"
+                      });this.selectedStatus = 1;this.getArticles();"
         >
             <span>Tất cả</span>
         </button>
@@ -35,7 +35,7 @@
             [ngClass]="{ 'selected-filter': selectedStatus === 2 }"
             (click)="this.formFilter.patchValue({
                   status: 1,
-                });this.selectedStatus = 2;this.selectName = null; this.getArticles();"
+                });this.selectedStatus = 2; this.getArticles();"
         >
             <span>Đã xuất bản</span>
         </button>
@@ -54,20 +54,21 @@
                     status: 0
                 });
                 this.selectedStatus = 3;
-                this.selectName = null;
                 this.getArticles()
             "
         >
             <span>Bản nháp</span>
         </button>
         <button
-            class="btn-toggle"
-            [matBadge]="length"
-            matBadgeColor="primary"
+            class="btn-toggle selected-filter btn-user"
             *ngIf="this.selectName"
-            [ngClass]="{ 'selected-filter': selectedStatus === 4 }"
         >
             <span>{{ selectName.userName }}</span>
+            <fa-icon
+                [icon]="faXmarkCircle"
+                class="close-btn"
+                (click)="this.selectName = null; this.getArticles()"
+            ></fa-icon>
         </button>
     </div>
     <div class="filter-bottom">
@@ -200,9 +201,7 @@
                 <td class="item-cate">
                     <b
                         (click)="
-                            this.selectName = item?.User;
-                            this.selectedStatus = 4;
-                            this.getArticles()
+                            this.selectName = item?.User; this.getArticles()
                         "
                         >{{ item?.User.userName }}</b
                     >
