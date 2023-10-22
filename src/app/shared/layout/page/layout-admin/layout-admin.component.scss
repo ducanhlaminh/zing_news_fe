@@ -68,6 +68,7 @@
                   justify-content: center;
                   align-items: center;
                   padding-right: 10px;
+                  cursor: pointer;
             }
       }
       .logo-hidden{
@@ -286,8 +287,10 @@
                   align-items: center;
                   position: relative;
                   color: gray;
+                  cursor: pointer;
                   img{
                         height: 20px;
+
                   }
                   .icon-module{
                         font-size: 20px;
@@ -323,4 +326,10 @@ mat-icon{
       display: flex;
       justify-content: center;
       align-items: center;
+}
+.container_bottom_item{
+      display: none;
+}
+.active_subItem_bottom{
+      display: block;
 }

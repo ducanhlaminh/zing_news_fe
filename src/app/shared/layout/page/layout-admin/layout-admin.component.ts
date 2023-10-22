@@ -68,6 +68,7 @@ export class LayoutAdminComponent implements OnInit {
                   opened: false,
                   selected: false,
                   icon: 'assets/icon/layout-grid-1-svgrepo-com.svg',
+                  url: 'admin/quan-ly-vi-tri-trang-chu',
                   sub: [
                         {
                               title: 'Set bài viết nổi bật',
