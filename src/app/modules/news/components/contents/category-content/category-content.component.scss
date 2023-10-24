@@ -1,210 +1,71 @@
 .category-section-header {
-  h1 {
-    font-size: 48px;
-    text-align: center;
-    margin-bottom: 0;
-    border-bottom: 2px solid #333;
-    padding-bottom: 30px;
+      display: flex;
+    border-bottom: 1px solid #bebebea3;
+      align-items: flex-end;
+  p {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 14px 0;
+    margin-right: 20px;
   }
   .sub-categories-section{
     display: flex;
     .sub-category{
-      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      border-bottom: 1px solid #333;
-      padding: 14px 0;
-      font-size: 13.5px;
-      font-weight: 500;
-      margin: 0;
+      font-size: 15px;
+      margin: 14px 0;
+      margin-right: 20px;
+      width: fit-content;
+      flex-wrap: wrap;
     }
-  }
-}
-
-.hot-articles-category-parent {
-  display: flex;
-  height: 600px;
-  gap:40px;
-  .hot-articles-category-left{
-    width: 60%;
-    height: 100%;
-    padding: 32px 32px 0 0;
-    border-right: 1px solid #33333331;
-    box-sizing: border-box;
-    .hot-articles-category-left-item {
-      width: 100%;
-      height: 100%;
-      img {
-        width: 100%;
-        object-fit: cover;
-        height: 70%;
-      }
-      .title {
-        margin: 10px 0;
-        font-size: 30px;
-        font-weight: 600;
-      }
-      .sapo {
-        color : #333333;
-        line-height: 25px;
-        font-weight: 400;
-        font-size: 18px;
-      }
-    }
-  }
-  .hot-articles-category-right {
-    width: 40%;
-    height: 100%;
-    flex-direction: column;
-    display: flex;
-    .hot-articles-category-right-item {
-      display: flex;
-      flex: 1;
-      height: 20%;
-      gap: 40px;
-      padding: 20px 0 20px 20px;
-      border-bottom: 1px solid #33333331;
-      .title {
-        width: 60%;
-        margin: 0;
-        font-size: 18px;
-        font-weight: 500;
-      }
-      img {
-        width: 40%;
-        object-fit: cover;
-        height: 100%;
-      }
-    }
-  }
-}
-.hot-articles-category-child {
-  display: flex;
-  height: 400px;
-  gap:35px;
-  margin-top: 50px;
-  .hot-articles-category-left{
-    width: 50%;
-    img {
-      object-fit: cover;
-      height: 85%;
-      width: 100%;
-    }
-    .title {
-      font-weight: 600;
-      font-size: 30px;
-      margin-top: 10px;
-    }
-  }
-  .hot-articles-category-right {
-    width: 50%;
-    display: flex;
-    gap:35px;
-    .hot-articles-category-right-item{
-      width: 50%;
-      img {
-        height: 35%;
-        width: 100%;
-        object-fit: cover;
-      }
-      .title {
-        height: 10%;
-        width: 100%;
-        font-weight: 600;
-        font-size: 16px;
-      }
-      .sapo {
-        font-size: 16px;
-            color: #555555;
-            height: 55%;
-      }
-    }
-
   }
 }
 .center{
   display: flex;
   gap: 20px;
   .new-articles-cate {
-    width: 70%;
-    .new-articles-cate-left {
+      border-top: 1px solid #bebebea3;
+      margin-top: 15px;
       .new-article-cate{
-        display: flex;
-        gap:16px;
-        height: 170px;
-        .new-article-cate-img {
-          width: 200px;
-          img {
+            display: flex;
             width: 100%;
-            border-radius: 7px;
+            gap: 16px;
+            height: 140px;
+            margin: 20px 0;
+        .new-article-cate-img {
+          width: 220px;
+          img {
             height: 100%;
+            width: 220px;
             object-fit: cover;
           }
         }
         .new-article-cate-infor{
-          width: calc(100% - 200px);
+          width: calc(100% - 220px);
           .new-article-title{
-            font-weight: 500;
-            font-size: 20px;
             margin: 0;
+            font-family: 'Merriweather';
+            font-size: 15px;
           }
           .new-article-sapo{
-            margin-top: 10px;
-            font-size: 16px;
-            color: #555555;
+            color: rgba(39, 39, 39, 0.822);
+          line-height: 20px;
+          font-size: 14px;
+          margin: 11px 0;
           }
         }
-      }
-      .new-article-cate:hover{
+        &:hover{
             cursor: pointer;
             p{
                   color: #096ffa;
             }
-      }
-    }
-  }
-  .articles-most-views-layout{
-    width: 30%;
-    .articles-most-views{
-      border: 1px solid #33333324;
-      border-radius: 5px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      .artcles-view-most-item {
-        height: 72px;
-        display: flex;
-        .artcles-view-most-item-infor{
-          padding-left: 7px;
-          .most-item-infor-cate{
-            margin-top: 0;
-            font-size: 11px;
-            color:gray
-          }
-          .most-item-infor-title{
-            font-size: 14px;
-          }
-        }
-        img{
-          height: 100%;
-          width: 72px;
-          border-radius: 7px;
-          object-fit: cover;
         }
       }
-      .artcles-view-most-item:hover{
-            cursor: pointer;
-            .most-item-infor-title{
-            color:#096ffa
-            }
-      }
-    }
   }
+
 }
-
-
 header {
   font-size: 18px;
   border-top: 3px solid #3333332e;
@@ -223,52 +84,139 @@ header {
     top: -18px;
   }
 }
-
-.category-section-header {
-  h1 {
-    font-size: 48px;
-    text-align: center;
-    margin-bottom: 0;
-    border-bottom: 2px solid #333;
-    padding-bottom: 30px;
-  }
-  .sub-categories-section{
-    display: flex;
-    .sub-category{
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-bottom: 1px solid #333;
-      padding: 14px 0;
-      font-size: 13.5px;
-      font-weight: 500;
-      margin: 0;
-    }
-  }
-}
-
-header {
-  font-size: 18px;
-  border-top: 3px solid #3333332e;
-  padding: 16px 0;
-  .name-header{
-    position: relative;
-    font-weight: 500;
-  }
-  .name-header::after{
-    content: "";
-    background-color: #096ffa;
-    width: 100%;
-    height: 3px;
-    position: absolute;
-    left: 0;
-    top: -18px;
-  }
-}
-
 
 .title:hover {
   color: #096ffa;
   cursor: pointer;
+}
+.container-hot-cate{
+      margin-top: 20px;
+      display: flex;
+      align-items: flex-start;
+      box-sizing: border-box;
+      .layout-hot-article{
+            width: 70%;
+            border-right: 1px solid #bebebea3;
+            padding-right: 20px;
+            .hot-article{
+                  display: flex;
+                  height: 300px;
+                  width: 100%;
+                  background: #d2d1d134;
+                  .image-article{
+                        width: 65%;
+                        height: 100%;
+                        img{
+                              width: 100%;
+                              height: 100%;
+                              object-fit: cover;
+                        }
+                  }
+                  .info-article{
+                        width: 35%;
+                        padding: 0 20px;
+                        .infor-article-title{
+                              font-weight: 600;
+                              font-size: 17px;
+                              margin-bottom: 0;
+                              font-family: 'Merriweather';
+                        }
+                        .infor-article-sapo{
+                              color: rgba(39, 39, 39, 0.822);
+                              margin-top: 11px;
+                              font-size: 15px;
+                              word-spacing: 2px;
+                        }
+                  }
+            }
+      }
+
+      .list-hot-articles{
+            width: 30%;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            position: relative;
+
+            .list {
+                  height: 500px;
+                  width: 100%;
+                  border: 1px solid #33333324;
+                  border-radius: 3px;
+                  overflow-y: scroll;
+                  .hot-article-item{
+                        display: flex;
+                        padding: 0 10px;
+                        padding-top: 10px;
+                        height: 80px;
+                        gap: 20px;
+                        align-items: flex-start;
+                        .hot-article-title{
+                              width: 60%;
+                              margin-top: 0;
+                              font-family: 'Merriweather';
+                              font-size: 13px;
+                        }
+                        .image-article{
+                              width: 40%;
+                              img{
+                                    width: 100%;
+                                    height: 70px;
+                                    object-fit: cover;
+                              }
+                        }
+                  }
+                  &::before{
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        background: linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 100%);
+                        width: calc(100% - 20px);
+                        height: 80px;
+                        top: 450px;
+                  }
+            }
+            .articles-most-views-layout{
+                  width: 100%;
+                  .articles-most-views{
+                    border: 1px solid #33333324;
+                    border-radius: 3px;
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    .artcles-view-most-item {
+                      height: 72px;
+                      display: flex;
+                      .artcles-view-most-item-infor{
+                        padding-left: 7px;
+                        .most-item-infor-cate{
+                          margin-top: 0;
+                          font-size: 11px;
+                          color:gray
+                        }
+                        .most-item-infor-title{
+                          font-size: 12px;
+                          font-family: 'Merriweather';
+                        }
+                      }
+                      img{
+                        height: 100%;
+                        width: 72px;
+                        object-fit: cover;
+                      }
+                    }
+                    .artcles-view-most-item:hover{
+                          cursor: pointer;
+                          .most-item-infor-title{
+                          color:#096ffa
+                          }
+                    }
+                  }
+                }
+      }
+}
+a {
+      color : #626262
 }

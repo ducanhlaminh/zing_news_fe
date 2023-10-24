@@ -1,22 +1,21 @@
 .hot-artcles {
   display: flex;
   gap: 20px;
-  height: 500px;
-  padding-bottom: 20px;
+  height: 550px;
 
   .hot-artcles-left {
     width: 27%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    box-sizing: border-box;
+    height: 100%;
+    .container-wrap-item{
+      display: flex;
+      flex-direction: column;
+    }
     .artcle-left-item {
-      flex:1;
       display: flex;
       gap: 10px;
-      height: 80px;
+      flex:1;
+      box-sizing: border-box;
       .image-empty-left {
-        border-radius: 5px;
         height: 100%;
         width: 40%;
         background: #dcdbdb;
@@ -28,26 +27,33 @@
         box-sizing: border-box;
         flex-direction: column;
         .title-empty-left {
-          border-radius: 5px;
           height: 100%;
           width: 100%;
           background: #dcdbdb;
         }
         .sapo-empty-left {
-          border-radius: 5px;
           height: 50px;
           width: 100%;
           background: #dcdbdb;
         }
       }
-      img {
-        border-radius: 5px;
-        height: 80px;
-        width: 40%;
+      .image{
+            width: 120px;
+            height: 90px;
+           img {
+        width: 100%;
         object-fit: cover;
+        height: 100%;
       }
+      }
+
       .artcle-left-item-infor {
-        width: 60%;
+            width: calc(100% - 130px);
+            b{
+                  font-family: 'Merriweather';
+                  font-size: 14px;
+
+            }
       }
     }
     .artcle-left-item:hover {
@@ -66,21 +72,22 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      b{
+            font-family: 'Merriweather';
+        }
       .image-empty-right {
-        border-radius: 5px;
         height: 80%;
         width: 100%;
         background: #dcdbdb;
       }
       .infor-empty-right {
-        border-radius: 5px;
         height: 20%;
         width: 100%;
         display: flex;
         background: #dcdbdb;
+
       }
       img {
-        border-radius: 5px;
         width: 100%;
         height: 75%;
         object-fit: cover;
@@ -104,7 +111,6 @@
       flex-direction: column;
       gap: 5px;
       .image-empty-center {
-        border-radius: 5px;
         height: 70%;
         width: 100%;
         background: #dcdbdb;
@@ -116,29 +122,31 @@
         flex-direction: column;
         justify-content: space-between;
         .title-empty-center {
-          border-radius: 5px;
           height: 50px;
           width: 100%;
           background: #dcdbdb;
+
         }
         .sapo-empty-center {
-          border-radius: 5px;
           height: 80px;
           width: 100%;
           background: #dcdbdb;
         }
       }
       b {
-        font-family: Arial;
-        font-size: 32px;
+        font-size: 22px;
+        font-family: 'Merriweather';
       }
       p {
         color: rgb(78, 78, 78);
         font-size: 16px;
         line-height: 23px;
+        height: 30px;
+        overflow: hidden;
+        margin-bottom: 0;
+        flex: auto;
       }
       img {
-        border-radius: 5px;
         width: 100%;
         height: 70%;
         object-fit: cover;
@@ -159,11 +167,10 @@
     width: 30%;
     .artcles-view-most {
       border: 1px solid rgba(161, 161, 161, 0.26);
-      border-radius: 5px;
       display: flex;
       flex-direction: column;
       width: 100%;
-      gap: 12px;
+      gap: 20px;
       box-sizing: border-box;
       padding: 20px;
       h3 {
@@ -173,7 +180,7 @@
         position: relative;
       }
       .artcles-view-most-item {
-        height: 72px;
+        height: 70px;
         display: flex;
         .artcles-view-most-item-infor {
           padding-left: 7px;
@@ -181,15 +188,16 @@
             margin-top: 0;
             font-size: 11px;
             color: gray;
+            margin-bottom: 5px;
           }
           .most-item-infor-title {
-            font-size: 14px;
+            font-size: 11px;
+            font-family: 'Merriweather';
           }
         }
         img {
           height: 100%;
-          width: 72px;
-          border-radius: 7px;
+          width: 100px;
           object-fit: cover;
         }
       }
@@ -203,28 +211,33 @@
   }
 
   .new-artcles {
-    padding-top: 12px;
     width: 70%;
+    padding-right: 10px;
+    border-right: 1px solid #bebebea3;
+    border-top: 1px solid #bebebea3;
     .new-artcle-item {
       display: flex;
       width: 100%;
       gap: 16px;
-      height: 170px;
+      height: 140px;
+      margin: 20px 0;
       img {
         height: 100%;
-        width: 200px;
-        border-radius: 7px;
+        width: 220px;
         object-fit: cover;
       }
       .new-artcle-infor {
-            width: calc(100% - 200px);
+            width: calc(100% - 220px);
         h2 {
           margin: 0;
+          font-size: 16px;
+          font-family: 'Merriweather';
         }
         p {
-          color: gray;
+          color: rgba(39, 39, 39, 0.822);
           line-height: 20px;
           font-size: 14px;
+          margin: 11px 0;
         }
       }
     }
@@ -247,6 +260,7 @@
   background-color: #dd3333;
 }
 .title {
+      font-family: 'Merriweather';
   position: relative;
   padding-left: 20px;
   margin-top: 0;
@@ -259,8 +273,8 @@
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
-  margin-top: 80px;
-  border-top: 2px solid #333333;
+  margin-top: 30px;
+  border-top: 1px solid #bebebea3;
   padding-top: 20px;
   .hot-new-category {
     width: 22%;
@@ -273,11 +287,10 @@
         height: 173px;
         width: 100%;
         object-fit: cover;
-        border-radius: 5px;
       }
       b {
-        font-family: Arial;
         margin-top: 5px;
+        font-family: 'Merriweather';
       }
       &:hover{
             cursor: pointer;
@@ -300,10 +313,10 @@
       height: 70px;
       width: 70px;
         object-fit: cover;
-        border-radius: 5px;
       }
       b {
         font-size: 14px;
+        font-family: Arial;
         width: calc(100% - 70px);
       }
     }
