@@ -12,7 +12,7 @@
     }
     .artcle-left-item {
       display: flex;
-      gap: 10px;
+      gap: 20px;
       flex:1;
       box-sizing: border-box;
       .image-empty-left {
@@ -49,11 +49,7 @@
 
       .artcle-left-item-infor {
             width: calc(100% - 130px);
-            b{
-                  font-family: 'Merriweather';
-                  font-size: 14px;
 
-            }
       }
     }
     .artcle-left-item:hover {
@@ -67,14 +63,15 @@
     width: 25%;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    justify-content: space-between;
     .artcle-right-item {
-      height: 50%;
+      height: 47%;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      b{
-            font-family: 'Merriweather';
-        }
+      h4{
+            padding-top: 10px;
+      }
       .image-empty-right {
         height: 80%;
         width: 100%;
@@ -109,7 +106,9 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      p{
+            margin: 0;
+      }
       .image-empty-center {
         height: 70%;
         width: 100%;
@@ -141,7 +140,6 @@
         color: rgb(78, 78, 78);
         font-size: 16px;
         line-height: 23px;
-        height: 30px;
         overflow: hidden;
         margin-bottom: 0;
         flex: auto;
@@ -167,12 +165,23 @@
     width: 30%;
     .artcles-view-most {
       border: 1px solid rgba(161, 161, 161, 0.26);
-      display: flex;
-      flex-direction: column;
       width: 100%;
-      gap: 20px;
       box-sizing: border-box;
-      padding: 20px;
+      .header-most-view{
+            height: 50px;
+            display: flex;
+            align-items:center ;
+            padding-left: 20px;
+            background: #bebebe55;
+            border-bottom: 1px solid #bebebea3;
+      }
+      .artcles-view-container{
+            padding: 20px;
+            display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      }
       h3 {
         margin: 0;
         font-size: 20px;
@@ -182,6 +191,8 @@
       .artcles-view-most-item {
         height: 70px;
         display: flex;
+        border-bottom: 1px solid #bebebea3;
+        padding-bottom: 15px;
         .artcles-view-most-item-infor {
           padding-left: 7px;
           .most-item-infor-cate {
@@ -321,4 +332,8 @@
       }
     }
   }
+}
+h4 {
+      margin-top: 0;
+      line-height: 23px;
 }

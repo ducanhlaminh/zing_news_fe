@@ -1,269 +1,300 @@
 <div class="hot-artcles">
-    <div class="hot-artcles-left">
-        <ng-container
-            *ngFor="
-                let item of artclesHotMain?.left;
-                let i = index;
-                last as last
-            "
-        >
-            <div
-                class="container-wrap-item"
-                *ngIf="item.new_article; else emptyLeft; last"
+      <div class="hot-artcles-left">
+            <ng-container
+                  *ngFor="
+                        let item of artclesHotMain?.left;
+                        let i = index;
+                        last as last
+                  "
             >
-                <div
-                    class="artcle-left-item"
-                    [routerLink]="[
-                        '/',
-                        'bai-viet',
-                        item?.new_article?.slug,
-                        item?.new_article?.slug_crc
-                    ]"
-                >
-                    <div class="image">
+                  <div
+                        class="container-wrap-item"
+                        *ngIf="item.new_article; else emptyLeft; last"
+                  >
+                        <div
+                              class="artcle-left-item"
+                              [routerLink]="[
+                                    '/',
+                                    'bai-viet',
+                                    item?.new_article?.slug,
+                                    item?.new_article?.slug_crc
+                              ]"
+                        >
+                              <div class="image">
+                                    <img
+                                          [src]="
+                                                'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                                item?.new_article?.avatar +
+                                                '&width=120&height=110'
+                                          "
+                                          alt=""
+                                          (error)="handleImageError($event)"
+                                    />
+                              </div>
+
+                              <div class="artcle-left-item-infor">
+                                    <h4>{{ item.new_article?.title }}</h4>
+                              </div>
+                        </div>
+                        <hr *ngIf="!last" />
+                  </div>
+            </ng-container>
+      </div>
+      <div class="hot-artcles-center">
+            <ng-container
+                  *ngIf="
+                        artclesHotMain?.center[0]?.new_article?.slug;
+                        else emptyCenter
+                  "
+            >
+                  <div
+                        class="artcle-center-item"
+                        [routerLink]="[
+                              '/',
+                              'bai-viet',
+                              artclesHotMain?.center[0]?.new_article?.slug,
+
+                              artclesHotMain.center[0]?.new_article?.slug_crc
+                        ]"
+                  >
                         <img
-                            [src]="
-                                'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                item?.new_article?.avatar +
-                                '&width=120&height=110'
-                            "
-                            alt=""
-                            (error)="handleImageError($event)"
+                              [src]="
+                                    'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                    artclesHotMain?.center[0]?.new_article
+                                          ?.avatar +
+                                    '&height=330&width=500'
+                              "
+                              alt=""
+                              (error)="handleImageError($event)"
                         />
-                    </div>
-
-                    <div class="artcle-left-item-infor">
-                        <b>{{ item.new_article?.title }}</b>
-                    </div>
-                </div>
-                <hr *ngIf="!last" />
-            </div>
-        </ng-container>
-    </div>
-    <div class="hot-artcles-center">
-        <ng-container
-            *ngIf="
-                artclesHotMain?.center[0]?.new_article?.slug;
-                else emptyCenter
-            "
-        >
-            <div
-                class="artcle-center-item"
-                [routerLink]="[
-                    '/',
-                    'bai-viet',
-                    artclesHotMain?.center[0]?.new_article?.slug,
-
-                    artclesHotMain.center[0]?.new_article?.slug_crc
-                ]"
+                        <h2>
+                              {{
+                                    artclesHotMain?.center[0]?.new_article
+                                          ?.title
+                              }}
+                        </h2>
+                        <p>
+                              {{ artclesHotMain?.center[0]?.new_article?.sapo }}
+                        </p>
+                  </div>
+            </ng-container>
+      </div>
+      <div class="hot-artcles-right">
+            <ng-container
+                  *ngFor="let item of artclesHotMain?.right; last as last"
             >
-                <img
-                    [src]="
-                        'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                        artclesHotMain?.center[0]?.new_article?.avatar +
-                        '&height=330&width=500'
-                    "
-                    alt=""
-                    (error)="handleImageError($event)"
-                />
-                <b>{{ artclesHotMain?.center[0]?.new_article?.title }}</b>
-                <p>
-                    {{ artclesHotMain?.center[0]?.new_article?.sapo }}
-                </p>
-            </div>
-        </ng-container>
-    </div>
-    <div class="hot-artcles-right">
-        <ng-container *ngFor="let item of artclesHotMain?.right; last as last">
-            <div
-                class="artcle-right-item"
-                *ngIf="item.new_article; else emptyRight"
-                [routerLink]="[
-                    '/',
-                    'bai-viet',
-                    item?.new_article?.slug,
-                    item?.new_article?.slug_crc
-                ]"
-            >
-                <img
-                    [src]="
-                        'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                        item?.new_article?.avatar +
-                        '&height=200&width=300'
-                    "
-                    alt=""
-                    (error)="handleImageError($event)"
-                />
-                <b>{{ item.new_article.title }}</b>
-            </div>
-            <hr *ngIf="!last" />
-        </ng-container>
-    </div>
+                  <div
+                        class="artcle-right-item"
+                        *ngIf="item.new_article; else emptyRight"
+                        [routerLink]="[
+                              '/',
+                              'bai-viet',
+                              item?.new_article?.slug,
+                              item?.new_article?.slug_crc
+                        ]"
+                  >
+                        <img
+                              [src]="
+                                    'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                    item?.new_article?.avatar +
+                                    '&height=200&width=300'
+                              "
+                              alt=""
+                              (error)="handleImageError($event)"
+                        />
+                        <h4>{{ item.new_article.title }}</h4>
+                  </div>
+            </ng-container>
+      </div>
 </div>
 <hr />
 <h3 class="title">BOOKS</h3>
 <app-carousel></app-carousel>
 <hr />
 <div class="center-page">
-    <div
-        class="new-artcles"
-        infinite-scroll
-        (scrolled)="onScrollDown()"
-        [infiniteScrollDistance]="0.1"
-    >
-        <div class="" *ngFor="let item of newArtcles; last as last">
-            <div
-                class="new-artcle-item"
-                [routerLink]="['/bai-viet', item.slug, item.slug_crc]"
-            >
-                <div class="img-article">
-                    <img
-                        [src]="
-                            'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                            item.avatar +
-                            '&height=200&width=300'
-                        "
-                        alt=""
-                        (error)="handleImageError($event)"
-                    />
-                </div>
-                <div class="new-artcle-infor">
-                    <h2>{{ item.title }}</h2>
-                    <p>
-                        {{ item.sapo }}
-                    </p>
-                </div>
-            </div>
+      <div
+            class="new-artcles"
+            infinite-scroll
+            (scrolled)="onScrollDown()"
+            [infiniteScrollDistance]="0.1"
+      >
+            <div class="" *ngFor="let item of newArtcles; last as last">
+                  <div
+                        class="new-artcle-item"
+                        [routerLink]="['/bai-viet', item.slug, item.slug_crc]"
+                  >
+                        <div class="img-article">
+                              <img
+                                    [src]="
+                                          'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                          item.avatar +
+                                          '&height=200&width=300'
+                                    "
+                                    alt=""
+                                    (error)="handleImageError($event)"
+                              />
+                        </div>
+                        <div class="new-artcle-infor">
+                              <h2>{{ item.title }}</h2>
+                              <p>
+                                    {{ item.sapo }}
+                              </p>
+                        </div>
+                  </div>
 
-            <hr *ngIf="!last" />
-        </div>
-    </div>
-    <div class="center-page-right">
-        <div class="artcles-view-most">
-            <h3 class="title">Đọc nhiều</h3>
-            <div
-                class="artcles-view-most-item"
-                *ngFor="let item of articlesViews"
-                [routerLink]="['/bai-viet', item?.slug, item?.slug_crc]"
-            >
-                <div class="artcles-view-most-img">
-                    <img
-                        [src]="item.avatar"
-                        alt=""
-                        (error)="handleImageError($event)"
-                    />
-                </div>
-                <div class="artcles-view-most-item-infor">
-                    <p class="most-item-infor-cate">
-                        {{ item?.new_articles_categories[0]?.category.name }}
-                    </p>
-                    <b class="most-item-infor-title">{{ item.title }}</b>
-                </div>
+                  <hr *ngIf="!last" />
             </div>
-        </div>
-    </div>
+      </div>
+      <div class="center-page-right">
+            <div class="artcles-view-most">
+                  <div class="header-most-view">
+                        <h3 class="title">Đọc nhiều</h3>
+                  </div>
+                  <div class="artcles-view-container">
+                        <div
+                              class="artcles-view-most-item"
+                              *ngFor="let item of articlesViews"
+                              [routerLink]="[
+                                    '/bai-viet',
+                                    item?.slug,
+                                    item?.slug_crc
+                              ]"
+                        >
+                              <div class="artcles-view-most-img">
+                                    <img
+                                          [src]="item.avatar"
+                                          alt=""
+                                          (error)="handleImageError($event)"
+                                    />
+                              </div>
+                              <div class="artcles-view-most-item-infor">
+                                    <p class="most-item-infor-cate">
+                                          {{
+                                                item?.new_articles_categories[0]
+                                                      ?.category.name
+                                          }}
+                                    </p>
+                                    <b class="most-item-infor-title">{{
+                                          item.title
+                                    }}</b>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
 </div>
 <hr />
 
 <div class="hot-new-categories">
-    <ng-container *ngFor="let item of boxArticlesCate">
-        <div
-            class="hot-new-category"
-            *ngIf="item?.new_articles_hot_categories.length >= 3"
-        >
-            <h3
-                class="category-title title"
-                [routerLink]="['/danh-muc', item.slug, item.slug_crc]"
-            >
-                {{ item?.name.toUpperCase() }}
-            </h3>
+      <ng-container *ngFor="let item of boxArticlesCate">
             <div
-                class="hot-new-category-main"
-                [routerLink]="[
-                    '/bai-viet',
-                    item?.new_articles_hot_categories[0]?.new_article?.slug,
-                    item?.new_articles_hot_categories[0]?.new_article?.slug_crc
-                ]"
+                  class="hot-new-category"
+                  *ngIf="item?.new_articles_hot_categories.length >= 3"
             >
-                <img
-                    [src]="
-                        item?.new_articles_hot_categories[0]?.new_article
-                            ?.avatar
-                    "
-                    alt=""
-                    (error)="handleImageError($event)"
-                />
-                <b class="hot-new-category-main-title">{{
-                    item?.new_articles_hot_categories[0]?.new_article.title
-                }}</b>
+                  <h3
+                        class="category-title title"
+                        [routerLink]="['/danh-muc', item.slug, item.slug_crc]"
+                  >
+                        {{ item?.name.toUpperCase() }}
+                  </h3>
+                  <div
+                        class="hot-new-category-main"
+                        [routerLink]="[
+                              '/bai-viet',
+                              item?.new_articles_hot_categories[0]?.new_article
+                                    ?.slug,
+                              item?.new_articles_hot_categories[0]?.new_article
+                                    ?.slug_crc
+                        ]"
+                  >
+                        <img
+                              [src]="
+                                    item?.new_articles_hot_categories[0]
+                                          ?.new_article?.avatar
+                              "
+                              alt=""
+                              (error)="handleImageError($event)"
+                        />
+                        <b class="hot-new-category-main-title">{{
+                              item?.new_articles_hot_categories[0]?.new_article
+                                    .title
+                        }}</b>
+                  </div>
+                  <hr />
+                  <div
+                        class="hot-new-category"
+                        [routerLink]="[
+                              '/bai-viet',
+                              item?.new_articles_hot_categories[1]?.new_article
+                                    ?.slug,
+                              item?.new_articles_hot_categories[1]?.new_article
+                                    ?.slug_crc
+                        ]"
+                  >
+                        <img
+                              [src]="
+                                    item?.new_articles_hot_categories[1]
+                                          ?.new_article.avatar
+                              "
+                              alt=""
+                              (error)="handleImageError($event)"
+                        />
+                        <b class="hot-new-category-title">{{
+                              item?.new_articles_hot_categories[1]?.new_article
+                                    .title
+                        }}</b>
+                  </div>
+                  <hr />
+                  <div
+                        class="hot-new-category"
+                        [routerLink]="[
+                              '/bai-viet',
+                              item?.new_articles_hot_categories[2]?.new_article
+                                    ?.slug,
+                              item?.new_articles_hot_categories[2]?.new_article
+                                    ?.slug_crc
+                        ]"
+                  >
+                        <img
+                              [src]="
+                                    item?.new_articles_hot_categories[2]
+                                          ?.new_article.avatar
+                              "
+                              alt=""
+                              (error)="handleImageError($event)"
+                        />
+                        <b class="hot-new-category-title">{{
+                              item?.new_articles_hot_categories[2]?.new_article
+                                    .title
+                        }}</b>
+                  </div>
             </div>
-            <hr />
-            <div
-                class="hot-new-category"
-                [routerLink]="[
-                    '/bai-viet',
-                    item?.new_articles_hot_categories[1]?.new_article?.slug,
-                    item?.new_articles_hot_categories[1]?.new_article?.slug_crc
-                ]"
-            >
-                <img
-                    [src]="
-                        item?.new_articles_hot_categories[1]?.new_article.avatar
-                    "
-                    alt=""
-                    (error)="handleImageError($event)"
-                />
-                <b class="hot-new-category-title">{{
-                    item?.new_articles_hot_categories[1]?.new_article.title
-                }}</b>
-            </div>
-            <hr />
-            <div
-                class="hot-new-category"
-                [routerLink]="[
-                    '/bai-viet',
-                    item?.new_articles_hot_categories[2]?.new_article?.slug,
-                    item?.new_articles_hot_categories[2]?.new_article?.slug_crc
-                ]"
-            >
-                <img
-                    [src]="
-                        item?.new_articles_hot_categories[2]?.new_article.avatar
-                    "
-                    alt=""
-                    (error)="handleImageError($event)"
-                />
-                <b class="hot-new-category-title">{{
-                    item?.new_articles_hot_categories[2]?.new_article.title
-                }}</b>
-            </div>
-        </div>
-    </ng-container>
+      </ng-container>
 </div>
 <ng-template #emptyLeft>
-    <div class="">
-        <div class="artcle-left-item">
-            <div class="image-empty-left"></div>
-            <div class="infor-empty-left">
-                <div class="title-empty-left"></div>
+      <div class="">
+            <div class="artcle-left-item">
+                  <div class="image-empty-left"></div>
+                  <div class="infor-empty-left">
+                        <div class="title-empty-left"></div>
+                  </div>
             </div>
-        </div>
-        <hr />
-    </div>
+            <hr />
+      </div>
 </ng-template>
 <ng-template #emptyCenter>
-    <div class="artcle-center-item">
-        <div class="image-empty-center"></div>
-        <div class="infor-empty-center">
-            <div class="title-empty-center"></div>
-            <div class="sapo-empty-center"></div>
-        </div>
-    </div>
+      <div class="artcle-center-item">
+            <div class="image-empty-center"></div>
+            <div class="infor-empty-center">
+                  <div class="title-empty-center"></div>
+                  <div class="sapo-empty-center"></div>
+            </div>
+      </div>
 </ng-template>
 
 <ng-template #emptyRight>
-    <div class="artcle-right-item">
-        <div class="image-empty-right"></div>
-        <div class="infor-empty-right"></div>
-    </div>
+      <div class="artcle-right-item">
+            <div class="image-empty-right"></div>
+            <div class="infor-empty-right"></div>
+      </div>
 </ng-template>

@@ -17,7 +17,7 @@
   }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: 'Arial' }
+body { margin: 0; font-family: 'Arial' ;color: #222222 }
 
 
 
@@ -43,4 +43,13 @@ hr {
       border: 0;
       border-bottom: 1px solid #bebebea3;
       margin: 10px 0;
+}
+
+
+h4,h3,h2 {
+      margin: 10px 0;
+      font-family: 'Merriweather';
+}
+h4{
+      font-size: 14px;
 }

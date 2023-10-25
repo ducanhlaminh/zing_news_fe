@@ -22,6 +22,7 @@ export class CategoryService {
                         });
 
                         categories.length = data.rows.length;
+                        console.log(data.rows);
 
                         this.categories$.next(categories);
                   });

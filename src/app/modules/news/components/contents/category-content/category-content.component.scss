@@ -103,6 +103,7 @@ header {
                   height: 300px;
                   width: 100%;
                   background: #d2d1d134;
+
                   .image-article{
                         width: 65%;
                         height: 100%;
@@ -126,6 +127,21 @@ header {
                               margin-top: 11px;
                               font-size: 15px;
                               word-spacing: 2px;
+                              line-height: 20px;
+                        }
+                  }
+            }
+            .hot-articles-bottom{
+                  display: flex;
+                  gap: 15px;
+                  .info-article{
+                        flex:1;
+                        .infor-article-title{
+                              line-height: 20px;
+                        }
+                        .infor-article-sapo{
+                              line-height: 23px;
+                              color: rgba(39, 39, 39, 0.822);
                         }
                   }
             }
@@ -144,7 +160,7 @@ header {
                   width: 100%;
                   border: 1px solid #33333324;
                   border-radius: 3px;
-                  overflow-y: scroll;
+                  overflow-y: auto;
                   .hot-article-item{
                         display: flex;
                         padding: 0 10px;
@@ -157,6 +173,8 @@ header {
                               margin-top: 0;
                               font-family: 'Merriweather';
                               font-size: 13px;
+                              line-height: 19px;
+
                         }
                         .image-article{
                               width: 40%;
@@ -187,25 +205,31 @@ header {
                     flex-direction: column;
                     gap: 12px;
                     .artcles-view-most-item {
-                      height: 72px;
+                  height: 80px;
                       display: flex;
+                      align-items: flex-start;
                       .artcles-view-most-item-infor{
                         padding-left: 7px;
                         .most-item-infor-cate{
                           margin-top: 0;
                           font-size: 11px;
-                          color:gray
+                          color:gray;
+                          margin-block: 5px;
                         }
                         .most-item-infor-title{
                           font-size: 12px;
                           font-family: 'Merriweather';
                         }
                       }
-                      img{
+                      .artcles-view-most-item-img{
+                        height: 100%;
+                         img{
                         height: 100%;
                         width: 72px;
                         object-fit: cover;
                       }
+                      }
+
                     }
                     .artcles-view-most-item:hover{
                           cursor: pointer;
