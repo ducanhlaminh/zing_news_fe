@@ -45,27 +45,13 @@ export class ManagePositionHomeComponent implements OnInit {
         { name: "Bản nháp", status: 0 },
     ];
     listArticles: any;
-    list: any[] = [
-        {
-            array: [],
-        },
-        { array: [] },
-        {
-            array: [],
-        },
-        {
-            array: [],
-        },
-        {
-            array: [],
-        },
-        {
-            array: [],
-        },
-        { array: [] },
-        { array: [] },
-        { array: [] },
-    ];
+    hotArticles: any = {
+        top: { data: [], length: 1 },
+        bottom: { data: [], length: 3 },
+        right: { data: [], length: 15 },
+    };
+    draggingOutsideSourceList: any;
+    statusFull: boolean = false;
     constructor(
         public CategoryService: CategoryService,
         public dialog: MatDialog,
@@ -84,46 +70,68 @@ export class ManagePositionHomeComponent implements OnInit {
         this.getOptionCategories();
         this.getHotNews();
     }
+    enter(event: any) {
+        this.draggingOutsideSourceList = event.container.id;
+        if (event.container.id === "1") {
+            console.log(event.container.data.length);
 
+            this.statusFull = event.container.data.length === 1;
+        } else if (event.container.id === 2) {
+            this.statusFull = event.container.data.length === 3;
+        }
+        console.log(event.container.data.length);
+        console.log(this.statusFull);
+    }
+
+    drop(event: any, type: any) {
+        if (event.previousContainer === event.container) {
+            moveItemInArray(
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex
+            );
+        } else {
+            switch (type) {
+                case 1:
+                    if (
+                        this.hotArticles.top.data.length >=
+                        this.hotArticles.top.length
+                    ) {
+                        this.hotArticles.top.data = [];
+                    }
+                    break;
+                case 2:
+                    if (
+                        this.hotArticles.bottom.data.length >=
+                        this.hotArticles.bottom.length
+                    ) {
+                        this.hotArticles.bottom.data = [];
+                    }
+                    break;
+                case 3:
+                    if (
+                        this.hotArticles.right.data.length >=
+                        this.hotArticles.right.length
+                    ) {
+                        this.hotArticles.right.data = [];
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            transferArrayItem(
+                event.previousContainer.data,
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex
+            );
+        }
+    }
     handleImageError(event: any) {
         const fallbackImage =
             "https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png";
         this.renderer.setAttribute(event.target, "src", fallbackImage);
-    }
-
-    drop(event: CdkDragDrop<string[]>) {
-        try {
-            transferArrayItem(
-                event?.previousContainer.data,
-                event?.container.data,
-                event.previousIndex,
-                event.previousIndex
-            );
-            console.log(
-                event.previousContainer.data,
-                event.container.data,
-                event.previousIndex,
-                event.previousIndex
-            );
-            console.log(event);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    drop2(event: CdkDragDrop<string[]>, data: any) {
-        try {
-            this.list[data].array.length = 0;
-
-            transferArrayItem(
-                event?.previousContainer.data,
-                event?.container.data,
-                event.previousIndex,
-                event.currentIndex
-            );
-            this.list[data].array[0].position = data + 1;
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     showToart(status: boolean) {
@@ -134,51 +142,26 @@ export class ManagePositionHomeComponent implements OnInit {
         }
     }
     getHotNews() {
-        if (this.formOption?.value?.categories_id !== "1") {
-            this.typeLayout = "2";
-            this.NewsService.getartclesHotCate(
-                this.formOption.value?.categories_id
-            ).subscribe((data: any) => {
-                let array = data.hotArticlesCate.new_articles_hot_categories;
-
-                this.list?.map((item: any, index: any) => {
-                    const result = array.find(
-                        (article: any) => article?.position === index + 1
-                    );
-                    if (!result) {
-                        this.list[index].array[0] = {
-                            article_id: null,
-                            position: index + 1,
-                            new_article: null,
-                        };
+        this.hotArticles = {
+            top: { data: [], length: 1 },
+            bottom: { data: [], length: 3 },
+            right: { data: [], length: 15 },
+        };
+        this.NewsService.getartclesHotCate(
+            this.formOption.value?.categories_id
+        ).subscribe((data: any) => {
+            data.hotArticlesCate.new_articles_hot_categories.map(
+                (item: any) => {
+                    if (item.position === 1) {
+                        this.hotArticles.top.data.push(item);
+                    } else if (item.position > 1 && item.position < 5) {
+                        this.hotArticles.bottom.data.push(item);
                     } else {
-                        this.list[index].array[0] = result;
+                        this.hotArticles.right.data.push(item);
                     }
-                });
-            });
-            console.log(this.list);
-        } else {
-            this.typeLayout = "1";
-            this.NewsService.getHotMain().subscribe((data: any) => {
-                let array = data?.hot_news?.hot_main;
-
-                this.list?.map((item: any, index: any) => {
-                    const result = array.find(
-                        (article: any) => article.position === index + 1
-                    );
-                    if (!result) {
-                        this.list[index].array[0] = {
-                            article_id: null,
-                            position: index + 1,
-                            new_article: null,
-                        };
-                    } else {
-                        this.list[index].array[0] = result;
-                    }
-                });
-                console.log(this.list);
-            });
-        }
+                }
+            );
+        });
     }
     getArticles() {
         this.NewsService.getAllByAd(this.formSearch.value).subscribe(
@@ -202,28 +185,13 @@ export class ManagePositionHomeComponent implements OnInit {
         );
     }
     updatePosition() {
-        console.log(this.list);
         if (this.formOption.value.categories_id === "1") {
             let data: any = [];
-            this.list.map((item: any) => {
-                if (item.array[0].article_id) {
-                    data.push({
-                        article_id: item.array[0].article_id,
-                        position: item.array[0].position,
-                    });
-                }
-            });
+
             this.NewsService.updateHotMain(data).subscribe();
         } else {
             let data: any = [];
-            this.list.map((item: any) => {
-                if (item.array[0].article_id) {
-                    data.push({
-                        article_id: item.array[0].article_id,
-                        position: item.array[0].position,
-                    });
-                }
-            });
+
             const cate = this.categories.find(
                 (category: any) =>
                     category.slug_crc ===
@@ -231,14 +199,5 @@ export class ManagePositionHomeComponent implements OnInit {
             );
             this.NewsService.updateArtclesHotCate(data, cate.id).subscribe();
         }
-    }
-    close(number: any) {
-        this.list[number].array.length = 0;
-        this.list[number].array[0] = {
-            article_id: null,
-            position: number + 1,
-            new_article: null,
-        };
-        console.log(this.list);
     }
 }

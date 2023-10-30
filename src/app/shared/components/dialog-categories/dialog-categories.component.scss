@@ -3,10 +3,12 @@
       background: whitesmoke;
       justify-content: center;
       padding-bottom: 20px;
+
       .header-dialog{
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-top: 10px;
             .icon-close{
                   font-size: 26px;
                   font-weight: lighter;
@@ -31,6 +33,7 @@
                         }
                         .sub-category-name{
                               cursor: pointer;
+                              padding: 5px 0;
                               &:hover{
                                     text-decoration: underline;
                               }

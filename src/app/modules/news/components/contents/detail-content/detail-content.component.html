@@ -849,68 +849,67 @@
       </article>
 </div> -->
 <div class="tool">
-      <div class="header">
-            <div class="breadcump">
-                  <span *ngFor="let item of categories">
-                        <a
-                              [routerLink]="[
-                                    '/',
-                                    'danh-muc',
-                                    item?.category?.slug,
-                                    item?.category?.slug_crc
-                              ]"
-                              >{{ item?.category?.name }}</a
-                        >
-                        <fa-icon [icon]="faChevronRight" class="icon"></fa-icon>
-                  </span>
-            </div>
-            <div class="">{{ date | dateVN }}</div>
-      </div>
-      <div id="content" #content></div>
+    <div class="header">
+        <div class="breadcump">
+            <span *ngFor="let item of categories">
+                <a
+                    [routerLink]="[
+                        '/',
+                        'danh-muc',
+                        item?.category?.slug,
+                        item?.category?.slug_crc
+                    ]"
+                    >{{ item?.category?.name }}</a
+                >
+                <fa-icon [icon]="faChevronRight" class="icon"></fa-icon>
+            </span>
+        </div>
+        <div class="">{{ date | dateVN }}</div>
+    </div>
+    <div id="content" #content></div>
 </div>
 <div class="layout">
-      <div class="content">
-            <div class="title">
-                  Bài viết cùng chuyên mục :
-                  <span>{{
-                        categories[this?.categories?.length - 1]?.category.name
-                              | json
-                  }}</span>
-            </div>
+    <div class="content">
+        <div class="title">
+            Bài viết cùng chuyên mục :
+            <span>{{
+                categories[this?.categories?.length - 1]?.category.name | json
+            }}</span>
+        </div>
+        <div
+            class="center-page"
+            infinite-scroll
+            (scrolled)="onScrollDown()"
+            [infiniteScrollDistance]="00.1"
+        >
             <div
-                  class="center-page"
-                  infinite-scroll
-                  (scrolled)="onScrollDown()"
-                  [infiniteScrollDistance]="00.1"
+                [routerLink]="[
+                    '/bai-viet',
+                    item.new_article.slug,
+                    item.new_article.slug_crc
+                ]"
+                *ngFor="let item of relateArticles; last as last"
             >
-                  <div
-                        [routerLink]="[
-                              '/bai-viet',
-                              item.new_article.slug,
-                              item.new_article.slug_crc
-                        ]"
-                        *ngFor="let item of relateArticles; last as last"
-                  >
-                        <div class="new-artcle-item">
-                              <div class="img-article">
-                                    <img
-                                          [src]="
-                                                'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                                item.new_article.avatar +
-                                                '&height=200&width=300'
-                                          "
-                                          alt=""
-                                          (error)="handleImageError($event)"
-                                    />
-                              </div>
-                              <div class="new-artcle-infor">
-                                    <b>{{ item.new_article.title }}</b>
-                                    <p>
-                                          {{ item.new_article.sapo }}
-                                    </p>
-                              </div>
-                        </div>
-                  </div>
+                <div class="new-artcle-item">
+                    <div class="img-article">
+                        <img
+                            [src]="
+                                'http://192.168.1.41:4000/api/v1/articles/avatar?slug_crc=' +
+                                item.new_article.avatar +
+                                '&height=200&width=300'
+                            "
+                            alt=""
+                            (error)="handleImageError($event)"
+                        />
+                    </div>
+                    <div class="new-artcle-infor">
+                        <b>{{ item.new_article.title }}</b>
+                        <p>
+                            {{ item.new_article.sapo }}
+                        </p>
+                    </div>
+                </div>
             </div>
-      </div>
+        </div>
+    </div>
 </div>

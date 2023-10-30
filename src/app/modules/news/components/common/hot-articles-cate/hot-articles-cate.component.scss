@@ -30,3 +30,9 @@
             background: #000;
       }
 }
+.infor-article-title {
+      transition: color 0.3s ease;
+}
+.infor-article-title :hover{
+      color: #096ffa;
+}

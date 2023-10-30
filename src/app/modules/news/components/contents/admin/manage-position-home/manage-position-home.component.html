@@ -18,7 +18,6 @@
         </form>
         <table
             cdkDropList
-            (cdkDropListDropped)="drop($event)"
             [cdkDropListData]="listArticles"
             *ngIf="listArticles"
         >
@@ -32,8 +31,9 @@
             </tr>
 
             <tr
-                class=""
+                class="box"
                 cdkDrag
+                (cdkDragEntered)="enter($event)"
                 *ngFor="let item of listArticles; let i = index"
             >
                 <div *cdkDragPreview class="preivew">
@@ -64,6 +64,16 @@
                         </div>
                     </td>
                 </div>
+                <div
+                    *cdkDragPlaceholder
+                    [ngClass]="{
+                        top: draggingOutsideSourceList === '1',
+                        bottom: draggingOutsideSourceList === '2',
+                        right: draggingOutsideSourceList === '3',
+                        hidden: statusFull
+                    }"
+                ></div>
+
                 <td class="item-drag">
                     <div class="example-handle" cdkDragHandle>
                         <svg
@@ -124,390 +134,224 @@
                 <span>Lưu thay đổi</span>
             </button>
         </div>
-        <!-- <ng-container *ngIf="typeLayout === '1'">
-            <div class="layout-hot-main">
-                <div class="hot-main-left-container">
-                    <div
-                        class="left-item"
-                        cdkDropList
-                        [cdkDropListData]="this.list[number].array"
-                        (cdkDropListDropped)="drop2($event, number)"
-                        *ngFor="let number of [3, 4, 5, 6, 7]; last as last"
-                    >
+        <div class="container-layout">
+            <div class="layout-left">
+                <div
+                    class="layout-left-top"
+                    cdkDropList
+                    id="1"
+                    [cdkDropListData]="hotArticles.top.data"
+                    (cdkDropListDropped)="drop($event, 1)"
+                >
+                    <ng-container *ngFor="let item of hotArticles.top.data">
                         <div
-                            class="example-custom-placeholder"
-                            *cdkDragPlaceholder
-                        ></div>
-                        <ng-container
-                            *ngFor="let item of this.list[number].array"
+                            class="hot-article"
+                            cdkDrag
+                            (cdkDragEntered)="enter($event)"
                         >
-                            <div
-                                class="new-artcle-item"
-                                *ngIf="item?.new_article"
-                            >
-                                <button
-                                    class="btn-close"
-                                    (click)="close(number)"
-                                    mat-mini-fab
-                                    color="warn"
-                                    aria-label="Example icon button with a filter list icon"
-                                >
-                                    <mat-icon class="close">close</mat-icon>
-                                </button>
-                                <div class="img-article">
-                                    <img
-                                        [src]="
-                                            'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                            item?.new_article.avatar +
-                                            '&height=120&width=80'
-                                        "
-                                        alt=""
-                                        (error)="handleImageError($event)"
-                                    />
-                                </div>
-                                <div class="new-artcle-infor">
-                                    <b>
-                                        {{ item?.new_article.title }}
-                                    </b>
-                                </div>
+                            <div *cdkDragPreview class="preivew">
+                                <td class="item-drag">
+                                    <div class="example-handle" cdkDragHandle>
+                                        <svg
+                                            width="24px"
+                                            fill="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                                            ></path>
+                                            <path
+                                                d="M0 0h24v24H0z"
+                                                fill="none"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </td>
+
+                                <td class="item-name">
+                                    <div class="title-status">
+                                        <p>
+                                            {{ item?.new_article?.title }}
+                                        </p>
+                                    </div>
+
+                                    <div class="">
+                                        <small class=""
+                                            >Chuyên mục : Xuât bản</small
+                                        >
+                                    </div>
+                                </td>
                             </div>
-                        </ng-container>
-                    </div>
-                </div>
-                <div class="hot-main-center-container">
-                    <div
-                        class="center-item"
-                        cdkDropList
-                        [cdkDropListData]="this.list[0].array"
-                        (cdkDropListDropped)="drop2($event, 0)"
-                    >
-                        <div
-                            class="artcle-center-item"
-                            *ngIf="this.list[0].array[0]?.new_article"
-                        >
-                            <button
-                                class="btn-close"
-                                mat-mini-fab
-                                color="warn"
-                                (click)="close(0)"
-                                aria-label="Example icon button with a filter list icon"
-                            >
-                                <mat-icon class="close">close</mat-icon>
-                            </button>
-                            <img
-                                [src]="
-                                    'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                    this.list[0].array[0]?.new_article.avatar +
-                                    '&height=330&width=500'
-                                "
-                                alt=""
-                                (error)="handleImageError($event)"
-                            />
-                            <b>{{
-                                this.list[0].array[0]?.new_article.title
-                            }}</b>
-                            <p>
-                                {{ this.list[0].array[0]?.new_article.sapo }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="hot-main-right-container">
-                    <div
-                        class="right-item"
-                        cdkDropList
-                        [cdkDropListData]="this.list[number].array"
-                        (cdkDropListDropped)="drop2($event, number)"
-                        *ngFor="let number of [1, 2]"
-                    >
-                        <div
-                            class="example-custom-placeholder"
-                            *cdkDragPlaceholder
-                        ></div>
-                        <ng-container
-                            *ngFor="let item of this.list[number].array"
-                        >
                             <div
-                                class="artcle-right-item"
-                                *ngIf="item?.new_article"
-                            >
-                                <button
-                                    class="btn-close"
-                                    mat-mini-fab
-                                    color="warn"
-                                    (click)="close(number)"
-                                    aria-label="Example icon button with a filter list icon"
-                                >
-                                    <mat-icon class="close">close</mat-icon>
-                                </button>
+                                *cdkDragPlaceholder
+                                class="placeholder-drag top"
+                                [ngClass]="{
+                                    top: draggingOutsideSourceList === '1',
+                                    bottom: draggingOutsideSourceList === '2',
+                                    right: draggingOutsideSourceList === '3',
+                                }"
+                            ></div>
+                            <div class="image-article">
                                 <img
                                     [src]="
-                                        'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                        item?.new_article?.avatar +
+                                        'http://192.168.1.41:4000/api/v1/articles/avatar?slug_crc=' +
+                                        item.new_article.avatar +
                                         '&height=200&width=300'
                                     "
-                                    alt=""
                                     (error)="handleImageError($event)"
-                                />
-                                <b>{{ item?.new_article.title }}</b>
-                            </div>
-                        </ng-container>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
-        <div class="layout-hot-parent" *ngIf="typeLayout === '2'">
-            <div class="header">
-                <div class="hot-parent-left-container">
-                    <div
-                        class="left-item"
-                        cdkDropList
-                        [cdkDropListData]="this.list[0].array"
-                        (cdkDropListDropped)="drop2($event, 0)"
-                    >
-                        <ng-container
-                            *ngIf="this.list[0]?.array[0]?.new_article"
-                        >
-                            <div
-                                class="example-custom-placeholder"
-                                *cdkDragPlaceholder
-                            ></div>
-                            <button
-                                class="btn-close"
-                                mat-mini-fab
-                                color="warn"
-                                (click)="close(0)"
-                            >
-                                <mat-icon class="close">close</mat-icon>
-                            </button>
-                            <div class="img-article">
-                                <img
-                                    [src]="
-                                        'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                        this.list[0]?.array[0]?.new_article
-                                            .avatar +
-                                        '&height=400&width=610'
-                                    "
                                     alt=""
-                                    (error)="handleImageError($event)"
                                 />
                             </div>
-                            <p class="title">
-                                {{ this.list[0].array[0]?.new_article.title }}
-                            </p>
-                            <p class="sapo">
-                                {{ this.list[0].array[0]?.new_article.sapo }}
-                            </p>
-                        </ng-container>
-                    </div>
-                </div>
-
-                <div class="hot-parent-right-container">
-                    <div
-                        class="right-item"
-                        *ngFor="let number of [1, 2, 3, 4]; last as last"
-                        cdkDropList
-                        [cdkDropListData]="this.list[number].array"
-                        (cdkDropListDropped)="drop2($event, number)"
-                    >
-                        <div
-                            class="example-custom-placeholder"
-                            *cdkDragPlaceholder
-                        ></div>
-                        <div
-                            class="artcle-right-item"
-                            *ngFor="let item of this.list[number]?.array"
-                        >
-                            <ng-container *ngIf="item?.new_article?.title">
-                                <button
-                                    (click)="close(number)"
-                                    class="btn-close"
-                                    mat-mini-fab
-                                    color="warn"
-                                    aria-label="Example icon button with a filter list icon"
-                                >
-                                    <mat-icon class="close">close</mat-icon>
-                                </button>
-                                <div class="title-right">
-                                    {{ item?.new_article?.title }}
-                                </div>
-                                <div class="image-right">
-                                    <img
-                                        [src]="
-                                            'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                            item?.new_article?.avatar +
-                                            '&height=200&width=300'
-                                        "
-                                        alt=""
-                                        (error)="handleImageError($event)"
-                                    />
-                                </div>
-                            </ng-container>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hot-articels">
-                <h3>Nổi bật</h3>
-                <div class="list-item">
-                    <div
-                        class="item"
-                        *ngFor="let number of [5, 6, 7, 8]; last as last"
-                        cdkDropList
-                        [cdkDropListData]="this.list[number].array"
-                        (cdkDropListDropped)="drop2($event, number)"
-                    >
-                        <div
-                            class="hot-articel"
-                            *ngFor="let item of this.list[number]?.array"
-                        >
-                            <ng-container *ngIf="item?.new_article?.title">
-                                <button
-                                    (click)="close(number)"
-                                    class="btn-close"
-                                    mat-mini-fab
-                                    color="warn"
-                                    aria-label="Example icon button with a filter list icon"
-                                >
-                                    <mat-icon class="close">close</mat-icon>
-                                </button>
-                                <div class="image">
-                                    <img
-                                        (error)="handleImageError($event)"
-                                        [src]="
-                                            'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                            item?.new_article?.avatar +
-                                            '&height=200&width=300'
-                                        "
-                                        alt=""
-                                    />
-                                </div>
-                                <p class="title">
-                                    {{ item?.new_article?.title }}
+                            <div class="info-article">
+                                <p class="infor-article-title">
+                                    {{ item.new_article.title }}
                                 </p>
-                            </ng-container>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <div class="layout-hot-main">
-            <div class="hot-main-left-container">
-                <div
-                    class="left-item"
-                    cdkDropList
-                    [cdkDropListData]="this.list[number].array"
-                    (cdkDropListDropped)="drop2($event, number)"
-                    *ngFor="let number of [3, 4, 5, 6, 7]; last as last"
-                >
-                    <div
-                        class="example-custom-placeholder"
-                        *cdkDragPlaceholder
-                    ></div>
-                    <ng-container *ngFor="let item of this.list[number].array">
-                        <div class="new-artcle-item" *ngIf="item?.new_article">
-                            <button
-                                class="btn-close"
-                                (click)="close(number)"
-                                mat-mini-fab
-                                color="warn"
-                                aria-label="Example icon button with a filter list icon"
-                            >
-                                <mat-icon class="close">close</mat-icon>
-                            </button>
-                            <div class="img-article">
-                                <img
-                                    [src]="
-                                        'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                        item?.new_article.avatar +
-                                        '&height=120&width=80'
-                                    "
-                                    alt=""
-                                    (error)="handleImageError($event)"
-                                />
-                            </div>
-                            <div class="new-artcle-infor">
-                                <b>
-                                    {{ item?.new_article.title }}
-                                </b>
+                                <p class="infor-article-sapo">
+                                    {{ item.new_article.sapo }}
+                                </p>
                             </div>
                         </div>
                     </ng-container>
                 </div>
-            </div>
-            <div class="hot-main-center-container">
                 <div
-                    class="center-item"
+                    class="layout-left-bottom"
                     cdkDropList
-                    [cdkDropListData]="this.list[0].array"
-                    (cdkDropListDropped)="drop2($event, 0)"
+                    id="2"
+                    [cdkDropListData]="hotArticles.bottom.data"
+                    (cdkDropListDropped)="drop($event, 2)"
+                    cdkDropListOrientation="horizontal"
                 >
-                    <div
-                        class="artcle-center-item"
-                        *ngIf="this.list[0].array[0]?.new_article"
-                    >
-                        <button
-                            class="btn-close"
-                            mat-mini-fab
-                            color="warn"
-                            (click)="close(0)"
-                            aria-label="Example icon button with a filter list icon"
+                    <ng-container *ngFor="let item of hotArticles.bottom.data">
+                        <div
+                            class="info-article"
+                            cdkDrag
+                            (cdkDragEntered)="enter($event)"
                         >
-                            <mat-icon class="close">close</mat-icon>
-                        </button>
-                        <img
-                            [src]="
-                                'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                this.list[0].array[0]?.new_article.avatar +
-                                '&height=330&width=500'
-                            "
-                            alt=""
-                            (error)="handleImageError($event)"
-                        />
-                        <b>{{ this.list[0].array[0]?.new_article.title }}</b>
-                        <p>
-                            {{ this.list[0].array[0]?.new_article.sapo }}
-                        </p>
-                    </div>
+                            <div *cdkDragPreview class="preivew">
+                                <td class="item-drag">
+                                    <div class="example-handle" cdkDragHandle>
+                                        <svg
+                                            width="24px"
+                                            fill="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                                            ></path>
+                                            <path
+                                                d="M0 0h24v24H0z"
+                                                fill="none"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </td>
+
+                                <td class="item-name">
+                                    <div class="title-status">
+                                        <p>
+                                            {{ item?.new_article?.title }}
+                                        </p>
+                                    </div>
+
+                                    <div class="">
+                                        <small class=""
+                                            >Chuyên mục : Xuât bản</small
+                                        >
+                                    </div>
+                                </td>
+                            </div>
+                            <div
+                                *cdkDragPlaceholder
+                                class="placeholder-drag bottom"
+                                [ngClass]="{
+                                    top: draggingOutsideSourceList === '1',
+                                    bottom: draggingOutsideSourceList === '2',
+                                    right: draggingOutsideSourceList === '3',
+                                }"
+                            ></div>
+                            <h4 class="infor-article-title">
+                                {{ item.new_article.title }}
+                            </h4>
+                            <p class="infor-article-sapo">
+                                {{ item.new_article.sapo }}
+                            </p>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
-            <div class="hot-main-right-container">
+            <div class="layout-right">
                 <div
-                    class="right-item"
+                    class="layout-list"
                     cdkDropList
-                    [cdkDropListData]="this.list[number].array"
-                    (cdkDropListDropped)="drop2($event, number)"
-                    *ngFor="let number of [1, 2]"
+                    id="3"
+                    [cdkDropListData]="hotArticles.right.data"
+                    (cdkDropListDropped)="drop($event, 3)"
                 >
-                    <div
-                        class="example-custom-placeholder"
-                        *cdkDragPlaceholder
-                    ></div>
-                    <ng-container *ngFor="let item of this.list[number].array">
+                    <ng-container *ngFor="let item of hotArticles.right.data">
                         <div
-                            class="artcle-right-item"
-                            *ngIf="item?.new_article"
+                            class="box"
+                            cdkDrag
+                            (cdkDragEntered)="enter($event)"
                         >
-                            <button
-                                class="btn-close"
-                                mat-mini-fab
-                                color="warn"
-                                (click)="close(number)"
-                                aria-label="Example icon button with a filter list icon"
-                            >
-                                <mat-icon class="close">close</mat-icon>
-                            </button>
-                            <img
-                                [src]="
-                                    'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                    item?.new_article?.avatar +
-                                    '&height=200&width=300'
-                                "
-                                alt=""
-                                (error)="handleImageError($event)"
-                            />
-                            <b>{{ item?.new_article.title }}</b>
+                            <div *cdkDragPreview class="preivew">
+                                <td class="item-drag">
+                                    <div class="example-handle" cdkDragHandle>
+                                        <svg
+                                            width="24px"
+                                            fill="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                                            ></path>
+                                            <path
+                                                d="M0 0h24v24H0z"
+                                                fill="none"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </td>
+
+                                <td class="item-name">
+                                    <div class="title-status">
+                                        <p>
+                                            {{ item?.new_article?.title }}
+                                        </p>
+                                    </div>
+
+                                    <div class="">
+                                        <small class=""
+                                            >Chuyên mục : Xuât bản</small
+                                        >
+                                    </div>
+                                </td>
+                            </div>
+                            <div
+                                *cdkDragPlaceholder
+                                class="placeholder-drag right"
+                                [ngClass]="{
+                                    top: draggingOutsideSourceList === '1',
+                                    bottom: draggingOutsideSourceList === '2',
+                                    right: draggingOutsideSourceList === '3',
+                                }"
+                            ></div>
+                            <div class="hot-article-item">
+                                <p class="hot-article-title">
+                                    {{ item.new_article.title }}
+                                </p>
+                                <div class="image-article">
+                                    <img
+                                        [src]="
+                                            'http://192.168.1.41:4000/api/v1/articles/avatar?slug_crc=' +
+                                            item.new_article.avatar +
+                                            '&height=80&width=120'
+                                        "
+                                        alt=""
+                                        (error)="handleImageError($event)"
+                                    />
+                                </div>
+                            </div>
+                            <hr *ngIf="item.position !== 1" />
                         </div>
                     </ng-container>
                 </div>
@@ -515,118 +359,12 @@
         </div>
     </div>
 </div>
-
-<ng-template #child>
-    <div class="layout-hot-main">
-        <div class="hot-main-left-container">
-            <div
-                class="left-item"
-                cdkDropList
-                [cdkDropListData]="this.list[number].array"
-                (cdkDropListDropped)="drop2($event, number)"
-                *ngFor="let number of [3, 4, 5, 6, 7]; last as last"
-            >
-                <div
-                    class="example-custom-placeholder"
-                    *cdkDragPlaceholder
-                ></div>
-                <ng-container *ngFor="let item of this.list[number].array">
-                    <div class="new-artcle-item">
-                        <button
-                            (click)="close(number)"
-                            mat-mini-fab
-                            color="warn"
-                            aria-label="Example icon button with a filter list icon"
-                        >
-                            <mat-icon class="close">close</mat-icon>
-                        </button>
-                        <div class="img-article">
-                            <img
-                                [src]="
-                                    'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                    item?.avatar +
-                                    '&height=120&width=80'
-                                "
-                                alt=""
-                                (error)="handleImageError($event)"
-                            />
-                        </div>
-                        <div class="new-artcle-infor">
-                            <b>
-                                {{ item.title }}
-                            </b>
-                        </div>
-                    </div>
-                </ng-container>
-            </div>
-        </div>
-        <div class="hot-main-center-container">
-            <div
-                class="center-item"
-                cdkDropList
-                [cdkDropListData]="this.list[0].array"
-                (cdkDropListDropped)="drop2($event, 0)"
-            >
-                <div class="artcle-center-item">
-                    <button
-                        class="btn-close"
-                        mat-mini-fab
-                        color="warn"
-                        aria-label="Example icon button with a filter list icon"
-                    >
-                        <mat-icon class="close">close</mat-icon>
-                    </button>
-                    <img
-                        [src]="
-                            'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                            this.list[0].array[0]?.avatar +
-                            '&height=330&width=500'
-                        "
-                        alt=""
-                        (error)="handleImageError($event)"
-                    />
-                    <b>{{ this.list[0].array[0]?.title }}</b>
-                    <p>
-                        {{ this.list[0].array[0]?.sapo }}
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="hot-main-right-container">
-            <div
-                class="right-item"
-                cdkDropList
-                [cdkDropListData]="this.list[item].array"
-                (cdkDropListDropped)="drop2($event, item)"
-                *ngFor="let item of [1, 2]"
-            >
-                <div
-                    class="example-custom-placeholder"
-                    *cdkDragPlaceholder
-                ></div>
-                <ng-container *ngFor="let item of this.list[item].array">
-                    <div class="artcle-right-item">
-                        <button
-                            class="btn-close"
-                            mat-mini-fab
-                            color="warn"
-                            aria-label="Example icon button with a filter list icon"
-                        >
-                            <mat-icon class="close">close</mat-icon>
-                        </button>
-                        <img
-                            [src]="
-                                'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                item?.avatar +
-                                '&height=200&width=300'
-                            "
-                            alt=""
-                            (error)="handleImageError($event)"
-                        />
-                        <b>{{ item.title }}</b>
-                    </div>
-                </ng-container>
-            </div>
-        </div>
-    </div>
+<ng-template #top>
+    <div class="top"></div>
+</ng-template>
+<ng-template #bottom>
+    <div class="bottom"></div>
+</ng-template>
+<ng-template #right>
+    <div class="right"></div>
 </ng-template>

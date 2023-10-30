@@ -48,16 +48,19 @@
             margin: 0;
             font-family: 'Merriweather';
             font-size: 15px;
+            cursor: pointer;
+
           }
           .new-article-sapo{
             color: rgba(39, 39, 39, 0.822);
           line-height: 20px;
           font-size: 14px;
           margin: 11px 0;
+          cursor: pointer;
+
           }
         }
         &:hover{
-            cursor: pointer;
             p{
                   color: #096ffa;
             }
@@ -121,13 +124,17 @@ header {
                               font-size: 17px;
                               margin-bottom: 0;
                               font-family: 'Merriweather';
+                              transition: color 0.3s ease;
+                              cursor: pointer;
+                              line-height: 23px;
+                              &:hover{
+                                    color: #096ffa;
+                              }
+
                         }
                         .infor-article-sapo{
+                              cursor: pointer;
                               color: rgba(39, 39, 39, 0.822);
-                              margin-top: 11px;
-                              font-size: 15px;
-                              word-spacing: 2px;
-                              line-height: 20px;
                         }
                   }
             }
@@ -138,10 +145,16 @@ header {
                         flex:1;
                         .infor-article-title{
                               line-height: 20px;
+                              transition: color 0.3s ease;
+                              cursor: pointer;
+                              &:hover{
+                                    color: #096ffa;
+                              }
                         }
                         .infor-article-sapo{
                               line-height: 23px;
                               color: rgba(39, 39, 39, 0.822);
+                              cursor: pointer;
                         }
                   }
             }
@@ -170,10 +183,16 @@ header {
                         align-items: flex-start;
                         .hot-article-title{
                               width: 60%;
+                              font-weight: bold;
                               margin-top: 0;
                               font-family: 'Merriweather';
                               font-size: 13px;
                               line-height: 19px;
+                              transition: color 0.3s ease;
+                              cursor: pointer;
+                              &:hover{
+                                    color: #096ffa;
+                              }
 
                         }
                         .image-article{
@@ -244,3 +263,12 @@ header {
 a {
       color : #626262
 }
+.new-article-title {
+      transition: color 0.3s ease;
+}
+
+      .new-article-title:hover{
+            color: #096ffa;
+      }
+
+
