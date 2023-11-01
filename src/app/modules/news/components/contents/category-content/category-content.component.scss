@@ -75,7 +75,6 @@ header {
   padding: 16px 0;
   .name-header{
     position: relative;
-    font-weight: 500;
   }
   .name-header::after{
     content: "";
@@ -84,7 +83,7 @@ header {
     height: 3px;
     position: absolute;
     left: 0;
-    top: -18px;
+    top: -19px;
   }
 }
 
@@ -272,3 +271,7 @@ a {
       }
 
 
+h4 {
+      width: fit-content;
+      margin: 0;
+}

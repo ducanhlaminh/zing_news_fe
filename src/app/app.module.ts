@@ -13,9 +13,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { ToastrComponent } from './shared/components/toastr/toastr.component';
 import { DialogCategoriesComponent } from './shared/components/dialog-categories/dialog-categories.component';
 import { ArticlePoitionPipe } from './shared/pipe/article-poition.pipe';
+import { AvatarPipe } from './shared/pipe/avatar.pipe';
 
 @NgModule({
-      declarations: [AppComponent, ToastrComponent, DialogCategoriesComponent, ArticlePoitionPipe],
+      declarations: [AppComponent, ToastrComponent, DialogCategoriesComponent, ArticlePoitionPipe, AvatarPipe],
       imports: [
             BrowserModule,
             AppRoutingModule,
