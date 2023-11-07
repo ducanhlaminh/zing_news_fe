@@ -1,50 +1,50 @@
 <div class="content">
-      <form action="">
-            <div class="input-form">
-                  <input type="text" [formControl]="searchControl" />
-                  <div class="searchBtn" (click)="sreach()">
-                        <fa-icon [icon]="faMagnifyingGlass" />
-                  </div>
+    <form action="" (submit)="sreach()">
+        <div class="input-form">
+            <input type="text" [formControl]="searchControl" />
+            <div class="searchBtn" (click)="sreach()">
+                <fa-icon [icon]="faMagnifyingGlass" />
             </div>
-      </form>
-      <p class="count">
-            <b>{{ articles?.count }}</b> kết quả phù hợp
-      </p>
-      <div
-            class="new-artcles"
-            infinite-scroll
-            (scrolled)="onScrollDown()"
-            [infiniteScrollDistance]="0.1"
-      >
-            <ng-container *ngFor="let item of articles?.list">
-                  <div
-                        class="article"
-                        [routerLink]="['/bai-viet', item.slug, item.slug_crc]"
-                  >
-                        <div class="article-img">
-                              <img
-                                    [src]="
-                                          'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                          item.avatar +
-                                          '&height=200&width=200'
-                                    "
-                                    [src]=""
-                                    alt=""
-                                    (error)="handleImageError($event)"
-                              />
-                        </div>
-                        <div class="article-infor">
-                              <p class="title">{{ item.title }}</p>
-                              <p class="date">
-                                    {{ item.publishAt | date : "short" }}
-                              </p>
-                              <p class="sapo">
-                                    {{ item.sapo }}
-                              </p>
-                        </div>
-                  </div>
+        </div>
+    </form>
+    <p class="count">
+        <b>{{ articles?.count }}</b> kết quả phù hợp
+    </p>
+    <div
+        class="new-artcles"
+        infinite-scroll
+        (scrolled)="onScrollDown()"
+        [infiniteScrollDistance]="0.5"
+    >
+        <ng-container *ngFor="let item of articles?.list">
+            <div
+                class="article"
+                [routerLink]="['/bai-viet', item.slug, item.slug_crc]"
+            >
+                <div class="article-img">
+                    <img
+                        [src]="
+                            'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                            item.avatar +
+                            '&height=200&width=200'
+                        "
+                        [src]=""
+                        alt=""
+                        (error)="handleImageError($event)"
+                    />
+                </div>
+                <div class="article-infor">
+                    <p class="title">{{ item.title }}</p>
+                    <p class="date">
+                        {{ item.publishAt | date : "short" }}
+                    </p>
+                    <p class="sapo">
+                        {{ item.sapo }}
+                    </p>
+                </div>
+            </div>
 
-                  <hr />
-            </ng-container>
-      </div>
+            <hr />
+        </ng-container>
+    </div>
 </div>

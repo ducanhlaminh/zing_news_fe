@@ -11,7 +11,9 @@ export class UserService {
     user: any;
     getDataInforUser() {
         this.http.get(environment.API_GET_INFOR_USER).subscribe((data: any) => {
-            this.inforUser$.next(data);
+            if (data) {
+                this.inforUser$.next(data);
+            }
         });
     }
     getAll(data: any) {

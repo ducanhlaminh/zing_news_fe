@@ -43,13 +43,22 @@ export class NewsService {
         }
         return this.http.get(environment.API_ARTICLES_VIEWS);
     }
-    getartclesHotCate(slug_crc: string) {
+    getArtclesHotCate(slug_crc: string) {
         if (slug_crc) {
             return this.http.get(environment.API_ARTICLES_HOT_CATE, {
                 params: { slug_crc },
             });
         } else {
             return this.http.get(environment.API_ARTICLES_HOT_CATE, {});
+        }
+    }
+    getArtclesHotAdmin(slug_crc: string) {
+        if (slug_crc) {
+            return this.http.get(environment.API_ARTICLES_HOT_ADMIN, {
+                params: { slug_crc },
+            });
+        } else {
+            return this.http.get(environment.API_ARTICLES_HOT_ADMIN);
         }
     }
     getDetail(slug: string, slug_crc: string) {
@@ -110,10 +119,17 @@ export class NewsService {
             data
         );
     }
-    createArtclesHotCate(data: any) {
-        return this.http.post(environment.API_ADMIN_HOT_CATE, {
-            ...data,
-        });
+    createArtclesHotCate(articles: any, category_id: any) {
+        if (category_id) {
+            return this.http.post(environment.API_ARTICLES_HOT_ADMIN, {
+                articles,
+                category_id,
+            });
+        } else {
+            return this.http.post(environment.API_ARTICLES_HOT_ADMIN, {
+                articles,
+            });
+        }
     }
 
     deleteHotCate(data: any) {

@@ -39,7 +39,6 @@ export class ManagePositionHomeComponent implements OnInit {
     categories: any[] = [];
     formSearch!: FormGroup;
     formOption!: FormGroup;
-    queries: any = { page: 1 };
     statusOptions = [
         {
             name: "Xuất bản",
@@ -75,14 +74,11 @@ export class ManagePositionHomeComponent implements OnInit {
     }
     enter(event: any) {
         this.draggingOutsideSourceList = +event.container.id;
-        console.log(this.draggingOutsideSourceList);
     }
     check(drag: any, drop: any) {
         return drop.data.length === 0;
     }
     check2(drag: any, drop: any) {
-        console.log(drag);
-
         return drop.data.length < 3;
     }
     start(event: any, number: any) {
@@ -96,35 +92,6 @@ export class ManagePositionHomeComponent implements OnInit {
                 event.currentIndex
             );
         } else {
-            // switch (type) {
-            //     case 1:
-            //         if (
-            //             this.hotArticles.top.data.length >=
-            //             this.hotArticles.top.length
-            //         ) {
-            //             this.hotArticles.top.data = [];
-            //         }
-            //         break;
-            //     case 2:
-            //         if (
-            //             this.hotArticles.bottom.data.length >=
-            //             this.hotArticles.bottom.length
-            //         ) {
-            //             this.hotArticles.bottom.data = [];
-            //         }
-            //         break;
-            //     case 3:
-            //         if (
-            //             this.hotArticles.right.data.length >=
-            //             this.hotArticles.right.length
-            //         ) {
-            //             this.hotArticles.right.data = [];
-            //         }
-            //         break;
-            //     default:
-            //         break;
-            // }
-
             transferArrayItem(
                 event.previousContainer.data,
                 event.container.data,
@@ -152,20 +119,18 @@ export class ManagePositionHomeComponent implements OnInit {
             bottom: { data: [], length: 3 },
             right: { data: [], length: 15 },
         };
-        this.NewsService.getartclesHotCate(
+        this.NewsService.getArtclesHotAdmin(
             this.formOption.value?.categories_id
         ).subscribe((data: any) => {
-            data.hotArticlesCate.new_articles_hot_categories.map(
-                (item: any) => {
-                    if (item.position === 1) {
-                        this.hotArticles.top.data.push(item);
-                    } else if (item.position > 1 && item.position < 5) {
-                        this.hotArticles.bottom.data.push(item);
-                    } else {
-                        this.hotArticles.right.data.push(item);
-                    }
+            data?.hot_news.map((item: any) => {
+                if (item.position === 1) {
+                    this.hotArticles.top.data.push(item);
+                } else if (item.position > 1 && item.position < 5) {
+                    this.hotArticles.bottom.data.push(item);
+                } else {
+                    this.hotArticles.right.data.push(item);
                 }
-            );
+            });
         });
     }
     getArticles() {
@@ -191,18 +156,58 @@ export class ManagePositionHomeComponent implements OnInit {
     }
     updatePosition() {
         if (this.formOption.value.categories_id === "1") {
-            let data: any = [];
+            let articles: any = [];
+            console.log(this.hotArticles);
+            this.hotArticles.top.data.map((item: any, idx: any) => {
+                articles.push({
+                    article_id: item.article_id,
+                    position: idx + 1,
+                });
+            });
+            this.hotArticles.bottom.data.map((item: any, idx: any) => {
+                articles.push({
+                    article_id: item.article_id,
+                    position: idx + 2,
+                });
+            });
+            this.hotArticles.right.data.map((item: any, idx: any) => {
+                articles.push({
+                    article_id: item.article_id,
+                    position: idx + 5,
+                });
+            });
 
-            this.NewsService.updateHotMain(data).subscribe();
+            this.NewsService.createArtclesHotCate(articles, null).subscribe();
         } else {
-            let data: any = [];
-
             const cate = this.categories.find(
                 (category: any) =>
                     category.slug_crc ===
                     parseInt(this.formOption.value.categories_id)
             );
-            this.NewsService.updateArtclesHotCate(data, cate.id).subscribe();
+            let articles: any = [];
+            this.hotArticles.top.data.map((item: any, idx: any) => {
+                articles.push({
+                    article_id: item.article_id,
+                    position: idx + 1,
+                });
+            });
+            this.hotArticles.bottom.data.map((item: any, idx: any) => {
+                articles.push({
+                    article_id: item.article_id,
+                    position: idx + 2,
+                });
+            });
+            this.hotArticles.right.data.map((item: any, idx: any) => {
+                articles.push({
+                    article_id: item.article_id,
+                    position: idx + 5,
+                });
+            });
+
+            this.NewsService.createArtclesHotCate(
+                articles,
+                cate.id
+            ).subscribe();
         }
     }
 }

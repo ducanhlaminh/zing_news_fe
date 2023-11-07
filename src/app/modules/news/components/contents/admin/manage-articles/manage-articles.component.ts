@@ -12,12 +12,13 @@ import {
 
 import { NewsService } from "src/app/modules/news/services/news.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { combineLatest, debounceTime, switchMap } from "rxjs";
 import { CategoryService } from "src/app/modules/news/services/category.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogEditArticleComponent } from "../../dialog-edit-article/dialog-edit-article.component";
 import { ToastrService } from "ngx-toastr";
-
+import { configRole } from "src/environments/environment.development";
+import { UserService } from "src/app/modules/news/services/user.service";
+import { DialogComponent } from "../dialog/dialog.component";
 @Component({
     selector: "app-manage-articles",
     templateUrl: "./manage-articles.component.html",
@@ -25,7 +26,7 @@ import { ToastrService } from "ngx-toastr";
 })
 export class ManageArticlesComponent implements OnInit {
     @ViewChild("checkAll") checkAll!: ElementRef;
-
+    configRole = configRole;
     faEllipsisVertical = faEllipsisVertical;
     faCaretDown = faCaretDown;
     faCaretUp = faCaretUp;
@@ -37,6 +38,7 @@ export class ManageArticlesComponent implements OnInit {
 
     formFilter!: FormGroup;
     formEdit!: FormGroup;
+    coloumnForm!: FormGroup;
     articles: any = [];
     selectQuickEdit: any;
     optionCategories: any = [];
@@ -46,6 +48,10 @@ export class ManageArticlesComponent implements OnInit {
     selectedAction: string = "1";
     listArticles: any[] = [];
     selectName: any;
+    inforUser: any;
+    configUser: any;
+    showConfig: boolean = false;
+    coloumns: any = {};
 
     length = 100;
     pageSize = 10;
@@ -66,7 +72,8 @@ export class ManageArticlesComponent implements OnInit {
         private CategoryService: CategoryService,
         private formBuilder: FormBuilder,
         public dialog: MatDialog,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private UserService: UserService
     ) {}
     ngOnInit(): void {
         if (this.order.length > 0) this.queries.order = this.order;
@@ -78,7 +85,30 @@ export class ManageArticlesComponent implements OnInit {
             category_id: "",
             status: null,
         });
+
         this.getArticles();
+        this.UserService.inforUser$.subscribe((data) => {
+            this.inforUser = data.user;
+            this.configUser = this.configRole.find(
+                (role: any) => role?.role_id === this.inforUser?.role_id
+            );
+            Object.keys(this.configUser?.coloumns).map(
+                (key) => (this.coloumns[key] = true)
+            );
+            this.coloumnForm = this.formBuilder.group({
+                ...this.coloumns,
+                rows: this.pageSize,
+            });
+
+            console.log(this.coloumns, {
+                ...this.configUser?.coloumns,
+                rows: this.pageSize,
+            });
+        });
+    }
+    saveConfig() {
+        this.pageSize = this.coloumnForm.value.rows;
+        this.coloumns = this.coloumnForm.value;
     }
     changeSelected() {
         this.listArticles = [];
@@ -95,6 +125,11 @@ export class ManageArticlesComponent implements OnInit {
             this.toastr.error(title, detail);
         }
     }
+    checkShowColoumns(type: string) {
+        return this.configUser.coloumns.some(
+            (coloumn: any) => coloumn === type
+        );
+    }
     getArticles() {
         this.pageIndex = 0;
         this.queries.page = this.pageIndex + 1;
@@ -103,8 +138,6 @@ export class ManageArticlesComponent implements OnInit {
                 delete this.formFilter.value[key];
             }
         }
-        console.log(this.selectName);
-
         if (this.selectName) {
             this.queries.created_user_id = this.selectName?.id;
         } else {
@@ -205,6 +238,14 @@ export class ManageArticlesComponent implements OnInit {
 
     openDialog(data: any): void {
         const dialogRef = this.dialog.open(DialogEditArticleComponent, {
+            width: "1900px",
+            // height: '700px',
+            data,
+        });
+        dialogRef.afterClosed().subscribe(() => this.getArticles());
+    }
+    showDialogComfirm(data: any) {
+        const dialogRef = this.dialog.open(DialogComponent, {
             width: "1900px",
             // height: '700px',
             data,
