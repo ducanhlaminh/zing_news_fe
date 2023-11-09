@@ -122,7 +122,7 @@ export class ManagePositionHomeComponent implements OnInit {
         this.NewsService.getArtclesHotAdmin(
             this.formOption.value?.categories_id
         ).subscribe((data: any) => {
-            data?.hot_news.map((item: any) => {
+            data?.map((item: any) => {
                 if (item.position === 1) {
                     this.hotArticles.top.data.push(item);
                 } else if (item.position > 1 && item.position < 5) {
@@ -157,7 +157,6 @@ export class ManagePositionHomeComponent implements OnInit {
     updatePosition() {
         if (this.formOption.value.categories_id === "1") {
             let articles: any = [];
-            console.log(this.hotArticles);
             this.hotArticles.top.data.map((item: any, idx: any) => {
                 articles.push({
                     article_id: item.article_id,

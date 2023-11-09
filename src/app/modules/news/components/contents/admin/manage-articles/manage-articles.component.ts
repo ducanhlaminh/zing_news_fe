@@ -114,7 +114,7 @@ export class ManageArticlesComponent implements OnInit {
         this.listArticles = [];
         this.articles.map((article: any) => {
             if (article.selected === true) {
-                this.listArticles.push(article.id);
+                this.listArticles.push(article);
             }
         });
     }
@@ -161,21 +161,15 @@ export class ManageArticlesComponent implements OnInit {
         this.listArticles = [];
         this.articles.map((article: any) => {
             article.selected = event.target.checked;
-            this.listArticles.push(article.id);
+            this.listArticles.push(article);
         });
     }
     actionFn(value: any) {
-        this.loading = true;
-
         if (value === "2") {
-            this.NewService.deleteArticle(this.listArticles).subscribe(
-                (data: any) => {
-                    this.getArticles();
-                    this.getArticles(), this.showToart(true, data.message);
-                    this.loading = false;
-                    this.listArticles = [];
-                }
-            );
+            this.showDialogComfirm({
+                articles: this.listArticles,
+                type: 1,
+            });
         } else if (value === "3" || value === "4") {
             this.loading = true;
             let status = 1;
@@ -195,14 +189,7 @@ export class ManageArticlesComponent implements OnInit {
         }
     }
     deleteItem(item: any) {
-        this.loading = true;
-        let listArticles: any[] = [];
-        listArticles.push(item.id);
-        this.NewService.deleteArticle(listArticles).subscribe((data: any) => {
-            this.getArticles();
-            this.getArticles(), this.showToart(true, data.message);
-            this.loading = false;
-        });
+        this.showDialogComfirm({ articles: [item], type: 1 });
     }
     getOptionCategories() {
         this.CategoryService.categoriesForAd$.subscribe((data) => {
@@ -246,11 +233,16 @@ export class ManageArticlesComponent implements OnInit {
     }
     showDialogComfirm(data: any) {
         const dialogRef = this.dialog.open(DialogComponent, {
-            width: "1900px",
-            // height: '700px',
             data,
         });
-        dialogRef.afterClosed().subscribe(() => this.getArticles());
+        dialogRef.afterClosed().subscribe(() => {
+            console.log(data);
+
+            data.msg && this.showToart(true, data.msg);
+            this.listArticles = [];
+            this.getArticles();
+            this.checkAll.nativeElement.checked = false;
+        });
     }
     close() {
         this.articles.map((article: any) => {
@@ -288,7 +280,6 @@ export class ManageArticlesComponent implements OnInit {
             this.formEdit.value,
             this.selectQuickEdit
         ).subscribe((data: any) => {
-            this.getArticles();
             this.getArticles(), this.showToart(true, data.message);
             this.loading = false;
         });

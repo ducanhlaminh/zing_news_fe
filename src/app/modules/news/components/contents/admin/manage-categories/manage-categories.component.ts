@@ -11,6 +11,7 @@ import {
 import { CategoryService } from "src/app/modules/news/services/category.service";
 import { ToastrService } from "ngx-toastr";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { DialogComponent } from "../dialog/dialog.component";
 
 @Component({
     selector: "app-manage-categories",
@@ -63,7 +64,6 @@ export class ManageCategoriesComponent {
     ) {}
     ngOnInit(): void {
         this.CategoryService.getAllCategoriesParent();
-
         this.CategoryService.categoriesParent$.subscribe((data) => {
             this.length = data?.length;
             this.categorySort = data?.categories.filter(
@@ -80,7 +80,6 @@ export class ManageCategoriesComponent {
             this.categories = data?.categories;
         });
         if (this.order.length > 0) this.queries.order = this.order;
-        this.queries.page = this.pageIndex + 1;
         this.formFilter = this.formBuilder.group({
             name: [""],
             status: null,
@@ -93,9 +92,6 @@ export class ManageCategoriesComponent {
                 delete this.formFilter.value[key];
             }
         }
-
-        this.pageIndex = 0;
-        this.queries.page = this.pageIndex + 1;
         this.CategoryService.getAllCategoriesByAd({
             ...this.queries,
             ...this.formFilter?.value,
@@ -105,15 +101,26 @@ export class ManageCategoriesComponent {
         this.listCategories = [];
         this.categories.map((cate: any) => {
             cate.selected = event.target.checked;
-            this.listCategories.push(cate.id);
+            this.listCategories.push(cate);
         });
     }
     changeSelected() {
         this.listCategories = [];
         this.categories.map((cate: any) => {
             if (cate.selected === true) {
-                this.listCategories.push(cate.id);
+                this.listCategories.push(cate);
             }
+        });
+    }
+    showDialogComfirm(data: any) {
+        const dialogRef = this.dialog.open(DialogComponent, {
+            data,
+        });
+        dialogRef.afterClosed().subscribe(() => {
+            data.msg && this.showToart(true, data.msg);
+            this.listCategories = [];
+            this.getCategories();
+            this.checkAll.nativeElement.checked = false;
         });
     }
     actionFn(value: any) {
@@ -139,23 +146,6 @@ export class ManageCategoriesComponent {
             });
         }
     }
-    // drop(event: CdkDragDrop<string[]>) {
-    //       this.changePosition = false;
-    //       if (event.previousContainer === event.container) {
-    //             moveItemInArray(
-    //                   event.container.data,
-    //                   event.previousIndex,
-    //                   event.currentIndex
-    //             );
-    //       } else {
-    //             transferArrayItem(
-    //                   event.previousContainer.data,
-    //                   event.container.data,
-    //                   event.previousIndex,
-    //                   event.currentIndex
-    //             );
-    //       }
-    // }
     comfirmCates() {
         this.done.map((item: any, idx: any) => {
             item.position = idx + 1;
@@ -168,8 +158,7 @@ export class ManageCategoriesComponent {
     handlePageEvent(e: any) {
         this.length = e.length;
         this.pageSize = e.pageSize;
-        this.pageIndex = e.pageIndex;
-        this.queries.page = this.pageIndex + 1;
+        this.queries.page = e.pageIndex + 1;
         this.getCategories();
     }
     filterFn(type: any) {
@@ -214,17 +203,15 @@ export class ManageCategoriesComponent {
         }
         return (this.categories[idx].opened = false);
     }
-    showToart(status: boolean) {
+    showToart(status: boolean, title: string = "", detail = "") {
         if (status) {
-            this.toastr.success("Cập nhật thành công");
+            this.toastr.success(title, detail);
         } else {
-            this.toastr.error("Vùi long điền đủ các trường cần thiết");
+            this.toastr.error(title, detail);
         }
     }
     deleteCate(item: any) {
-        this.CategoryService.deleteCategory(item.id).subscribe(() => {
-            this.getCategories();
-        });
+        this.showDialogComfirm({ categories: [item], msg: "", type: 2 });
     }
 
     close() {
