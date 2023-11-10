@@ -126,7 +126,6 @@ table {
 .selected {
       background: #e8e7e75d;
 }
-
 .title {
       display: flex;
       justify-content: space-between;
@@ -142,7 +141,7 @@ table {
 .filter {
       display: flex;
       gap: 15px;
-      margin-bottom: 5px;
+      margin-bottom: 15px;
       .btn-toggle {
             cursor: pointer;
             background: #fff;
@@ -169,7 +168,7 @@ table {
 select{
       width: 200px;
       border-radius: 4px;
-      height: 36px;
+      height: 100%;
       border: 1px solid #e2e2e2;
       font-weight: 300;
       color:#807f7f;
@@ -185,56 +184,55 @@ input[type="text"]{
       width: 70%;
       padding-left: 10px ;
 }
-.filter-bottom{
+.filter-bottom {
       display: flex;
-      gap: 20px;
+      gap: 15px;
       justify-content: space-between;
-      margin-bottom: 20px;
-      .container-action{
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      .container-action {
             display: flex;
-            gap: 10px;
-            width: 50%;
-            .action{
+            gap: 15px;
+            height: 41px;
+
+            .action {
                   display: flex;
-                  gap: 10px;
-                  width: 50%;
-                  .btn-action{
+                  gap: 15px;
+                  .btn-action {
                         cursor: pointer;
                         background: transparent;
                         border-radius: 5px;
                         font-weight: 600;
-                        color: #0347FF;
-                        gap: 5px;
+                        color: #0347ff;
+                        height: 40px;
                         display: flex;
                         align-items: center;
-                        border: 1px solid #0347FF;
-                        padding: 0 20px;
-                        width: fit-content;
+                        border: 1px solid #0347ff;
+                        box-sizing: border-box;
                   }
-                  .btn-filter:hover{
+                  .btn-filter:hover {
                         background: #48c7fd;
                         border: 1px solid #48c7fd;
                         color: #fff;
-            }
+                  }
             }
       }
 
-      .search{
+      .search {
             display: flex;
-            gap: 10px;
-            width: 50%;
-            justify-content: end;
-            input{
+            gap: 15px;
+            flex-wrap: wrap;
+            height: 41px;
+            input {
                   padding-left: 15px;
                   outline: none;
                   background: rgba(232, 230, 230, 0.737);
                   border: 0;
                   border-radius: 5px;
                   height: 100%;
+                  width: 300px;
             }
-
       }
-
 }
 
 
@@ -342,9 +340,7 @@ label{
 .header-view{
       width: 25%;
 }
-.header-cate{
 
-}
 .btn-action{
       cursor: pointer;
       background: transparent;

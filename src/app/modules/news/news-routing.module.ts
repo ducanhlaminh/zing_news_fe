@@ -19,6 +19,8 @@ import { CreateUserComponent } from "./components/contents/admin/create-user/cre
 import { ManagePositionCategoriesComponent } from "./components/contents/admin/manage-position-categories/manage-position-categories.component";
 import { ManagePositionHomeComponent } from "./components/contents/admin/manage-position-home/manage-position-home.component";
 import { ManagePositionCategoryComponent } from "./components/contents/admin/manage-position-category/manage-position-category.component";
+import { EditUserComponent } from "./components/contents/admin/edit-user/edit-user.component";
+import { ProfileComponent } from "./components/contents/admin/profile/profile.component";
 const routes: Routes = [
     {
         path: "",
@@ -33,6 +35,11 @@ const routes: Routes = [
             {
                 path: "admin/quan-ly-nguoi-dung",
                 component: ManageUserComponent,
+                //     canActivate: [CheckRoleGuard],
+            },
+            {
+                path: "admin/profile",
+                component: ProfileComponent,
                 //     canActivate: [CheckRoleGuard],
             },
             {
@@ -63,6 +70,11 @@ const routes: Routes = [
             {
                 path: "admin/bai-viet/chinh-sua-bai-viet/:slug/:slug_crc",
                 component: EditArticleComponent,
+                //     canActivate: [CheckRoleGuard],
+            },
+            {
+                path: "admin/quan-ly-nguoi-dung/chinh-sua-thong-tin/:id",
+                component: EditUserComponent,
                 //     canActivate: [CheckRoleGuard],
             },
             {

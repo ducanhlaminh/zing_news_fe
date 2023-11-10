@@ -243,16 +243,16 @@ input[type="text"] {
       display: flex;
       gap: 15px;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       flex-wrap: wrap;
       .container-action {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             height: 41px;
 
             .action {
                   display: flex;
-                  gap: 10px;
+                  gap: 15px;
                   select {
                         width: 200px;
                   }
@@ -277,7 +277,7 @@ input[type="text"] {
 
       .search {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             flex-wrap: wrap;
             height: 41px;
             input {

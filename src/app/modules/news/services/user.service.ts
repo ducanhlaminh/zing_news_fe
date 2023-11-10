@@ -21,6 +21,12 @@ export class UserService {
             params: { ...data },
         });
     }
+    getDetail(id: any) {
+        return this.http.get(environment.API_ADMIN_USER + "/" + id);
+    }
+    deleteUser(id: any) {
+        return this.http.delete(environment.API_ADMIN_USER, { params: { id } });
+    }
     createUser(data: any) {
         return this.http.post(environment.API_ADMIN_USER, data);
     }

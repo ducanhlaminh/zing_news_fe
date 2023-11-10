@@ -18,7 +18,7 @@ import { DialogEditArticleComponent } from "../../dialog-edit-article/dialog-edi
 import { ToastrService } from "ngx-toastr";
 import { configRole } from "src/environments/environment.development";
 import { UserService } from "src/app/modules/news/services/user.service";
-import { DialogComponent } from "../dialog/dialog.component";
+import { DialogComponent } from "../dialogs/dialog/dialog.component";
 @Component({
     selector: "app-manage-articles",
     templateUrl: "./manage-articles.component.html",

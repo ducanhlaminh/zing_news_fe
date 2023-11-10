@@ -48,13 +48,7 @@ export class ManageUserComponent {
 
     order: any = [];
     queries: any = {};
-    statusOptions = [
-        {
-            name: "Xuất bản",
-            status: 1,
-        },
-        { name: "Bản nháp", status: 0 },
-    ];
+
     constructor(
         private NewService: NewsService,
         private CategoryService: CategoryService,
@@ -67,21 +61,23 @@ export class ManageUserComponent {
         if (this.order.length > 0) this.queries.order = this.order;
         this.queries.page = this.pageIndex + 1;
         this.CategoryService.getAllCategoriesByAd({});
-        this.getOptionCategories();
         this.formFilter = this.formBuilder.group({
-            name: null,
-            role_id: null,
+            name: "",
+            role_id: "",
         });
         this.getUser();
     }
-    // changeSelected() {
-    //       this.listUsers = [];
-    //       this.articles.map((article: any) => {
-    //             if (article.selected === true) {
-    //                   this.listUsers.push(article.id);
-    //             }
-    //       });
-    // }
+    changeSelected() {
+        console.log(this.users);
+
+        this.listUsers = [];
+        this.users.map((article: any) => {
+            if (article.selected === true) {
+                this.listUsers.push(article.id);
+            }
+        });
+        console.log(this.listUsers);
+    }
     showToart(status: boolean, title: string = "", detail = "") {
         if (status) {
             this.toastr.success(title, detail);
@@ -100,13 +96,15 @@ export class ManageUserComponent {
                 delete this.formFilter.value[key];
             }
         }
-        console.log(this.formFilter.value);
 
         this.UserService.getAll({
             ...this.queries,
             ...this.formFilter.value,
         }).subscribe((data: any) => {
             this.users = data.rows;
+            this.users.map((user: any) => {
+                user.selected = false;
+            });
             this.length = data.count;
         });
     }
@@ -121,31 +119,28 @@ export class ManageUserComponent {
         this.loading = true;
 
         if (value === "2") {
-            this.NewService.deleteArticle(this.listUsers).subscribe(
+            console.log(this.listUsers);
+
+            this.UserService.deleteUser(this.listUsers).subscribe(
                 (data: any) => {
                     this.getUser();
-                    this.showToart(true, data.message);
-                    this.loading = false;
-                    this.listUsers = [];
+                    //   this.showToart(true, data.message);
+                    //   this.loading = false;
                 }
             );
         }
     }
     deleteItem(item: any) {
         this.loading = true;
-        let listUsers: any[] = [];
+        let listUsers = [];
         listUsers.push(item.id);
-        this.NewService.deleteArticle(listUsers).subscribe((data: any) => {
+        this.UserService.deleteUser(listUsers).subscribe((data: any) => {
             this.getUser();
             this.showToart(true, data.message);
             this.loading = false;
         });
     }
-    getOptionCategories() {
-        this.CategoryService.categoriesForAd$.subscribe((data) => {
-            this.optionCategories = data.categories;
-        });
-    }
+
     updateArticles(item: any) {
         this.loading = true;
         let listUsers: any[] = [];

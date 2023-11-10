@@ -11,7 +11,8 @@ import {
 import { CategoryService } from "src/app/modules/news/services/category.service";
 import { ToastrService } from "ngx-toastr";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { DialogComponent } from "../dialog/dialog.component";
+import { DialogComponent } from "../dialogs/dialog/dialog.component";
+import { DialogCreateCategoryComponent } from "../dialogs/dialog-create-category/dialog-create-category.component";
 
 @Component({
     selector: "app-manage-categories",
@@ -33,9 +34,8 @@ export class ManageCategoriesComponent {
     categorySort: any = [];
     listCategories: any = [];
     done: any = [];
-    length = 100;
-    pageSize = 10;
-    pageIndex = 0;
+    length!: number;
+
     typefilters = [null, "DESC", "ASC"];
     filterCurr: any = {
         name: 0,
@@ -45,7 +45,7 @@ export class ManageCategoriesComponent {
     formCreate!: FormGroup;
     selectedAction: string = "1";
     order: any = [];
-    queries: any = { page: 1 };
+    queries: any = {};
     formEdit!: FormGroup;
     selectedItem: any;
     loading = false;
@@ -84,7 +84,22 @@ export class ManageCategoriesComponent {
             name: [""],
             status: null,
         });
+        this.formEdit = this.formBuilder.group({
+            name: "",
+            status: "",
+            slug: "",
+            parent_id: "",
+        });
         this.getCategories();
+    }
+    showCreateCate() {
+        const dialogRef = this.dialog.open(DialogCreateCategoryComponent, {
+            width: "400px",
+            data: { msg: "" },
+        });
+        dialogRef.afterClosed().subscribe(() => {
+            this.getCategories();
+        });
     }
     getCategories() {
         for (var key in this.formFilter?.value) {
@@ -101,14 +116,14 @@ export class ManageCategoriesComponent {
         this.listCategories = [];
         this.categories.map((cate: any) => {
             cate.selected = event.target.checked;
-            this.listCategories.push(cate);
+            this.listCategories.push(cate.id);
         });
     }
     changeSelected() {
         this.listCategories = [];
         this.categories.map((cate: any) => {
             if (cate.selected === true) {
-                this.listCategories.push(cate);
+                this.listCategories.push(cate.id);
             }
         });
     }
@@ -131,6 +146,8 @@ export class ManageCategoriesComponent {
                 }
             );
         } else if (value === "3") {
+            console.log(this.listCategories);
+
             this.CategoryService.updateCategory(
                 { status: 1 },
                 this.listCategories
@@ -145,21 +162,6 @@ export class ManageCategoriesComponent {
                 this.getCategories();
             });
         }
-    }
-    comfirmCates() {
-        this.done.map((item: any, idx: any) => {
-            item.position = idx + 1;
-        });
-        this.CategoryService.updatePosition(this.done).subscribe(() => {
-            this.CategoryService.getAllCategories();
-            this.showToart(true);
-        });
-    }
-    handlePageEvent(e: any) {
-        this.length = e.length;
-        this.pageSize = e.pageSize;
-        this.queries.page = e.pageIndex + 1;
-        this.getCategories();
     }
     filterFn(type: any) {
         ++this.filterCurr[type];
@@ -188,7 +190,6 @@ export class ManageCategoriesComponent {
         }
         if (this.order.length > 0)
             this.queries.order = JSON.stringify(this.order);
-        this.queries.page = this.pageIndex + 1;
 
         // this.NewService.getAllByAd({ ...this.queries }).subscribe(
         //       (data: any) => {
@@ -222,14 +223,17 @@ export class ManageCategoriesComponent {
         });
     }
     open(item: any) {
+        this.categories.map((article: any) => {
+            article.edit = false;
+        });
         item.edit = true;
         this.selectedItem = item;
         console.log(this.selectedItem);
-        this.formEdit = this.formBuilder.group({
+        this.formEdit.patchValue({
             name: item.name,
             status: item.status,
             slug: item.slug,
-            parent_id: item.parentCategory.id,
+            parent_id: item.parentCategory?.id,
         });
     }
     submitCreate() {

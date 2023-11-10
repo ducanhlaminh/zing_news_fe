@@ -18,14 +18,19 @@ export class LoginGoogleSuccessComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe((params: any) => {
             const code = params["code"];
             this.AuthService.getTokenGG(code).subscribe((data: any) => {
-                console.log(data);
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("role_id", data.role_id);
+                if (data.token) {
+                    localStorage.setItem("token", data.token);
+                    localStorage.setItem("role_id", data.role_id);
+                    setTimeout(() => {
+                        this.UserService.getDataInforUser();
+                        this.router.navigateByUrl(
+                            "/admin/bai-viet/tao-bai-viet"
+                        );
+                    }, 500);
+                } else {
+                    this.router.navigateByUrl("/trang-chu");
+                }
             });
         });
-        setTimeout(() => {
-            this.UserService.getDataInforUser();
-            this.router.navigateByUrl("/admin/bai-viet/tao-bai-viet");
-        }, 500);
     }
 }

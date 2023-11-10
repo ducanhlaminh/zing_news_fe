@@ -19,7 +19,7 @@
             "
             [ngClass]="{ 'selected-filter': selectedStatus === 1 }"
             (click)="this.formFilter.patchValue({
-                        status: null,
+                        role_id: null,
                       });this.selectedStatus = 1;this.getUser()"
         >
             <span>Tất cả</span>
@@ -53,7 +53,7 @@
             "
             [ngClass]="{ 'selected-filter': selectedStatus === 3 }"
             (click)="this.formFilter.patchValue({
-                  role_id: 1,
+                  role_id: 2,
                 });this.selectedStatus = 3; this.getUser()"
         >
             <span>Quản trị viên</span>
@@ -70,7 +70,7 @@
             "
             [ngClass]="{ 'selected-filter': selectedStatus === 4 }"
             (click)="this.formFilter.patchValue({
-                  role_id: 1,
+                  role_id: 3,
                 });this.selectedStatus = 4; this.getUser()"
         >
             <span>Kiểm duyệt viên</span>
@@ -88,7 +88,7 @@
             [ngClass]="{ 'selected-filter': selectedStatus === 5 }"
             (click)="
                 this.formFilter.patchValue({
-                    role_id: 2
+                    role_id: 4
                 });
                 this.selectedStatus = 5;
                 this.getUser()
@@ -114,7 +114,7 @@
             </div>
             <form [formGroup]="formFilter" class="action">
                 <select formControlName="role_id">
-                    <option selected="selected" value="">Đổi thành...</option>
+                    <option value="">Đổi thành...</option>
                     <option [value]="1">Tổng biên tập</option>
                     <option [value]="2">Quản trị viên</option>
                     <option [value]="3">Kiểm duyệt viên</option>
@@ -153,7 +153,6 @@
         <th class="header-name">
             <div>
                 <span>Tên người dùng</span>
-                <fa-icon [icon]="faSort"></fa-icon>
             </div>
         </th>
         <th class="header-view">
@@ -169,14 +168,15 @@
     </tr>
     <ng-container *ngFor="let item of users; let i = index">
         <ng-container *ngIf="1; else editQuick">
-            <tr class="" [ngClass]="{ selected: item.opened }">
+            <tr class="" [ngClass]="{ selected: item.select }">
                 <td class="item-stt">
                     <div class="">
                         <input
                             type="checkbox"
                             name=""
                             id=""
-                            [(ngModel)]="item.selected"
+                            [ngModel]="item.selected"
+                            (ngModelChange)="changeSelected()"
                         />
                     </div>
                 </td>
@@ -190,12 +190,8 @@
 
                     <div class="">
                         <small
-                            [routerLink]="[
-                                '/admin/',
-                                'chinh-sua-nguoi-dung',
-                                item.slug,
-                                item.slug_crc
-                            ]"
+                            [routerLink]="['chinh-sua-thong-tin', item.id]"
+                            class="update-item"
                             >Chỉnh sửa</small
                         >
 

@@ -1,3 +1,10 @@
+<div class="title">
+    <h2>Chuyên mục</h2>
+    <button class="btn-create" (click)="showCreateCate()">
+        <mat-icon class="icon">add_to_photos</mat-icon>
+        <span>Thêm chuyên mục mới</span>
+    </button>
+</div>
 <div class="container">
     <div class="manage-container">
         <div class="filter">
@@ -7,7 +14,7 @@
                 matBadgeColor="primary"
                 [matBadgeHidden]="selectedStatus === 2 || selectedStatus === 3"
                 [ngClass]="{ 'selected-filter': selectedStatus === 1 }"
-                (click)=" this.queries.page =  1;this.formFilter.patchValue({
+                (click)="this.formFilter.patchValue({
                               status: null,
                             });this.selectedStatus = 1;this.getCategories()"
             >
@@ -19,7 +26,7 @@
                 matBadgeColor="primary"
                 [matBadgeHidden]="selectedStatus === 1 || selectedStatus === 3"
                 [ngClass]="{ 'selected-filter': selectedStatus === 2 }"
-                (click)="this.queries.page =  1;this.formFilter.patchValue({
+                (click)="this.formFilter.patchValue({
                         status: 1,
                       });this.selectedStatus = 2;this.getCategories()"
             >
@@ -32,7 +39,6 @@
                 [matBadgeHidden]="selectedStatus === 2 || selectedStatus === 1"
                 [ngClass]="{ 'selected-filter': selectedStatus === 3 }"
                 (click)="
-                    this.queries.page = 1;
                     this.formFilter.patchValue({
                         status: 0
                     });
@@ -69,7 +75,7 @@
                     placeholder="Tên chuyên mục"
                 />
                 <button class="btn-create" (click)="getCategories()">
-                    <span>Tìm</span>
+                    <span>Tìm kiếm</span>
                 </button>
             </form>
         </div>
@@ -87,13 +93,11 @@
                 <th>
                     <div class="header-name">
                         <span>Tên chuyên mục</span>
-                        <fa-icon [icon]="faSort"></fa-icon>
                     </div>
                 </th>
                 <th>
                     <div class="header-cate">
                         <span>Đường dẫn</span>
-                        <fa-icon [icon]="faSort"></fa-icon>
                     </div>
                 </th>
                 <th>
@@ -149,16 +153,6 @@
                 </ng-container>
             </ng-container>
         </table>
-        <mat-paginator
-            #paginator
-            class="demo-paginator"
-            aria-label="Select page"
-            [length]="length"
-            [pageSize]="pageSize"
-            [pageIndex]="this.queries.page - 1"
-            (page)="handlePageEvent($event)"
-        >
-        </mat-paginator>
     </div>
 </div>
 <ng-template #editQuick>
@@ -169,7 +163,7 @@
                 <div class="container-edit">
                     <div class="title-slug">
                         <div class="edit-title">
-                            <label for="title">Tiêu đề</label>
+                            <label for="title">Tên chuyên mục</label>
                             <input
                                 type="text"
                                 id="title"
@@ -205,18 +199,19 @@
                         </div>
                         <div class="edit-slug">
                             <label for="">Trạng thái</label>
-
-                            <select name="" id="" formControlName="status">
-                                <option selected="selected" value="">
-                                    Chuyên mục
-                                </option>
-                                <option
-                                    [value]="item.status"
-                                    *ngFor="let item of statusOptions"
-                                >
-                                    {{ item.name }}
-                                </option>
-                            </select>
+                            <div class="">
+                                <select name="" id="" formControlName="status">
+                                    <option selected="selected" value="">
+                                        Chuyên mục
+                                    </option>
+                                    <option
+                                        [value]="item.status"
+                                        *ngFor="let item of statusOptions"
+                                    >
+                                        {{ item.name }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
