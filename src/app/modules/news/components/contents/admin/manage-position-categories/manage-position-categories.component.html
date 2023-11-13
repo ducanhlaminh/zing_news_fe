@@ -1,1 +1,51 @@
-<p>manage-position-categories works!</p>
+<div cdkDropListGroup>
+      <div
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+            class="example-list"
+            [cdkDropListData]="categories"
+            (cdkDropListDropped)="drop($event)"
+      >
+            <ng-container *ngFor="let item of categories?.pending">
+                  <div class="example-box" cdkDrag>
+                        {{ item?.name }}
+                  </div>
+            </ng-container>
+      </div>
+
+      <div class="header">
+            <div class="logo">
+                  <p class="top-header">TẠP CHÍ TRI THỨC TRỰC TUYẾN</p>
+                  <img
+                        src="https://static-znews.zingcdn.me/images/logo-zing-home.svg"
+                        alt=""
+                        class="header_logo"
+                  />
+            </div>
+            <div
+                  class="categories"
+                  cdkDropList
+                  [cdkDropListData]="categories"
+                  cdkDropListOrientation="horizontal"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)"
+            >
+                  <ng-container *ngFor="let item of categories?.selected">
+                        <div class="example-box" cdkDrag>
+                              <span *ngIf="item.position">
+                                    {{ item?.name }}</span
+                              >
+                        </div>
+                  </ng-container>
+            </div>
+            <div class="right_header">
+                  <form class="tool">
+                        <fa-icon
+                              [icon]="faMagnifyingGlass"
+                              class="searchBtn activeShowInput"
+                        >
+                        </fa-icon>
+                  </form>
+            </div>
+      </div>
+</div>
