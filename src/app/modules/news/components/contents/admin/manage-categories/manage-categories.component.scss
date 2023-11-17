@@ -197,18 +197,6 @@ a {
 .selected-filter {
       border: 1px solid #0347FF !important;
 }
-
-
-select {
-      width: 200px;
-      border-radius: 4px;
-      border: 1px solid #e2e2e2;
-      font-weight: 300;
-      color: #807f7f;
-      outline: none;
-      height: 40px
-}
-
 .btn-create {
       cursor: pointer;
       background: #48c7fd;
@@ -255,11 +243,7 @@ select {
       }
 }
 
-label {
-      width: 120px;
-      display: inline-block;
-      margin-bottom: 5px;
-}
+
 
 .item-name {
       width: 50%;

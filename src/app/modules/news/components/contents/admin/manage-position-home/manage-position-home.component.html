@@ -1,435 +1,387 @@
 <div class="container" cdkDropListGroup>
-      <form class="create">
-            <h3>Thêm bài viết vào danh sách</h3>
-            <form
-                  [formGroup]="formSearch"
-                  class="input-name"
-                  (submit)="getArticles()"
+    <form class="create">
+        <h3>Thêm bài viết vào danh sách</h3>
+        <form
+            [formGroup]="formSearch"
+            class="input-name"
+            (submit)="getArticles()"
+        >
+            <label for="name " class="text">Tìm kiếm bài viết</label><br />
+            <input
+                type="text"
+                name=""
+                value=""
+                id="name"
+                placeholder="Tiêu đề bài viết"
+                formControlName="title"
+            />
+        </form>
+        <table
+            cdkDropList
+            [cdkDropListData]="listArticles"
+            *ngIf="listArticles"
+        >
+            <tr>
+                <th class="item-stt"></th>
+                <th>
+                    <div class="header-name">
+                        <span>Tiêu đề </span>
+                    </div>
+                </th>
+            </tr>
+
+            <tr
+                class="box"
+                cdkDrag
+                (cdkDragEntered)="enter($event)"
+                (cdkDragStarted)="start($event, null)"
+                *ngFor="let item of listArticles; let i = index"
+                [cdkDragData]="item"
             >
-                  <label for="name " class="text">Tìm kiếm bài viết</label
-                  ><br />
-                  <input
-                        type="text"
-                        name=""
-                        value=""
-                        id="name"
-                        placeholder="Tiêu đề bài viết"
-                        formControlName="title"
-                  />
-            </form>
-            <table
-                  cdkDropList
-                  [cdkDropListData]="listArticles"
-                  *ngIf="listArticles"
-            >
-                  <tr>
-                        <th class="item-stt"></th>
-                        <th>
-                              <div class="header-name">
-                                    <span>Tiêu đề </span>
-                              </div>
-                        </th>
-                  </tr>
-
-                  <tr
-                        class="box"
-                        cdkDrag
-                        (cdkDragEntered)="enter($event)"
-                        (cdkDragStarted)="start($event, null)"
-                        *ngFor="let item of listArticles; let i = index"
-                        [cdkDragData]="item"
-                  >
-                        <div *cdkDragPreview class="preivew">
-                              <td class="item-drag">
-                                    <div class="example-handle" cdkDragHandle>
-                                          <svg
-                                                width="24px"
-                                                fill="currentColor"
-                                                viewBox="0 0 24 24"
-                                          >
-                                                <path
-                                                      d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
-                                                ></path>
-                                                <path
-                                                      d="M0 0h24v24H0z"
-                                                      fill="none"
-                                                ></path>
-                                          </svg>
-                                    </div>
-                              </td>
-
-                              <td class="item-name">
-                                    <div class="title-status">
-                                          <p>
-                                                {{ item?.new_article?.title }}
-                                          </p>
-                                    </div>
-
-                                    <div class="">
-                                          <small class=""
-                                                >Chuyên mục : Xuât bản</small
-                                          >
-                                    </div>
-                              </td>
+                <div *cdkDragPreview class="preivew">
+                    <td class="item-drag">
+                        <div class="example-handle" cdkDragHandle>
+                            <svg
+                                width="24px"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                                ></path>
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                            </svg>
                         </div>
-                        <div
-                              *cdkDragPlaceholder
-                              [ngClass]="{
+                    </td>
+
+                    <td class="item-name">
+                        <div class="title-status">
+                            <p>
+                                {{ item?.new_article?.title }}
+                            </p>
+                        </div>
+
+                        <div class="">
+                            <small class="">Chuyên mục : Xuât bản</small>
+                        </div>
+                    </td>
+                </div>
+                <div
+                    *cdkDragPlaceholder
+                    [ngClass]="{
                         top: draggingOutsideSourceList === '1',
                         bottom: draggingOutsideSourceList === '2',
                         right: draggingOutsideSourceList === '3',
                     }"
-                        ></div>
+                ></div>
 
-                        <td class="item-drag">
-                              <div class="example-handle" cdkDragHandle>
-                                    <svg
-                                          width="24px"
-                                          fill="currentColor"
-                                          viewBox="0 0 24 24"
-                                    >
-                                          <path
-                                                d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
-                                          ></path>
-                                          <path
-                                                d="M0 0h24v24H0z"
-                                                fill="none"
-                                          ></path>
-                                    </svg>
-                              </div>
-                        </td>
+                <td class="item-drag">
+                    <div class="example-handle" cdkDragHandle>
+                        <svg
+                            width="24px"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                            ></path>
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                        </svg>
+                    </div>
+                </td>
 
-                        <td class="item-name">
-                              <div class="title-status">
-                                    <p>
-                                          {{ item?.new_article?.title }}
+                <td class="item-name">
+                    <div class="title-status">
+                        <p>
+                            {{ item?.new_article?.title }}
+                        </p>
+                    </div>
+
+                    <div class="">
+                        <small>Chuyên mục :</small>
+                        <small
+                            class="item-cate"
+                            *ngFor="
+                                let cate of item?.new_article
+                                    .new_articles_categories
+                            "
+                            >{{ cate.category.name }}</small
+                        >
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div class="manage-container">
+        <div class="filter-bottom">
+            <div class="container-action">
+                <form class="action" [formGroup]="formOption">
+                    <select
+                        formControlName="categories_id"
+                        (change)="getHotNews()"
+                    >
+                        <option selected="selected" value="1">Trang chủ</option>
+                        <option
+                            [value]="item.slug_crc"
+                            *ngFor="let item of categories"
+                        >
+                            {{ item.name }}
+                        </option>
+                    </select>
+                </form>
+            </div>
+
+            <button class="btn-create" (click)="updatePosition()">
+                <span>Lưu thay đổi</span>
+            </button>
+        </div>
+        <ng-container
+            *ngIf="formOption.value.categories_id !== '1'; else homePage"
+            ><div class="container-layout">
+                <div class="layout-left">
+                    <div
+                        class="layout-left-top"
+                        cdkDropList
+                        id="1"
+                        [cdkDropListData]="hotArticles.top.data"
+                        (cdkDropListDropped)="drop($event, 1)"
+                        [cdkDropListEnterPredicate]="check"
+                    >
+                        <ng-container *ngFor="let item of hotArticles.top.data">
+                            <div
+                                class="hot-article"
+                                cdkDrag
+                                (cdkDragEntered)="enter($event)"
+                                (cdkDragStarted)="start($event, 1)"
+                            >
+                                <div *cdkDragPreview class="preivew">
+                                    <td class="item-drag">
+                                        <div
+                                            class="example-handle"
+                                            cdkDragHandle
+                                        >
+                                            <svg
+                                                width="24px"
+                                                fill="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                                                ></path>
+                                                <path
+                                                    d="M0 0h24v24H0z"
+                                                    fill="none"
+                                                ></path>
+                                            </svg>
+                                        </div>
+                                    </td>
+
+                                    <td class="item-name">
+                                        <div class="title-status">
+                                            <p>
+                                                {{ item?.new_article?.title }}
+                                            </p>
+                                        </div>
+
+                                        <div class="">
+                                            <small class=""
+                                                >Chuyên mục : Xuât bản</small
+                                            >
+                                        </div>
+                                    </td>
+                                </div>
+                                <div
+                                    *cdkDragPlaceholder
+                                    clas
+                                    [ngClass]="{
+                                    top: draggingOutsideSourceList === 1,
+                                    bottom: draggingOutsideSourceList === 2,
+                                    right: draggingOutsideSourceList === 3,
+                                }"
+                                ></div>
+                                <div class="image-article">
+                                    <img
+                                        [src]="
+                                            environment.API_GET_AVATAR +
+                                            item.new_article.avatar +
+                                            '&height=200&width=300'
+                                        "
+                                        (error)="handleImageError($event)"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="info-article">
+                                    <p class="infor-article-title">
+                                        {{ item.new_article.title }}
                                     </p>
-                              </div>
+                                    <p class="infor-article-sapo">
+                                        {{ item.new_article.sapo }}
+                                    </p>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div
+                        class="layout-left-bottom"
+                        cdkDropList
+                        id="2"
+                        [cdkDropListData]="hotArticles.bottom.data"
+                        (cdkDropListDropped)="drop($event, 2)"
+                        cdkDropListOrientation="horizontal"
+                        [cdkDropListEnterPredicate]="check2"
+                    >
+                        <ng-container
+                            *ngFor="let item of hotArticles.bottom.data"
+                        >
+                            <div
+                                class="info-article"
+                                cdkDrag
+                                (cdkDragEntered)="enter($event)"
+                                (cdkDragStarted)="start($event, 2)"
+                            >
+                                <div *cdkDragPreview class="preivew">
+                                    <td class="item-drag">
+                                        <div
+                                            class="example-handle"
+                                            cdkDragHandle
+                                        >
+                                            <svg
+                                                width="24px"
+                                                fill="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                                                ></path>
+                                                <path
+                                                    d="M0 0h24v24H0z"
+                                                    fill="none"
+                                                ></path>
+                                            </svg>
+                                        </div>
+                                    </td>
 
-                              <div class="">
-                                    <small>Chuyên mục :</small>
-                                    <small
-                                          class="item-cate"
-                                          *ngFor="
-                                                let cate of item?.new_article
-                                                      .new_articles_categories
-                                          "
-                                          >{{ cate.category.name }}</small
-                                    >
-                              </div>
-                        </td>
-                  </tr>
-            </table>
-      </form>
-      <div class="manage-container">
-            <div class="filter-bottom">
-                  <div class="container-action">
-                        <form class="action" [formGroup]="formOption">
-                              <select
-                                    formControlName="categories_id"
-                                    (change)="getHotNews()"
-                              >
-                                    <option selected="selected" value="1">
-                                          Trang chủ
-                                    </option>
-                                    <option
-                                          [value]="item.slug_crc"
-                                          *ngFor="let item of categories"
-                                    >
-                                          {{ item.name }}
-                                    </option>
-                              </select>
-                        </form>
-                  </div>
+                                    <td class="item-name">
+                                        <div class="title-status">
+                                            <p>
+                                                {{ item?.new_article?.title }}
+                                            </p>
+                                        </div>
 
-                  <button class="btn-create" (click)="updatePosition()">
-                        <span>Lưu thay đổi</span>
-                  </button>
+                                        <div class="">
+                                            <small class=""
+                                                >Chuyên mục : Xuât bản</small
+                                            >
+                                        </div>
+                                    </td>
+                                </div>
+                                <div
+                                    *cdkDragPlaceholder
+                                    class=""
+                                    [ngClass]="{
+                                    top: draggingOutsideSourceList === 1,
+                                    bottom: draggingOutsideSourceList === 2,
+                                    right: draggingOutsideSourceList === 3,
+                                }"
+                                ></div>
+                                <h4 class="infor-article-title">
+                                    {{ item.new_article.title }}
+                                </h4>
+                                <p class="infor-article-sapo">
+                                    {{ item.new_article.sapo }}
+                                </p>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="layout-right">
+                    <div
+                        class="layout-list"
+                        cdkDropList
+                        id="3"
+                        [cdkDropListData]="hotArticles.right.data"
+                        (cdkDropListDropped)="drop($event, 3)"
+                    >
+                        <ng-container
+                            *ngFor="let item of hotArticles.right.data"
+                        >
+                            <div
+                                class="box"
+                                cdkDrag
+                                (cdkDragEntered)="enter($event)"
+                                (cdkDragStarted)="start($event, 3)"
+                            >
+                                <div *cdkDragPreview class="preivew">
+                                    <td class="item-drag">
+                                        <div
+                                            class="example-handle"
+                                            cdkDragHandle
+                                        >
+                                            <svg
+                                                width="24px"
+                                                fill="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                                                ></path>
+                                                <path
+                                                    d="M0 0h24v24H0z"
+                                                    fill="none"
+                                                ></path>
+                                            </svg>
+                                        </div>
+                                    </td>
+
+                                    <td class="item-name">
+                                        <div class="title-status">
+                                            <p>
+                                                {{ item?.new_article?.title }}
+                                            </p>
+                                        </div>
+
+                                        <div class="">
+                                            <small class=""
+                                                >Chuyên mục : Xuât bản</small
+                                            >
+                                        </div>
+                                    </td>
+                                </div>
+                                <div
+                                    *cdkDragPlaceholder
+                                    clas
+                                    [ngClass]="{
+                                    top: draggingOutsideSourceList === 1,
+                                    bottom: draggingOutsideSourceList === 2,
+                                    right: draggingOutsideSourceList === 3,
+                                }"
+                                ></div>
+                                <div class="hot-article-item">
+                                    <p class="hot-article-title">
+                                        {{ item.new_article.title }}
+                                    </p>
+                                    <div class="image-article">
+                                        <img
+                                            [src]="
+                                                environment.API_GET_AVATAR +
+                                                item.new_article.avatar +
+                                                '&height=80&width=120'
+                                            "
+                                            alt=""
+                                            (error)="handleImageError($event)"
+                                        />
+                                    </div>
+                                </div>
+                                <hr *ngIf="item.position !== 1" />
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
             </div>
-            <div class="container-layout">
-                  <div class="layout-left">
-                        <div
-                              class="layout-left-top"
-                              cdkDropList
-                              id="1"
-                              [cdkDropListData]="hotArticles.top.data"
-                              (cdkDropListDropped)="drop($event, 1)"
-                              [cdkDropListEnterPredicate]="check"
-                        >
-                              <ng-container
-                                    *ngFor="let item of hotArticles.top.data"
-                              >
-                                    <div
-                                          class="hot-article"
-                                          cdkDrag
-                                          (cdkDragEntered)="enter($event)"
-                                          (cdkDragStarted)="start($event, 1)"
-                                    >
-                                          <div *cdkDragPreview class="preivew">
-                                                <td class="item-drag">
-                                                      <div
-                                                            class="example-handle"
-                                                            cdkDragHandle
-                                                      >
-                                                            <svg
-                                                                  width="24px"
-                                                                  fill="currentColor"
-                                                                  viewBox="0 0 24 24"
-                                                            >
-                                                                  <path
-                                                                        d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
-                                                                  ></path>
-                                                                  <path
-                                                                        d="M0 0h24v24H0z"
-                                                                        fill="none"
-                                                                  ></path>
-                                                            </svg>
-                                                      </div>
-                                                </td>
-
-                                                <td class="item-name">
-                                                      <div class="title-status">
-                                                            <p>
-                                                                  {{
-                                                                        item
-                                                                              ?.new_article
-                                                                              ?.title
-                                                                  }}
-                                                            </p>
-                                                      </div>
-
-                                                      <div class="">
-                                                            <small class=""
-                                                                  >Chuyên mục :
-                                                                  Xuât
-                                                                  bản</small
-                                                            >
-                                                      </div>
-                                                </td>
-                                          </div>
-                                          <div
-                                                *cdkDragPlaceholder
-                                                clas
-                                                [ngClass]="{
-                                    top: draggingOutsideSourceList === 1,
-                                    bottom: draggingOutsideSourceList === 2,
-                                    right: draggingOutsideSourceList === 3,
-                                }"
-                                          ></div>
-                                          <div class="image-article">
-                                                <img
-                                                      [src]="
-                                                            environment.API_GET_AVATAR +
-                                                            item.new_article
-                                                                  .avatar +
-                                                            '&height=200&width=300'
-                                                      "
-                                                      (error)="
-                                                            handleImageError(
-                                                                  $event
-                                                            )
-                                                      "
-                                                      alt=""
-                                                />
-                                          </div>
-                                          <div class="info-article">
-                                                <p class="infor-article-title">
-                                                      {{
-                                                            item.new_article
-                                                                  .title
-                                                      }}
-                                                </p>
-                                                <p class="infor-article-sapo">
-                                                      {{
-                                                            item.new_article
-                                                                  .sapo
-                                                      }}
-                                                </p>
-                                          </div>
-                                    </div>
-                              </ng-container>
-                        </div>
-                        <div
-                              class="layout-left-bottom"
-                              cdkDropList
-                              id="2"
-                              [cdkDropListData]="hotArticles.bottom.data"
-                              (cdkDropListDropped)="drop($event, 2)"
-                              cdkDropListOrientation="horizontal"
-                              [cdkDropListEnterPredicate]="check2"
-                        >
-                              <ng-container
-                                    *ngFor="let item of hotArticles.bottom.data"
-                              >
-                                    <div
-                                          class="info-article"
-                                          cdkDrag
-                                          (cdkDragEntered)="enter($event)"
-                                          (cdkDragStarted)="start($event, 2)"
-                                    >
-                                          <div *cdkDragPreview class="preivew">
-                                                <td class="item-drag">
-                                                      <div
-                                                            class="example-handle"
-                                                            cdkDragHandle
-                                                      >
-                                                            <svg
-                                                                  width="24px"
-                                                                  fill="currentColor"
-                                                                  viewBox="0 0 24 24"
-                                                            >
-                                                                  <path
-                                                                        d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
-                                                                  ></path>
-                                                                  <path
-                                                                        d="M0 0h24v24H0z"
-                                                                        fill="none"
-                                                                  ></path>
-                                                            </svg>
-                                                      </div>
-                                                </td>
-
-                                                <td class="item-name">
-                                                      <div class="title-status">
-                                                            <p>
-                                                                  {{
-                                                                        item
-                                                                              ?.new_article
-                                                                              ?.title
-                                                                  }}
-                                                            </p>
-                                                      </div>
-
-                                                      <div class="">
-                                                            <small class=""
-                                                                  >Chuyên mục :
-                                                                  Xuât
-                                                                  bản</small
-                                                            >
-                                                      </div>
-                                                </td>
-                                          </div>
-                                          <div
-                                                *cdkDragPlaceholder
-                                                class=""
-                                                [ngClass]="{
-                                    top: draggingOutsideSourceList === 1,
-                                    bottom: draggingOutsideSourceList === 2,
-                                    right: draggingOutsideSourceList === 3,
-                                }"
-                                          ></div>
-                                          <h4 class="infor-article-title">
-                                                {{ item.new_article.title }}
-                                          </h4>
-                                          <p class="infor-article-sapo">
-                                                {{ item.new_article.sapo }}
-                                          </p>
-                                    </div>
-                              </ng-container>
-                        </div>
-                  </div>
-                  <div class="layout-right">
-                        <div
-                              class="layout-list"
-                              cdkDropList
-                              id="3"
-                              [cdkDropListData]="hotArticles.right.data"
-                              (cdkDropListDropped)="drop($event, 3)"
-                        >
-                              <ng-container
-                                    *ngFor="let item of hotArticles.right.data"
-                              >
-                                    <div
-                                          class="box"
-                                          cdkDrag
-                                          (cdkDragEntered)="enter($event)"
-                                          (cdkDragStarted)="start($event, 3)"
-                                    >
-                                          <div *cdkDragPreview class="preivew">
-                                                <td class="item-drag">
-                                                      <div
-                                                            class="example-handle"
-                                                            cdkDragHandle
-                                                      >
-                                                            <svg
-                                                                  width="24px"
-                                                                  fill="currentColor"
-                                                                  viewBox="0 0 24 24"
-                                                            >
-                                                                  <path
-                                                                        d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
-                                                                  ></path>
-                                                                  <path
-                                                                        d="M0 0h24v24H0z"
-                                                                        fill="none"
-                                                                  ></path>
-                                                            </svg>
-                                                      </div>
-                                                </td>
-
-                                                <td class="item-name">
-                                                      <div class="title-status">
-                                                            <p>
-                                                                  {{
-                                                                        item
-                                                                              ?.new_article
-                                                                              ?.title
-                                                                  }}
-                                                            </p>
-                                                      </div>
-
-                                                      <div class="">
-                                                            <small class=""
-                                                                  >Chuyên mục :
-                                                                  Xuât
-                                                                  bản</small
-                                                            >
-                                                      </div>
-                                                </td>
-                                          </div>
-                                          <div
-                                                *cdkDragPlaceholder
-                                                clas
-                                                [ngClass]="{
-                                    top: draggingOutsideSourceList === 1,
-                                    bottom: draggingOutsideSourceList === 2,
-                                    right: draggingOutsideSourceList === 3,
-                                }"
-                                          ></div>
-                                          <div class="hot-article-item">
-                                                <p class="hot-article-title">
-                                                      {{
-                                                            item.new_article
-                                                                  .title
-                                                      }}
-                                                </p>
-                                                <div class="image-article">
-                                                      <img
-                                                            [src]="
-                                                                  environment.API_GET_AVATAR +
-                                                                  item
-                                                                        .new_article
-                                                                        .avatar +
-                                                                  '&height=80&width=120'
-                                                            "
-                                                            alt=""
-                                                            (error)="
-                                                                  handleImageError(
-                                                                        $event
-                                                                  )
-                                                            "
-                                                      />
-                                                </div>
-                                          </div>
-                                          <hr *ngIf="item.position !== 1" />
-                                    </div>
-                              </ng-container>
-                        </div>
-                  </div>
-            </div>
-      </div>
+        </ng-container>
+    </div>
 </div>
-<ng-template #top>
+<!-- <ng-template #top>
       <div class="top"></div>
 </ng-template>
 <ng-template #bottom>
@@ -437,4 +389,229 @@
 </ng-template>
 <ng-template #right>
       <div class="right"></div>
+</ng-template> -->
+<ng-template #homePage>
+    <div class="container-layout" cdkDropListGroup>
+        <div class="layout-left-home">
+            <div
+                class="layout-left-home-list"
+                cdkDropList
+                id="4"
+                [cdkDropListData]="hotArticlesHome.left.data"
+                (cdkDropListDropped)="drop($event, 4)"
+            >
+                <ng-container
+                    *ngFor="
+                        let item of this.hotArticlesHome.left?.data;
+                        last as last
+                    "
+                >
+                    <div
+                        class=""
+                        cdkDrag
+                        (cdkDragEntered)="enter($event)"
+                        (cdkDragStarted)="start($event, 4)"
+                    >
+                        <div *cdkDragPreview class="preivew">
+                            <td class="item-drag">
+                                <div class="example-handle" cdkDragHandle>
+                                    <svg
+                                        width="24px"
+                                        fill="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                                        ></path>
+                                        <path
+                                            d="M0 0h24v24H0z"
+                                            fill="none"
+                                        ></path>
+                                    </svg>
+                                </div>
+                            </td>
+
+                            <td class="item-name">
+                                <div class="title-status">
+                                    <p>
+                                        {{ item?.new_article?.title }}
+                                    </p>
+                                </div>
+
+                                <div class="">
+                                    <small class=""
+                                        >Chuyên mục : Xuât bản</small
+                                    >
+                                </div>
+                            </td>
+                        </div>
+                        <div
+                            *cdkDragPlaceholder
+                            [ngClass]="{
+                              'left-home': draggingOutsideSourceList === 4,
+                        'center-home': draggingOutsideSourceList === 5,
+                        'right-home': draggingOutsideSourceList === 6,
+                    }"
+                        ></div>
+                        <div class="artcle-left-item">
+                            <div class="image">
+                                <img
+                                    [src]="
+                                        'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                        item?.new_article?.avatar +
+                                        '&width=120&height=110'
+                                    "
+                                    alt=""
+                                    (error)="handleImageError($event)"
+                                />
+                            </div>
+
+                            <div class="artcle-left-item-infor">
+                                <h4>{{ item.new_article?.title }}</h4>
+                            </div>
+                        </div>
+                        <hr *ngIf="!last" />
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="layout-center-home">
+            <div
+                class="layout-center-home-list"
+                cdkDropList
+                id="5"
+                [cdkDropListData]="hotArticlesHome.center.data"
+                (cdkDropListDropped)="drop($event, 5)"
+            >
+                <ng-container
+                    *ngFor="let item of this.hotArticlesHome.center?.data"
+                >
+                    <div
+                        class="artcle-center-item"
+                        cdkDrag
+                        (cdkDragEntered)="enter($event)"
+                        (cdkDragStarted)="start($event, 5)"
+                    >
+                        <div *cdkDragPreview class="preivew">
+                            <td class="item-drag">
+                                <div class="example-handle" cdkDragHandle>
+                                    <svg
+                                        width="24px"
+                                        fill="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                                        ></path>
+                                        <path
+                                            d="M0 0h24v24H0z"
+                                            fill="none"
+                                        ></path>
+                                    </svg>
+                                </div>
+                            </td>
+
+                            <td class="item-name">
+                                <div class="title-status">
+                                    <p>
+                                        {{ item?.new_article?.title }}
+                                    </p>
+                                </div>
+
+                                <div class="">
+                                    <small class=""
+                                        >Chuyên mục : Xuât bản</small
+                                    >
+                                </div>
+                            </td>
+                        </div>
+                        <div *cdkDragPlaceholder class="left-home"></div>
+                        <img
+                            [src]="
+                                'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                item?.new_article?.avatar +
+                                '&height=330&width=500'
+                            "
+                            alt=""
+                            (error)="handleImageError($event)"
+                        />
+                        <h2>
+                            {{ item?.new_article?.title }}
+                        </h2>
+                        <p>
+                            {{ item?.new_article?.sapo }}
+                        </p>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="layout-right-home">
+            <div
+                class="layout-right-home-list"
+                cdkDropList
+                id="6"
+                [cdkDropListData]="hotArticlesHome.right.data"
+                (cdkDropListDropped)="drop($event, 6)"
+            >
+                <ng-container
+                    *ngFor="let item of this.hotArticlesHome.right?.data"
+                >
+                    <div
+                        class="artcle-right-item"
+                        cdkDrag
+                        (cdkDragEntered)="enter($event)"
+                        (cdkDragStarted)="start($event, 6)"
+                    >
+                        <div *cdkDragPreview class="preivew">
+                            <td class="item-drag">
+                                <div class="example-handle" cdkDragHandle>
+                                    <svg
+                                        width="24px"
+                                        fill="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+                                        ></path>
+                                        <path
+                                            d="M0 0h24v24H0z"
+                                            fill="none"
+                                        ></path>
+                                    </svg>
+                                </div>
+                            </td>
+
+                            <td class="item-name">
+                                <div class="title-status">
+                                    <p>
+                                        {{ item?.new_article?.title }}
+                                    </p>
+                                </div>
+
+                                <div class="">
+                                    <small class=""
+                                        >Chuyên mục : Xuât bản</small
+                                    >
+                                </div>
+                            </td>
+                        </div>
+                        <div *cdkDragPlaceholder class=""></div>
+                        <img
+                            [src]="
+                                'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
+                                item?.new_article?.avatar +
+                                '&height=200&width=300'
+                            "
+                            alt=""
+                            (error)="handleImageError($event)"
+                        />
+                        <h4>{{ item.new_article.title }}</h4>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #empty>
+    <div *cdkDragPlaceholder></div>
 </ng-template>

@@ -87,4 +87,7 @@ export class CategoryService {
             { params: { id } }
         );
     }
+    updatePosition(data: any) {
+        return this.http.put(environment.API_ADMIN_CATEGORY, data);
+    }
 }

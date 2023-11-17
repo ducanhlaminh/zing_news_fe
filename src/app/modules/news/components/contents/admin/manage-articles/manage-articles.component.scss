@@ -81,10 +81,7 @@ table {
                         width: 150px;
                         display: flex;
                         gap: 5px;
-                        label {
-                              width: 250px;
-                              cursor: pointer;
-                        }
+
                   }
                   input[type="number"] {
                         width: 50px;
@@ -220,15 +217,7 @@ table {
 .selected-filter {
       border: 1px solid #0347ff !important;
 }
-select {
-      width: 200px;
-      border-radius: 4px;
-      height: 100%;
-      border: 1px solid #e2e2e2;
-      font-weight: 300;
-      color: #807f7f;
-      outline: none;
-}
+
 input[type="text"] {
       border-radius: 4px;
       height: 36px;
@@ -388,10 +377,6 @@ input[type="text"] {
             }
             .edit-title,.edit-slug{
                   height: 41px;
-            }
-            label {
-                  width: 150px;
-                  display: inline-block;
             }
       }
       .btn-update {

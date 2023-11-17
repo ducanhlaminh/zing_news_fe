@@ -71,3 +71,38 @@ input[type="text"]{
       box-sizing: border-box;
 }
 
+select {
+      min-width: 300px;
+      border-radius: 4px;
+      height: 40px;
+      border: 1px solid #e2e2e2;
+      font-weight: 300;
+      color: #807f7f;
+      outline: none;
+}
+label {
+      width: 120px;
+      display: block;
+      margin-bottom: 5px;
+}
+.btn-create {
+      cursor: pointer;
+      background: #48c7fd;
+      padding: 5px 15px;
+      border-radius: 5px;
+      border: 0;
+      color: #fff;
+      gap: 5px;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      .icon {
+            display: flex;
+            align-items: center;
+      }
+      &:hover{
+            background: #fff;
+            border: 1px solid #0347FF;
+            color: #0347FF;
+      }
+}

@@ -29,6 +29,8 @@ export const environment = {
     API_ADMIN_USER: "http://localhost:4000/api/v1/users/admin",
     API_ARTICLES_HOT_ADMIN:
         "http://localhost:4000/api/v1/articles/admin/hot-news",
+    API_ADMIN_CATEGORY:
+        "http://localhost:4000/api/v1/categories/admin/position",
 };
 export const configRole = [
     {
