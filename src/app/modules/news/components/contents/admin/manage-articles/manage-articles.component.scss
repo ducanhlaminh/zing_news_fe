@@ -83,16 +83,7 @@ table {
                         gap: 5px;
 
                   }
-                  input[type="number"] {
-                        width: 50px;
-                        border-radius: 4px;
-                        height: 36px;
-                        border: 1px solid #e2e2e2;
-                        font-weight: 300;
-                        color: #585757;
-                        outline: none;
-                        padding-left: 10px;
-                  }
+
             }
       }
       .container-btn {
@@ -218,16 +209,16 @@ table {
       border: 1px solid #0347ff !important;
 }
 
-input[type="text"] {
-      border-radius: 4px;
-      height: 36px;
-      border: 1px solid #e2e2e2;
-      font-weight: 300;
-      color: #585757;
-      outline: none;
-      width: 70%;
-      padding-left: 10px;
-}
+// input[type="text"] {
+//       border-radius: 4px;
+//       height: 36px;
+//       border: 1px solid #e2e2e2;
+//       font-weight: 300;
+//       color: #585757;
+//       outline: none;
+//       width: 70%;
+//       padding-left: 10px;
+// }
 .filter-bottom {
       display: flex;
       gap: 15px;
@@ -269,15 +260,17 @@ input[type="text"] {
             gap: 15px;
             flex-wrap: wrap;
             height: 41px;
-            input {
-                  padding-left: 15px;
-                  outline: none;
-                  background: rgba(232, 230, 230, 0.737);
-                  border: 0;
-                  border-radius: 5px;
-                  height: 100%;
-                  width: 300px;
-            }
+            .input{
+                  position: relative;
+
+                  .icon-search{
+                    position: absolute;
+                    left: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                  }
+                  }
+
       }
 }
 
@@ -375,9 +368,7 @@ input[type="text"] {
                   flex-direction: column;
                   gap: 10px;
             }
-            .edit-title,.edit-slug{
-                  height: 41px;
-            }
+
       }
       .btn-update {
             margin-right: 10px;

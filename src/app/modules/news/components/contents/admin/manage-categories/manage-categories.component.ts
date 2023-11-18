@@ -13,6 +13,7 @@ import { ToastrService } from "ngx-toastr";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DialogComponent } from "../dialogs/dialog/dialog.component";
 import { DialogCreateCategoryComponent } from "../dialogs/dialog-create-category/dialog-create-category.component";
+import { Category, New } from "src/app/modules/news/interfaces/news";
 
 @Component({
     selector: "app-manage-categories",
@@ -29,9 +30,9 @@ export class ManageCategoriesComponent {
     selectedStatus = 1;
     @ViewChild("checkAll") checkAll!: ElementRef;
 
-    articles: any = [];
-    categories: any = [];
-    categorySort: any = [];
+    articles: New[] = [];
+    categories: Category[] = [];
+    categorySort: Category[] = [];
     listCategories: any = [];
     done: any = [];
     length!: number;
@@ -76,7 +77,6 @@ export class ManageCategoriesComponent {
                 item.edit = false;
                 item.selected = false;
             });
-            console.log(data?.categories);
             this.categories = data?.categories;
         });
         if (this.order.length > 0) this.queries.order = this.order;
@@ -197,12 +197,6 @@ export class ManageCategoriesComponent {
         //             this.length = data.count;
         //       }
         // );
-    }
-    log(idx: any): any {
-        if (this.categories[idx].opened === false) {
-            return (this.categories[idx].opened = true);
-        }
-        return (this.categories[idx].opened = false);
     }
     showToart(status: boolean, title: string = "", detail = "") {
         if (status) {

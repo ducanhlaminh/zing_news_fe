@@ -170,11 +170,18 @@
         </div>
 
         <form [formGroup]="formFilter" class="search">
-            <input
-                type="text"
-                formControlName="title"
-                placeholder="Tiêu đề bài viết"
-            />
+            <div class="input">
+                <input
+                    type="text"
+                    formControlName="title"
+                    placeholder="Tiêu đề bài viết"
+                />
+                <fa-icon
+                    [icon]="faMagnifyingGlass"
+                    class="icon-search"
+                ></fa-icon>
+            </div>
+
             <button class="btn-create" (click)="getArticles()">
                 <span>Tìm bài viết</span>
             </button>

@@ -8,6 +8,7 @@ import {
     faCircleInfo,
     faSort,
     faCircleMinus,
+    faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { NewsService } from "src/app/modules/news/services/news.service";
@@ -35,6 +36,7 @@ export class ManageArticlesComponent implements OnInit {
     faCircleInfo = faCircleInfo;
     faSort = faSort;
     faXmarkCircle = faCircleMinus;
+    faMagnifyingGlass = faMagnifyingGlass;
 
     formFilter!: FormGroup;
     formEdit!: FormGroup;

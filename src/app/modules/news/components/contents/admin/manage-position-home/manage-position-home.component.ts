@@ -13,14 +13,7 @@ import {
     ViewChild,
 } from "@angular/core";
 import { NewsService } from "src/app/modules/news/services/news.service";
-import {
-    faEllipsisVertical,
-    faCaretDown,
-    faCaretUp,
-    faAngleDown,
-    faAngleUp,
-    faSort,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { CategoryService } from "src/app/modules/news/services/category.service";
 import { MatDialog } from "@angular/material/dialog";
@@ -32,6 +25,8 @@ import { environment } from "src/environments/environment.development";
     styleUrls: ["./manage-position-home.component.scss"],
 })
 export class ManagePositionHomeComponent implements OnInit {
+    faMagnifyingGlass = faMagnifyingGlass;
+
     selectedStatus = 1;
     environment = environment;
     @ViewChild("checkAll") checkAll!: ElementRef;
@@ -54,7 +49,7 @@ export class ManagePositionHomeComponent implements OnInit {
     };
     hotArticlesHome: any = {
         left: { data: [], length: 50 },
-        center: { data: [], length: 10 },
+        center: { data: [], length: 1 },
         right: { data: [], length: 20 },
     };
     draggingOutsideSourceList: any;
@@ -79,22 +74,10 @@ export class ManagePositionHomeComponent implements OnInit {
         this.getHotNews();
     }
     enter(event: any) {
-        console.log(event);
-        if (event.container.id === "4" && event.container.data.length < 5) {
-            this.showPlaceholder = true;
-        } else if (
-            event.container.id === "5" &&
-            event.container.data.length === 0
-        ) {
-            this.showPlaceholder = true;
-        } else if (event.container.id === "6" && event.container.length < 2) {
-            this.showPlaceholder = true;
-        } else {
-            this.showPlaceholder = false;
-        }
-        console.log(this.showPlaceholder);
-
-        this.draggingOutsideSourceList = +event.container.id;
+        this.draggingOutsideSourceList = event.container.id;
+    }
+    start2(event: any) {
+        this.draggingOutsideSourceList = event.container.id;
     }
     check(drag: any, drop: any) {
         return drop.data.length === 0;
@@ -102,12 +85,12 @@ export class ManagePositionHomeComponent implements OnInit {
     check2(drag: any, drop: any) {
         return drop.data.length < 3;
     }
-
     start(event: any, number: any) {
         this.draggingOutsideSourceList = number;
     }
+    drop(event: any) {
+        console.log(1);
 
-    drop(event: any, type: any) {
         if (event.previousContainer === event.container) {
             moveItemInArray(
                 event.container.data,
@@ -121,27 +104,12 @@ export class ManagePositionHomeComponent implements OnInit {
                 event.previousIndex,
                 event.currentIndex
             );
-            transferArrayItem(
-                event.container.data,
-                event.previousContainer.data,
-                event.currentIndex + 1,
-                event.previousIndex
-            );
         }
     }
-
     handleImageError(event: any) {
         const fallbackImage =
             "https://nic.gov.vn/wp-content/plugins/elementor/assets/images/placeholder.png";
         this.renderer.setAttribute(event.target, "src", fallbackImage);
-    }
-
-    showToart(status: boolean) {
-        if (status) {
-            this.toastr.success("Cập nhật thành công");
-        } else {
-            this.toastr.error("Vùi long điền đủ các trường cần thiết");
-        }
     }
     getHotNews() {
         const categoryId = this.formOption.value?.categories_id;
@@ -158,7 +126,7 @@ export class ManagePositionHomeComponent implements OnInit {
                             this.hotArticlesHome.center.data.push(item);
                         } else if (item.position > 1 && item.position < 4) {
                             this.hotArticlesHome.right.data.push(item);
-                        } else if (item.position > 3 && item.position < 9) {
+                        } else if (item.position > 3) {
                             this.hotArticlesHome.left.data.push(item);
                         }
                     });
@@ -209,22 +177,22 @@ export class ManagePositionHomeComponent implements OnInit {
     updatePosition() {
         if (this.formOption.value.categories_id === "1") {
             let articles: any = [];
-            this.hotArticles.top.data.map((item: any, idx: any) => {
+            this.hotArticlesHome.center.data.map((item: any, idx: any) => {
                 articles.push({
                     article_id: item.article_id,
                     position: idx + 1,
                 });
             });
-            this.hotArticles.bottom.data.map((item: any, idx: any) => {
+            this.hotArticlesHome.right.data.map((item: any, idx: any) => {
                 articles.push({
                     article_id: item.article_id,
                     position: idx + 2,
                 });
             });
-            this.hotArticles.right.data.map((item: any, idx: any) => {
+            this.hotArticlesHome.left.data.map((item: any, idx: any) => {
                 articles.push({
                     article_id: item.article_id,
-                    position: idx + 5,
+                    position: idx + 4,
                 });
             });
 

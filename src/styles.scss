@@ -16,7 +16,7 @@
     src: url("./assets/fonts/SVN-ArialRegular.ttf") format("truetype");
   }
 
-html, body { height: 100%; }
+html, body { height: 100%; line-height: 1.5; }
 body { margin: 0; font-family: 'Arial' ;color: #222222 }
 
 
@@ -105,4 +105,14 @@ label {
             border: 1px solid #0347FF;
             color: #0347FF;
       }
+}
+input[type="number"] {
+      width: 50px;
+      border-radius: 4px;
+      height: 36px;
+      border: 1px solid #e2e2e2;
+      font-weight: 300;
+      color: #585757;
+      outline: none;
+      padding-left: 10px;
 }
