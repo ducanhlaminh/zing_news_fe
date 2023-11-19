@@ -9,7 +9,7 @@
                   formControlName="title"
             />
       </div>
-      <div class="title">
+      <div class="sapo">
             <input
                   type="text"
                   name=""
@@ -18,27 +18,35 @@
                   formControlName="sapo"
             />
             <p class="text">
-                  "Sapo bài viết" thường được hiểu là phần tóm tắt hoặc đoạn
-                  giới thiệu ngắn gọn của một bài viết hoặc nội dung trên trang
-                  web hoặc blog. Chức năng chính của "sapo bài viết" là tạo ra
-                  một tóm tắt hấp dẫn, thú vị và hấp dẫn đối với độc giả để họ
-                  có thể quyết định liệu họ có nên đọc bài viết đầy đủ hay
-                  không.
+                  Chuyên mục khác với thẻ, bạn có thể sử dụng nhiều cấp chuyên
+                  mục. Ví dụ: Trong chuyên mục nhạc, bạn có chuyên mục con là
+                  nhạc Pop, nhạc Jazz. Việc này hoàn toàn là tùy theo ý bạn.
+            </p>
+      </div>
+      <div class="slug">
+            <input
+                  type="text"
+                  name=""
+                  value=""
+                  placeholder="vd : duong-dan"
+                  formControlName="slug"
+            />
+            <p class="text">
+                  Là nội dung đường dẫn tới trang chi tiết của bài viết đó .<br />
+                  Ví dụ : lang-nghe-loi-thi-tham-voi-dong-song
             </p>
       </div>
       <div class="container-edit">
             <div class="tool-edit">
-                  <div action="">
-                        <editor
-                              class="editor"
-                              plugins=" fullscreen table emoticons link example lists code media quickbars "
-                              menubar="file edit insert view format table tools help "
-                              [init]="tinyMCEInit"
-                              formControlName="content"
-                              toolbar="myCustomToolbarButton mycustombutton bold italic underline | fontfamily fontsizeinput  | forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist |indent outdent rtl ltr | table link | preivew overview "
-                        >
-                        </editor>
-                  </div>
+                  <editor
+                        class="editor"
+                        plugins=" fullscreen table emoticons link example lists code media quickbars "
+                        menubar="file edit insert view format table tools help "
+                        [init]="tinyMCEInit"
+                        formControlName="content"
+                        toolbar="myCustomToolbarButton mycustombutton bold italic underline | fontfamily fontsizeinput  | forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist |indent outdent rtl ltr | table link | preivew overview "
+                  >
+                  </editor>
             </div>
             <div class="infor">
                   <mat-accordion>
@@ -53,8 +61,7 @@
                               <div class="container-post">
                                     <div class="item-status">
                                           <div class="status">
-                                                <mat-icon>stars</mat-icon>
-                                                <b>Trạng thái bài viết </b>
+                                                <b>Trạng thái bài viết :</b>
                                           </div>
                                           <div class="container-categories">
                                                 <mat-form-field>
@@ -83,8 +90,7 @@
                                     </div>
                                     <div class="item-status">
                                           <div class="status">
-                                                <mat-icon>date_range</mat-icon>
-                                                <b>Chọn ngày phát hành</b>
+                                                <b>Chọn ngày phát hành :</b>
                                           </div>
                                           <div class="container-categories">
                                                 <mat-form-field>
@@ -127,19 +133,24 @@
                                     </mat-panel-title>
                               </mat-expansion-panel-header>
                               <div class="container-categories">
-                                    <select formControlName="categoryId">
-                                          <option selected="selected" value="">
-                                                Chưa phân loại
-                                          </option>
-                                          <option
-                                                *ngFor="
-                                                      let item of optionCategories
-                                                "
-                                                [value]="item.id"
+                                    <mat-form-field>
+                                          <mat-label
+                                                >Vui lòng chọn chuyên
+                                                mục</mat-label
                                           >
-                                                {{ item.name }}
-                                          </option>
-                                    </select>
+                                          <mat-select
+                                                formControlName="categoryId"
+                                          >
+                                                <mat-option
+                                                      *ngFor="
+                                                            let item of optionCategories
+                                                      "
+                                                      [value]="item.id"
+                                                >
+                                                      {{ item.name }}
+                                                </mat-option>
+                                          </mat-select>
+                                    </mat-form-field>
                               </div>
                         </mat-expansion-panel>
                         <mat-expansion-panel
@@ -162,39 +173,14 @@
                                                       : "Đặt ảnh đại diện"
                                           }}
                                     </p>
-                                    <div
-                                          class=""
-                                          *ngIf="formDetail.value.avatar"
-                                    >
+                                    <div class="" *ngIf="imgPreview">
                                           <img
-                                                [src]="
-                                                      'http://localhost:4000/api/v1/articles/avatar?slug_crc=' +
-                                                      formDetail.value.avatar +
-                                                      '&height=200&width=200'
-                                                "
+                                                [src]="imgPreview"
                                                 alt=""
                                                 class="imgPreview"
                                           />
                                     </div>
                               </div>
-                        </mat-expansion-panel>
-
-                        <mat-expansion-panel
-                              (opened)="panelOpenState = true"
-                              (closed)="panelOpenState = false"
-                        >
-                              <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                          Đường dẫn
-                                    </mat-panel-title>
-                              </mat-expansion-panel-header>
-                              <input
-                                    type="text"
-                                    name=""
-                                    value=""
-                                    placeholder="vd : duong-dan"
-                                    formControlName="slug"
-                              />
                         </mat-expansion-panel>
                   </mat-accordion>
             </div>
