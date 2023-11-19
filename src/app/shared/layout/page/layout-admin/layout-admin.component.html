@@ -131,6 +131,7 @@
                     class="item"
                     (mouseenter)="hover(item)"
                     [routerLink]="item.url"
+                    *ngIf="funcShowITem(item)"
                 >
                     <img
                         [src]="item.icon"
@@ -160,15 +161,20 @@
                 <div
                     class="container_bottom_item"
                     routerLinkActive="active_subItem_bottom"
+                    *ngIf="funcShowITem(item)"
                 >
-                    <div
-                        class="itemSub"
-                        *ngFor="let itemSub of item.sub"
-                        [routerLink]="itemSub.url"
-                        routerLinkActive="active"
-                    >
-                        <div class="lable">{{ itemSub.title }}</div>
-                    </div>
+                    <ng-container *ngFor="let itemSub of item.sub">
+                        <div
+                            class="itemSub"
+                            *ngIf="funcShowITem(itemSub)"
+                            [routerLink]="itemSub.url"
+                            routerLinkActive="active"
+                        >
+                            <div class="lable">
+                                {{ itemSub.title }}
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
             </ng-container>
         </div>

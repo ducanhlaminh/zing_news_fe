@@ -6,7 +6,6 @@ import {
     faNewspaper,
     faTags,
 } from "@fortawesome/free-solid-svg-icons";
-import { ToastrService } from "ngx-toastr";
 import { CategoryService } from "src/app/modules/news/services/category.service";
 import { UserService } from "src/app/modules/news/services/user.service";
 
@@ -27,9 +26,6 @@ export class LayoutAdminComponent implements OnInit {
         this.UserService.inforUser$.subscribe((data) => {
             this.inforUser = data;
         });
-        this.UserService.inforUser$.subscribe((data) => {
-            this.inforUser = data;
-        });
     }
     showFiller = true;
     showSidebar: boolean = true;
@@ -45,20 +41,24 @@ export class LayoutAdminComponent implements OnInit {
             selected: false,
             icon: "assets/icon/article-svgrepo-com.svg",
             url: "admin/bai-viet/quan-ly-bai-viet",
+            role_id: [1, 2, 3, 4],
             sub: [
                 {
                     title: "Tất cả bài viết",
                     selected: false,
+                    role_id: [1, 2, 3, 4],
                     url: "admin/bai-viet/quan-ly-bai-viet",
                 },
                 {
                     title: "Viết bài viết mới",
                     selected: false,
+                    role_id: [1, 2, 4],
                     url: "admin/bai-viet/tao-bai-viet",
                 },
                 {
                     title: "Chuyên mục",
                     selected: false,
+                    role_id: [1, 2, 4],
                     url: "admin/bai-viet/quan-ly-danh-muc",
                 },
             ],
@@ -69,17 +69,20 @@ export class LayoutAdminComponent implements OnInit {
             selected: false,
             icon: "assets/icon/layout-grid-1-svgrepo-com.svg",
             url: "admin/quan-ly-vi-tri-trang-chu",
+            role_id: [1, 4],
             sub: [
                 {
                     title: "Set bài viết nổi bật",
                     selected: false,
                     url: "admin/quan-ly-vi-tri-trang-chu",
+                    role_id: [1, 4],
                 },
 
                 {
                     title: "Vị trí chuyên mục",
                     selected: false,
                     url: "admin/quan-ly-vi-tri-chuyen-muc",
+                    role_id: [1, 4],
                 },
             ],
         },
@@ -89,21 +92,25 @@ export class LayoutAdminComponent implements OnInit {
             selected: false,
             icon: "assets/icon/users-svgrepo-com.svg",
             url: "admin/quan-ly-nguoi-dung",
+            role_id: [1, 2, 3],
             sub: [
                 {
                     title: "Tất cả người dùng",
                     selected: false,
                     url: "admin/quan-ly-nguoi-dung",
+                    role_id: [1, 3],
                 },
                 {
                     title: "Thêm mới",
                     selected: false,
                     url: "admin/tao-nguoi-dung",
+                    role_id: [1, 3],
                 },
                 {
                     title: "Hồ sơ",
                     selected: false,
                     url: "admin/profile",
+                    role_id: [1, 2, 3],
                 },
             ],
         },
@@ -125,5 +132,12 @@ export class LayoutAdminComponent implements OnInit {
 
         item.selected = true;
         event.stopPropagation();
+    }
+    funcShowITem(data: any) {
+        console.log(this.inforUser.user.role_id);
+
+        return data.role_id.some((role_id: object) => {
+            return role_id === this.inforUser.user.role_id;
+        });
     }
 }
