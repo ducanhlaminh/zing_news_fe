@@ -2,6 +2,14 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { environment } from "src/environments/environment.development";
+interface UserInterface {
+    name: string;
+    userName: string;
+    email: string;
+    avatar: string;
+    password: string;
+    role_id: number;
+}
 @Injectable({
     providedIn: "root",
 })
@@ -29,5 +37,8 @@ export class UserService {
     }
     createUser(data: any) {
         return this.http.post(environment.API_ADMIN_USER, data);
+    }
+    update(data: UserInterface, id: number) {
+        return this.http.put(environment.API_USER + "/" + id, data);
     }
 }

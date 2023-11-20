@@ -35,7 +35,7 @@
   .article{
     display: flex;
     gap: 20px;
-    height: 170px;
+    height: 160px;
     margin:20px 0;
     .article-img{
       width: 40%;
@@ -47,6 +47,8 @@
     }
     .article-infor{
       width: 60%;
+      display: flex;
+      flex-direction: column;
       .title{
         margin: 0;
         font-weight: 500;
@@ -60,7 +62,14 @@
       .sapo{
         margin: 0;
         font-size: 15px;
-        color:gray
+        color:gray;
+        flex:auto;
+        width: 100%; /* Đặt chiều rộng tùy ý */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+
+        overflow: hidden;
+        -webkit-line-clamp: 2;
       }
     }
   }

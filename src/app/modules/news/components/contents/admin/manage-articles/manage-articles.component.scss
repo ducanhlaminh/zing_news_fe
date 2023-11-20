@@ -228,7 +228,6 @@ table {
       .container-action {
             display: flex;
             gap: 15px;
-            height: 41px;
 
             .action {
                   display: flex;
@@ -259,10 +258,8 @@ table {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
-            height: 41px;
             .input{
                   position: relative;
-
                   .icon-search{
                     position: absolute;
                     left: 10px;
@@ -275,6 +272,7 @@ table {
 }
 
 .btn-create {
+
       cursor: pointer;
       background: #48c7fd;
       padding: 5px 15px;
@@ -394,7 +392,8 @@ table {
       align-items: center;
       border: 1px solid #0347ff;
       padding: 0 15px;
-      height: 100%;
+      height: 40px;
+      box-sizing: border-box;
 }
 .btn-cancel {
       cursor: pointer;

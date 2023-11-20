@@ -10,6 +10,7 @@ import { UserService } from "src/app/modules/news/services/user.service";
 })
 export class EditUserComponent implements OnInit {
     formUser!: FormGroup;
+    userId: number = 0;
     constructor(
         private formBuilder: FormBuilder,
         private UserService: UserService,
@@ -20,29 +21,33 @@ export class EditUserComponent implements OnInit {
             email: ["", Validators.required],
             role_id: [1, Validators.required],
             avatar: ["", Validators.required],
-            nickname: ["", Validators.required],
+            userName: ["", Validators.required],
         });
     }
     ngOnInit(): void {
         this.activatedRoute.params.subscribe((params: any) => {
-            const id = params["id"];
-            this.UserService.getDetail(id).subscribe((data: any) => {
+            this.userId = params["id"];
+
+            this.UserService.getDetail(this.userId).subscribe((data: any) => {
                 this.formUser.patchValue({
                     name: data.user.name,
                     email: data.user.email,
                     role_id: data.user.role_id,
                     avatar: data.user.avatar,
-                    nickname: data.user.userName,
+                    userName: data.user.userName,
                 });
                 console.log(this.formUser.value);
             });
         });
     }
-    submitCreate() {
-        if (this.formUser.valid) {
-            console.log(this.formUser.value);
+    submit() {
+        console.log(this.formUser.value);
 
-            this.UserService.createUser(this.formUser.value).subscribe();
+        if (this.formUser.valid) {
+            this.UserService.update(
+                this.formUser.value,
+                this.userId
+            ).subscribe();
         }
     }
 }

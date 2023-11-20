@@ -69,10 +69,11 @@ input[type="text"]{
       width: 100%;
       padding-left: 10px ;
       box-sizing: border-box;
+      padding-left: 40px;
 }
 
 select {
-      min-width: 300px;
+      min-width: 150px;
       border-radius: 4px;
       height: 40px;
       border: 1px solid #e2e2e2;

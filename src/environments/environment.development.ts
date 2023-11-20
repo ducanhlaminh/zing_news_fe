@@ -14,10 +14,12 @@ export const environment = {
     API_BOX_ARTICLES_CARTEGORY:
         "http://localhost:4000/api/v1/articles/box-category",
     API_TOKEN_GG: "http://localhost:4000/api/v1/auth/login-success/",
-    API_GET_INFOR_USER: "http://localhost:4000/api/v1/users/get-data",
     API_LOGIN_GG: "http://localhost:4000/api/v1/auth/google",
     API_GET_DETAIL: "http://localhost:4000/api/v1/articles/detail/",
     API_GET_AVATAR: "http://localhost:4000/api/v1/articles/avatar?slug_crc=",
+
+    API_GET_INFOR_USER: "http://localhost:4000/api/v1/users/get-data",
+    API_USER: "http://localhost:4000/api/v1/users",
 
     //API ADMIN
     API_ADMIN_HOT_MAIN: "http://localhost:4000/api/v1/articles/admin/hot-main",
