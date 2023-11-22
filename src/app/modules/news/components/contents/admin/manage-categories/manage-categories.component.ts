@@ -13,7 +13,7 @@ import { ToastrService } from "ngx-toastr";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DialogComponent } from "../dialogs/dialog/dialog.component";
 import { DialogCreateCategoryComponent } from "../dialogs/dialog-create-category/dialog-create-category.component";
-import { Category, New } from "src/app/modules/news/interfaces/news";
+import { Category, Article } from "src/app/modules/news/interfaces/news";
 
 @Component({
     selector: "app-manage-categories",
@@ -30,7 +30,7 @@ export class ManageCategoriesComponent {
     selectedStatus = 1;
     @ViewChild("checkAll") checkAll!: ElementRef;
 
-    articles: New[] = [];
+    articles: Article[] = [];
     categories: Category[] = [];
     categorySort: Category[] = [];
     listCategories: any = [];

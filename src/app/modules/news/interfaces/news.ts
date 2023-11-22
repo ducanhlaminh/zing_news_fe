@@ -1,4 +1,4 @@
-export interface New {
+export interface Article {
     title: string;
     slug: string;
     slug_crc: number;
@@ -11,6 +11,8 @@ export interface New {
     created_user_id: number;
     createdAt: Date;
     updatedAt: Date;
+    new_article: Article;
+    category: Category;
 }
 
 export interface Category {
@@ -21,6 +23,7 @@ export interface Category {
     parent_id: number;
     position: number;
     status: number;
+    childCategories: Category[];
     updated_user_id: number;
     created_user_id: number;
     selected: boolean;

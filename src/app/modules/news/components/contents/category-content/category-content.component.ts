@@ -8,24 +8,28 @@ import {
 import { NewsService } from "../../../services/news.service";
 import { CategoryService } from "../../../services/category.service";
 import { environment } from "src/environments/environment.development";
+import { Category, Article } from "../../../interfaces/news";
 @Component({
     selector: "app-category-content",
     templateUrl: "./category-content.component.html",
     styleUrls: ["./category-content.component.scss"],
 })
 export class CategoryContentComponent {
-    CategoryCurrent: any;
-    subCategory: any[] = [];
-    navigationSubscription: any;
-    hotArticles: any;
-    newArticles: any[] = [];
-    hotArticlesSubCate: any[] = [];
-    isCateChid: boolean = false;
-    articlesViews: any[] = [];
-    page = 1;
-    slug_crc: any;
-    categories: any;
     environment = environment;
+    CategoryCurrent!: Category;
+    subCategory: Category[] = [];
+    categories: Category[] = [];
+    isCateChid: boolean = false;
+    slug_crc!: string;
+
+    hotArticles: any;
+    newArticles: Article[] = [];
+    hotArticlesSubCate: any[] = [];
+    articlesViews: Article[] = [];
+    navigationSubscription: any;
+
+    page: number = 1;
+
     constructor(
         public CategoryService: CategoryService,
         private ActivatedRoute: ActivatedRoute,
@@ -36,10 +40,8 @@ export class CategoryContentComponent {
     ngOnInit(): void {
         this.page = 1;
         window.scrollTo({ top: 0, behavior: "smooth" });
-
         this.ActivatedRoute.params.subscribe((params: any) => {
             this.slug_crc = params["slug_crc"];
-
             this.getCateogory(this.slug_crc);
         });
         this.navigationSubscription = this.Router.events.subscribe((e: any) => {
@@ -116,8 +118,6 @@ export class CategoryContentComponent {
         this.renderer.setAttribute(event.target, "src", fallbackImage);
     }
     onScrollDown() {
-        console.log(this.newArticles);
-
         ++this.page;
         this.NewsService.getNewArtclesCate(this.slug_crc, this.page).subscribe(
             (data: any) => {
