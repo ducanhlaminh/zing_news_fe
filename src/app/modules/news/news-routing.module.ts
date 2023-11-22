@@ -11,7 +11,6 @@ import { LayoutDetailComponent } from 'src/app/shared/layout/page/layout-detail/
 import { LayoutAdminComponent } from 'src/app/shared/layout/page/layout-admin/layout-admin.component';
 import { ManageArticlesComponent } from './components/contents/admin/manage-articles/manage-articles.component';
 import { ManageCategoriesComponent } from './components/contents/admin/manage-categories/manage-categories.component';
-import { CreateCategoryComponent } from './components/contents/admin/create-category/create-category.component';
 import { PreviewContentComponent } from './components/contents/admin/preview-content/preview-content.component';
 import { EditArticleComponent } from './components/contents/admin/edit-article/edit-article.component';
 import { ManageUserComponent } from './components/contents/admin/manage-user/manage-user.component';
@@ -80,11 +79,6 @@ const routes: Routes = [
                   {
                         path: 'admin/bai-viet/quan-ly-danh-muc',
                         component: ManageCategoriesComponent,
-                        //     canActivate: [CheckRoleGuard],
-                  },
-                  {
-                        path: 'admin/tao-danh-muc',
-                        component: CreateCategoryComponent,
                         //     canActivate: [CheckRoleGuard],
                   },
             ],

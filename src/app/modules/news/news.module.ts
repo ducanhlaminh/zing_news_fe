@@ -20,7 +20,6 @@ import { ManageArticlesComponent } from './components/contents/admin/manage-arti
 import { DatePipe } from 'src/app/shared/pipe/date.pipe';
 import { DateVNPipe } from 'src/app/shared/pipe/date-vn.pipe';
 import { ManageCategoriesComponent } from './components/contents/admin/manage-categories/manage-categories.component';
-import { CreateCategoryComponent } from './components/contents/admin/create-category/create-category.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { DialogCropComponent } from './components/contents/admin/dialogs/dialog-crop/dialog-crop.component';
 import { MatSliderModule } from '@angular/material/slider';
@@ -57,7 +56,6 @@ import { ProfileComponent } from './components/contents/admin/profile/profile.co
             ArticleComponent,
             ManageArticlesComponent,
             ManageCategoriesComponent,
-            CreateCategoryComponent,
             DialogCropComponent,
             DialogEditArticleComponent,
             DialogOverviewComponent,
