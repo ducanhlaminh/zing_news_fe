@@ -1,11 +1,12 @@
 import { Component, Renderer2 } from "@angular/core";
 import { NewsService } from "../../../services/news.service";
 import { Article, Category } from "../../../interfaces/news";
-interface artclesHotMain {
-    left: Article[];
-    right: Article[];
-    center: Article[];
-}
+// interface artclesHotMain {
+//     left: Article[];
+//     right: Article[];
+//     center: Article[];
+// }
+
 @Component({
     selector: "app-home-content",
     templateUrl: "./home-content.component.html",
@@ -14,7 +15,7 @@ interface artclesHotMain {
 export class HomeContentComponent {
     newArtcles: Article[] = [];
     articlesViews: Article[] = [];
-    artclesHotMain!: artclesHotMain;
+    artclesHotMain: any;
     boxArticlesCate: any;
     page = 1;
     constructor(public NewsService: NewsService, public renderer: Renderer2) {}

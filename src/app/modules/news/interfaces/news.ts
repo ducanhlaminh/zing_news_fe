@@ -12,7 +12,11 @@ export interface Article {
     createdAt: Date;
     updatedAt: Date;
     new_article: Article;
-    category: Category;
+    new_articles_categories: Category;
+    edit: boolean;
+    selected: boolean;
+    opened: boolean;
+    User: any;
 }
 
 export interface Category {
