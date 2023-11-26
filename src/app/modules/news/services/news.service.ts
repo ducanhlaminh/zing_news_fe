@@ -72,6 +72,7 @@ export class NewsService {
     updateArticle(data: any = "", id: any) {
         if (Array.isArray(id)) {
             const params = JSON.stringify(id);
+
             return this.http.put(
                 environment.API__ADMIN_ARTICLE,
                 {

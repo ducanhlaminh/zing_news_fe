@@ -9,6 +9,18 @@ import { NewsService } from "../../../services/news.service";
 import { CategoryService } from "../../../services/category.service";
 import { environment } from "src/environments/environment.development";
 import { Category, Article } from "../../../interfaces/news";
+interface ArticlesCategory {
+    category_id: number;
+    category: Category;
+}
+interface ArticleMostViewCategory {
+    id: number;
+    title: string;
+    slug: string;
+    slug_crc: number;
+    avatar: string;
+    new_articles_categories: ArticlesCategory[];
+}
 @Component({
     selector: "app-category-content",
     templateUrl: "./category-content.component.html",
@@ -25,7 +37,7 @@ export class CategoryContentComponent {
     hotArticles: any;
     newArticles: Article[] = [];
     hotArticlesSubCate: any[] = [];
-    articlesViews: Article[] = [];
+    articlesViews: ArticleMostViewCategory[] = [];
     navigationSubscription: any;
 
     page: number = 1;
@@ -92,6 +104,16 @@ export class CategoryContentComponent {
         return this.NewsService.getArticlesView(slug_crc).subscribe(
             (data: any) => (this.articlesViews = data)
         );
+    }
+    checkNameCategoryMostView(
+        category: ArticlesCategory,
+        listCategories: ArticlesCategory[]
+    ) {
+        if (listCategories.length === 1) {
+            return true;
+        } else {
+            return category.category.parent_id !== null;
+        }
     }
     getCateogory(slug_crc: string) {
         this.categories?.map((category: any) => {

@@ -190,26 +190,37 @@
                 <div
                     class="artcles-view-most-item"
                     *ngFor="let item of articlesViews"
-                    [routerLink]="[
-                        '/bai-viet',
-                        item.new_article.slug,
-                        item.new_article.slug_crc
-                    ]"
+                    [routerLink]="['/bai-viet', item.slug, item.slug_crc]"
                 >
                     <div class="artcles-view-most-item-img">
                         <img
                             (error)="handleImageError($event)"
-                            [src]="item.new_article.avatar"
+                            [src]="
+                                environment.API_GET_AVATAR +
+                                item.avatar +
+                                '&height=80&width=72'
+                            "
                             alt=""
                         />
                     </div>
                     <div class="artcles-view-most-item-infor">
-                        <p class="most-item-infor-cate">
-                            {{ item?.new_articles_categories?.name }}
-                        </p>
-                        <b class="most-item-infor-title">{{
-                            item.new_article.title
-                        }}</b>
+                        <ng-container
+                            *ngFor="let cate of item.new_articles_categories"
+                        >
+                            <p
+                                class="most-item-infor-cate"
+                                *ngIf="
+                                    checkNameCategoryMostView(
+                                        cate,
+                                        item.new_articles_categories
+                                    )
+                                "
+                            >
+                                {{ cate.category.name }}
+                            </p></ng-container
+                        >
+
+                        <b class="most-item-infor-title">{{ item.title }}</b>
                     </div>
                 </div>
             </div>
