@@ -1,26 +1,18 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import {
-    faEllipsisVertical,
-    faCaretDown,
-    faCaretUp,
-    faXmark,
-    faEdit,
-    faCircleInfo,
-    faSort,
     faCircleMinus,
     faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
-
 import { NewsService } from "src/app/modules/news/services/news.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CategoryService } from "src/app/modules/news/services/category.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogEditArticleComponent } from "../../dialog-edit-article/dialog-edit-article.component";
-import { ToastrService } from "ngx-toastr";
 import { configRole } from "src/environments/environment.development";
 import { UserService } from "src/app/modules/news/services/user.service";
 import { DialogComponent } from "../dialogs/dialog/dialog.component";
 import { Category, Article } from "src/app/modules/news/interfaces/news";
+import { ToastrCommonService } from "src/app/modules/news/services/toastr.service";
 @Component({
     selector: "app-manage-articles",
     templateUrl: "./manage-articles.component.html",
@@ -29,13 +21,6 @@ import { Category, Article } from "src/app/modules/news/interfaces/news";
 export class ManageArticlesComponent implements OnInit {
     @ViewChild("checkAll") checkAll!: ElementRef;
     configRole = configRole;
-    faEllipsisVertical = faEllipsisVertical;
-    faCaretDown = faCaretDown;
-    faCaretUp = faCaretUp;
-    faXmark = faXmark;
-    faEdit = faEdit;
-    faCircleInfo = faCircleInfo;
-    faSort = faSort;
     faXmarkCircle = faCircleMinus;
     faMagnifyingGlass = faMagnifyingGlass;
 
@@ -72,7 +57,7 @@ export class ManageArticlesComponent implements OnInit {
         private CategoryService: CategoryService,
         private formBuilder: FormBuilder,
         public dialog: MatDialog,
-        private toastr: ToastrService,
+        private toastr: ToastrCommonService,
         private UserService: UserService
     ) {}
     ngOnInit(): void {
@@ -133,13 +118,6 @@ export class ManageArticlesComponent implements OnInit {
                 this.listArticles.push(article);
             }
         });
-    }
-    showToart(status: boolean, title: string = "", detail = "") {
-        if (status) {
-            this.toastr.success(title, detail);
-        } else {
-            this.toastr.error(title, detail);
-        }
     }
     checkShowColoumns(type: string) {
         return this.configUser.coloumns.some(
@@ -202,7 +180,7 @@ export class ManageArticlesComponent implements OnInit {
             this.NewService.updateArticle({ status }, listIdArticles).subscribe(
                 (data: any) => {
                     this.getArticles();
-                    this.showToart(true, data.message);
+                    this.toastr.showToart(true, data.message);
                     this.loading = false;
                     this.listArticles = [];
                     this.checkAll.nativeElement.checked = false;
@@ -225,7 +203,7 @@ export class ManageArticlesComponent implements OnInit {
         this.NewService.updateArticle(null, listArticles).subscribe(
             (data: any) => {
                 this.getArticles();
-                this.getArticles(), this.showToart(true, data.message);
+                this.getArticles(), this.toastr.showToart(true, data.message);
                 this.loading = false;
             }
         );
@@ -255,7 +233,7 @@ export class ManageArticlesComponent implements OnInit {
         dialogRef.afterClosed().subscribe(() => {
             console.log(data);
 
-            data.msg && this.showToart(true, data.msg);
+            data.msg && this.toastr.showToart(true, data.msg);
             this.listArticles = [];
             this.getArticles();
             this.checkAll.nativeElement.checked = false;
@@ -294,7 +272,7 @@ export class ManageArticlesComponent implements OnInit {
         this.loading = true;
         this.NewService.updateArticle(this.formEdit.value, id).subscribe(
             (data: any) => {
-                this.getArticles(), this.showToart(true, data.message);
+                this.getArticles(), this.toastr.showToart(true, data.message);
                 this.loading = false;
             }
         );

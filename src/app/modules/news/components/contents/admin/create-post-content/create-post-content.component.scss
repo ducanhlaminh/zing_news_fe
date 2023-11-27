@@ -9,10 +9,11 @@ h3{
 }
 
 button {
-      height: 35px;
-      width: 200px;
+      height: 40px;
 }
-
+input[type="text"] {
+      padding-left: 0;
+}
 .content-create-article {
       padding: 15px;
       height: 100%;
@@ -137,17 +138,23 @@ mat-form-field{
 :host ::ng-deep .mat-mdc-form-field-subscript-wrapper  {
       display: none;
     }
-    :host ::ng-deep .mat-mdc-form-field-infix{
-
-      padding: 0 !important;
-      display: flex;
-      align-items: center;
-    }
     :host ::ng-deep {
       // you can no target the inner / generated css selectors from here.
       label {
          display: none;
        }
+       .mat-mdc-text-field-wrapper{
+            background: white;
+       }
+       .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch{
+            display: none;
+       }
+       .mat-mdc-form-field-infix{
+
+            padding: 0 !important;
+            display: flex;
+            align-items: center;
+          }
        .mdc-line-ripple{
             display: none;
        }
@@ -159,21 +166,18 @@ mat-form-field{
             height: 40px;
             min-height: 0;
        }
-       .mat-mdc-icon-button .mat-mdc-button-base{
-            height: 40px;
-            width: 40px;
-       }
+
        .mat-mdc-icon-button.mat-mdc-button-base {
             width: 40px;
             height: 40px;
             padding: 10px;
             box-sizing: border-box;
         }
-        .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-            background-color: white;
-            border: 1px solid #3333;
-            border-radius: 3px;
-        }
+      //   .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      //       background-color: white;
+      //       border: 1px solid #3333;
+      //       border-radius: 3px;
+      //   }
         .mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper {
             transform: none
         }

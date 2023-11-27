@@ -54,8 +54,6 @@ export class CreatePostContentComponent implements OnInit {
         public dialog: MatDialog,
         private toastrService: ShareService
     ) {
-        console.log(this.currentDate.getFullYear());
-
         this.formDetail = this.formBuilder.group({
             title: ["", Validators.required],
             slug: ["", Validators.required],
@@ -306,7 +304,7 @@ export class CreatePostContentComponent implements OnInit {
     submitFormCreate() {
         try {
             if (1) {
-                this.loading = true;
+                console.log(this.formDetail.value.content);
 
                 const file = new File(
                     [this.formDetail.value.avatar.blob],

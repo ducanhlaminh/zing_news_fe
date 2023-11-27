@@ -5,6 +5,8 @@ import {
     faListCheck,
     faNewspaper,
     faTags,
+    faCaretDown,
+    faCaretLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { CategoryService } from "src/app/modules/news/services/category.service";
 import { UserService } from "src/app/modules/news/services/user.service";
@@ -16,6 +18,8 @@ import { UserService } from "src/app/modules/news/services/user.service";
 })
 export class LayoutAdminComponent implements OnInit {
     inforUser: any;
+    faCaretDown = faCaretDown;
+    faCaretLeft = faCaretLeft;
     constructor(
         private CategoryService: CategoryService,
         private UserService: UserService,
@@ -29,59 +33,47 @@ export class LayoutAdminComponent implements OnInit {
     }
     showFiller = true;
     showSidebar: boolean = true;
-    faPenSquare = faPenToSquare;
-    faListCheck = faListCheck;
-    faNewspaper = faNewspaper;
-    faTags = faTags;
-    timeOut: any;
     navItem = [
         {
             title: "Bài viết",
             opened: false,
-            selected: false,
             icon: "assets/icon/article-svgrepo-com.svg",
-            url: "admin/bai-viet/quan-ly-bai-viet",
+            url: "bai-viet",
             role_id: [2, 1, 3, 4],
             sub: [
                 {
                     title: "Tất cả bài viết",
-                    selected: false,
                     role_id: [1, 2, 3, 4],
-                    url: "admin/bai-viet/quan-ly-bai-viet",
+                    url: "bai-viet/quan-ly-bai-viet",
                 },
                 {
                     title: "Viết bài viết mới",
-                    selected: false,
                     role_id: [1, 2, 4],
-                    url: "admin/bai-viet/tao-bai-viet",
+                    url: "bai-viet/tao-bai-viet",
                 },
                 {
                     title: "Chuyên mục",
-                    selected: false,
                     role_id: [1, 2, 4],
-                    url: "admin/bai-viet/quan-ly-danh-muc",
+                    url: "bai-viet/quan-ly-danh-muc",
                 },
             ],
         },
         {
             title: "Bố cục",
             opened: false,
-            selected: false,
             icon: "assets/icon/layout-grid-1-svgrepo-com.svg",
-            url: "admin/quan-ly-vi-tri-trang-chu",
+            url: "quan-ly-vi-tri-trang-chu",
             role_id: [1, 4],
             sub: [
                 {
                     title: "Set bài viết nổi bật",
-                    selected: false,
-                    url: "admin/quan-ly-vi-tri-trang-chu",
+                    url: "quan-ly-vi-tri-trang-chu",
                     role_id: [1, 4],
                 },
 
                 {
                     title: "Vị trí chuyên mục",
-                    selected: false,
-                    url: "admin/quan-ly-vi-tri-chuyen-muc",
+                    url: "quan-ly-vi-tri-chuyen-muc",
                     role_id: [1, 4],
                 },
             ],
@@ -89,27 +81,23 @@ export class LayoutAdminComponent implements OnInit {
         {
             title: "Người dùng",
             opened: false,
-            selected: false,
             icon: "assets/icon/users-svgrepo-com.svg",
-            url: "admin/profile",
+            url: "nguoi-dung",
             role_id: [1, 2, 3],
             sub: [
                 {
                     title: "Tất cả người dùng",
-                    selected: false,
-                    url: "admin/quan-ly-nguoi-dung",
+                    url: "nguoi-dung/quan-ly-nguoi-dung",
                     role_id: [1, 3],
                 },
                 {
                     title: "Thêm mới",
-                    selected: false,
-                    url: "admin/tao-nguoi-dung",
+                    url: "nguoi-dung/tao-nguoi-dung",
                     role_id: [1, 3],
                 },
                 {
                     title: "Hồ sơ",
-                    selected: false,
-                    url: "admin/profile",
+                    url: "nguoi-dung/profile",
                     role_id: [1, 2, 3],
                 },
             ],
@@ -128,7 +116,6 @@ export class LayoutAdminComponent implements OnInit {
         this.navItem.map((item: any) => {
             item.selected = false;
         });
-        console.log(this.navItem);
 
         item.selected = true;
         event.stopPropagation();

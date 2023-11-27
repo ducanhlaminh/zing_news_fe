@@ -6,6 +6,7 @@ import {
     faCaretUp,
     faAngleDown,
     faAngleUp,
+    faMagnifyingGlass,
     faSort,
 } from "@fortawesome/free-solid-svg-icons";
 import { CategoryService } from "src/app/modules/news/services/category.service";
@@ -27,6 +28,7 @@ export class ManageCategoriesComponent {
     faAngleDown = faAngleDown;
     faAngleUp = faAngleUp;
     faSort = faSort;
+    faMagnifyingGlass = faMagnifyingGlass;
     selectedStatus = 1;
     @ViewChild("checkAll") checkAll!: ElementRef;
 
@@ -73,7 +75,6 @@ export class ManageCategoriesComponent {
             });
             this.categories = data?.categories;
         });
-        if (this.order.length > 0) this.queries.order = this.order;
         this.formFilter = this.formBuilder.group({
             name: [""],
             status: null,
@@ -205,7 +206,7 @@ export class ManageCategoriesComponent {
             name: item.name,
             status: item.status,
             slug: item.slug,
-            parent_id: item.parentCategory.id,
+            parent_id: item.parentCategory?.id,
         });
     }
     submitCreate() {

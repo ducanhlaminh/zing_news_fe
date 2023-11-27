@@ -278,7 +278,7 @@ a {
       .container-action {
             display: flex;
             gap: 15px;
-            height: 41px;
+            height: 40px;
 
             .action {
                   display: flex;
@@ -307,16 +307,17 @@ a {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
-            height: 41px;
-            input {
-                  padding-left: 15px;
-                  outline: none;
-                  background: rgba(232, 230, 230, 0.737);
-                  border: 0;
-                  border-radius: 5px;
-                  height: 100%;
-                  width: 300px;
+            height: 40px;
+            position: relative;
+            input[type='text']{
+                  padding-left: 40px;
             }
+            .icon-search{
+                  position: absolute;
+                  left: 10px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                }
       }
 }
 

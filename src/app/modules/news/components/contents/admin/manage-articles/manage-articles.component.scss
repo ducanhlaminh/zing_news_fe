@@ -28,6 +28,7 @@ table {
       border-collapse: collapse;
 }
 
+
 .selected {
       color: black;
       font-weight: 700;
@@ -259,6 +260,9 @@ table {
             gap: 15px;
             flex-wrap: wrap;
             .input{
+                  input[type="text"]{
+                        padding-left: 40px ;
+                  }
                   position: relative;
                   .icon-search{
                     position: absolute;
@@ -422,4 +426,8 @@ table {
             transform: translate(50%, -50%);
             background: #fff;
       }
+}
+.container-content{
+      background: white;
+      padding: 20px;
 }

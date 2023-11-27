@@ -133,11 +133,7 @@
                     [routerLink]="item.url"
                     *ngIf="funcShowITem(item)"
                 >
-                    <img
-                        [src]="item.icon"
-                        [ngClass]="{ selected: item.selected }"
-                        routerLinkActive="selected"
-                    />
+                    <img [src]="item.icon" />
                     <span class="lable">{{ item.title }}</span>
                 </div>
                 <div
@@ -177,12 +173,7 @@
                     [routerLink]="item.url"
                     *ngIf="funcShowITem(item)"
                 >
-                    <img
-                        [src]="item.icon"
-                        alt=""
-                        [ngClass]="{ selected: item.selected }"
-                        routerLinkActive="selected"
-                    />
+                    <img [src]="item.icon" alt="" routerLinkActive="selected" />
                     <div
                         class="container-subItem"
                         (mouseleave)="item.opened = false"

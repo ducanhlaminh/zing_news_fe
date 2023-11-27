@@ -1,22 +1,25 @@
 <form class="container" [formGroup]="formDetail">
     <h3>Thêm bài viết</h3>
     <div class="title">
-        <input
-            type="text"
-            name=""
-            value=""
-            placeholder="Thêm tiêu đề"
-            formControlName="title"
-        />
+        <mat-form-field appearance="outline">
+            <input
+                type="text"
+                placeholder="Tiêu đề bài viết"
+                formControlName="title"
+                matInput
+            />
+        </mat-form-field>
     </div>
     <div class="sapo">
-        <input
-            type="text"
-            name=""
-            value=""
-            placeholder="Sapo bài viết"
-            formControlName="sapo"
-        />
+        <mat-form-field appearance="outline">
+            <input
+                type="text"
+                placeholder="Sapo bài viết"
+                formControlName="sapo"
+                matInput
+            />
+        </mat-form-field>
+
         <p class="text">
             Chuyên mục khác với thẻ, bạn có thể sử dụng nhiều cấp chuyên mục. Ví
             dụ: Trong chuyên mục nhạc, bạn có chuyên mục con là nhạc Pop, nhạc
@@ -24,13 +27,15 @@
         </p>
     </div>
     <div class="slug">
-        <input
-            type="text"
-            name=""
-            value=""
-            placeholder="vd : duong-dan"
-            formControlName="slug"
-        />
+        <mat-form-field appearance="outline">
+            <input
+                type="text"
+                matInput
+                placeholder="Đường dẫn bài viết"
+                formControlName="slug"
+            />
+        </mat-form-field>
+
         <p class="text">
             Là nội dung đường dẫn tới trang chi tiết của bài viết đó .<br />
             Ví dụ : lang-nghe-loi-thi-tham-voi-dong-song
@@ -64,7 +69,7 @@
                                 <b>Trạng thái bài viết :</b>
                             </div>
                             <div class="container-categories">
-                                <mat-form-field>
+                                <mat-form-field appearance="outline">
                                     <mat-label>Select an option</mat-label>
                                     <mat-select formControlName="status">
                                         <mat-option
@@ -82,13 +87,16 @@
                                 <b>Chọn ngày phát hành :</b>
                             </div>
                             <div class="container-categories">
-                                <mat-form-field>
+                                <mat-form-field appearance="outline">
                                     <mat-label>Chọn ngày</mat-label>
                                     <input
                                         formControlName="publishAt"
                                         matInput
                                         [matDatepicker]="picker"
                                     />
+                                    <mat-error
+                                        >Thông tin không hợp lệ</mat-error
+                                    >
                                     <mat-datepicker-toggle
                                         matIconSuffix
                                         [for]="picker"
@@ -110,7 +118,7 @@
                         <mat-panel-title> Chuyên mục </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="container-categories">
-                        <mat-form-field>
+                        <mat-form-field appearance="outline">
                             <mat-label>Vui lòng chọn chuyên mục</mat-label>
                             <mat-select formControlName="categoryId">
                                 <mat-option

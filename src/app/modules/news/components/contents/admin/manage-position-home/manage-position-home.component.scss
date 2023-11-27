@@ -95,6 +95,9 @@ h3{
                 width: 25%;
                 .input{
                 position: relative;
+                input[type="text"]{
+                  padding-left: 40px ;
+            }
                 .icon-search{
                   position: absolute;
                   left: 10px;
