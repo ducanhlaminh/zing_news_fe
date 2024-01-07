@@ -28,7 +28,7 @@ interface ArticleMostViewCategory {
 })
 export class CategoryContentComponent {
     environment = environment;
-    CategoryCurrent!: Category;
+    CategoryCurrent: any;
     subCategory: Category[] = [];
     categories: Category[] = [];
     isCateChid: boolean = false;
@@ -60,11 +60,7 @@ export class CategoryContentComponent {
             // If it is a NavigationEnd event re-initalise the component
             if (e instanceof NavigationEnd) {
                 this.page = 1;
-                this.hotArticles = {
-                    left: null,
-                    right: [],
-                    bottom: [],
-                };
+
                 this.getArticles(this.slug_crc);
                 window.scrollTo({ top: 0, behavior: "smooth" });
             }
@@ -85,8 +81,6 @@ export class CategoryContentComponent {
 
         this.NewsService.getArtclesHotCate(slug_crc).subscribe((data: any) => {
             this.hotArticles = data.hotArticlesCate.new_articles_hot_categories;
-
-            console.log(this.hotArticles);
         });
         this.NewsService.getBoxArticlesCategory(slug_crc).subscribe(
             (data: any) => {

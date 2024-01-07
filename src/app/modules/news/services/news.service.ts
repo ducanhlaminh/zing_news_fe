@@ -1,13 +1,43 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment.development";
-import { param } from "jquery";
+import { Buffer } from "buffer";
+import * as forge from "node-forge";
 @Injectable({
     providedIn: "root",
 })
 export class NewsService {
     constructor(public http: HttpClient) {}
     dataPreview: any;
+    publicKey = `LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFubHlETWI1VHoxZy9XMk1RY08yWQpVYitadDI2Nk4yT1RiaVV5OWRxQm1kd214c001Vys2NmU5ZjBuTHQ5VlBmUzFZRUs0QjEvQW9BM0pVbnBOaWI0CnZHcjQ2NGF2SkRpZVN5U25tR2syZlFzb2xQaFU0d2dScjQrN04yMEU1b2N3VXNzSm5xb3hHdk9odlF2ZVRadjcKdy81T0cyYkYrNXg0dTYzY2gzS3F4cHp3TCsrZzR5NjIrRmU2TklxUVI5QjRnT1Z0YTJpSmVxOTV4eEUyeXp6Mwp2NUJxK2hvc0hxZ08ycmcveWRTR0lWSVZaMnhKdVhQTXF4V2RJMy9pUXhkWnZYTDdlQmtuZUVENzlNRzBnOW5rCmtaZHh4dGtFc2I3cnZEL0ROUWo4aEd1MERzMGVFMkp6Y2dpL1FOREQrTUFIaVNrMGRGdlZxZStBangzVTNLVzIKM3dJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0t`;
+
+    encryptRequest(e: any) {
+        try {
+            const n = forge.random.getBytesSync(32);
+            const t = forge.random.getBytesSync(16);
+
+            const i = forge.cipher.createCipher("AES-CTR", n);
+            i.start({
+                iv: t,
+            }),
+                i.update(forge.util.createBuffer(JSON.stringify(e))),
+                i.finish();
+            const r = Buffer.concat([
+                Buffer.from(t, "binary"),
+                Buffer.from(i.output.data, "binary"),
+            ]);
+            const s = forge.pki
+                .publicKeyFromPem(forge.util.decode64(this.publicKey))
+                .encrypt(forge.util.encode64(n));
+            return {
+                d: r.toString("base64"),
+                k: forge.util.encode64(s),
+            };
+        } catch (n) {
+            console.log(n);
+            return e;
+        }
+    }
     getHotMain() {
         return this.http.get(environment.API_NEWS_HOT_MAIN);
     }
@@ -145,5 +175,12 @@ export class NewsService {
         } else {
             return this.http.get(environment.API_BOX_ARTICLES_CARTEGORY);
         }
+    }
+    saveData(data: any) {
+        const result = this.encryptRequest(data);
+        return this.http.post(
+            "http://localhost:4000/api/v1/articles/save-data",
+            result
+        );
     }
 }

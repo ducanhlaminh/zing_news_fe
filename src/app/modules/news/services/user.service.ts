@@ -36,7 +36,7 @@ export class UserService {
         return this.http.delete(environment.API_ADMIN_USER, { params: { id } });
     }
     createUser(data: any) {
-        return this.http.post(environment.API_ADMIN_USER, data);
+        return this.http.post(environment.API_ADMIN_REGISTER, data);
     }
     update(data: UserInterface, id: number) {
         return this.http.put(environment.API_USER + "/" + id, data);

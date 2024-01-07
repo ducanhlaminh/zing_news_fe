@@ -22,6 +22,7 @@ export const environment = {
     API_USER: "http://localhost:4000/api/v1/users",
 
     //API ADMIN
+    API_ADMIN_REGISTER: "http://localhost:4000/api/v1/auth/register",
     API_ADMIN_HOT_MAIN: "http://localhost:4000/api/v1/articles/admin/hot-main",
     API_ADMIN_HOT_CATE: "http://localhost:4000/api/v1/articlesadmin/hot-cate",
     API__ADMIN_ARTICLE: "http://localhost:4000/api/v1/articles/admin/articles",
