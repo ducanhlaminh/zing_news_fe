@@ -177,10 +177,11 @@ export class NewsService {
         }
     }
     saveData(data: any) {
-        const result = this.encryptRequest(data);
+        console.log(data);
+
         return this.http.post(
             "http://localhost:4000/api/v1/articles/save-data",
-            result
+            data
         );
     }
 }
